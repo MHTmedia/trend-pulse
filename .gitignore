@@ -4,7 +4,12 @@ __pycache__/
 .env
 venv/
 .venv/
-cache/
-*.json
-!package.json
+__pycache__/
+cache/progress.json
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+.DS_Store
 .DS_Store
