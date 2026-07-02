@@ -47,15 +47,34 @@
   .retry-btn { background: var(--accent); border: none; color: white; padding: 8px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; }
 
   /* CONTROLS */
-  .controls { padding: 24px 32px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .search-box { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; flex: 1; max-width: 320px; }
+  .controls { padding: 20px 32px 0; display: flex; flex-direction: column; gap: 12px; }
+  .controls-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .filter-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; min-width: 68px; }
+  .search-box { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; flex: 1; max-width: 340px; }
   .search-box input { background: none; border: none; outline: none; color: var(--text); font-size: 14px; width: 100%; }
   .search-box svg { color: var(--muted); flex-shrink: 0; }
-  .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
-  .filter-btn { padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.15s; }
+  .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn { padding: 6px 13px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 12px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
   .filter-btn:hover { border-color: var(--accent); color: var(--text); }
   .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
-  .sort-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 7px 12px; border-radius: 8px; font-size: 13px; cursor: pointer; margin-left: auto; }
+  /* Lens filters — multi-select toggles */
+  .lens-btn { padding: 5px 11px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .lens-btn:hover { color: var(--text); border-color: var(--accent); }
+  .lens-btn.active { color: var(--text); border-color: currentColor; }
+  .lens-btn.lens-breakout.active  { color: var(--accent);  border-color: var(--accent);  background: rgba(99,102,241,0.12); }
+  .lens-btn.lens-hot.active       { color: var(--orange); border-color: var(--orange); background: rgba(249,115,22,0.12); }
+  .lens-btn.lens-rising.active    { color: var(--green);  border-color: var(--green);  background: rgba(34,197,94,0.12); }
+  .lens-btn.lens-new.active       { color: #a78bfa;       border-color: #a78bfa;       background: rgba(167,139,250,0.12); }
+  .lens-btn.lens-reddit.active    { color: #fb923c;       border-color: #fb923c;       background: rgba(251,146,60,0.12); }
+  .lens-btn.lens-surge.active     { color: #22d3ee;       border-color: #22d3ee;       background: rgba(34,211,238,0.12); }
+  .lens-btn.lens-score.active     { color: #facc15;       border-color: #facc15;       background: rgba(250,204,21,0.12); }
+  .lens-btn.lens-radar.active     { color: #34d399;       border-color: #34d399;       background: rgba(52,211,153,0.12); }
+  .lens-btn.lens-multi.active     { color: #f472b6;       border-color: #f472b6;       background: rgba(244,114,182,0.12); }
+  .lens-btn.lens-fading.active    { color: #94a3b8;       border-color: #94a3b8;       background: rgba(148,163,184,0.1); }
+  .controls-divider { height: 1px; background: var(--border); margin: 4px 0; }
+  .sort-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+  .results-count { font-size: 12px; color: var(--muted); margin-left: auto; white-space: nowrap; }
+  .clear-btn { font-size: 11px; color: var(--accent); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; }
 
   /* STATS BAR */
   .stats-bar { padding: 0 32px 20px; display: flex; gap: 16px; flex-wrap: wrap; }
@@ -165,10 +184,66 @@
 <script>
 // ── State ────────────────────────────────────────────────────────────────────
 let allKeywords = [];
-let activeFilter = 'All';
-let activeSort = 'growth';
-let charts = {};
-let fetchedAt = null;
+let activeCategory = 'All';   // category tab
+let activeLenses  = new Set(); // multi-select opportunity lenses
+let activeSort    = 'growth';
+let charts        = {};
+let fetchedAt     = null;
+
+// ── Lens definitions ──────────────────────────────────────────────────────────
+// Each lens has: id, label, cls (CSS suffix), description, and a test fn
+const LENSES = [
+  {
+    id: 'breakout', label: '🚀 Breakout', cls: 'lens-breakout',
+    tip: '1,000%+ growth — explosive early-stage opportunity',
+    test: k => k.momentum === 'breakout' || k.status === 'breakout' || k.growth >= 1000,
+  },
+  {
+    id: 'hot', label: '🔥 Hot', cls: 'lens-hot',
+    tip: '200–999% growth — proven demand, still room to enter',
+    test: k => (k.momentum === 'hot' || k.growth >= 200) && k.growth < 1000 && k.status !== 'fading',
+  },
+  {
+    id: 'rising', label: '↗ Rising', cls: 'lens-rising',
+    tip: 'Steady upward climb — good for sustainable business models',
+    test: k => k.growth > 0 && k.growth < 200 && k.status !== 'fading',
+  },
+  {
+    id: 'new', label: '🆕 Newly Discovered', cls: 'lens-new',
+    tip: 'Added by the nightly discovery engine — first movers only',
+    test: k => !!k.is_new,
+  },
+  {
+    id: 'reddit', label: '🔶 Reddit Buzz', cls: 'lens-reddit',
+    tip: '20+ Reddit mentions / 30d — community-validated demand',
+    test: k => (k.reddit_30d || 0) >= 20,
+  },
+  {
+    id: 'surge', label: '⚡ Social Surge', cls: 'lens-surge',
+    tip: 'Reddit mentions up 50%+ week-over-week — momentum building NOW',
+    test: k => k.reddit_velocity != null && k.reddit_velocity >= 50,
+  },
+  {
+    id: 'score', label: '🏆 High Confidence', cls: 'lens-score',
+    tip: 'Trend Score 70+ — strong, sustained signal across all data points',
+    test: k => k.score >= 70,
+  },
+  {
+    id: 'radar', label: '💎 Under the Radar', cls: 'lens-radar',
+    tip: 'Growing fast but low Reddit — before the crowd knows about it',
+    test: k => k.growth >= 80 && (k.reddit_30d || 0) < 10 && k.status !== 'fading',
+  },
+  {
+    id: 'multi', label: '🎯 Multi-Signal', cls: 'lens-multi',
+    tip: 'Strong on BOTH Google Trends AND Reddit — highest conviction',
+    test: k => k.growth >= 100 && (k.reddit_30d || 0) >= 15 && k.status !== 'fading',
+  },
+  {
+    id: 'fading', label: '📉 Losing Steam', cls: 'lens-fading',
+    tip: 'Peaked and declining — avoid for new ventures',
+    test: k => k.status === 'fading',
+  },
+];
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 async function loadData() {
@@ -243,32 +318,53 @@ function redditRowHTML(k) {
 
 // ── Filtering / Sorting ───────────────────────────────────────────────────────
 function getCategories() {
-  const cats = ['All', ...new Set(allKeywords.filter(k => k.status !== 'fading').map(k => k.category)).values()];
-  if (allKeywords.some(k => k.status === 'fading')) cats.push('Fading');
-  return cats;
+  return ['All', ...new Set(allKeywords.map(k => k.category)).values()];
 }
 
 function getFiltered() {
   const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
+
   let data = allKeywords.filter(k => {
-    const matchCat = activeFilter === 'All'
-      ? k.status !== 'fading'
-      : activeFilter === 'Fading'
-        ? k.status === 'fading'
-        : k.category === activeFilter && k.status !== 'fading';
+    // Category tab
+    const matchCat = activeCategory === 'All' || k.category === activeCategory;
+    // Search
     const matchQ = !q || k.keyword.toLowerCase().includes(q) || k.category.toLowerCase().includes(q);
-    return matchCat && matchQ;
+    // Lenses (AND logic — must pass ALL active lenses)
+    const matchLens = activeLenses.size === 0
+      ? k.status !== 'fading'    // default view hides fading unless explicitly selected
+      : [...activeLenses].every(id => {
+          const lens = LENSES.find(l => l.id === id);
+          return lens ? lens.test(k) : true;
+        });
+    return matchCat && matchQ && matchLens;
   });
+
   const sorts = {
-    growth:  (a,b) => b.growth - a.growth,
-    score:   (a,b) => b.score - a.score,
-    az:      (a,b) => a.keyword.localeCompare(b.keyword),
+    growth:   (a,b) => b.growth - a.growth,
+    score:    (a,b) => b.score - a.score,
+    reddit:   (a,b) => (b.reddit_30d||0) - (a.reddit_30d||0),
+    velocity: (a,b) => (b.reddit_velocity||0) - (a.reddit_velocity||0),
+    az:       (a,b) => a.keyword.localeCompare(b.keyword),
   };
   return data.sort(sorts[activeSort] || sorts.growth);
 }
 
-function setFilter(cat) {
-  activeFilter = cat;
+function setCategory(cat) {
+  activeCategory = cat;
+  renderCards();
+}
+
+function toggleLens(id) {
+  if (activeLenses.has(id)) activeLenses.delete(id);
+  else activeLenses.add(id);
+  renderCards();
+}
+
+function clearFilters() {
+  activeLenses.clear();
+  activeCategory = 'All';
+  const si = document.getElementById('searchInput');
+  if (si) si.value = '';
   renderCards();
 }
 
@@ -279,13 +375,19 @@ function onSort(val) {
 
 // ── Render ─────────────────────────────────────────────────────────────────────
 function renderApp() {
-  const categories = getCategories();
-  const filterBtns = categories.map(c =>
-    `<button class="filter-btn${c === activeFilter ? ' active' : ''}" onclick="setFilter('${c}')">${c}</button>`
-  ).join('');
-
   const ts = fetchedAt ? fetchedAt.toLocaleString() : '—';
   document.getElementById('headerMeta').textContent = `Updated ${ts} · US market`;
+
+  const lensHTML = LENSES.map(l =>
+    `<button class="lens-btn ${l.cls}${activeLenses.has(l.id) ? ' active' : ''}"
+      title="${l.tip}"
+      onclick="toggleLens('${l.id}')">${l.label}</button>`
+  ).join('');
+
+  const categories = getCategories();
+  const catHTML = categories.map(c =>
+    `<button class="filter-btn${c === activeCategory ? ' active' : ''}" onclick="setCategory('${c}')">${c}</button>`
+  ).join('');
 
   document.getElementById('appContent').innerHTML = `
     <div class="update-banner">
@@ -293,18 +395,33 @@ function renderApp() {
       <span>Last updated ${ts} · Google Trends + Reddit · Updates nightly at 3 AM CST</span>
     </div>
     <div class="controls">
-      <div class="search-box">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="searchInput" placeholder="Search keywords…" oninput="renderCards()">
+      <div class="controls-row">
+        <span class="filter-label">🔍 Search</span>
+        <div class="search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" placeholder="Search keywords…" oninput="renderCards()">
+        </div>
+        <select class="sort-select" id="sortSelect" onchange="onSort(this.value)">
+          <option value="growth">↓ Growth %</option>
+          <option value="score">↓ Trend Score</option>
+          <option value="reddit">↓ Reddit Buzz</option>
+          <option value="velocity">↓ Social Surge</option>
+          <option value="az">A → Z</option>
+        </select>
+        <button class="clear-btn" onclick="clearFilters()">Clear all</button>
       </div>
-      <div class="filter-group" id="filterGroup">${filterBtns}</div>
-      <select class="sort-select" onchange="onSort(this.value)">
-        <option value="growth">Sort: Growth %</option>
-        <option value="score">Sort: Trend Score</option>
-        <option value="az">Sort: A → Z</option>
-      </select>
+      <div class="controls-divider"></div>
+      <div class="controls-row">
+        <span class="filter-label">🎯 Lens</span>
+        <div class="filter-group" id="lensGroup">${lensHTML}</div>
+      </div>
+      <div class="controls-divider"></div>
+      <div class="controls-row">
+        <span class="filter-label">📂 Category</span>
+        <div class="filter-group" id="catGroup">${catHTML}</div>
+      </div>
     </div>
-    <div class="stats-bar" id="statsBar"></div>
+    <div class="stats-bar" id="statsBar" style="margin-top:20px"></div>
     <div class="grid" id="cardGrid"></div>
   `;
 
@@ -312,21 +429,50 @@ function renderApp() {
 }
 
 function renderStats(data) {
-  const breakouts = data.filter(k => k.status === 'breakout').length;
-  const avgGrowth = data.length ? Math.round(data.reduce((s,k)=>s+k.growth,0)/data.length) : 0;
-  const cats = new Set(data.map(k=>k.category)).size;
+  const all     = allKeywords.filter(k => k.status !== 'fading');
+  const breakouts = all.filter(k => k.growth >= 1000).length;
+  const withReddit = data.filter(k => (k.reddit_30d||0) >= 20).length;
+  const topScore   = data.length ? Math.max(...data.map(k=>k.score)) : 0;
+  const avgGrowth  = data.length ? Math.round(data.reduce((s,k)=>s+k.growth,0)/data.length) : 0;
+  const multiSig   = data.filter(k => k.growth >= 100 && (k.reddit_30d||0) >= 15).length;
+  const activeFiltersCount = activeLenses.size + (activeCategory !== 'All' ? 1 : 0);
   document.getElementById('statsBar').innerHTML = `
-    <div class="stat"><div class="stat-label">Keywords Tracked</div><div class="stat-value">${data.length}</div><div class="stat-change">Across ${cats} categories</div></div>
-    <div class="stat"><div class="stat-label">Breakout Topics</div><div class="stat-value up">${breakouts}</div><div class="stat-change">+1000% growth or more</div></div>
-    <div class="stat"><div class="stat-label">Avg. Growth</div><div class="stat-value up">+${avgGrowth.toLocaleString()}%</div><div class="stat-change">12-month trend</div></div>
+    <div class="stat">
+      <div class="stat-label">Showing</div>
+      <div class="stat-value">${data.length}</div>
+      <div class="stat-change">${activeFiltersCount > 0 ? `${activeFiltersCount} filter${activeFiltersCount>1?'s':''} active` : `of ${all.length} tracked`}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Breakouts in view</div>
+      <div class="stat-value up">${data.filter(k=>k.growth>=1000).length}</div>
+      <div class="stat-change">${breakouts} total across all</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Avg. Growth</div>
+      <div class="stat-value up">+${avgGrowth.toLocaleString()}%</div>
+      <div class="stat-change">12-month trend</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Multi-Signal</div>
+      <div class="stat-value" style="color:#f472b6">${multiSig}</div>
+      <div class="stat-change">Google + Reddit aligned</div>
+    </div>
   `;
 }
 
 function renderCards() {
-  // Update filter buttons
-  document.querySelectorAll('.filter-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent === activeFilter);
+  // Sync category buttons
+  document.querySelectorAll('#catGroup .filter-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === activeCategory);
   });
+  // Sync lens buttons
+  LENSES.forEach(l => {
+    const btn = document.querySelector(`.lens-btn.${l.cls}`);
+    if (btn) btn.classList.toggle('active', activeLenses.has(l.id));
+  });
+  // Sync sort select
+  const ss = document.getElementById('sortSelect');
+  if (ss) ss.value = activeSort;
 
   const data = getFiltered();
   renderStats(data);
