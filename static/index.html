@@ -330,7 +330,7 @@
         <h3>🔄 Update Schedule</h3>
         <div class="method-row">
           <div class="method-icon">🌙</div>
-          <div class="method-text">The nightly job runs at <strong>3 AM CST (9 AM UTC)</strong> via GitHub Actions. It fetches fresh Google Trends, Reddit, and Amazon data for all active keywords, recalculates every score including Viability, runs the discovery engine to find up to 20 new keywords, then commits the updated cache — triggering an automatic Railway redeploy within ~2 minutes. <strong>Flat keywords are skipped</strong> during fetching to save time, but their last known data and scores remain visible forever.</div>
+          <div class="method-text">The nightly job runs at <strong>1 AM CST (7 AM UTC)</strong> via GitHub Actions. It fetches fresh Google Trends, Reddit, and Amazon data for all active keywords, recalculates every score including Viability, runs the discovery engine to find up to 20 new keywords, then commits the updated cache — triggering an automatic Railway redeploy within ~2 minutes. <strong>Flat keywords are skipped</strong> during fetching to save time, but their last known data and scores remain visible forever.</div>
         </div>
       </div>
 
@@ -545,7 +545,7 @@ async function loadData() {
     const res = await fetch('/api/trends');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
-    if (!json.ok) throw new Error(json.error || 'No data available yet — check back after 3 AM CST.');
+    if (!json.ok) throw new Error(json.error || 'No data available yet — check back after 1 AM CST.');
     allKeywords = json.keywords;
     fetchedAt = json.fetched_at ? new Date(json.fetched_at) : new Date();
     renderApp();
@@ -559,7 +559,7 @@ function showError(msg) {
     <div class="error-state">
       <h3>⚠️ Could not load trends</h3>
       <p>${msg}</p>
-      <p style="font-size:12px;color:var(--muted);margin-top:4px">Data updates nightly at 3 AM CST.</p>
+      <p style="font-size:12px;color:var(--muted);margin-top:4px">Data updates nightly at 1 AM CST.</p>
     </div>`;
 }
 
@@ -761,7 +761,7 @@ function renderApp() {
   document.getElementById('appContent').innerHTML = `
     <div class="update-banner">
       <div class="live-dot"></div>
-      <span>Last updated ${ts} · Google Trends + Reddit · Updates nightly at 3 AM CST</span>
+      <span>Last updated ${ts} · Google Trends + Reddit · Updates nightly at 1 AM CST</span>
     </div>
     <div class="controls">
       <div class="controls-row">
