@@ -2,7 +2,7 @@ name: Refresh Trend Cache
 
 on:
   schedule:
-    - cron: '0 6 * * *'   # Every day at 6 AM UTC (2 AM ET)
+    - cron: '0 9 * * *'   # Every day at 9 AM UTC = 3 AM CST
   workflow_dispatch:        # Also allows manual trigger from GitHub UI
 
 jobs:

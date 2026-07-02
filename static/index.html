@@ -31,11 +31,6 @@
   .logo span { color: var(--accent); }
   .header-right { display: flex; align-items: center; gap: 16px; }
   .header-meta { font-size: 12px; color: var(--muted); }
-  .refresh-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
-  .refresh-btn:hover { border-color: var(--accent); color: var(--text); }
-  .refresh-btn.spinning svg { animation: spin 1s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
   /* LOADING STATE */
   .loading-overlay { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 32px; gap: 16px; }
   .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
@@ -72,9 +67,7 @@
 
   /* LAST UPDATED BANNER */
   .update-banner { margin: 0 32px 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
-  .update-banner.stale { background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.3); color: var(--orange); }
   .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; animation: pulse 2s infinite; }
-  .stale-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 
   /* GRID */
@@ -152,10 +145,6 @@
   </div>
   <div class="header-right">
     <span class="header-meta" id="headerMeta">Loading…</span>
-    <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
-      Refresh
-    </button>
   </div>
 </header>
 
@@ -177,245 +166,19 @@ let activeFilter = 'All';
 let activeSort = 'growth';
 let charts = {};
 let fetchedAt = null;
-let staleSince = null;     // set when refresh errored out
-let refreshingInBg = false; // true while silentBackgroundRefresh is running
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
-let progressInterval = null;
-
-async function pollProgress() {
-  try {
-    const res = await fetch('/api/progress');
-    const p = await res.json();
-    const fill = document.getElementById('progressFill');
-    const label = document.getElementById('progressLabel');
-    if (!fill || !label) return;
-    if (p.total > 0 && p.status === 'fetching') {
-      // Leave a little room so 100% only shows when truly done
-      const pct = Math.round(((p.current - 0.5) / p.total) * 100);
-      fill.style.width = Math.min(pct, 95) + '%';
-      label.textContent = p.label || `Batch ${p.current} of ${p.total}…`;
-    }
-  } catch (_) {}
-}
-
 async function loadData() {
-  // Step 1: Load cached data immediately — show the UI right away
   try {
     const res = await fetch('/api/trends');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
-    if (!json.ok) throw new Error(json.error || 'API error');
-
+    if (!json.ok) throw new Error(json.error || 'No data available yet — check back after 3 AM CST.');
     allKeywords = json.keywords;
-    staleSince = json.stale_since || null;
-    fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
-
-    if (json.cache_empty) {
-      // First-ever load — no data yet, backend already started fetching
-      // Show a visible progress UI and wait for it to finish
-      showFirstLoadProgress();
-    } else {
-      // We have cached data — show it immediately
-      renderApp();
-      // Silently refresh in background if data is stale
-      if (staleSince) {
-        refreshingInBg = true;
-        renderApp();
-        silentBackgroundRefresh();
-      }
-    }
-  } catch (err) {
-    showError(err.message);
-  }
-}
-
-async function showFirstLoadProgress() {
-  // Show a full-page "first time setup" progress state
-  document.getElementById('appContent').innerHTML = `
-    <div class="loading-overlay">
-      <div class="spinner"></div>
-      <p>First-time setup: fetching trend data from Google…</p>
-      <div class="progress-wrap">
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-label" id="progressLabel">Starting…</div>
-      </div>
-      <p style="font-size:11px;color:var(--muted);margin-top:8px">This only happens once. Future loads are instant.</p>
-    </div>`;
-
-  // Poll until done
-  await new Promise(resolve => {
-    let seenFetching = false;
-    const check = setInterval(async () => {
-      try {
-        const p = await fetch('/api/progress').then(r => r.json());
-        if (p.status === 'fetching') {
-          seenFetching = true;
-          const pct = p.total > 0
-            ? Math.min(Math.round(((p.current - 0.5) / p.total) * 100), 95)
-            : 5;
-          const fill = document.getElementById('progressFill');
-          const label = document.getElementById('progressLabel');
-          if (fill) fill.style.width = pct + '%';
-          if (label) label.textContent = p.label || 'Fetching…';
-        }
-        if ((seenFetching || !seenFetching) && p.status === 'done') {
-          clearInterval(check);
-          resolve();
-        }
-      } catch (_) {}
-    }, 2000);
-    setTimeout(() => { clearInterval(check); resolve(); }, 600000);
-  });
-
-  // Flash to 100%, then load and render
-  const fill = document.getElementById('progressFill');
-  if (fill) fill.style.width = '100%';
-  await new Promise(r => setTimeout(r, 400));
-
-  try {
-    const res = await fetch('/api/trends');
-    const json = await res.json();
-    if (json.ok && json.keywords?.length) {
-      allKeywords = json.keywords;
-      staleSince = json.stale_since || null;
-      fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
-      renderApp();
-    } else {
-      showError('Data fetch completed but no keywords returned. Please try Refresh.');
-    }
-  } catch (err) {
-    showError(err.message);
-  }
-}
-
-async function silentBackgroundRefresh() {
-  // Trigger a server-side refresh without blocking the UI
-  try {
-    await fetch('/api/refresh', { method: 'POST' });
-  } catch (_) {
-    return; // Network error — silently give up
-  }
-
-  // Poll until done, then reload data and update the cards quietly
-  let seenFetching = false;
-  await new Promise(resolve => {
-    const check = setInterval(async () => {
-      try {
-        const p = await fetch('/api/progress').then(r => r.json());
-        if (p.status === 'fetching') seenFetching = true;
-        if (seenFetching && p.status === 'done') {
-          clearInterval(check);
-          resolve();
-        }
-        // If it was already done before we started polling, skip
-        if (!seenFetching && p.status === 'done') {
-          clearInterval(check);
-          resolve();
-        }
-      } catch (_) {}
-    }, 3000);
-    // Give up after 10 minutes
-    setTimeout(() => { clearInterval(check); resolve(); }, 600000);
-  });
-
-  // Quietly reload and re-render without any loading overlay
-  try {
-    const res = await fetch('/api/trends');
-    const json = await res.json();
-    if (json.ok && json.keywords?.length) {
-      allKeywords = json.keywords;
-      staleSince = json.stale_since || null;
-      fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
-      refreshingInBg = false;
-      renderApp(); // Update cards silently in background
-    }
-  } catch (_) {
-    refreshingInBg = false;
-  }
-}
-
-async function manualRefresh() {
-  const btn = document.getElementById('refreshBtn');
-  btn.classList.add('spinning');
-  btn.disabled = true;
-
-  // Show a slim progress bar at the top WITHOUT wiping the existing cards
-  let progressBar = document.getElementById('refreshProgressBar');
-  if (!progressBar) {
-    progressBar = document.createElement('div');
-    progressBar.id = 'refreshProgressBar';
-    progressBar.style.cssText = `
-      position:fixed; top:0; left:0; right:0; z-index:300;
-      display:flex; flex-direction:column; gap:4px;
-      background:rgba(15,17,23,0.95); padding:10px 32px; border-bottom:1px solid #2e3250;`;
-    progressBar.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:12px;color:#64748b" id="refreshLabel">Connecting to Google Trends…</span>
-        <span style="font-size:11px;color:#6366f1" id="refreshPct">0%</span>
-      </div>
-      <div style="height:4px;background:#2e3250;border-radius:2px;overflow:hidden">
-        <div id="refreshFill" style="height:100%;width:0%;background:linear-gradient(90deg,#6366f1,#22d3ee);border-radius:2px;transition:width 0.6s ease"></div>
-      </div>`;
-    document.body.prepend(progressBar);
-  }
-
-  // Kick off the refresh on the server (non-blocking)
-  await fetch('/api/refresh', { method: 'POST' }).catch(() => {});
-
-  // Poll until fetching → done
-  await new Promise(resolve => {
-    let seenFetching = false;
-    const check = setInterval(async () => {
-      try {
-        const p = await fetch('/api/progress').then(r => r.json());
-        if (p.status === 'fetching') {
-          seenFetching = true;
-          const pct = p.total > 0
-            ? Math.min(Math.round(((p.current - 0.5) / p.total) * 100), 95)
-            : 10;
-          document.getElementById('refreshFill').style.width = pct + '%';
-          document.getElementById('refreshPct').textContent = pct + '%';
-          document.getElementById('refreshLabel').textContent = p.label || 'Fetching…';
-        }
-        if (seenFetching && p.status === 'done') {
-          clearInterval(check);
-          resolve();
-        }
-        // Safety: if never saw fetching after 10s, assume it finished instantly
-        if (!seenFetching && p.status === 'done') {
-          clearInterval(check);
-          resolve();
-        }
-      } catch (_) {}
-    }, 2000);
-    // Timeout after 8 min
-    setTimeout(() => { clearInterval(check); resolve(); }, 480000);
-  });
-
-  // Flash to 100%
-  document.getElementById('refreshFill').style.width = '100%';
-  document.getElementById('refreshPct').textContent = '100%';
-  document.getElementById('refreshLabel').textContent = 'Loading results…';
-  await new Promise(r => setTimeout(r, 500));
-
-  // Fetch new data — keep existing cards if it fails
-  try {
-    const res = await fetch('/api/trends');
-    const json = await res.json();
-    allKeywords = json.keywords;
-    staleSince = json.stale_since || null;
-    fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
+    fetchedAt = json.fetched_at ? new Date(json.fetched_at) : new Date();
     renderApp();
   } catch (err) {
-    // Don't wipe the page — just show stale banner if cards already exist
-    staleSince = new Date().toISOString();
-    if (allKeywords.length > 0) renderApp();
-    else showError('Could not load trends. Please try again.');
-  } finally {
-    progressBar.remove();
-    btn.classList.remove('spinning');
-    btn.disabled = false;
+    showError(err.message);
   }
 }
 
@@ -424,7 +187,7 @@ function showError(msg) {
     <div class="error-state">
       <h3>⚠️ Could not load trends</h3>
       <p>${msg}</p>
-      <button class="retry-btn" onclick="manualRefresh()">Try Again</button>
+      <p style="font-size:12px;color:var(--muted);margin-top:4px">Data updates nightly at 3 AM CST.</p>
     </div>`;
 }
 
@@ -510,21 +273,10 @@ function renderApp() {
   document.getElementById('headerMeta').textContent = `Updated ${ts} · US market`;
 
   document.getElementById('appContent').innerHTML = `
-    ${staleSince
-      ? `<div class="update-banner stale">
-           <div class="stale-dot"></div>
-           <span>⚠️ Latest refresh failed — showing data from ${new Date(staleSince).toLocaleString()}. Click Refresh to try again.</span>
-         </div>`
-      : refreshingInBg
-        ? `<div class="update-banner" style="border-color:rgba(99,102,241,0.3);color:var(--accent)">
-             <div class="live-dot" style="background:var(--accent)"></div>
-             <span>Showing last saved data from ${ts} — refreshing in background, cards will update when done.</span>
-           </div>`
-        : `<div class="update-banner">
-             <div class="live-dot"></div>
-             <span>Data refreshed ${ts} · Powered by Google Trends · Refreshes every 24 hours</span>
-           </div>`
-    }
+    <div class="update-banner">
+      <div class="live-dot"></div>
+      <span>Last updated ${ts} · Google Trends + Reddit · Updates nightly at 3 AM CST</span>
+    </div>
     <div class="controls">
       <div class="search-box">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
