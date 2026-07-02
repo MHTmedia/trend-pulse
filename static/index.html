@@ -54,31 +54,10 @@
   .search-box input { background: none; border: none; outline: none; color: var(--text); font-size: 14px; width: 100%; }
   .search-box svg { color: var(--muted); flex-shrink: 0; }
   .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
-  .filter-btn { padding: 6px 13px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 12px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-  .filter-btn:hover { border-color: var(--accent); color: var(--text); }
-  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
   /* Lens filters — multi-select toggles */
-  .lens-btn { padding: 5px 11px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .lens-btn { padding: 6px 13px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
   .lens-btn:hover { color: var(--text); border-color: var(--accent); }
-  .lens-btn.active { color: var(--text); border-color: currentColor; }
-  .lens-btn.lens-breakout.active  { color: var(--accent);  border-color: var(--accent);  background: rgba(99,102,241,0.12); }
-  .lens-btn.lens-hot.active       { color: var(--orange); border-color: var(--orange); background: rgba(249,115,22,0.12); }
-  .lens-btn.lens-rising.active    { color: var(--green);  border-color: var(--green);  background: rgba(34,197,94,0.12); }
-  .lens-btn.lens-new.active       { color: #a78bfa;       border-color: #a78bfa;       background: rgba(167,139,250,0.12); }
-  .lens-btn.lens-reddit.active    { color: #fb923c;       border-color: #fb923c;       background: rgba(251,146,60,0.12); }
-  .lens-btn.lens-surge.active     { color: #22d3ee;       border-color: #22d3ee;       background: rgba(34,211,238,0.12); }
-  .lens-btn.lens-score.active     { color: #facc15;       border-color: #facc15;       background: rgba(250,204,21,0.12); }
-  .lens-btn.lens-radar.active     { color: #34d399;       border-color: #34d399;       background: rgba(52,211,153,0.12); }
-  .lens-btn.lens-multi.active     { color: #f472b6;       border-color: #f472b6;       background: rgba(244,114,182,0.12); }
-  .lens-btn.lens-flat.active      { color: #94a3b8;       border-color: #94a3b8;       background: rgba(148,163,184,0.1); }
-  .lens-btn.lens-viable.active    { color: #22c55e;       border-color: #22c55e;       background: rgba(34,197,94,0.12); }
-  .lens-btn.lens-amz-bsb.active   { color: #f97316;       border-color: #f97316;       background: rgba(249,115,22,0.12); }
-  .lens-btn.lens-amz-choice.active{ color: #22d3ee;       border-color: #22d3ee;       background: rgba(34,211,238,0.12); }
-  .lens-btn.lens-amz-low.active   { color: #34d399;       border-color: #34d399;       background: rgba(52,211,153,0.12); }
-  .lens-btn.lens-amz-val.active   { color: #facc15;       border-color: #facc15;       background: rgba(250,204,21,0.12); }
-  .lens-btn.lens-amz-price.active { color: #86efac;       border-color: #86efac;       background: rgba(134,239,172,0.12); }
-  .lens-btn.lens-triple.active    { color: #ff6b6b;       border-color: #ff6b6b;       background: rgba(255,107,107,0.12); }
-  .controls-divider { height: 1px; background: var(--border); margin: 4px 0; }
+  .lens-btn.active { color: #fff; background: var(--accent); border-color: var(--accent); }
   .sort-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
   .results-count { font-size: 12px; color: var(--muted); margin-left: auto; white-space: nowrap; }
   .clear-btn { font-size: 11px; color: var(--accent); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; }
@@ -137,7 +116,7 @@
   .volume-value { font-size: 13px; font-weight: 600; color: var(--text); }
   .score-bar-wrap { display: flex; align-items: center; gap: 6px; }
   .score-bar { width: 60px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-  .score-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+  .score-fill { height: 100%; border-radius: 2px; background: var(--muted); }
   .score-num { font-size: 11px; color: var(--muted); }
   .data-rows { margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; display: flex; flex-direction: column; gap: 5px; }
   .data-row { display: flex; align-items: center; gap: 6px; }
@@ -149,9 +128,9 @@
   .data-badge.vel-down  { background: rgba(239,68,68,0.12);  color: var(--red); }
   .data-badge.vel-flat  { color: var(--muted); }
   .data-badge.bsb       { background: rgba(249,115,22,0.15); color: var(--orange); }
-  .data-badge.choice    { background: rgba(34,211,238,0.15); color: var(--accent2); }
-  .data-badge.comp-low  { background: rgba(52,211,153,0.15); color: #34d399; }
-  .data-badge.comp-high { background: rgba(239,68,68,0.1);   color: var(--red); }
+  .data-badge.choice    { border: 1px solid var(--border); color: var(--muted); }
+  .data-badge.comp-low  { border: 1px solid var(--border); color: #34d399; }
+  .data-badge.comp-high { border: 1px solid var(--border); color: var(--muted); }
 
   /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 24px; }
@@ -451,7 +430,14 @@ function viabilityLabel(v) {
 
 // ── Lens definitions ──────────────────────────────────────────────────────────
 // Each lens has: id, label, cls (CSS suffix), description, and a test fn
+// Curated to the six most decision-useful lenses. Active state uses a single
+// unified accent (see .lens-btn.active) rather than 17 per-lens colors.
 const LENSES = [
+  {
+    id: 'viable', label: '🎯 High Viability', cls: 'lens-viable',
+    tip: 'Viability Score 65+ — strong conditions for a new product to succeed',
+    test: k => calcViability(k) >= 65,
+  },
   {
     id: 'breakout', label: '🚀 Breakout', cls: 'lens-breakout',
     tip: '1,000%+ growth — explosive early-stage opportunity',
@@ -463,14 +449,9 @@ const LENSES = [
     test: k => (k.momentum === 'hot' || k.growth >= 200) && k.growth < 1000 && k.status !== 'flat',
   },
   {
-    id: 'rising', label: '↗ Rising', cls: 'lens-rising',
-    tip: 'Steady upward climb — good for sustainable business models',
-    test: k => k.growth > 0 && k.growth < 200 && k.status !== 'flat',
-  },
-  {
-    id: 'new', label: '🆕 Newly Discovered', cls: 'lens-new',
-    tip: 'Added by the nightly discovery engine — first movers only',
-    test: k => !!k.is_new,
+    id: 'amz_low_comp', label: '🏪 Low Competition', cls: 'lens-amz-low',
+    tip: 'Under 500 Amazon listings — easier to enter the market',
+    test: k => k.amazon_result_count != null && k.amazon_result_count < 500,
   },
   {
     id: 'reddit', label: '🔶 Reddit Buzz', cls: 'lens-reddit',
@@ -478,64 +459,9 @@ const LENSES = [
     test: k => (k.reddit_30d || 0) >= 20,
   },
   {
-    id: 'surge', label: '⚡ Social Surge', cls: 'lens-surge',
-    tip: 'Reddit mentions up 50%+ week-over-week — momentum building NOW',
-    test: k => k.reddit_velocity != null && k.reddit_velocity >= 50,
-  },
-  {
-    id: 'score', label: '🏆 High Confidence', cls: 'lens-score',
-    tip: 'Trend Score 70+ — strong, sustained signal across all data points',
-    test: k => k.score >= 70,
-  },
-  {
-    id: 'radar', label: '💎 Under the Radar', cls: 'lens-radar',
-    tip: 'Growing fast but low Reddit — before the crowd knows about it',
-    test: k => k.growth >= 80 && (k.reddit_30d || 0) < 10 && k.status !== 'flat',
-  },
-  {
-    id: 'multi', label: '🎯 Multi-Signal', cls: 'lens-multi',
-    tip: 'Strong on BOTH Google Trends AND Reddit — highest conviction',
-    test: k => k.growth >= 100 && (k.reddit_30d || 0) >= 15 && k.status !== 'flat',
-  },
-  {
-    id: 'flat', label: '⬛ Flat', cls: 'lens-flat',
-    tip: 'Peaked — no longer climbing. Data frozen at last known values.',
-    test: k => k.status === 'flat',
-  },
-  {
-    id: 'viable', label: '🎯 High Viability', cls: 'lens-viable',
-    tip: 'Viability Score 65+ — strong conditions for a new product to succeed',
-    test: k => calcViability(k) >= 65,
-  },
-  {
-    id: 'amz_bsb', label: '★ Best Seller', cls: 'lens-amz-bsb',
-    tip: 'Has a Best Seller badge in Amazon top 10 — proven buyer demand',
-    test: k => !!k.amazon_best_seller,
-  },
-  {
-    id: 'amz_choice', label: '✓ Amazon\'s Choice', cls: 'lens-amz-choice',
-    tip: "Amazon's Choice badge in top results — algorithm-endorsed product",
-    test: k => !!k.amazons_choice,
-  },
-  {
-    id: 'amz_low_comp', label: '🏪 Low Competition', cls: 'lens-amz-low',
-    tip: 'Under 500 Amazon listings — easier to enter the market',
-    test: k => k.amazon_result_count != null && k.amazon_result_count < 500,
-  },
-  {
-    id: 'amz_validated', label: '💰 Market Validated', cls: 'lens-amz-val',
-    tip: '1,000+ reviews on top product — customers are already buying',
-    test: k => (k.amazon_top_reviews || 0) >= 1000,
-  },
-  {
-    id: 'amz_affordable', label: '💵 Affordable Entry', cls: 'lens-amz-price',
-    tip: 'Avg Amazon price under $40 — lower barrier for new sellers',
-    test: k => k.amazon_avg_price != null && k.amazon_avg_price < 40,
-  },
-  {
-    id: 'triple', label: '🔥 Triple Signal', cls: 'lens-triple',
-    tip: 'Trending on Google, buzzing on Reddit, AND selling on Amazon',
-    test: k => k.growth >= 100 && (k.reddit_30d||0) >= 10 && k.amazon_result_count != null && k.status !== 'flat',
+    id: 'new', label: '🆕 Newly Discovered', cls: 'lens-new',
+    tip: 'Added by the nightly discovery engine — first movers only',
+    test: k => !!k.is_new,
   },
 ];
 
@@ -755,7 +681,7 @@ function renderApp() {
 
   const categories = getCategories();
   const catHTML = categories.map(c =>
-    `<button class="filter-btn${c === activeCategory ? ' active' : ''}" onclick="setCategory('${c}')">${c}</button>`
+    `<option value="${c}"${c === activeCategory ? ' selected' : ''}>${c === 'All' ? 'All categories' : c}</option>`
   ).join('');
 
   document.getElementById('appContent').innerHTML = `
@@ -765,11 +691,11 @@ function renderApp() {
     </div>
     <div class="controls">
       <div class="controls-row">
-        <span class="filter-label">🔍 Search</span>
         <div class="search-box">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           <input type="text" id="searchInput" placeholder="Search keywords…" oninput="visibleCount=PAGE_SIZE;renderCards()">
         </div>
+        <select class="sort-select" id="catSelect" onchange="setCategory(this.value)">${catHTML}</select>
         <select class="sort-select" id="sortSelect" onchange="onSort(this.value)">
           <option value="growth">↓ Growth %</option>
           <option value="viability">↓ Viability Score</option>
@@ -780,15 +706,9 @@ function renderApp() {
         </select>
         <button class="clear-btn" onclick="clearFilters()">Clear all</button>
       </div>
-      <div class="controls-divider"></div>
       <div class="controls-row">
         <span class="filter-label">🎯 Lens</span>
         <div class="filter-group" id="lensGroup">${lensHTML}</div>
-      </div>
-      <div class="controls-divider"></div>
-      <div class="controls-row">
-        <span class="filter-label">📂 Category</span>
-        <div class="filter-group" id="catGroup">${catHTML}</div>
       </div>
     </div>
     <div class="stats-bar" id="statsBar" style="margin-top:20px"></div>
@@ -831,10 +751,9 @@ function renderStats(data) {
 }
 
 function renderCards() {
-  // Sync category buttons
-  document.querySelectorAll('#catGroup .filter-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent === activeCategory);
-  });
+  // Sync category dropdown
+  const cs = document.getElementById('catSelect');
+  if (cs) cs.value = activeCategory;
   // Sync lens buttons
   LENSES.forEach(l => {
     const btn = document.querySelector(`.lens-btn.${l.cls}`);
