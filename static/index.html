@@ -225,11 +225,54 @@ async function manualRefresh() {
   const btn = document.getElementById('refreshBtn');
   btn.classList.add('spinning');
   btn.disabled = true;
+
+  // Show loading overlay with progress bar
+  document.getElementById('appContent').innerHTML = `
+    <div class="loading-overlay">
+      <div class="spinner"></div>
+      <p>Refreshing trend data from Google…</p>
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-label" id="progressLabel">Starting…</div>
+      </div>
+    </div>`;
+
+  // Kick off the refresh on the server
+  fetch('/api/refresh', { method: 'POST' }).catch(() => {});
+
+  // Wait a moment for the server to start fetching, then poll
+  await new Promise(r => setTimeout(r, 1500));
+  progressInterval = setInterval(pollProgress, 2000);
+  pollProgress();
+
+  // Poll /api/progress until status is 'done', then reload data
+  await new Promise(resolve => {
+    const check = setInterval(async () => {
+      try {
+        const p = await fetch('/api/progress').then(r => r.json());
+        if (p.status === 'done' || p.status === 'idle') {
+          clearInterval(check);
+          resolve();
+        }
+      } catch (_) {}
+    }, 2000);
+  });
+
+  clearInterval(progressInterval);
+  // Flash to 100%
+  const fill = document.getElementById('progressFill');
+  if (fill) fill.style.width = '100%';
+  await new Promise(r => setTimeout(r, 400));
+
+  // Load fresh data and render
   try {
-    await fetch('/api/refresh', { method: 'POST' });
-    await loadData();
+    const res = await fetch('/api/trends');
+    const json = await res.json();
+    allKeywords = json.keywords;
+    fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
+    renderApp();
   } catch (err) {
-    alert('Refresh failed: ' + err.message);
+    showError(err.message);
   } finally {
     btn.classList.remove('spinning');
     btn.disabled = false;
