@@ -172,20 +172,31 @@ def trend_score(series: list[float], growth: float) -> int:
     return min(100, max(0, round(score)))
 
 
+# Global fetch progress state
+fetch_progress = {"current": 0, "total": 0, "status": "idle", "label": ""}
+
+
 def fetch_all_trends() -> list[dict]:
     """Fetch trends for all tracked keywords in batches of 5."""
+    global fetch_progress
     pytrends = TrendReq(hl="en-US", tz=360, timeout=(10, 25))
     raw = {}
 
     # pytrends max 5 keywords per request
     batch_size = 5
+    total_batches = -(-len(TRACKED_KEYWORDS) // batch_size)
+    fetch_progress = {"current": 0, "total": total_batches, "status": "fetching", "label": "Starting…"}
+
     for i in range(0, len(TRACKED_KEYWORDS), batch_size):
         batch = TRACKED_KEYWORDS[i:i + batch_size]
-        log.info("Fetching batch %d/%d: %s", i // batch_size + 1,
-                 -(-len(TRACKED_KEYWORDS) // batch_size), batch)
+        batch_num = i // batch_size + 1
+        fetch_progress["current"] = batch_num
+        fetch_progress["label"] = f"Fetching batch {batch_num} of {total_batches}…"
+        log.info("Fetching batch %d/%d: %s", batch_num, total_batches, batch)
         batch_result = fetch_trends_for_batch(pytrends, batch)
         raw.update(batch_result)
-        time.sleep(8)   # be polite to Google's servers
+        if batch_num < total_batches:
+            time.sleep(8)   # be polite to Google's servers
 
     keywords_out = []
     for kw in TRACKED_KEYWORDS:
@@ -204,6 +215,9 @@ def fetch_all_trends() -> list[dict]:
 
     # Sort by growth descending
     keywords_out.sort(key=lambda k: k["growth"], reverse=True)
+    fetch_progress["status"] = "done"
+    fetch_progress["current"] = total_batches
+    fetch_progress["label"] = "Done"
     return keywords_out
 
 
@@ -276,6 +290,11 @@ def api_refresh():
         return jsonify({"ok": True, "message": "Cache refreshed"})
     except Exception as exc:
         return jsonify({"ok": False, "error": str(exc)}), 500
+
+
+@app.route("/api/progress")
+def api_progress():
+    return jsonify(fetch_progress)
 
 
 @app.route("/api/debug")

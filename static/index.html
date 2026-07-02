@@ -40,6 +40,10 @@
   .loading-overlay { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 32px; gap: 16px; }
   .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
   .loading-overlay p { color: var(--muted); font-size: 14px; }
+  .progress-wrap { width: 320px; display: flex; flex-direction: column; gap: 8px; }
+  .progress-track { width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.6s ease; width: 0%; }
+  .progress-label { font-size: 12px; color: var(--muted); text-align: center; }
 
   /* ERROR STATE */
   .error-state { text-align: center; padding: 60px 32px; }
@@ -149,6 +153,10 @@
   <div class="loading-overlay">
     <div class="spinner"></div>
     <p>Fetching trend data from Google…</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel">Starting…</div>
+    </div>
   </div>
 </div>
 
@@ -165,16 +173,42 @@ let charts = {};
 let fetchedAt = null;
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
+let progressInterval = null;
+
+async function pollProgress() {
+  try {
+    const res = await fetch('/api/progress');
+    const p = await res.json();
+    const fill = document.getElementById('progressFill');
+    const label = document.getElementById('progressLabel');
+    if (!fill || !label) return;
+    if (p.total > 0) {
+      const pct = Math.round((p.current / p.total) * 100);
+      fill.style.width = pct + '%';
+      label.textContent = p.label || `Batch ${p.current} of ${p.total}…`;
+    }
+  } catch (_) {}
+}
+
 async function loadData() {
+  // Start polling progress every 2s while loading
+  progressInterval = setInterval(pollProgress, 2000);
+  pollProgress();
   try {
     const res = await fetch('/api/trends');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || 'API error');
+    clearInterval(progressInterval);
+    // Flash progress to 100% before rendering
+    const fill = document.getElementById('progressFill');
+    if (fill) fill.style.width = '100%';
+    await new Promise(r => setTimeout(r, 400));
     allKeywords = json.keywords;
     fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
     renderApp();
   } catch (err) {
+    clearInterval(progressInterval);
     showError(err.message);
   }
 }
