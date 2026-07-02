@@ -193,18 +193,9 @@ async function pollProgress() {
 
 async function loadData() {
   try {
-    // Check if a live fetch is in progress before polling
-    const prog = await fetch('/api/progress').then(r => r.json()).catch(() => ({ status: 'idle' }));
-    const isFetching = prog.status === 'fetching';
-
-    if (isFetching) {
-      progressInterval = setInterval(pollProgress, 2000);
-      pollProgress();
-    } else {
-      // Cache hit — hide the progress bar, show a simple message
-      const wrap = document.querySelector('.progress-wrap');
-      if (wrap) wrap.style.display = 'none';
-    }
+    // Always start polling — pollProgress is a no-op if status is idle/done
+    progressInterval = setInterval(pollProgress, 2000);
+    pollProgress();
 
     const res = await fetch('/api/trends');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -212,6 +203,19 @@ async function loadData() {
     if (!json.ok) throw new Error(json.error || 'API error');
 
     clearInterval(progressInterval);
+
+    const fill = document.getElementById('progressFill');
+    const wrap = document.querySelector('.progress-wrap');
+
+    if (fill && fill.style.width !== '0%' && fill.style.width !== '') {
+      // A real fetch happened — flash to 100% then render
+      fill.style.width = '100%';
+      await new Promise(r => setTimeout(r, 400));
+    } else if (wrap) {
+      // Cache hit — hide progress bar immediately
+      wrap.style.display = 'none';
+    }
+
     allKeywords = json.keywords;
     fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
     renderApp();
