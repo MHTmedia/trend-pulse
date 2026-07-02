@@ -481,26 +481,23 @@ def refresh_cache() -> None:
         write_progress(0, 0, "done", "Done")
 
 
-def get_trends() -> tuple[list[dict], Optional[str]]:
-    """Return (keywords, stale_since) — stale_since is set if serving old cache."""
-    cached = load_cache()
-    if cached:
-        log.info("Serving from cache (fetched %s)", cached["fetched_at"])
-        return cached["keywords"], None
-    # Try live fetch
-    try:
-        log.info("Cache miss — fetching live data")
-        keywords = fetch_all_trends()
-        save_cache(keywords)
-        return keywords, None
-    except Exception as exc:
-        log.error("Live fetch failed: %s", exc)
-        # Fall back to stale cache if it exists
-        stale = load_cache(ignore_ttl=True)
-        if stale:
-            log.warning("Serving stale cache from %s", stale["fetched_at"])
-            return stale["keywords"], stale["fetched_at"]
-        raise  # Nothing to fall back to
+def get_trends() -> tuple[list[dict], Optional[str], bool]:
+    """Return (keywords, stale_since, cache_empty).
+
+    - Fresh cache  → (keywords, None, False)
+    - Expired cache → (keywords, fetched_at, False)   ← serve it, bg refresh will update
+    - No cache at all → ([], None, True)               ← caller should trigger bg refresh
+    """
+    # Always prefer any cached data over blocking on a live fetch
+    stale = load_cache(ignore_ttl=True)
+    if stale:
+        fresh = load_cache()  # check TTL
+        stale_since = None if fresh else stale["fetched_at"]
+        log.info("Serving cache from %s (stale=%s)", stale["fetched_at"], bool(stale_since))
+        return stale["keywords"], stale_since, False
+    # No cache at all — return empty so frontend can show "no data yet"
+    log.info("No cache found — returning empty; background refresh will populate")
+    return [], None, True
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────
@@ -511,12 +508,21 @@ def index():
 
 @app.route("/api/trends")
 def api_trends():
+    """Always returns immediately — never blocks on a live fetch."""
     try:
-        keywords, stale_since = get_trends()
+        keywords, stale_since, cache_empty = get_trends()
+        if cache_empty:
+            # No data yet — auto-start a background refresh if not already running
+            current = read_progress()
+            if current.get("status") != "fetching":
+                write_progress(0, 0, "fetching", "Starting…")
+                import threading
+                threading.Thread(target=refresh_cache, daemon=True).start()
         return jsonify({
             "ok": True,
             "keywords": keywords,
-            "stale_since": stale_since,  # None = fresh, ISO string = stale fallback
+            "stale_since": stale_since,
+            "cache_empty": cache_empty,  # frontend shows "no data yet, fetching…" state
         })
     except Exception as exc:
         log.error("API error: %s", exc)
