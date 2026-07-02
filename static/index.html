@@ -70,7 +70,7 @@
   .lens-btn.lens-score.active     { color: #facc15;       border-color: #facc15;       background: rgba(250,204,21,0.12); }
   .lens-btn.lens-radar.active     { color: #34d399;       border-color: #34d399;       background: rgba(52,211,153,0.12); }
   .lens-btn.lens-multi.active     { color: #f472b6;       border-color: #f472b6;       background: rgba(244,114,182,0.12); }
-  .lens-btn.lens-fading.active    { color: #94a3b8;       border-color: #94a3b8;       background: rgba(148,163,184,0.1); }
+  .lens-btn.lens-flat.active      { color: #94a3b8;       border-color: #94a3b8;       background: rgba(148,163,184,0.1); }
   .lens-btn.lens-amz-bsb.active   { color: #f97316;       border-color: #f97316;       background: rgba(249,115,22,0.12); }
   .lens-btn.lens-amz-choice.active{ color: #22d3ee;       border-color: #22d3ee;       background: rgba(34,211,238,0.12); }
   .lens-btn.lens-amz-low.active   { color: #34d399;       border-color: #34d399;       background: rgba(52,211,153,0.12); }
@@ -109,9 +109,24 @@
   .badge-rising { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
   .badge-hot { background: rgba(249,115,22,0.15); color: var(--orange); border: 1px solid rgba(249,115,22,0.25); }
   .badge-cat { background: rgba(100,116,139,0.15); color: var(--muted); border: 1px solid var(--border); }
-  .badge-fading { background: rgba(100,116,139,0.12); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
-  .card.fading { opacity: 0.65; }
-  .card.fading:hover { opacity: 0.85; }
+  .badge-flat { background: rgba(100,116,139,0.12); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
+  .card.flat { opacity: 0.55; }
+  .card.flat:hover { opacity: 0.8; }
+
+  /* INFO BUTTON */
+  .info-btn { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 6px; padding: 4px 10px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s; }
+  .info-btn:hover { border-color: var(--accent); color: var(--text); }
+
+  /* METHODOLOGY MODAL */
+  .method-section { margin-bottom: 20px; }
+  .method-section h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .method-row { display: flex; gap: 12px; margin-bottom: 8px; }
+  .method-icon { font-size: 18px; flex-shrink: 0; width: 28px; text-align: center; padding-top: 2px; }
+  .method-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .method-text strong { color: var(--accent2); }
+  .score-formula { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; font-size: 13px; font-family: monospace; color: var(--accent); margin: 8px 0; }
+  .status-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .sp { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
   .growth-pill { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
   .growth-pill.up { background: rgba(34,197,94,0.15); color: var(--green); }
   .growth-pill.breakout { background: rgba(99,102,241,0.2); color: var(--accent); }
@@ -177,6 +192,7 @@
     <h1>Trend<span>Pulse</span></h1>
   </div>
   <div class="header-right">
+    <button class="info-btn" onclick="openMethodologyModal()">ℹ️ How it works</button>
     <span class="header-meta" id="headerMeta">Loading…</span>
   </div>
 </header>
@@ -192,6 +208,84 @@
   <div class="modal" id="modal"></div>
 </div>
 
+<div class="modal-overlay" id="methodOverlay" onclick="closeMethodologyModal(event)">
+  <div class="modal" style="max-width:680px" id="methodModal">
+    <div class="modal-header">
+      <div class="modal-title">How TrendPulse Works</div>
+      <button class="modal-close" onclick="closeMethodologyModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="method-section">
+        <h3>📡 Data Sources</h3>
+        <div class="method-row">
+          <div class="method-icon">📈</div>
+          <div class="method-text"><strong>Google Trends</strong> — The backbone of every score. We query the US interest-over-time for each keyword over the past 12 months. Google normalises interest to a 0–100 scale (100 = peak popularity), so scores are relative, not absolute search volumes. Fetched in batches of 5 with rate-limit protection.</div>
+        </div>
+        <div class="method-row">
+          <div class="method-icon">🔶</div>
+          <div class="method-text"><strong>Reddit</strong> — We query Reddit's public search API for each keyword and count posts from the past 30 days and past 7 days. Week-over-week velocity shows whether community buzz is accelerating or cooling. No account or API key required — Reddit's public JSON endpoint is used directly.</div>
+        </div>
+        <div class="method-row">
+          <div class="method-icon">📦</div>
+          <div class="method-text"><strong>Amazon</strong> — We scrape the first page of Amazon search results for each keyword to extract: total listing count (market size / competition), Best Seller and Amazon's Choice badges, average price across the top 10 products, average star rating, and the highest review count (demand proxy). Scraping uses randomised delays and rotating user-agents to stay polite.</div>
+        </div>
+      </div>
+
+      <div class="method-section">
+        <h3>🧮 Scoring &amp; Formulas</h3>
+        <div class="method-row">
+          <div class="method-icon">📊</div>
+          <div class="method-text"><strong>12-Month Growth %</strong> — Compares the most recent month's Google Trends index against the earliest non-zero month in the 12-month window.<br>
+            <div class="score-formula">(recent_month − earliest_month) / earliest_month × 100</div>
+            A keyword that was at 10 in January and 50 in December shows +400% growth.
+          </div>
+        </div>
+        <div class="method-row">
+          <div class="method-icon">🏆</div>
+          <div class="method-text"><strong>Trend Score (0–100)</strong> — A composite signal combining recency (how high is interest RIGHT NOW) and momentum (how fast is it growing). Capped at 100.
+            <div class="score-formula">score = 0.6 × current_interest + 0.4 × min(growth/50, 100)</div>
+          </div>
+        </div>
+        <div class="method-row">
+          <div class="method-icon">⚡</div>
+          <div class="method-text"><strong>Reddit Velocity</strong> — Week-over-week change in post volume.<br>
+            <div class="score-formula">(this_week_posts − last_week_posts) / last_week_posts × 100</div>
+            Shows ▲ if mentions are accelerating, ▼ if slowing, → if flat.
+          </div>
+        </div>
+      </div>
+
+      <div class="method-section">
+        <h3>🏷️ Card Status Labels</h3>
+        <div class="status-pills">
+          <span class="sp" style="background:rgba(99,102,241,0.15);color:#6366f1">🚀 Breakout — 1,000%+ growth</span>
+          <span class="sp" style="background:rgba(249,115,22,0.15);color:#f97316">🔥 Hot — 200–999% growth</span>
+          <span class="sp" style="background:rgba(34,197,94,0.15);color:#22c55e">↗ Rising — steady upward trend</span>
+          <span class="sp" style="background:rgba(100,116,139,0.12);color:#94a3b8">⬛ Flat — peaked, no longer climbing. Data frozen at last known values.</span>
+        </div>
+      </div>
+
+      <div class="method-section">
+        <h3>🔄 Update Schedule</h3>
+        <div class="method-row">
+          <div class="method-icon">🌙</div>
+          <div class="method-text">The nightly job runs at <strong>3 AM CST (9 AM UTC)</strong> via GitHub Actions. It fetches fresh Google Trends, Reddit, and Amazon data for all active keywords, runs the discovery engine to find up to 20 new keywords from pytrends related queries, then commits the updated cache file to the repo — triggering an automatic Railway redeploy within ~2 minutes. <strong>Flat keywords are skipped</strong> during fetching to save time, but their last known data remains visible on the dashboard forever.</div>
+        </div>
+      </div>
+
+      <div class="method-section">
+        <h3>🔍 Keyword Discovery</h3>
+        <div class="method-row">
+          <div class="method-icon">🤖</div>
+          <div class="method-text">Each night, pytrends' <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">related_queries()</code> API is called on seed terms across all 13 categories. Rising related queries that look like product names (not questions or how-tos) are automatically added to the keyword list — up to 20 new keywords per night. This means the tracker grows organically toward its practical ceiling of ~400–500 keywords.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
 // ── State ────────────────────────────────────────────────────────────────────
 let allKeywords = [];
@@ -200,6 +294,8 @@ let activeLenses  = new Set(); // multi-select opportunity lenses
 let activeSort    = 'growth';
 let charts        = {};
 let fetchedAt     = null;
+let visibleCount  = 48;       // pagination — cards shown so far
+const PAGE_SIZE   = 48;       // how many to add per "Show more"
 
 // ── Lens definitions ──────────────────────────────────────────────────────────
 // Each lens has: id, label, cls (CSS suffix), description, and a test fn
@@ -212,12 +308,12 @@ const LENSES = [
   {
     id: 'hot', label: '🔥 Hot', cls: 'lens-hot',
     tip: '200–999% growth — proven demand, still room to enter',
-    test: k => (k.momentum === 'hot' || k.growth >= 200) && k.growth < 1000 && k.status !== 'fading',
+    test: k => (k.momentum === 'hot' || k.growth >= 200) && k.growth < 1000 && k.status !== 'flat',
   },
   {
     id: 'rising', label: '↗ Rising', cls: 'lens-rising',
     tip: 'Steady upward climb — good for sustainable business models',
-    test: k => k.growth > 0 && k.growth < 200 && k.status !== 'fading',
+    test: k => k.growth > 0 && k.growth < 200 && k.status !== 'flat',
   },
   {
     id: 'new', label: '🆕 Newly Discovered', cls: 'lens-new',
@@ -242,17 +338,17 @@ const LENSES = [
   {
     id: 'radar', label: '💎 Under the Radar', cls: 'lens-radar',
     tip: 'Growing fast but low Reddit — before the crowd knows about it',
-    test: k => k.growth >= 80 && (k.reddit_30d || 0) < 10 && k.status !== 'fading',
+    test: k => k.growth >= 80 && (k.reddit_30d || 0) < 10 && k.status !== 'flat',
   },
   {
     id: 'multi', label: '🎯 Multi-Signal', cls: 'lens-multi',
     tip: 'Strong on BOTH Google Trends AND Reddit — highest conviction',
-    test: k => k.growth >= 100 && (k.reddit_30d || 0) >= 15 && k.status !== 'fading',
+    test: k => k.growth >= 100 && (k.reddit_30d || 0) >= 15 && k.status !== 'flat',
   },
   {
-    id: 'fading', label: '📉 Losing Steam', cls: 'lens-fading',
-    tip: 'Peaked and declining — avoid for new ventures',
-    test: k => k.status === 'fading',
+    id: 'flat', label: '⬛ Flat', cls: 'lens-flat',
+    tip: 'Peaked — no longer climbing. Data frozen at last known values.',
+    test: k => k.status === 'flat',
   },
   {
     id: 'amz_bsb', label: '★ Best Seller', cls: 'lens-amz-bsb',
@@ -282,7 +378,7 @@ const LENSES = [
   {
     id: 'triple', label: '🔥 Triple Signal', cls: 'lens-triple',
     tip: 'Trending on Google, buzzing on Reddit, AND selling on Amazon',
-    test: k => k.growth >= 100 && (k.reddit_30d||0) >= 10 && k.amazon_result_count != null && k.status !== 'fading',
+    test: k => k.growth >= 100 && (k.reddit_30d||0) >= 10 && k.amazon_result_count != null && k.status !== 'flat',
   },
 ];
 
@@ -320,22 +416,22 @@ function fmtGrowth(g) {
 function trendColor(status) {
   if (status === 'breakout') return '#6366f1';
   if (status === 'hot')      return '#f97316';
-  if (status === 'fading')   return '#64748b';
+  if (status === 'flat')     return '#64748b';
   return '#22c55e';
 }
 
 function badgeHTML(k) {
   let b = `<span class="badge badge-cat">${k.category}</span>`;
-  if (k.status === 'fading')   b += `<span class="badge badge-fading">📉 Losing Steam</span>`;
+  if (k.status === 'flat')         b += `<span class="badge badge-flat">⬛ Flat</span>`;
   else if (k.status === 'breakout') b += `<span class="badge badge-breakout">🚀 Breakout</span>`;
-  else if (k.status === 'hot') b += `<span class="badge badge-hot">🔥 Hot</span>`;
-  else                         b += `<span class="badge badge-rising">↗ Rising</span>`;
+  else if (k.status === 'hot')      b += `<span class="badge badge-hot">🔥 Hot</span>`;
+  else                              b += `<span class="badge badge-rising">↗ Rising</span>`;
   return b;
 }
 
 function pillClass(k) {
   if (k.status === 'breakout') return 'breakout';
-  if (k.status === 'fading')   return '';
+  if (k.status === 'flat')     return '';
   return 'up';
 }
 
@@ -418,7 +514,7 @@ function getFiltered() {
     const matchQ = !q || k.keyword.toLowerCase().includes(q) || k.category.toLowerCase().includes(q);
     // Lenses (AND logic — must pass ALL active lenses)
     const matchLens = activeLenses.size === 0
-      ? k.status !== 'fading'    // default view hides fading unless explicitly selected
+      ? k.status !== 'flat'      // default view hides flat keywords unless explicitly selected
       : [...activeLenses].every(id => {
           const lens = LENSES.find(l => l.id === id);
           return lens ? lens.test(k) : true;
@@ -438,18 +534,21 @@ function getFiltered() {
 
 function setCategory(cat) {
   activeCategory = cat;
+  visibleCount = PAGE_SIZE;
   renderCards();
 }
 
 function toggleLens(id) {
   if (activeLenses.has(id)) activeLenses.delete(id);
   else activeLenses.add(id);
+  visibleCount = PAGE_SIZE;
   renderCards();
 }
 
 function clearFilters() {
   activeLenses.clear();
   activeCategory = 'All';
+  visibleCount = PAGE_SIZE;
   const si = document.getElementById('searchInput');
   if (si) si.value = '';
   renderCards();
@@ -457,7 +556,15 @@ function clearFilters() {
 
 function onSort(val) {
   activeSort = val;
+  visibleCount = PAGE_SIZE;
   renderCards();
+}
+
+function showMore() {
+  visibleCount += PAGE_SIZE;
+  renderCards();
+  // Scroll down a bit so the new cards are visible
+  window.scrollBy({ top: 400, behavior: 'smooth' });
 }
 
 // ── Render ─────────────────────────────────────────────────────────────────────
@@ -486,7 +593,7 @@ function renderApp() {
         <span class="filter-label">🔍 Search</span>
         <div class="search-box">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input type="text" id="searchInput" placeholder="Search keywords…" oninput="renderCards()">
+          <input type="text" id="searchInput" placeholder="Search keywords…" oninput="visibleCount=PAGE_SIZE;renderCards()">
         </div>
         <select class="sort-select" id="sortSelect" onchange="onSort(this.value)">
           <option value="growth">↓ Growth %</option>
@@ -516,7 +623,7 @@ function renderApp() {
 }
 
 function renderStats(data) {
-  const all     = allKeywords.filter(k => k.status !== 'fading');
+  const all     = allKeywords.filter(k => k.status !== 'flat');
   const breakouts = all.filter(k => k.growth >= 1000).length;
   const withReddit = data.filter(k => (k.reddit_30d||0) >= 20).length;
   const topScore   = data.length ? Math.max(...data.map(k=>k.score)) : 0;
@@ -576,9 +683,11 @@ function renderCards() {
   }
 
   const months = ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+  const page   = data.slice(0, visibleCount);
+  const remaining = data.length - page.length;
 
-  grid.innerHTML = data.map(k => `
-    <div class="card${k.status === 'fading' ? ' fading' : ''}" onclick="openModal(${k.id})">
+  grid.innerHTML = page.map(k => `
+    <div class="card${k.status === 'flat' ? ' flat' : ''}" onclick="openModal(${k.id})">
       <div class="card-top">
         <div>
           <div class="card-keyword">${k.keyword}</div>
@@ -596,10 +705,21 @@ function renderCards() {
       </div>
       ${dataRowsHTML(k)}
     </div>
-  `).join('');
+  `).join('') + (remaining > 0 ? `
+    <div style="grid-column:1/-1;text-align:center;padding:24px 0 8px">
+      <button onclick="showMore()" style="
+        background:var(--surface);border:1px solid var(--border);color:var(--text);
+        padding:10px 28px;border-radius:10px;font-size:14px;font-weight:600;
+        cursor:pointer;transition:all 0.15s;letter-spacing:0.2px"
+        onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+        onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+        Show ${Math.min(remaining, PAGE_SIZE)} more
+        <span style="color:var(--muted);font-weight:400;font-size:12px;margin-left:6px">${remaining} remaining</span>
+      </button>
+    </div>` : '');
 
   requestAnimationFrame(() => {
-    data.forEach(k => {
+    page.forEach(k => {
       const ctx = document.getElementById(`chart-${k.id}`);
       if (!ctx) return;
       const color = trendColor(k.status);
@@ -768,7 +888,17 @@ function closeModal(e) {
   }
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeMethodologyModal(); } });
+
+// ── Methodology modal ─────────────────────────────────────────────────────────
+function openMethodologyModal() {
+  document.getElementById('methodOverlay').classList.add('open');
+}
+function closeMethodologyModal(e) {
+  if (!e || e.target === document.getElementById('methodOverlay')) {
+    document.getElementById('methodOverlay').classList.remove('open');
+  }
+}
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 loadData();

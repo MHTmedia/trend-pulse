@@ -41,7 +41,7 @@ FADING_RECENT_RATIO  = 0.45  # recent 3-mo avg must be < 45% of peak
 FADING_SLOPE_WINDOW  = 4    # look at last N months for declining slope
 
 # Discovery: how many new keywords to add per run (caps runaway growth)
-MAX_NEW_PER_RUN = 10
+MAX_NEW_PER_RUN = 20
 
 # Reddit
 REDDIT_HEADERS = {"User-Agent": "TrendPulse/1.0 (trend research tool)"}
@@ -57,133 +57,441 @@ AMAZON_SESSION = requests.Session()   # reuse TCP connection within a run
 
 # ── Default keyword list (used only if keywords.json doesn't exist yet) ───────
 DEFAULT_KEYWORDS = [
-    # Health & Wellness
-    {"keyword": "Creatine Gummies",          "category": "Health & Wellness"},
-    {"keyword": "Mushroom Coffee",            "category": "Health & Wellness"},
-    {"keyword": "Collagen Peptides Powder",   "category": "Health & Wellness"},
-    {"keyword": "Hydrogen Water Bottle",      "category": "Health & Wellness"},
-    {"keyword": "Grounding Mat",              "category": "Health & Wellness"},
-    {"keyword": "Gut Health Test Kit",        "category": "Health & Wellness"},
-    {"keyword": "Magnesium Glycinate",        "category": "Health & Wellness"},
-    {"keyword": "Berberine Supplement",       "category": "Health & Wellness"},
-    {"keyword": "Methylene Blue Supplement",  "category": "Health & Wellness"},
-    {"keyword": "Shilajit Supplement",        "category": "Health & Wellness"},
-    {"keyword": "Sea Moss Gel",               "category": "Health & Wellness"},
-    {"keyword": "Tallow Balm",                "category": "Health & Wellness"},
-    {"keyword": "Beef Liver Supplement",      "category": "Health & Wellness"},
-    {"keyword": "Electrolyte Powder",         "category": "Health & Wellness"},
-    {"keyword": "Adaptogen Supplements",      "category": "Health & Wellness"},
-    {"keyword": "NAD Supplement",             "category": "Health & Wellness"},
-    {"keyword": "Spermidine Supplement",      "category": "Health & Wellness"},
-    {"keyword": "Peptide Supplement",         "category": "Health & Wellness"},
-    {"keyword": "Urolithin A Supplement",     "category": "Health & Wellness"},
-    {"keyword": "Mouth Tape Sleep",           "category": "Health & Wellness"},
-    # Beauty
-    {"keyword": "Beef Tallow Skincare",       "category": "Beauty"},
-    {"keyword": "Peptide Face Serum",         "category": "Beauty"},
-    {"keyword": "Niacinamide Serum",          "category": "Beauty"},
-    {"keyword": "Lash Serum",                 "category": "Beauty"},
-    {"keyword": "LED Face Mask",              "category": "Beauty"},
-    {"keyword": "Retinol Alternative",        "category": "Beauty"},
-    {"keyword": "Snail Mucin Serum",          "category": "Beauty"},
-    {"keyword": "Slugging Skincare",          "category": "Beauty"},
-    {"keyword": "Facial Gua Sha",             "category": "Beauty"},
-    {"keyword": "Ice Roller Face",            "category": "Beauty"},
-    {"keyword": "Lip Filler Alternative",     "category": "Beauty"},
-    {"keyword": "Glass Skin Routine",         "category": "Beauty"},
-    {"keyword": "Body Sunscreen SPF",         "category": "Beauty"},
-    {"keyword": "Scalp Serum Hair",           "category": "Beauty"},
-    {"keyword": "Rosemary Oil Hair Growth",   "category": "Beauty"},
-    {"keyword": "Hair Gloss Treatment",       "category": "Beauty"},
-    {"keyword": "Barrier Repair Moisturizer", "category": "Beauty"},
-    {"keyword": "Blue Light Glasses",         "category": "Beauty"},
-    {"keyword": "Microcurrent Face Device",   "category": "Beauty"},
-    {"keyword": "RF Skin Tightening Device",  "category": "Beauty"},
-    # Fitness
-    {"keyword": "Portable Sauna Blanket",     "category": "Fitness"},
-    {"keyword": "Portable Blender",           "category": "Fitness"},
-    {"keyword": "Barefoot Running Shoes",     "category": "Fitness"},
-    {"keyword": "Whoop Band Alternative",     "category": "Fitness"},
-    {"keyword": "Weighted Vest",              "category": "Fitness"},
-    {"keyword": "Zone 2 Training Monitor",    "category": "Fitness"},
-    {"keyword": "Cold Plunge Tub",            "category": "Fitness"},
-    {"keyword": "Sauna Tent",                 "category": "Fitness"},
-    {"keyword": "Walking Pad Treadmill",      "category": "Fitness"},
-    {"keyword": "Pull Up Bar Doorframe",      "category": "Fitness"},
-    {"keyword": "Resistance Band Set",        "category": "Fitness"},
-    {"keyword": "Massage Gun",                "category": "Fitness"},
-    {"keyword": "Incline Treadmill Walking",  "category": "Fitness"},
-    {"keyword": "Pilates Reformer Home",      "category": "Fitness"},
-    {"keyword": "Rucking Backpack",           "category": "Fitness"},
-    {"keyword": "Battle Rope",                "category": "Fitness"},
-    {"keyword": "Adjustable Dumbbell Set",    "category": "Fitness"},
-    {"keyword": "Gymnastic Rings",            "category": "Fitness"},
-    {"keyword": "Vibration Plate",            "category": "Fitness"},
-    {"keyword": "Foam Roller Electric",       "category": "Fitness"},
-    # Tech & Gadgets
-    {"keyword": "AI Smart Ring",              "category": "Tech"},
-    {"keyword": "Electric Skates",            "category": "Tech"},
-    {"keyword": "Mini Projector",             "category": "Tech"},
-    {"keyword": "AI Pin Wearable",            "category": "Tech"},
-    {"keyword": "Foldable Phone Case",        "category": "Tech"},
-    {"keyword": "Portable Power Station",     "category": "Tech"},
-    {"keyword": "Solar Panel Charger",        "category": "Tech"},
-    {"keyword": "Smart Home Hub",             "category": "Tech"},
-    {"keyword": "Robot Vacuum Mop Combo",     "category": "Tech"},
-    {"keyword": "Air Quality Monitor",        "category": "Tech"},
-    {"keyword": "Wireless Earbuds",           "category": "Tech"},
-    {"keyword": "Dashcam 4K",                 "category": "Tech"},
-    {"keyword": "Action Camera",              "category": "Tech"},
-    {"keyword": "Thermal Camera Phone",       "category": "Tech"},
-    {"keyword": "Smart Glasses",              "category": "Tech"},
-    {"keyword": "Portable Monitor",           "category": "Tech"},
-    {"keyword": "Mechanical Keyboard",        "category": "Tech"},
-    {"keyword": "Standing Desk Mat",          "category": "Tech"},
-    {"keyword": "Cable Management Box",       "category": "Tech"},
-    {"keyword": "Magnetic Phone Mount",       "category": "Tech"},
-    # Home & Kitchen
-    {"keyword": "Water Bottle with Filter",   "category": "Home & Kitchen"},
-    {"keyword": "Freeze Dryer Home",          "category": "Home & Kitchen"},
-    {"keyword": "Air Fryer Accessories",      "category": "Home & Kitchen"},
-    {"keyword": "Countertop Dishwasher",      "category": "Home & Kitchen"},
-    {"keyword": "Sous Vide Machine",          "category": "Home & Kitchen"},
-    {"keyword": "Beeswax Food Wraps",         "category": "Home & Kitchen"},
-    {"keyword": "Dutch Oven Cast Iron",       "category": "Home & Kitchen"},
-    {"keyword": "Bread Maker Machine",        "category": "Home & Kitchen"},
-    {"keyword": "Espresso Machine Home",      "category": "Home & Kitchen"},
-    {"keyword": "Mushroom Growing Kit",       "category": "Home & Kitchen"},
-    {"keyword": "Compost Bin Kitchen",        "category": "Home & Kitchen"},
-    {"keyword": "Water Kefir Kit",            "category": "Home & Kitchen"},
-    {"keyword": "Fermentation Crock",         "category": "Home & Kitchen"},
-    {"keyword": "Dehydrator Machine",         "category": "Home & Kitchen"},
-    {"keyword": "Silicone Baking Mats",       "category": "Home & Kitchen"},
-    {"keyword": "Oil Dispenser Bottle",       "category": "Home & Kitchen"},
-    {"keyword": "Bamboo Cutting Board",       "category": "Home & Kitchen"},
-    {"keyword": "Reusable Produce Bags",      "category": "Home & Kitchen"},
-    {"keyword": "Smart Thermostat",           "category": "Home & Kitchen"},
-    {"keyword": "Cordless Vacuum",            "category": "Home & Kitchen"},
-    # Pets
-    {"keyword": "Dog Probiotic Chews",        "category": "Pets"},
-    {"keyword": "Cat Water Fountain",         "category": "Pets"},
-    {"keyword": "Raw Dog Food",               "category": "Pets"},
-    {"keyword": "Dog Anxiety Vest",           "category": "Pets"},
-    {"keyword": "Cat GPS Tracker",            "category": "Pets"},
-    {"keyword": "Automatic Cat Feeder",       "category": "Pets"},
-    {"keyword": "Dog DNA Test Kit",           "category": "Pets"},
-    {"keyword": "Pet Camera Treat Dispenser", "category": "Pets"},
-    {"keyword": "Freeze Dried Dog Food",      "category": "Pets"},
-    {"keyword": "Orthopedic Dog Bed",         "category": "Pets"},
-    # Fashion & Apparel
-    {"keyword": "Linen Clothing",             "category": "Fashion"},
-    {"keyword": "Merino Wool Base Layer",     "category": "Fashion"},
-    {"keyword": "Wide Leg Pants",             "category": "Fashion"},
-    {"keyword": "Compression Socks",          "category": "Fashion"},
-    {"keyword": "Bamboo Pajamas",             "category": "Fashion"},
-    {"keyword": "Tactical Pants",             "category": "Fashion"},
-    {"keyword": "Minimalist Sneakers",        "category": "Fashion"},
-    {"keyword": "Crossbody Bag",              "category": "Fashion"},
-    {"keyword": "Bucket Hat",                 "category": "Fashion"},
-    {"keyword": "Swim Shorts Quick Dry",      "category": "Fashion"},
+    # ── Health & Wellness (50) ─────────────────────────────────────────────────
+    {"keyword": "Creatine Gummies",              "category": "Health & Wellness"},
+    {"keyword": "Mushroom Coffee",               "category": "Health & Wellness"},
+    {"keyword": "Collagen Peptides Powder",      "category": "Health & Wellness"},
+    {"keyword": "Hydrogen Water Bottle",         "category": "Health & Wellness"},
+    {"keyword": "Grounding Mat",                 "category": "Health & Wellness"},
+    {"keyword": "Gut Health Test Kit",           "category": "Health & Wellness"},
+    {"keyword": "Magnesium Glycinate",           "category": "Health & Wellness"},
+    {"keyword": "Berberine Supplement",          "category": "Health & Wellness"},
+    {"keyword": "Methylene Blue Supplement",     "category": "Health & Wellness"},
+    {"keyword": "Shilajit Supplement",           "category": "Health & Wellness"},
+    {"keyword": "Sea Moss Gel",                  "category": "Health & Wellness"},
+    {"keyword": "Tallow Balm",                   "category": "Health & Wellness"},
+    {"keyword": "Beef Liver Supplement",         "category": "Health & Wellness"},
+    {"keyword": "Electrolyte Powder",            "category": "Health & Wellness"},
+    {"keyword": "Adaptogen Supplements",         "category": "Health & Wellness"},
+    {"keyword": "NAD Supplement",                "category": "Health & Wellness"},
+    {"keyword": "Spermidine Supplement",         "category": "Health & Wellness"},
+    {"keyword": "Peptide Supplement",            "category": "Health & Wellness"},
+    {"keyword": "Urolithin A Supplement",        "category": "Health & Wellness"},
+    {"keyword": "Mouth Tape Sleep",              "category": "Health & Wellness"},
+    {"keyword": "NMN Supplement",                "category": "Health & Wellness"},
+    {"keyword": "Lion's Mane Supplement",        "category": "Health & Wellness"},
+    {"keyword": "Turkey Tail Mushroom",          "category": "Health & Wellness"},
+    {"keyword": "Reishi Mushroom Supplement",    "category": "Health & Wellness"},
+    {"keyword": "Cordyceps Supplement",          "category": "Health & Wellness"},
+    {"keyword": "Glutathione Supplement",        "category": "Health & Wellness"},
+    {"keyword": "Quercetin Supplement",          "category": "Health & Wellness"},
+    {"keyword": "Fisetin Supplement",            "category": "Health & Wellness"},
+    {"keyword": "Resveratrol Supplement",        "category": "Health & Wellness"},
+    {"keyword": "Alpha Lipoic Acid",             "category": "Health & Wellness"},
+    {"keyword": "Vitamin D3 K2 Supplement",      "category": "Health & Wellness"},
+    {"keyword": "Boron Supplement",              "category": "Health & Wellness"},
+    {"keyword": "Iodine Supplement",             "category": "Health & Wellness"},
+    {"keyword": "Lithium Orotate Supplement",    "category": "Health & Wellness"},
+    {"keyword": "Red Light Therapy Device",      "category": "Health & Wellness"},
+    {"keyword": "PEMF Mat Device",               "category": "Health & Wellness"},
+    {"keyword": "Continuous Glucose Monitor",    "category": "Health & Wellness"},
+    {"keyword": "Biological Age Test Kit",       "category": "Health & Wellness"},
+    {"keyword": "Microbiome Test Kit",           "category": "Health & Wellness"},
+    {"keyword": "Food Sensitivity Test Kit",     "category": "Health & Wellness"},
+    {"keyword": "Heavy Metal Test Kit",          "category": "Health & Wellness"},
+    {"keyword": "Hormone Test Kit Home",         "category": "Health & Wellness"},
+    {"keyword": "HRV Monitor Wearable",          "category": "Health & Wellness"},
+    {"keyword": "Oura Ring Alternative",         "category": "Health & Wellness"},
+    {"keyword": "Ashwagandha Gummies",           "category": "Health & Wellness"},
+    {"keyword": "Coenzyme Q10 Supplement",       "category": "Health & Wellness"},
+    {"keyword": "Omega 3 Supplement",            "category": "Health & Wellness"},
+    {"keyword": "Sea Buckthorn Supplement",      "category": "Health & Wellness"},
+    {"keyword": "Taurine Supplement",            "category": "Health & Wellness"},
+    {"keyword": "Creatine Monohydrate",          "category": "Health & Wellness"},
+
+    # ── Beauty (40) ───────────────────────────────────────────────────────────
+    {"keyword": "Beef Tallow Skincare",          "category": "Beauty"},
+    {"keyword": "Peptide Face Serum",            "category": "Beauty"},
+    {"keyword": "Niacinamide Serum",             "category": "Beauty"},
+    {"keyword": "Lash Serum",                    "category": "Beauty"},
+    {"keyword": "LED Face Mask",                 "category": "Beauty"},
+    {"keyword": "Retinol Alternative",           "category": "Beauty"},
+    {"keyword": "Snail Mucin Serum",             "category": "Beauty"},
+    {"keyword": "Slugging Skincare",             "category": "Beauty"},
+    {"keyword": "Facial Gua Sha",                "category": "Beauty"},
+    {"keyword": "Ice Roller Face",               "category": "Beauty"},
+    {"keyword": "Lip Filler Alternative",        "category": "Beauty"},
+    {"keyword": "Glass Skin Routine",            "category": "Beauty"},
+    {"keyword": "Body Sunscreen SPF",            "category": "Beauty"},
+    {"keyword": "Scalp Serum Hair Growth",       "category": "Beauty"},
+    {"keyword": "Rosemary Oil Hair Growth",      "category": "Beauty"},
+    {"keyword": "Hair Gloss Treatment",          "category": "Beauty"},
+    {"keyword": "Barrier Repair Moisturizer",    "category": "Beauty"},
+    {"keyword": "Blue Light Glasses",            "category": "Beauty"},
+    {"keyword": "Microcurrent Face Device",      "category": "Beauty"},
+    {"keyword": "RF Skin Tightening Device",     "category": "Beauty"},
+    {"keyword": "Vitamin C Serum Face",          "category": "Beauty"},
+    {"keyword": "Hyaluronic Acid Serum",         "category": "Beauty"},
+    {"keyword": "Bakuchiol Serum",               "category": "Beauty"},
+    {"keyword": "Azelaic Acid Cream",            "category": "Beauty"},
+    {"keyword": "Tranexamic Acid Serum",         "category": "Beauty"},
+    {"keyword": "Squalane Oil Skincare",         "category": "Beauty"},
+    {"keyword": "Ceramide Moisturizer",          "category": "Beauty"},
+    {"keyword": "Centella Asiatica Cream",       "category": "Beauty"},
+    {"keyword": "Glycolic Acid Toner",           "category": "Beauty"},
+    {"keyword": "Salicylic Acid Cleanser",       "category": "Beauty"},
+    {"keyword": "Microneedling Roller Home",     "category": "Beauty"},
+    {"keyword": "At Home Laser Hair Removal",    "category": "Beauty"},
+    {"keyword": "Dermaplaning Tool",             "category": "Beauty"},
+    {"keyword": "Pore Vacuum Blackhead",         "category": "Beauty"},
+    {"keyword": "Caffeine Eye Serum",            "category": "Beauty"},
+    {"keyword": "Minoxidil Serum Hair",          "category": "Beauty"},
+    {"keyword": "DHT Blocker Shampoo",           "category": "Beauty"},
+    {"keyword": "Biotin Hair Supplement",        "category": "Beauty"},
+    {"keyword": "Teeth Whitening Kit",           "category": "Beauty"},
+    {"keyword": "Probiotic Skincare",            "category": "Beauty"},
+
+    # ── Fitness (40) ─────────────────────────────────────────────────────────
+    {"keyword": "Portable Sauna Blanket",        "category": "Fitness"},
+    {"keyword": "Portable Blender",              "category": "Fitness"},
+    {"keyword": "Barefoot Running Shoes",        "category": "Fitness"},
+    {"keyword": "Weighted Vest",                 "category": "Fitness"},
+    {"keyword": "Cold Plunge Tub",               "category": "Fitness"},
+    {"keyword": "Sauna Tent",                    "category": "Fitness"},
+    {"keyword": "Walking Pad Treadmill",         "category": "Fitness"},
+    {"keyword": "Pull Up Bar Doorframe",         "category": "Fitness"},
+    {"keyword": "Resistance Band Set",           "category": "Fitness"},
+    {"keyword": "Massage Gun",                   "category": "Fitness"},
+    {"keyword": "Incline Treadmill Walking",     "category": "Fitness"},
+    {"keyword": "Pilates Reformer Home",         "category": "Fitness"},
+    {"keyword": "Rucking Backpack",              "category": "Fitness"},
+    {"keyword": "Battle Rope",                   "category": "Fitness"},
+    {"keyword": "Adjustable Dumbbell Set",       "category": "Fitness"},
+    {"keyword": "Gymnastic Rings",               "category": "Fitness"},
+    {"keyword": "Vibration Plate",               "category": "Fitness"},
+    {"keyword": "Foam Roller Electric",          "category": "Fitness"},
+    {"keyword": "Power Rack Home Gym",           "category": "Fitness"},
+    {"keyword": "Cable Machine Home",            "category": "Fitness"},
+    {"keyword": "Kettlebell Set",                "category": "Fitness"},
+    {"keyword": "Sandbag Training Bag",          "category": "Fitness"},
+    {"keyword": "Slant Board Squats",            "category": "Fitness"},
+    {"keyword": "Nordic Hamstring Curl Device",  "category": "Fitness"},
+    {"keyword": "Ab Roller Wheel",               "category": "Fitness"},
+    {"keyword": "Balance Board Fitness",         "category": "Fitness"},
+    {"keyword": "Gymnastics Mat",                "category": "Fitness"},
+    {"keyword": "Acupressure Mat",               "category": "Fitness"},
+    {"keyword": "Compression Boots Recovery",    "category": "Fitness"},
+    {"keyword": "Cold Therapy Machine",          "category": "Fitness"},
+    {"keyword": "Cupping Therapy Set",           "category": "Fitness"},
+    {"keyword": "Grip Strength Trainer",         "category": "Fitness"},
+    {"keyword": "Zone 2 Training Monitor",       "category": "Fitness"},
+    {"keyword": "Whoop Band Alternative",        "category": "Fitness"},
+    {"keyword": "Plant Based Protein Powder",    "category": "Fitness"},
+    {"keyword": "Collagen Protein Powder",       "category": "Fitness"},
+    {"keyword": "Pre Workout Supplement",        "category": "Fitness"},
+    {"keyword": "BCAA Supplement",               "category": "Fitness"},
+    {"keyword": "Beta Alanine Supplement",       "category": "Fitness"},
+    {"keyword": "Red Light Therapy Panel",       "category": "Fitness"},
+
+    # ── Tech & Gadgets (45) ───────────────────────────────────────────────────
+    {"keyword": "AI Smart Ring",                 "category": "Tech"},
+    {"keyword": "Mini Projector",                "category": "Tech"},
+    {"keyword": "Portable Power Station",        "category": "Tech"},
+    {"keyword": "Solar Panel Charger",           "category": "Tech"},
+    {"keyword": "Smart Home Hub",                "category": "Tech"},
+    {"keyword": "Robot Vacuum Mop Combo",        "category": "Tech"},
+    {"keyword": "Air Quality Monitor",           "category": "Tech"},
+    {"keyword": "Wireless Earbuds",              "category": "Tech"},
+    {"keyword": "Dashcam 4K",                    "category": "Tech"},
+    {"keyword": "Action Camera",                 "category": "Tech"},
+    {"keyword": "Smart Glasses",                 "category": "Tech"},
+    {"keyword": "Portable Monitor",              "category": "Tech"},
+    {"keyword": "Mechanical Keyboard",           "category": "Tech"},
+    {"keyword": "Magnetic Phone Mount",          "category": "Tech"},
+    {"keyword": "E Ink Tablet",                  "category": "Tech"},
+    {"keyword": "Satellite Communicator",        "category": "Tech"},
+    {"keyword": "Bone Conduction Headphones",    "category": "Tech"},
+    {"keyword": "Open Ear Headphones",           "category": "Tech"},
+    {"keyword": "Sleep Headphones",              "category": "Tech"},
+    {"keyword": "Noise Canceling Earplugs",      "category": "Tech"},
+    {"keyword": "USB C Hub Multiport",           "category": "Tech"},
+    {"keyword": "Thunderbolt Dock",              "category": "Tech"},
+    {"keyword": "Capture Card 4K Streaming",     "category": "Tech"},
+    {"keyword": "Teleprompter Phone",            "category": "Tech"},
+    {"keyword": "Ring Light Professional",       "category": "Tech"},
+    {"keyword": "Podcast Microphone USB",        "category": "Tech"},
+    {"keyword": "Lavalier Microphone Wireless",  "category": "Tech"},
+    {"keyword": "Smart Plug Energy Monitor",     "category": "Tech"},
+    {"keyword": "Robot Lawnmower",               "category": "Tech"},
+    {"keyword": "Electric Bike Conversion Kit",  "category": "Tech"},
+    {"keyword": "E Scooter Commuter",            "category": "Tech"},
+    {"keyword": "Handheld Game Console",         "category": "Tech"},
+    {"keyword": "Portable Gaming PC",            "category": "Tech"},
+    {"keyword": "AI Meeting Recorder",           "category": "Tech"},
+    {"keyword": "Pocket AI Device",              "category": "Tech"},
+    {"keyword": "Water Purifier Countertop",     "category": "Tech"},
+    {"keyword": "Air Purifier Smart",            "category": "Tech"},
+    {"keyword": "EMF Meter",                     "category": "Tech"},
+    {"keyword": "Thermal Camera Smartphone",     "category": "Tech"},
+    {"keyword": "Stream Deck Alternative",       "category": "Tech"},
+    {"keyword": "KVM Switch Monitor",            "category": "Tech"},
+    {"keyword": "Standing Desk Electric",        "category": "Tech"},
+    {"keyword": "Monitor Light Bar",             "category": "Tech"},
+    {"keyword": "Webcam 4K Streaming",           "category": "Tech"},
+    {"keyword": "Smart Lock Door",               "category": "Tech"},
+
+    # ── Home & Kitchen (45) ───────────────────────────────────────────────────
+    {"keyword": "Water Bottle with Filter",      "category": "Home & Kitchen"},
+    {"keyword": "Freeze Dryer Home",             "category": "Home & Kitchen"},
+    {"keyword": "Air Fryer Accessories",         "category": "Home & Kitchen"},
+    {"keyword": "Countertop Dishwasher",         "category": "Home & Kitchen"},
+    {"keyword": "Sous Vide Machine",             "category": "Home & Kitchen"},
+    {"keyword": "Dutch Oven Cast Iron",          "category": "Home & Kitchen"},
+    {"keyword": "Bread Maker Machine",           "category": "Home & Kitchen"},
+    {"keyword": "Espresso Machine Home",         "category": "Home & Kitchen"},
+    {"keyword": "Mushroom Growing Kit",          "category": "Home & Kitchen"},
+    {"keyword": "Compost Bin Kitchen",           "category": "Home & Kitchen"},
+    {"keyword": "Fermentation Crock",            "category": "Home & Kitchen"},
+    {"keyword": "Dehydrator Machine",            "category": "Home & Kitchen"},
+    {"keyword": "Reusable Produce Bags",         "category": "Home & Kitchen"},
+    {"keyword": "Smart Thermostat",              "category": "Home & Kitchen"},
+    {"keyword": "Cordless Vacuum",               "category": "Home & Kitchen"},
+    {"keyword": "Indoor Garden Hydroponics",     "category": "Home & Kitchen"},
+    {"keyword": "Microgreens Growing Kit",       "category": "Home & Kitchen"},
+    {"keyword": "Sourdough Starter Kit",         "category": "Home & Kitchen"},
+    {"keyword": "Pasta Maker Electric",          "category": "Home & Kitchen"},
+    {"keyword": "Ice Cream Maker",               "category": "Home & Kitchen"},
+    {"keyword": "Vacuum Sealer Machine",         "category": "Home & Kitchen"},
+    {"keyword": "Yogurt Maker",                  "category": "Home & Kitchen"},
+    {"keyword": "Kombucha Brewing Kit",          "category": "Home & Kitchen"},
+    {"keyword": "Carbon Steel Pan",              "category": "Home & Kitchen"},
+    {"keyword": "Wok Carbon Steel",              "category": "Home & Kitchen"},
+    {"keyword": "Pizza Steel Baking",            "category": "Home & Kitchen"},
+    {"keyword": "Outdoor Pizza Oven",            "category": "Home & Kitchen"},
+    {"keyword": "Flat Top Grill Griddle",        "category": "Home & Kitchen"},
+    {"keyword": "Pellet Smoker Grill",           "category": "Home & Kitchen"},
+    {"keyword": "Kamado Grill",                  "category": "Home & Kitchen"},
+    {"keyword": "Pressure Canner",               "category": "Home & Kitchen"},
+    {"keyword": "Water Bath Canning Kit",        "category": "Home & Kitchen"},
+    {"keyword": "Bread Proofing Basket",         "category": "Home & Kitchen"},
+    {"keyword": "Grain Mill Home",               "category": "Home & Kitchen"},
+    {"keyword": "Jerky Maker Machine",           "category": "Home & Kitchen"},
+    {"keyword": "Mandoline Slicer",              "category": "Home & Kitchen"},
+    {"keyword": "Tortilla Press",                "category": "Home & Kitchen"},
+    {"keyword": "Clay Cooking Pot",              "category": "Home & Kitchen"},
+    {"keyword": "Fire Pit Cooking Grate",        "category": "Home & Kitchen"},
+    {"keyword": "Dutch Baby Pan",                "category": "Home & Kitchen"},
+    {"keyword": "Crepe Maker Electric",          "category": "Home & Kitchen"},
+    {"keyword": "Waffle Maker Belgian",          "category": "Home & Kitchen"},
+    {"keyword": "Robot Mop Smart",               "category": "Home & Kitchen"},
+    {"keyword": "Window Cleaning Robot",         "category": "Home & Kitchen"},
+    {"keyword": "Pool Cleaning Robot",           "category": "Home & Kitchen"},
+
+    # ── Pets (30) ─────────────────────────────────────────────────────────────
+    {"keyword": "Dog Probiotic Chews",           "category": "Pets"},
+    {"keyword": "Cat Water Fountain",            "category": "Pets"},
+    {"keyword": "Raw Dog Food",                  "category": "Pets"},
+    {"keyword": "Dog Anxiety Vest",              "category": "Pets"},
+    {"keyword": "Cat GPS Tracker",               "category": "Pets"},
+    {"keyword": "Automatic Cat Feeder",          "category": "Pets"},
+    {"keyword": "Dog DNA Test Kit",              "category": "Pets"},
+    {"keyword": "Pet Camera Treat Dispenser",    "category": "Pets"},
+    {"keyword": "Freeze Dried Dog Food",         "category": "Pets"},
+    {"keyword": "Orthopedic Dog Bed",            "category": "Pets"},
+    {"keyword": "Dog Joint Supplement",          "category": "Pets"},
+    {"keyword": "Dog Omega 3 Supplement",        "category": "Pets"},
+    {"keyword": "Cat Dental Chews",              "category": "Pets"},
+    {"keyword": "Cat Probiotic Supplement",      "category": "Pets"},
+    {"keyword": "Dog CBD Oil",                   "category": "Pets"},
+    {"keyword": "Pet Stroller",                  "category": "Pets"},
+    {"keyword": "Dog Backpack Carrier",          "category": "Pets"},
+    {"keyword": "Cat Backpack Carrier",          "category": "Pets"},
+    {"keyword": "Dog Cooling Mat",               "category": "Pets"},
+    {"keyword": "Dog Life Jacket",               "category": "Pets"},
+    {"keyword": "Automatic Litter Box",          "category": "Pets"},
+    {"keyword": "Bird Feeder Camera",            "category": "Pets"},
+    {"keyword": "Aquarium LED Light",            "category": "Pets"},
+    {"keyword": "Reptile UVB Light",             "category": "Pets"},
+    {"keyword": "Chicken Coop Backyard",         "category": "Pets"},
+    {"keyword": "Beekeeping Starter Kit",        "category": "Pets"},
+    {"keyword": "Cat Grass Kit",                 "category": "Pets"},
+    {"keyword": "Dog Mobility Harness",          "category": "Pets"},
+    {"keyword": "Pet GPS Tracker Collar",        "category": "Pets"},
+    {"keyword": "Dog Treadmill",                 "category": "Pets"},
+
+    # ── Fashion & Apparel (30) ────────────────────────────────────────────────
+    {"keyword": "Linen Clothing",                "category": "Fashion"},
+    {"keyword": "Merino Wool Base Layer",        "category": "Fashion"},
+    {"keyword": "Wide Leg Pants",                "category": "Fashion"},
+    {"keyword": "Bamboo Pajamas",                "category": "Fashion"},
+    {"keyword": "Tactical Pants",                "category": "Fashion"},
+    {"keyword": "Minimalist Sneakers",           "category": "Fashion"},
+    {"keyword": "Crossbody Bag",                 "category": "Fashion"},
+    {"keyword": "Bucket Hat UV Protection",      "category": "Fashion"},
+    {"keyword": "Swim Shorts Quick Dry",         "category": "Fashion"},
+    {"keyword": "Merino Wool Socks",             "category": "Fashion"},
+    {"keyword": "Compression Socks Performance", "category": "Fashion"},
+    {"keyword": "Posture Corrector Brace",       "category": "Fashion"},
+    {"keyword": "Heated Vest",                   "category": "Fashion"},
+    {"keyword": "Cooling Vest",                  "category": "Fashion"},
+    {"keyword": "UV Protection Clothing",        "category": "Fashion"},
+    {"keyword": "Rash Guard SPF Shirt",          "category": "Fashion"},
+    {"keyword": "Trail Running Shorts",          "category": "Fashion"},
+    {"keyword": "Running Vest Hydration",        "category": "Fashion"},
+    {"keyword": "Hiking Pants Convertible",      "category": "Fashion"},
+    {"keyword": "Fleece Lined Leggings",         "category": "Fashion"},
+    {"keyword": "Down Jacket Packable",          "category": "Fashion"},
+    {"keyword": "Rain Jacket Packable",          "category": "Fashion"},
+    {"keyword": "Windbreaker Ultralight",        "category": "Fashion"},
+    {"keyword": "Trail Running Shoes",           "category": "Fashion"},
+    {"keyword": "Barefoot Shoes",                "category": "Fashion"},
+    {"keyword": "Zero Drop Shoes",               "category": "Fashion"},
+    {"keyword": "Chelsea Boots",                 "category": "Fashion"},
+    {"keyword": "Platform Sneakers",             "category": "Fashion"},
+    {"keyword": "Puffer Vest",                   "category": "Fashion"},
+    {"keyword": "Trucker Hat Mesh",              "category": "Fashion"},
+
+    # ── Baby & Kids (25) ─────────────────────────────────────────────────────
+    {"keyword": "Baby Carrier Ergonomic",        "category": "Baby & Kids"},
+    {"keyword": "Convertible Car Seat",          "category": "Baby & Kids"},
+    {"keyword": "Baby Sound Machine",            "category": "Baby & Kids"},
+    {"keyword": "Baby Monitor AI",               "category": "Baby & Kids"},
+    {"keyword": "Baby Food Maker",               "category": "Baby & Kids"},
+    {"keyword": "Silicone Baby Bib",             "category": "Baby & Kids"},
+    {"keyword": "Montessori Toy Set",            "category": "Baby & Kids"},
+    {"keyword": "Sensory Play Kit",              "category": "Baby & Kids"},
+    {"keyword": "Busy Board Toddler",            "category": "Baby & Kids"},
+    {"keyword": "Learning Tower Kitchen Kids",   "category": "Baby & Kids"},
+    {"keyword": "Balance Bike Kids",             "category": "Baby & Kids"},
+    {"keyword": "Wobble Board Kids",             "category": "Baby & Kids"},
+    {"keyword": "Trampoline Indoor Kids",        "category": "Baby & Kids"},
+    {"keyword": "Climbing Frame Indoor",         "category": "Baby & Kids"},
+    {"keyword": "Kinetic Sand Alternative",      "category": "Baby & Kids"},
+    {"keyword": "Magnetic Drawing Board",        "category": "Baby & Kids"},
+    {"keyword": "Audiobook Player Kids",         "category": "Baby & Kids"},
+    {"keyword": "Smartwatch Kids GPS",           "category": "Baby & Kids"},
+    {"keyword": "Diaper Bag Backpack",           "category": "Baby & Kids"},
+    {"keyword": "Stroller Compact Fold",         "category": "Baby & Kids"},
+    {"keyword": "Toddler Snack Container",       "category": "Baby & Kids"},
+    {"keyword": "White Noise Machine Baby",      "category": "Baby & Kids"},
+    {"keyword": "Baby Swing Electric",           "category": "Baby & Kids"},
+    {"keyword": "Nursing Pillow",                "category": "Baby & Kids"},
+    {"keyword": "Toddler Toothbrush Electric",   "category": "Baby & Kids"},
+
+    # ── Outdoor & Adventure (25) ──────────────────────────────────────────────
+    {"keyword": "Packable Hammock",              "category": "Outdoor"},
+    {"keyword": "Ultralight Sleeping Bag",       "category": "Outdoor"},
+    {"keyword": "Bivy Sack",                     "category": "Outdoor"},
+    {"keyword": "Trekking Poles Carbon",         "category": "Outdoor"},
+    {"keyword": "Hiking Water Filter",           "category": "Outdoor"},
+    {"keyword": "Gravity Water Filter",          "category": "Outdoor"},
+    {"keyword": "Solar Shower Bag",              "category": "Outdoor"},
+    {"keyword": "Backpacking Stove",             "category": "Outdoor"},
+    {"keyword": "Bear Canister",                 "category": "Outdoor"},
+    {"keyword": "Headlamp Rechargeable",         "category": "Outdoor"},
+    {"keyword": "Emergency Bivouac Bag",         "category": "Outdoor"},
+    {"keyword": "Fire Starter Kit",              "category": "Outdoor"},
+    {"keyword": "Portable Power Bank Solar",     "category": "Outdoor"},
+    {"keyword": "Hiking Boot Waterproof",        "category": "Outdoor"},
+    {"keyword": "Hydration Pack Backpack",       "category": "Outdoor"},
+    {"keyword": "Tarp Shelter Ultralight",       "category": "Outdoor"},
+    {"keyword": "Orienteering Compass",          "category": "Outdoor"},
+    {"keyword": "Altimeter Watch",               "category": "Outdoor"},
+    {"keyword": "Survival Bracelet",             "category": "Outdoor"},
+    {"keyword": "Kayak Inflatable",              "category": "Outdoor"},
+    {"keyword": "Stand Up Paddle Board",         "category": "Outdoor"},
+    {"keyword": "Snorkel Set",                   "category": "Outdoor"},
+    {"keyword": "Rock Climbing Shoes",           "category": "Outdoor"},
+    {"keyword": "Fly Fishing Starter Kit",       "category": "Outdoor"},
+    {"keyword": "Overlanding Gear",              "category": "Outdoor"},
+
+    # ── Sleep & Recovery (20) ─────────────────────────────────────────────────
+    {"keyword": "Cooling Mattress Topper",       "category": "Sleep"},
+    {"keyword": "Weighted Blanket",              "category": "Sleep"},
+    {"keyword": "Silk Sleep Mask",               "category": "Sleep"},
+    {"keyword": "Nasal Dilator Sleep",           "category": "Sleep"},
+    {"keyword": "Anti Snoring Mouthpiece",       "category": "Sleep"},
+    {"keyword": "Melatonin Gummies",             "category": "Sleep"},
+    {"keyword": "Magnesium Glycinate Sleep",     "category": "Sleep"},
+    {"keyword": "L-Theanine Supplement",         "category": "Sleep"},
+    {"keyword": "Ashwagandha Sleep Supplement",  "category": "Sleep"},
+    {"keyword": "GABA Supplement Sleep",         "category": "Sleep"},
+    {"keyword": "Phosphatidylserine Supplement", "category": "Sleep"},
+    {"keyword": "Sunrise Alarm Clock",           "category": "Sleep"},
+    {"keyword": "Sleep Tracking Ring",           "category": "Sleep"},
+    {"keyword": "Chilipad Alternative",          "category": "Sleep"},
+    {"keyword": "White Noise Machine",           "category": "Sleep"},
+    {"keyword": "Earthing Sheet Grounding",      "category": "Sleep"},
+    {"keyword": "Blackout Curtains",             "category": "Sleep"},
+    {"keyword": "Sleep Apnea Chinstrap",         "category": "Sleep"},
+    {"keyword": "Mouth Guard Night",             "category": "Sleep"},
+    {"keyword": "Chronotype Test",               "category": "Sleep"},
+
+    # ── Coffee & Beverages (20) ───────────────────────────────────────────────
+    {"keyword": "Pour Over Coffee Set",          "category": "Coffee & Beverages"},
+    {"keyword": "Aeropress Coffee Maker",        "category": "Coffee & Beverages"},
+    {"keyword": "Moka Pot Espresso",             "category": "Coffee & Beverages"},
+    {"keyword": "Cold Brew Coffee Maker",        "category": "Coffee & Beverages"},
+    {"keyword": "Nitro Cold Brew Kit",           "category": "Coffee & Beverages"},
+    {"keyword": "Espresso Puck Screen",          "category": "Coffee & Beverages"},
+    {"keyword": "WDT Tool Coffee",               "category": "Coffee & Beverages"},
+    {"keyword": "Coffee Scale Precision",        "category": "Coffee & Beverages"},
+    {"keyword": "Burr Grinder Electric",         "category": "Coffee & Beverages"},
+    {"keyword": "Hand Grinder Coffee",           "category": "Coffee & Beverages"},
+    {"keyword": "Matcha Whisk Set",              "category": "Coffee & Beverages"},
+    {"keyword": "Ceremonial Grade Matcha",       "category": "Coffee & Beverages"},
+    {"keyword": "Mushroom Coffee Mix",           "category": "Coffee & Beverages"},
+    {"keyword": "Adaptogen Coffee",              "category": "Coffee & Beverages"},
+    {"keyword": "Chaga Tea",                     "category": "Coffee & Beverages"},
+    {"keyword": "Barley Tea",                    "category": "Coffee & Beverages"},
+    {"keyword": "Hojicha Powder",                "category": "Coffee & Beverages"},
+    {"keyword": "Butter Coffee Kit",             "category": "Coffee & Beverages"},
+    {"keyword": "French Press Insulated",        "category": "Coffee & Beverages"},
+    {"keyword": "Milk Frother Electric",         "category": "Coffee & Beverages"},
+
+    # ── Sustainability (20) ───────────────────────────────────────────────────
+    {"keyword": "Silicone Food Storage Bags",    "category": "Sustainability"},
+    {"keyword": "Reusable Cotton Rounds",        "category": "Sustainability"},
+    {"keyword": "Bamboo Toothbrush",             "category": "Sustainability"},
+    {"keyword": "Compostable Trash Bags",        "category": "Sustainability"},
+    {"keyword": "Wool Dryer Balls",              "category": "Sustainability"},
+    {"keyword": "Shampoo Bar",                   "category": "Sustainability"},
+    {"keyword": "Solid Conditioner Bar",         "category": "Sustainability"},
+    {"keyword": "Zero Waste Starter Kit",        "category": "Sustainability"},
+    {"keyword": "Menstrual Cup",                 "category": "Sustainability"},
+    {"keyword": "Period Underwear",              "category": "Sustainability"},
+    {"keyword": "Bamboo Paper Towel",            "category": "Sustainability"},
+    {"keyword": "Swedish Dishcloth",             "category": "Sustainability"},
+    {"keyword": "Natural Loofah",                "category": "Sustainability"},
+    {"keyword": "Beeswax Candle",                "category": "Sustainability"},
+    {"keyword": "Soy Candle Making Kit",         "category": "Sustainability"},
+    {"keyword": "Package Free Deodorant",        "category": "Sustainability"},
+    {"keyword": "Refillable Water Bottle",       "category": "Sustainability"},
+    {"keyword": "Biodegradable Glitter",         "category": "Sustainability"},
+    {"keyword": "Reusable Straw Set",            "category": "Sustainability"},
+    {"keyword": "Beeswax Wrap",                  "category": "Sustainability"},
+
+    # ── Mental Health & Focus (20) ────────────────────────────────────────────
+    {"keyword": "Nootropic Supplement",          "category": "Mental Health"},
+    {"keyword": "Alpha GPC Supplement",          "category": "Mental Health"},
+    {"keyword": "Bacopa Monnieri Supplement",    "category": "Mental Health"},
+    {"keyword": "Rhodiola Rosea Supplement",     "category": "Mental Health"},
+    {"keyword": "Panax Ginseng Supplement",      "category": "Mental Health"},
+    {"keyword": "Ginkgo Biloba Supplement",      "category": "Mental Health"},
+    {"keyword": "L-Tyrosine Supplement",         "category": "Mental Health"},
+    {"keyword": "5-HTP Supplement",              "category": "Mental Health"},
+    {"keyword": "St John's Wort Supplement",     "category": "Mental Health"},
+    {"keyword": "SAMe Supplement",               "category": "Mental Health"},
+    {"keyword": "Meditation Headband EEG",       "category": "Mental Health"},
+    {"keyword": "Neurofeedback Device Home",     "category": "Mental Health"},
+    {"keyword": "Vagus Nerve Stimulator",        "category": "Mental Health"},
+    {"keyword": "Biofeedback Device",            "category": "Mental Health"},
+    {"keyword": "Journaling Notebook Guided",    "category": "Mental Health"},
+    {"keyword": "Light Therapy Lamp SAD",        "category": "Mental Health"},
+    {"keyword": "Anxiety Relief Supplement",     "category": "Mental Health"},
+    {"keyword": "Stress Relief Supplement",      "category": "Mental Health"},
+    {"keyword": "Focus Supplement",              "category": "Mental Health"},
+    {"keyword": "Memory Supplement",             "category": "Mental Health"},
 ]
 
 # Seed terms used to discover new keywords per category
@@ -195,6 +503,12 @@ DISCOVERY_SEEDS = {
     "Home & Kitchen":    ["kitchen gadget", "home product", "cooking tool"],
     "Pets":              ["pet product", "dog accessory", "cat product"],
     "Fashion":           ["fashion trend", "clothing style", "accessories"],
+    "Baby & Kids":       ["baby product", "toddler toy", "kids gadget"],
+    "Outdoor":           ["camping gear", "outdoor adventure", "hiking gear"],
+    "Sleep":             ["sleep supplement", "sleep tracker", "sleep aid"],
+    "Coffee & Beverages":["coffee gear", "matcha product", "mushroom drink"],
+    "Sustainability":    ["zero waste product", "eco friendly", "sustainable living"],
+    "Mental Health":     ["nootropic supplement", "focus supplement", "stress relief"],
 }
 
 # Words that indicate a query is not a product (filter these out)
@@ -256,7 +570,7 @@ def classify_momentum(growth: float) -> str:
     return "rising"
 
 
-def is_fading(series: list[float]) -> bool:
+def is_flat(series: list[float]) -> bool:
     """
     Returns True if the keyword's interest has peaked and is meaningfully
     declining — not just seasonal noise.
@@ -270,9 +584,9 @@ def is_fading(series: list[float]) -> bool:
         return False
     peak = max(series)
     if peak < FADING_PEAK_MIN:
-        return False  # Was never notable enough to call it "fading"
+        return False  # Was never notable enough to call it "flat"
 
-    recent   = series[-3:]
+    recent     = series[-3:]
     recent_avg = sum(recent) / len(recent)
     if recent_avg >= peak * FADING_RECENT_RATIO:
         return False  # Still healthy relative to peak
@@ -578,72 +892,97 @@ def fetch_amazon_data(keyword: str) -> dict:
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
+    today = datetime.utcnow().date().isoformat()
+
     # ── 1. Load keyword list ───────────────────────────────────────────────────
     keyword_records = load_keywords()
-    active_records  = [k for k in keyword_records if k.get("status") != "paused"]
-    active_keywords = [k["keyword"] for k in active_records]
     kw_meta         = {k["keyword"]: k for k in keyword_records}
 
-    log.info("Tracking %d active keywords (%d total including paused)",
-             len(active_keywords), len(keyword_records))
+    # Keywords to actively fetch: everything except already-flat ones.
+    # Flat keywords are preserved forever but we skip re-fetching — they keep
+    # their last known trend data so the card stays visible on the dashboard.
+    fetchable_records  = [k for k in keyword_records if k.get("status") != "flat"]
+    fetchable_keywords = [k["keyword"] for k in fetchable_records]
 
-    # ── 2. Fetch Google Trends ─────────────────────────────────────────────────
-    raw = fetch_all_trends(active_keywords)
+    log.info("Tracking %d keywords total (%d active/new, %d flat — skipping re-fetch)",
+             len(keyword_records), len(fetchable_keywords),
+             len(keyword_records) - len(fetchable_keywords))
 
-    # ── 3. Detect fading & update keyword statuses ─────────────────────────────
-    fading_count = 0
-    for rec in keyword_records:
-        if rec.get("status") == "paused":
-            continue
+    # ── 2. Fetch Google Trends (active keywords only) ──────────────────────────
+    raw = fetch_all_trends(fetchable_keywords)
+
+    # ── 3. Detect flat trends & update keyword statuses ────────────────────────
+    flat_count = 0
+    for rec in fetchable_records:
         series = raw.get(rec["keyword"], [])
-        if series and is_fading(series):
-            rec["status"]       = "fading"
-            rec["fading_since"] = datetime.utcnow().date().isoformat()
-            fading_count += 1
-            log.info("📉 Fading: %s", rec["keyword"])
-        elif rec.get("status") == "fading" and series:
-            # Check if it recovered
-            peak = max(series)
+        if series and is_flat(series):
+            if rec.get("status") != "flat":
+                rec["status"]      = "flat"
+                rec["flat_since"]  = today
+                flat_count        += 1
+                log.info("📉 Flat: %s", rec["keyword"])
+        elif rec.get("status") == "flat" and series:
+            # Recovered — reactivate
+            peak       = max(series)
             recent_avg = sum(series[-3:]) / 3
             if recent_avg >= peak * 0.6:
                 rec["status"] = "active"
-                rec.pop("fading_since", None)
+                rec.pop("flat_since", None)
                 log.info("📈 Recovered: %s", rec["keyword"])
 
-    log.info("%d keywords marked as fading", fading_count)
+    log.info("%d keywords newly marked as flat", flat_count)
 
     # ── 4. Discover new keywords ───────────────────────────────────────────────
-    existing_set  = {k["keyword"].lower() for k in keyword_records}
-    new_keywords  = discover_new_keywords(existing_set)
+    existing_set = {k["keyword"].lower() for k in keyword_records}
+    new_keywords = discover_new_keywords(existing_set)
     keyword_records.extend(new_keywords)
     kw_meta.update({k["keyword"]: k for k in new_keywords})
 
-    # ── 5. Fetch Reddit mentions ───────────────────────────────────────────────
+    # ── 5. Fetch Reddit mentions (active keywords only) ────────────────────────
     log.info("Fetching Reddit mentions…")
     reddit_data = {}
-    for i, kw in enumerate(active_keywords):
+    for i, kw in enumerate(fetchable_keywords):
         total, this_week, velocity = fetch_reddit_mentions(kw)
         reddit_data[kw] = {"reddit_30d": total, "reddit_7d": this_week, "reddit_velocity": velocity}
-        if i < len(active_keywords) - 1:
+        if i < len(fetchable_keywords) - 1:
             time.sleep(1.5)
 
-    # ── 6. Fetch Amazon data ───────────────────────────────────────────────────
+    # ── 6. Fetch Amazon data (active keywords only) ────────────────────────────
     log.info("Fetching Amazon data…")
     amazon_data = {}
-    for i, kw in enumerate(active_keywords):
+    for i, kw in enumerate(fetchable_keywords):
         amazon_data[kw] = fetch_amazon_data(kw)
-        if i < len(active_keywords) - 1:
-            time.sleep(random.uniform(2.5, 4.5))   # randomised delay
+        if i < len(fetchable_keywords) - 1:
+            time.sleep(random.uniform(2.5, 4.5))
 
     # ── 7. Build trends output ─────────────────────────────────────────────────
+    # Load the previous cache so flat keywords can carry forward their last data
+    prev_cache = {}
+    if TRENDS_FILE.exists():
+        try:
+            prev = json.loads(TRENDS_FILE.read_text())
+            prev_cache = {k["keyword"]: k for k in prev.get("keywords", [])}
+        except Exception:
+            pass
+
     keywords_out = []
     for idx, rec in enumerate(keyword_records, 1):
         kw     = rec["keyword"]
+        status = rec.get("status", "active")
+
+        if status == "flat" and kw in prev_cache:
+            # Carry forward last known data — only update status/flat_since
+            entry = dict(prev_cache[kw])
+            entry["id"]         = idx
+            entry["status"]     = "flat"
+            entry["flat_since"] = rec.get("flat_since", entry.get("flat_since"))
+            keywords_out.append(entry)
+            continue
+
         series = raw.get(kw, [50] * 12)
         growth = compute_growth(series)
         rd     = reddit_data.get(kw, {})
         amz    = amazon_data.get(kw, {})
-        status = rec.get("status", "active")
 
         keywords_out.append({
             "id":               idx,
@@ -657,11 +996,11 @@ def main():
             "fetched":          datetime.utcnow().isoformat(),
             "is_new":           rec.get("is_new", False),
             "added":            rec.get("added"),
-            "fading_since":     rec.get("fading_since"),
+            "flat_since":       rec.get("flat_since"),
             # Reddit
-            "reddit_30d":           rd.get("reddit_30d", 0),
-            "reddit_7d":            rd.get("reddit_7d", 0),
-            "reddit_velocity":      rd.get("reddit_velocity"),
+            "reddit_30d":       rd.get("reddit_30d", 0),
+            "reddit_7d":        rd.get("reddit_7d", 0),
+            "reddit_velocity":  rd.get("reddit_velocity"),
             # Amazon
             "amazon_result_count":  amz.get("amazon_result_count"),
             "amazon_best_seller":   amz.get("amazon_best_seller", False),
@@ -672,18 +1011,19 @@ def main():
             "amazon_seller_count":  amz.get("amazon_seller_count"),
         })
 
-    # Sort: active first (by growth), then fading
-    keywords_out.sort(key=lambda k: (k["status"] == "fading", -k["growth"]))
+    # Sort: active/new first (by growth desc), flat last
+    keywords_out.sort(key=lambda k: (k["status"] == "flat", -k.get("growth", 0)))
 
-    # ── 7. Save outputs ────────────────────────────────────────────────────────
+    # ── 8. Save outputs ────────────────────────────────────────────────────────
     save_keywords(keyword_records)
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     payload = {"fetched_at": datetime.utcnow().isoformat(), "keywords": keywords_out}
     TRENDS_FILE.write_text(json.dumps(payload, indent=2))
-    amz_ok = sum(1 for k in keywords_out if k.get("amazon_result_count") is not None)
-    log.info("✅ Saved %d keywords to %s (%d fading, %d new discovered, %d with Amazon data)",
-             len(keywords_out), TRENDS_FILE, fading_count, len(new_keywords), amz_ok)
+    amz_ok    = sum(1 for k in keywords_out if k.get("amazon_result_count") is not None)
+    flat_total = sum(1 for k in keywords_out if k.get("status") == "flat")
+    log.info("✅ Saved %d keywords to %s (%d flat, %d new discovered, %d with Amazon data)",
+             len(keywords_out), TRENDS_FILE, flat_total, len(new_keywords), amz_ok)
 
 
 if __name__ == "__main__":
