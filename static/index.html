@@ -245,34 +245,39 @@ async function manualRefresh() {
       </div>
     </div>`;
 
-  // Kick off the refresh on the server
-  fetch('/api/refresh', { method: 'POST' }).catch(() => {});
+  // Kick off the refresh on the server (non-blocking — returns immediately)
+  await fetch('/api/refresh', { method: 'POST' }).catch(() => {});
 
-  // Wait a moment for the server to start fetching, then poll
-  await new Promise(r => setTimeout(r, 1500));
-  progressInterval = setInterval(pollProgress, 2000);
-  pollProgress();
-
-  // Poll /api/progress until status is 'done', then reload data
+  // Poll progress: wait for 'fetching' to begin, then wait for 'done'
   await new Promise(resolve => {
+    let seenFetching = false;
     const check = setInterval(async () => {
       try {
         const p = await fetch('/api/progress').then(r => r.json());
-        if (p.status === 'done' || p.status === 'idle') {
+        // Update the progress bar
+        const fill = document.getElementById('progressFill');
+        const label = document.getElementById('progressLabel');
+        if (fill && label && p.total > 0 && p.status === 'fetching') {
+          seenFetching = true;
+          const pct = Math.min(Math.round(((p.current - 0.5) / p.total) * 100), 95);
+          fill.style.width = pct + '%';
+          label.textContent = p.label || `Batch ${p.current} of ${p.total}…`;
+        }
+        if (p.status === 'fetching') seenFetching = true;
+        if (seenFetching && p.status === 'done') {
           clearInterval(check);
           resolve();
         }
       } catch (_) {}
     }, 2000);
   });
-
   clearInterval(progressInterval);
-  // Flash to 100%
+
+  // Flash to 100% then render
   const fill = document.getElementById('progressFill');
   if (fill) fill.style.width = '100%';
   await new Promise(r => setTimeout(r, 400));
 
-  // Load fresh data and render
   try {
     const res = await fetch('/api/trends');
     const json = await res.json();

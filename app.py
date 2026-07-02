@@ -522,12 +522,14 @@ def api_trends():
 
 @app.route("/api/refresh", methods=["POST"])
 def api_refresh():
-    """Manually trigger a cache refresh (call from admin/cron)."""
-    try:
-        refresh_cache()
-        return jsonify({"ok": True, "message": "Cache refreshed"})
-    except Exception as exc:
-        return jsonify({"ok": False, "error": str(exc)}), 500
+    """Kick off a cache refresh in a background thread and return immediately."""
+    current = read_progress()
+    if current.get("status") == "fetching":
+        return jsonify({"ok": True, "message": "Already fetching"})
+    write_progress(0, 0, "fetching", "Starting…")
+    import threading
+    threading.Thread(target=refresh_cache, daemon=True).start()
+    return jsonify({"ok": True, "message": "Refresh started"})
 
 
 @app.route("/api/progress")
