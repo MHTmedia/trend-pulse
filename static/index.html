@@ -182,28 +182,36 @@ async function pollProgress() {
     const fill = document.getElementById('progressFill');
     const label = document.getElementById('progressLabel');
     if (!fill || !label) return;
-    if (p.total > 0) {
-      const pct = Math.round((p.current / p.total) * 100);
-      fill.style.width = pct + '%';
+    if (p.total > 0 && p.status === 'fetching') {
+      // Leave a little room so 100% only shows when truly done
+      const pct = Math.round(((p.current - 0.5) / p.total) * 100);
+      fill.style.width = Math.min(pct, 95) + '%';
       label.textContent = p.label || `Batch ${p.current} of ${p.total}…`;
     }
   } catch (_) {}
 }
 
 async function loadData() {
-  // Start polling progress every 2s while loading
-  progressInterval = setInterval(pollProgress, 2000);
-  pollProgress();
   try {
+    // Check if a live fetch is in progress before polling
+    const prog = await fetch('/api/progress').then(r => r.json()).catch(() => ({ status: 'idle' }));
+    const isFetching = prog.status === 'fetching';
+
+    if (isFetching) {
+      progressInterval = setInterval(pollProgress, 2000);
+      pollProgress();
+    } else {
+      // Cache hit — hide the progress bar, show a simple message
+      const wrap = document.querySelector('.progress-wrap');
+      if (wrap) wrap.style.display = 'none';
+    }
+
     const res = await fetch('/api/trends');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || 'API error');
+
     clearInterval(progressInterval);
-    // Flash progress to 100% before rendering
-    const fill = document.getElementById('progressFill');
-    if (fill) fill.style.width = '100%';
-    await new Promise(r => setTimeout(r, 400));
     allKeywords = json.keywords;
     fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
     renderApp();
