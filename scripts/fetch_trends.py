@@ -1,156 +1,234 @@
 """
-Standalone script to fetch Google Trends data and write cache/trends.json.
-Run locally or via GitHub Actions — NOT from Railway (datacenter IPs get blocked).
+TrendPulse nightly fetch script.
+- Loads dynamic keyword list from cache/keywords.json (falls back to defaults)
+- Fetches Google Trends + Reddit mentions for all active keywords
+- Detects fading trends and marks them
+- Discovers new rising keywords via pytrends related_queries
+- Writes updated cache/keywords.json and cache/trends.json
+
+Run locally or via GitHub Actions. Do NOT run on Railway (datacenter IPs get blocked).
 
 Usage:
-    pip install pytrends
+    pip install pytrends requests
     python scripts/fetch_trends.py
 """
 
 import json
 import time
 import logging
+import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import requests
 from pytrends.request import TrendReq
 
-# ── Reddit config ─────────────────────────────────────────────────────────────
+# ── Paths ─────────────────────────────────────────────────────────────────────
+CACHE_DIR      = Path("cache")
+TRENDS_FILE    = CACHE_DIR / "trends.json"
+KEYWORDS_FILE  = CACHE_DIR / "keywords.json"
+
+# ── Config ────────────────────────────────────────────────────────────────────
+GEO       = "US"
+TIMEFRAME = "today 12-m"
+
+# Fading: peak must be notable AND recent months must be well below it
+FADING_PEAK_MIN      = 25   # ignore flat/low keywords (noise)
+FADING_RECENT_RATIO  = 0.45  # recent 3-mo avg must be < 45% of peak
+FADING_SLOPE_WINDOW  = 4    # look at last N months for declining slope
+
+# Discovery: how many new keywords to add per run (caps runaway growth)
+MAX_NEW_PER_RUN = 10
+
+# Reddit
 REDDIT_HEADERS = {"User-Agent": "TrendPulse/1.0 (trend research tool)"}
-REDDIT_SUBREDDITS = [
-    "entrepreneur", "ecommerce", "Entrepreneur", "SideProject",
-    "passive_income", "smallbusiness", "amazonmerch", "FulfillmentByAmazon",
-    "dropship", "Fitness", "SkincareAddiction", "femalefashionadvice",
-    "BuyItForLife", "ZeroWaste", "homeimprovement", "gadgets", "Pets",
+
+# ── Default keyword list (used only if keywords.json doesn't exist yet) ───────
+DEFAULT_KEYWORDS = [
+    # Health & Wellness
+    {"keyword": "Creatine Gummies",          "category": "Health & Wellness"},
+    {"keyword": "Mushroom Coffee",            "category": "Health & Wellness"},
+    {"keyword": "Collagen Peptides Powder",   "category": "Health & Wellness"},
+    {"keyword": "Hydrogen Water Bottle",      "category": "Health & Wellness"},
+    {"keyword": "Grounding Mat",              "category": "Health & Wellness"},
+    {"keyword": "Gut Health Test Kit",        "category": "Health & Wellness"},
+    {"keyword": "Magnesium Glycinate",        "category": "Health & Wellness"},
+    {"keyword": "Berberine Supplement",       "category": "Health & Wellness"},
+    {"keyword": "Methylene Blue Supplement",  "category": "Health & Wellness"},
+    {"keyword": "Shilajit Supplement",        "category": "Health & Wellness"},
+    {"keyword": "Sea Moss Gel",               "category": "Health & Wellness"},
+    {"keyword": "Tallow Balm",                "category": "Health & Wellness"},
+    {"keyword": "Beef Liver Supplement",      "category": "Health & Wellness"},
+    {"keyword": "Electrolyte Powder",         "category": "Health & Wellness"},
+    {"keyword": "Adaptogen Supplements",      "category": "Health & Wellness"},
+    {"keyword": "NAD Supplement",             "category": "Health & Wellness"},
+    {"keyword": "Spermidine Supplement",      "category": "Health & Wellness"},
+    {"keyword": "Peptide Supplement",         "category": "Health & Wellness"},
+    {"keyword": "Urolithin A Supplement",     "category": "Health & Wellness"},
+    {"keyword": "Mouth Tape Sleep",           "category": "Health & Wellness"},
+    # Beauty
+    {"keyword": "Beef Tallow Skincare",       "category": "Beauty"},
+    {"keyword": "Peptide Face Serum",         "category": "Beauty"},
+    {"keyword": "Niacinamide Serum",          "category": "Beauty"},
+    {"keyword": "Lash Serum",                 "category": "Beauty"},
+    {"keyword": "LED Face Mask",              "category": "Beauty"},
+    {"keyword": "Retinol Alternative",        "category": "Beauty"},
+    {"keyword": "Snail Mucin Serum",          "category": "Beauty"},
+    {"keyword": "Slugging Skincare",          "category": "Beauty"},
+    {"keyword": "Facial Gua Sha",             "category": "Beauty"},
+    {"keyword": "Ice Roller Face",            "category": "Beauty"},
+    {"keyword": "Lip Filler Alternative",     "category": "Beauty"},
+    {"keyword": "Glass Skin Routine",         "category": "Beauty"},
+    {"keyword": "Body Sunscreen SPF",         "category": "Beauty"},
+    {"keyword": "Scalp Serum Hair",           "category": "Beauty"},
+    {"keyword": "Rosemary Oil Hair Growth",   "category": "Beauty"},
+    {"keyword": "Hair Gloss Treatment",       "category": "Beauty"},
+    {"keyword": "Barrier Repair Moisturizer", "category": "Beauty"},
+    {"keyword": "Blue Light Glasses",         "category": "Beauty"},
+    {"keyword": "Microcurrent Face Device",   "category": "Beauty"},
+    {"keyword": "RF Skin Tightening Device",  "category": "Beauty"},
+    # Fitness
+    {"keyword": "Portable Sauna Blanket",     "category": "Fitness"},
+    {"keyword": "Portable Blender",           "category": "Fitness"},
+    {"keyword": "Barefoot Running Shoes",     "category": "Fitness"},
+    {"keyword": "Whoop Band Alternative",     "category": "Fitness"},
+    {"keyword": "Weighted Vest",              "category": "Fitness"},
+    {"keyword": "Zone 2 Training Monitor",    "category": "Fitness"},
+    {"keyword": "Cold Plunge Tub",            "category": "Fitness"},
+    {"keyword": "Sauna Tent",                 "category": "Fitness"},
+    {"keyword": "Walking Pad Treadmill",      "category": "Fitness"},
+    {"keyword": "Pull Up Bar Doorframe",      "category": "Fitness"},
+    {"keyword": "Resistance Band Set",        "category": "Fitness"},
+    {"keyword": "Massage Gun",                "category": "Fitness"},
+    {"keyword": "Incline Treadmill Walking",  "category": "Fitness"},
+    {"keyword": "Pilates Reformer Home",      "category": "Fitness"},
+    {"keyword": "Rucking Backpack",           "category": "Fitness"},
+    {"keyword": "Battle Rope",                "category": "Fitness"},
+    {"keyword": "Adjustable Dumbbell Set",    "category": "Fitness"},
+    {"keyword": "Gymnastic Rings",            "category": "Fitness"},
+    {"keyword": "Vibration Plate",            "category": "Fitness"},
+    {"keyword": "Foam Roller Electric",       "category": "Fitness"},
+    # Tech & Gadgets
+    {"keyword": "AI Smart Ring",              "category": "Tech"},
+    {"keyword": "Electric Skates",            "category": "Tech"},
+    {"keyword": "Mini Projector",             "category": "Tech"},
+    {"keyword": "AI Pin Wearable",            "category": "Tech"},
+    {"keyword": "Foldable Phone Case",        "category": "Tech"},
+    {"keyword": "Portable Power Station",     "category": "Tech"},
+    {"keyword": "Solar Panel Charger",        "category": "Tech"},
+    {"keyword": "Smart Home Hub",             "category": "Tech"},
+    {"keyword": "Robot Vacuum Mop Combo",     "category": "Tech"},
+    {"keyword": "Air Quality Monitor",        "category": "Tech"},
+    {"keyword": "Wireless Earbuds",           "category": "Tech"},
+    {"keyword": "Dashcam 4K",                 "category": "Tech"},
+    {"keyword": "Action Camera",              "category": "Tech"},
+    {"keyword": "Thermal Camera Phone",       "category": "Tech"},
+    {"keyword": "Smart Glasses",              "category": "Tech"},
+    {"keyword": "Portable Monitor",           "category": "Tech"},
+    {"keyword": "Mechanical Keyboard",        "category": "Tech"},
+    {"keyword": "Standing Desk Mat",          "category": "Tech"},
+    {"keyword": "Cable Management Box",       "category": "Tech"},
+    {"keyword": "Magnetic Phone Mount",       "category": "Tech"},
+    # Home & Kitchen
+    {"keyword": "Water Bottle with Filter",   "category": "Home & Kitchen"},
+    {"keyword": "Freeze Dryer Home",          "category": "Home & Kitchen"},
+    {"keyword": "Air Fryer Accessories",      "category": "Home & Kitchen"},
+    {"keyword": "Countertop Dishwasher",      "category": "Home & Kitchen"},
+    {"keyword": "Sous Vide Machine",          "category": "Home & Kitchen"},
+    {"keyword": "Beeswax Food Wraps",         "category": "Home & Kitchen"},
+    {"keyword": "Dutch Oven Cast Iron",       "category": "Home & Kitchen"},
+    {"keyword": "Bread Maker Machine",        "category": "Home & Kitchen"},
+    {"keyword": "Espresso Machine Home",      "category": "Home & Kitchen"},
+    {"keyword": "Mushroom Growing Kit",       "category": "Home & Kitchen"},
+    {"keyword": "Compost Bin Kitchen",        "category": "Home & Kitchen"},
+    {"keyword": "Water Kefir Kit",            "category": "Home & Kitchen"},
+    {"keyword": "Fermentation Crock",         "category": "Home & Kitchen"},
+    {"keyword": "Dehydrator Machine",         "category": "Home & Kitchen"},
+    {"keyword": "Silicone Baking Mats",       "category": "Home & Kitchen"},
+    {"keyword": "Oil Dispenser Bottle",       "category": "Home & Kitchen"},
+    {"keyword": "Bamboo Cutting Board",       "category": "Home & Kitchen"},
+    {"keyword": "Reusable Produce Bags",      "category": "Home & Kitchen"},
+    {"keyword": "Smart Thermostat",           "category": "Home & Kitchen"},
+    {"keyword": "Cordless Vacuum",            "category": "Home & Kitchen"},
+    # Pets
+    {"keyword": "Dog Probiotic Chews",        "category": "Pets"},
+    {"keyword": "Cat Water Fountain",         "category": "Pets"},
+    {"keyword": "Raw Dog Food",               "category": "Pets"},
+    {"keyword": "Dog Anxiety Vest",           "category": "Pets"},
+    {"keyword": "Cat GPS Tracker",            "category": "Pets"},
+    {"keyword": "Automatic Cat Feeder",       "category": "Pets"},
+    {"keyword": "Dog DNA Test Kit",           "category": "Pets"},
+    {"keyword": "Pet Camera Treat Dispenser", "category": "Pets"},
+    {"keyword": "Freeze Dried Dog Food",      "category": "Pets"},
+    {"keyword": "Orthopedic Dog Bed",         "category": "Pets"},
+    # Fashion & Apparel
+    {"keyword": "Linen Clothing",             "category": "Fashion"},
+    {"keyword": "Merino Wool Base Layer",     "category": "Fashion"},
+    {"keyword": "Wide Leg Pants",             "category": "Fashion"},
+    {"keyword": "Compression Socks",          "category": "Fashion"},
+    {"keyword": "Bamboo Pajamas",             "category": "Fashion"},
+    {"keyword": "Tactical Pants",             "category": "Fashion"},
+    {"keyword": "Minimalist Sneakers",        "category": "Fashion"},
+    {"keyword": "Crossbody Bag",              "category": "Fashion"},
+    {"keyword": "Bucket Hat",                 "category": "Fashion"},
+    {"keyword": "Swim Shorts Quick Dry",      "category": "Fashion"},
 ]
 
-# ── Config (must match app.py) ────────────────────────────────────────────────
-CACHE_FILE = Path("cache/trends.json")
-GEO        = "US"
-TIMEFRAME  = "today 12-m"
-
-TRACKED_KEYWORDS = [
-    # ── Health & Wellness
-    "Creatine Gummies", "Mushroom Coffee", "Collagen Peptides Powder",
-    "Hydrogen Water Bottle", "Grounding Mat", "Gut Health Test Kit",
-    "Magnesium Glycinate", "Berberine Supplement", "Methylene Blue Supplement",
-    "Shilajit Supplement", "Sea Moss Gel", "Tallow Balm", "Beef Liver Supplement",
-    "Electrolyte Powder", "Adaptogen Supplements", "NAD Supplement",
-    "Spermidine Supplement", "Peptide Supplement", "Urolithin A Supplement",
-    "Mouth Tape Sleep",
-    # ── Beauty
-    "Beef Tallow Skincare", "Peptide Face Serum", "Niacinamide Serum",
-    "Lash Serum", "LED Face Mask", "Retinol Alternative", "Snail Mucin Serum",
-    "Slugging Skincare", "Facial Gua Sha", "Ice Roller Face", "Lip Filler Alternative",
-    "Glass Skin Routine", "Body Sunscreen SPF", "Scalp Serum Hair",
-    "Rosemary Oil Hair Growth", "Hair Gloss Treatment", "Barrier Repair Moisturizer",
-    "Blue Light Glasses", "Microcurrent Face Device", "RF Skin Tightening Device",
-    # ── Fitness
-    "Portable Sauna Blanket", "Portable Blender", "Barefoot Running Shoes",
-    "Whoop Band Alternative", "Weighted Vest", "Zone 2 Training Monitor",
-    "Cold Plunge Tub", "Sauna Tent", "Walking Pad Treadmill", "Pull Up Bar Doorframe",
-    "Resistance Band Set", "Massage Gun", "Incline Treadmill Walking",
-    "Pilates Reformer Home", "Rucking Backpack", "Battle Rope",
-    "Adjustable Dumbbell Set", "Gymnastic Rings", "Vibration Plate", "Foam Roller Electric",
-    # ── Tech & Gadgets
-    "AI Smart Ring", "Electric Skates", "Mini Projector", "AI Pin Wearable",
-    "Foldable Phone Case", "Portable Power Station", "Solar Panel Charger",
-    "Smart Home Hub", "Robot Vacuum Mop Combo", "Air Quality Monitor",
-    "Wireless Earbuds", "Dashcam 4K", "Action Camera", "Thermal Camera Phone",
-    "Smart Glasses", "Portable Monitor", "Mechanical Keyboard",
-    "Standing Desk Mat", "Cable Management Box", "Magnetic Phone Mount",
-    # ── Home & Kitchen
-    "Water Bottle with Filter", "Freeze Dryer Home", "Air Fryer Accessories",
-    "Countertop Dishwasher", "Sous Vide Machine", "Beeswax Food Wraps",
-    "Dutch Oven Cast Iron", "Bread Maker Machine", "Espresso Machine Home",
-    "Mushroom Growing Kit", "Compost Bin Kitchen", "Water Kefir Kit",
-    "Fermentation Crock", "Dehydrator Machine", "Silicone Baking Mats",
-    "Oil Dispenser Bottle", "Bamboo Cutting Board", "Reusable Produce Bags",
-    "Smart Thermostat", "Cordless Vacuum",
-    # ── Pets
-    "Dog Probiotic Chews", "Cat Water Fountain", "Raw Dog Food", "Dog Anxiety Vest",
-    "Cat GPS Tracker", "Automatic Cat Feeder", "Dog DNA Test Kit",
-    "Pet Camera Treat Dispenser", "Freeze Dried Dog Food", "Orthopedic Dog Bed",
-    # ── Fashion & Apparel
-    "Linen Clothing", "Merino Wool Base Layer", "Wide Leg Pants",
-    "Compression Socks", "Bamboo Pajamas", "Tactical Pants",
-    "Minimalist Sneakers", "Crossbody Bag", "Bucket Hat", "Swim Shorts Quick Dry",
-]
-
-CATEGORY_MAP = {
-    "Creatine Gummies": "Health & Wellness", "Mushroom Coffee": "Health & Wellness",
-    "Collagen Peptides Powder": "Health & Wellness", "Hydrogen Water Bottle": "Health & Wellness",
-    "Grounding Mat": "Health & Wellness", "Gut Health Test Kit": "Health & Wellness",
-    "Magnesium Glycinate": "Health & Wellness", "Berberine Supplement": "Health & Wellness",
-    "Methylene Blue Supplement": "Health & Wellness", "Shilajit Supplement": "Health & Wellness",
-    "Sea Moss Gel": "Health & Wellness", "Tallow Balm": "Health & Wellness",
-    "Beef Liver Supplement": "Health & Wellness", "Electrolyte Powder": "Health & Wellness",
-    "Adaptogen Supplements": "Health & Wellness", "NAD Supplement": "Health & Wellness",
-    "Spermidine Supplement": "Health & Wellness", "Peptide Supplement": "Health & Wellness",
-    "Urolithin A Supplement": "Health & Wellness", "Mouth Tape Sleep": "Health & Wellness",
-    "Beef Tallow Skincare": "Beauty", "Peptide Face Serum": "Beauty",
-    "Niacinamide Serum": "Beauty", "Lash Serum": "Beauty", "LED Face Mask": "Beauty",
-    "Retinol Alternative": "Beauty", "Snail Mucin Serum": "Beauty",
-    "Slugging Skincare": "Beauty", "Facial Gua Sha": "Beauty", "Ice Roller Face": "Beauty",
-    "Lip Filler Alternative": "Beauty", "Glass Skin Routine": "Beauty",
-    "Body Sunscreen SPF": "Beauty", "Scalp Serum Hair": "Beauty",
-    "Rosemary Oil Hair Growth": "Beauty", "Hair Gloss Treatment": "Beauty",
-    "Barrier Repair Moisturizer": "Beauty", "Blue Light Glasses": "Beauty",
-    "Microcurrent Face Device": "Beauty", "RF Skin Tightening Device": "Beauty",
-    "Portable Sauna Blanket": "Fitness", "Portable Blender": "Fitness",
-    "Barefoot Running Shoes": "Fitness", "Whoop Band Alternative": "Fitness",
-    "Weighted Vest": "Fitness", "Zone 2 Training Monitor": "Fitness",
-    "Cold Plunge Tub": "Fitness", "Sauna Tent": "Fitness",
-    "Walking Pad Treadmill": "Fitness", "Pull Up Bar Doorframe": "Fitness",
-    "Resistance Band Set": "Fitness", "Massage Gun": "Fitness",
-    "Incline Treadmill Walking": "Fitness", "Pilates Reformer Home": "Fitness",
-    "Rucking Backpack": "Fitness", "Battle Rope": "Fitness",
-    "Adjustable Dumbbell Set": "Fitness", "Gymnastic Rings": "Fitness",
-    "Vibration Plate": "Fitness", "Foam Roller Electric": "Fitness",
-    "AI Smart Ring": "Tech", "Electric Skates": "Tech", "Mini Projector": "Tech",
-    "AI Pin Wearable": "Tech", "Foldable Phone Case": "Tech",
-    "Portable Power Station": "Tech", "Solar Panel Charger": "Tech",
-    "Smart Home Hub": "Tech", "Robot Vacuum Mop Combo": "Tech",
-    "Air Quality Monitor": "Tech", "Wireless Earbuds": "Tech", "Dashcam 4K": "Tech",
-    "Action Camera": "Tech", "Thermal Camera Phone": "Tech", "Smart Glasses": "Tech",
-    "Portable Monitor": "Tech", "Mechanical Keyboard": "Tech",
-    "Standing Desk Mat": "Tech", "Cable Management Box": "Tech",
-    "Magnetic Phone Mount": "Tech",
-    "Water Bottle with Filter": "Home & Kitchen", "Freeze Dryer Home": "Home & Kitchen",
-    "Air Fryer Accessories": "Home & Kitchen", "Countertop Dishwasher": "Home & Kitchen",
-    "Sous Vide Machine": "Home & Kitchen", "Beeswax Food Wraps": "Home & Kitchen",
-    "Dutch Oven Cast Iron": "Home & Kitchen", "Bread Maker Machine": "Home & Kitchen",
-    "Espresso Machine Home": "Home & Kitchen", "Mushroom Growing Kit": "Home & Kitchen",
-    "Compost Bin Kitchen": "Home & Kitchen", "Water Kefir Kit": "Home & Kitchen",
-    "Fermentation Crock": "Home & Kitchen", "Dehydrator Machine": "Home & Kitchen",
-    "Silicone Baking Mats": "Home & Kitchen", "Oil Dispenser Bottle": "Home & Kitchen",
-    "Bamboo Cutting Board": "Home & Kitchen", "Reusable Produce Bags": "Home & Kitchen",
-    "Smart Thermostat": "Home & Kitchen", "Cordless Vacuum": "Home & Kitchen",
-    "Dog Probiotic Chews": "Pets", "Cat Water Fountain": "Pets", "Raw Dog Food": "Pets",
-    "Dog Anxiety Vest": "Pets", "Cat GPS Tracker": "Pets", "Automatic Cat Feeder": "Pets",
-    "Dog DNA Test Kit": "Pets", "Pet Camera Treat Dispenser": "Pets",
-    "Freeze Dried Dog Food": "Pets", "Orthopedic Dog Bed": "Pets",
-    "Linen Clothing": "Fashion", "Merino Wool Base Layer": "Fashion",
-    "Wide Leg Pants": "Fashion", "Compression Socks": "Fashion",
-    "Bamboo Pajamas": "Fashion", "Tactical Pants": "Fashion",
-    "Minimalist Sneakers": "Fashion", "Crossbody Bag": "Fashion",
-    "Bucket Hat": "Fashion", "Swim Shorts Quick Dry": "Fashion",
+# Seed terms used to discover new keywords per category
+DISCOVERY_SEEDS = {
+    "Health & Wellness": ["health supplement", "wellness product", "biohacking"],
+    "Beauty":            ["skincare product", "beauty trend", "hair care"],
+    "Fitness":           ["fitness equipment", "home gym", "workout gear"],
+    "Tech":              ["tech gadget", "smart device", "wearable tech"],
+    "Home & Kitchen":    ["kitchen gadget", "home product", "cooking tool"],
+    "Pets":              ["pet product", "dog accessory", "cat product"],
+    "Fashion":           ["fashion trend", "clothing style", "accessories"],
 }
 
-# ── Helpers (match app.py logic exactly) ─────────────────────────────────────
+# Words that indicate a query is not a product (filter these out)
+NON_PRODUCT_PATTERNS = re.compile(
+    r"\b(how to|what is|where to|why|who|when|best|review|vs|versus|near me|"
+    r"recipe|tutorial|ideas|tips|guide|meaning|definition|price)\b",
+    re.IGNORECASE,
+)
+
+# ── Logging ───────────────────────────────────────────────────────────────────
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
 
-def compute_growth(series):
+# ── Keyword list management ───────────────────────────────────────────────────
+
+def load_keywords() -> list[dict]:
+    """Load keywords.json, or fall back to defaults."""
+    if KEYWORDS_FILE.exists():
+        try:
+            data = json.loads(KEYWORDS_FILE.read_text())
+            log.info("Loaded %d keywords from %s", len(data), KEYWORDS_FILE)
+            return data
+        except Exception as e:
+            log.warning("Could not read keywords.json (%s) — using defaults", e)
+    log.info("No keywords.json found — using default list (%d keywords)", len(DEFAULT_KEYWORDS))
+    return [dict(k, status="active", added=datetime.utcnow().date().isoformat())
+            for k in DEFAULT_KEYWORDS]
+
+
+def save_keywords(keywords: list[dict]) -> None:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    KEYWORDS_FILE.write_text(json.dumps(keywords, indent=2))
+    log.info("Saved %d keywords to %s", len(keywords), KEYWORDS_FILE)
+
+
+# ── Trend analysis ────────────────────────────────────────────────────────────
+
+def compute_growth(series: list[float]) -> float:
     non_zero = [v for v in series if v > 0]
     if len(non_zero) < 2:
         return 0.0
     return round(((series[-1] - non_zero[0]) / non_zero[0]) * 100, 1)
 
 
-def trend_score(series, growth):
+def trend_score(series: list[float], growth: float) -> int:
     if not series:
         return 0
     recency  = series[-1]
@@ -158,7 +236,7 @@ def trend_score(series, growth):
     return min(100, max(0, round(0.6 * recency + 0.4 * momentum)))
 
 
-def classify_status(growth):
+def classify_momentum(growth: float) -> str:
     if growth >= 1000:
         return "breakout"
     if growth >= 200:
@@ -166,7 +244,36 @@ def classify_status(growth):
     return "rising"
 
 
-def fetch_batch(pytrends, batch):
+def is_fading(series: list[float]) -> bool:
+    """
+    Returns True if the keyword's interest has peaked and is meaningfully
+    declining — not just seasonal noise.
+
+    Criteria:
+      1. Peak was significant (reached FADING_PEAK_MIN at some point)
+      2. Recent 3-month average is below FADING_RECENT_RATIO of the peak
+      3. The last FADING_SLOPE_WINDOW months show a declining slope
+    """
+    if len(series) < 6:
+        return False
+    peak = max(series)
+    if peak < FADING_PEAK_MIN:
+        return False  # Was never notable enough to call it "fading"
+
+    recent   = series[-3:]
+    recent_avg = sum(recent) / len(recent)
+    if recent_avg >= peak * FADING_RECENT_RATIO:
+        return False  # Still healthy relative to peak
+
+    # Check slope of last N months is negative
+    window = series[-FADING_SLOPE_WINDOW:]
+    slope  = window[-1] - window[0]
+    return slope < 0
+
+
+# ── Google Trends fetching ────────────────────────────────────────────────────
+
+def fetch_batch(pytrends: TrendReq, batch: list[str]) -> dict:
     results = {}
     try:
         pytrends.build_payload(batch, timeframe=TIMEFRAME, geo=GEO)
@@ -214,115 +321,202 @@ def fetch_batch(pytrends, batch):
     return results
 
 
-def fetch_reddit_mentions(keyword):
+def fetch_all_trends(keywords: list[str]) -> dict:
+    """Fetch Google Trends for all keywords. Returns {keyword: [monthly series]}."""
+    pytrends = TrendReq(hl="en-US", tz=360, timeout=(10, 25))
+    raw = {}
+    batch_size = 5
+    batches = [keywords[i:i+batch_size] for i in range(0, len(keywords), batch_size)]
+    for i, batch in enumerate(batches, 1):
+        log.info("Google Trends batch %d/%d", i, len(batches))
+        raw.update(fetch_batch(pytrends, batch))
+        if i < len(batches):
+            time.sleep(12)
+    return raw
+
+
+# ── Keyword discovery ─────────────────────────────────────────────────────────
+
+def looks_like_product(query: str) -> bool:
+    """Heuristic: filter out questions, how-tos, and non-product searches."""
+    q = query.strip()
+    if len(q) < 4 or len(q) > 60:
+        return False
+    if NON_PRODUCT_PATTERNS.search(q):
+        return False
+    # Must contain at least one letter (no pure numbers/symbols)
+    if not re.search(r"[a-zA-Z]{3}", q):
+        return False
+    return True
+
+
+def discover_new_keywords(existing_keywords: set[str]) -> list[dict]:
     """
-    Search Reddit's public JSON API for a keyword.
-    Returns (total_30d, mentions_this_week, mentions_last_week).
-    No API key needed — uses the public search endpoint.
+    Use pytrends related_queries to find rising product keywords
+    not already in our list.
     """
-    now = datetime.now(timezone.utc)
+    pytrends    = TrendReq(hl="en-US", tz=360, timeout=(10, 25))
+    discovered  = []
+    seen        = set(k.lower() for k in existing_keywords)
+
+    for category, seeds in DISCOVERY_SEEDS.items():
+        for seed in seeds:
+            try:
+                log.info("Discovering via seed: '%s' (%s)", seed, category)
+                pytrends.build_payload([seed], timeframe="today 3-m", geo=GEO)
+                related = pytrends.related_queries()
+                rising  = related.get(seed, {}).get("rising")
+                if rising is None or rising.empty:
+                    time.sleep(5)
+                    continue
+
+                for _, row in rising.iterrows():
+                    query = str(row.get("query", "")).strip()
+                    if (query.lower() not in seen
+                            and looks_like_product(query)
+                            and len(discovered) < MAX_NEW_PER_RUN):
+                        discovered.append({
+                            "keyword":  query.title(),
+                            "category": category,
+                            "status":   "active",
+                            "added":    datetime.utcnow().date().isoformat(),
+                            "is_new":   True,
+                        })
+                        seen.add(query.lower())
+                        log.info("  🆕 Discovered: %s (%s)", query, category)
+
+                time.sleep(8)
+            except Exception as exc:
+                log.warning("Discovery failed for '%s': %s", seed, exc)
+                time.sleep(5)
+
+    log.info("Discovered %d new keywords", len(discovered))
+    return discovered
+
+
+# ── Reddit ────────────────────────────────────────────────────────────────────
+
+def fetch_reddit_mentions(keyword: str) -> tuple[int, int, float | None]:
+    now       = datetime.now(timezone.utc)
     week_ago  = now - timedelta(days=7)
     month_ago = now - timedelta(days=30)
-
-    total_30d     = 0
-    this_week     = 0
-    last_week     = 0
-
+    total_30d = this_week = last_week = 0
     try:
-        url = "https://www.reddit.com/search.json"
-        params = {
-            "q":      keyword,
-            "sort":   "new",
-            "limit":  100,
-            "t":      "month",
-            "type":   "link",
-        }
-        resp = requests.get(url, params=params, headers=REDDIT_HEADERS, timeout=10)
+        resp = requests.get(
+            "https://www.reddit.com/search.json",
+            params={"q": keyword, "sort": "new", "limit": 100, "t": "month", "type": "link"},
+            headers=REDDIT_HEADERS,
+            timeout=10,
+        )
         if resp.status_code != 200:
-            log.warning("Reddit search returned %s for '%s'", resp.status_code, keyword)
-            return 0, 0, 0
-
-        posts = resp.json().get("data", {}).get("children", [])
-        for post in posts:
+            return 0, 0, None
+        for post in resp.json().get("data", {}).get("children", []):
             created = datetime.fromtimestamp(post["data"]["created_utc"], tz=timezone.utc)
             if created >= month_ago:
                 total_30d += 1
             if created >= week_ago:
                 this_week += 1
-            elif created >= (week_ago - timedelta(days=7)):
+            elif created >= week_ago - timedelta(days=7):
                 last_week += 1
-
-        log.info("  Reddit '%s': %d/30d, %d this week, %d last week",
-                 keyword, total_30d, this_week, last_week)
     except Exception as exc:
         log.warning("Reddit fetch failed for '%s': %s", keyword, exc)
+    velocity = None
+    if this_week > 0 or last_week > 0:
+        velocity = 100.0 if last_week == 0 else round(((this_week - last_week) / last_week) * 100, 1)
+    log.info("  Reddit '%s': %d/30d  %d this week", keyword, total_30d, this_week)
+    return total_30d, this_week, velocity
 
-    return total_30d, this_week, last_week
 
-
-def reddit_velocity(this_week, last_week):
-    """Week-over-week change as a percentage. None if no data."""
-    if last_week == 0 and this_week == 0:
-        return None
-    if last_week == 0:
-        return 100.0  # new signal
-    return round(((this_week - last_week) / last_week) * 100, 1)
-
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    log.info("Starting trend fetch for %d keywords…", len(TRACKED_KEYWORDS))
+    # ── 1. Load keyword list ───────────────────────────────────────────────────
+    keyword_records = load_keywords()
+    active_records  = [k for k in keyword_records if k.get("status") != "paused"]
+    active_keywords = [k["keyword"] for k in active_records]
+    kw_meta         = {k["keyword"]: k for k in keyword_records}
 
-    # ── Step 1: Google Trends ──────────────────────────────────────────────────
-    pytrends = TrendReq(hl="en-US", tz=360, timeout=(10, 25))
-    raw = {}
-    batch_size = 5
-    batches = [TRACKED_KEYWORDS[i:i+batch_size] for i in range(0, len(TRACKED_KEYWORDS), batch_size)]
+    log.info("Tracking %d active keywords (%d total including paused)",
+             len(active_keywords), len(keyword_records))
 
-    for i, batch in enumerate(batches, 1):
-        log.info("Google Trends batch %d/%d: %s", i, len(batches), batch)
-        raw.update(fetch_batch(pytrends, batch))
-        if i < len(batches):
-            time.sleep(12)
+    # ── 2. Fetch Google Trends ─────────────────────────────────────────────────
+    raw = fetch_all_trends(active_keywords)
 
-    # ── Step 2: Reddit mentions ────────────────────────────────────────────────
-    log.info("Fetching Reddit mentions for %d keywords…", len(TRACKED_KEYWORDS))
+    # ── 3. Detect fading & update keyword statuses ─────────────────────────────
+    fading_count = 0
+    for rec in keyword_records:
+        if rec.get("status") == "paused":
+            continue
+        series = raw.get(rec["keyword"], [])
+        if series and is_fading(series):
+            rec["status"]       = "fading"
+            rec["fading_since"] = datetime.utcnow().date().isoformat()
+            fading_count += 1
+            log.info("📉 Fading: %s", rec["keyword"])
+        elif rec.get("status") == "fading" and series:
+            # Check if it recovered
+            peak = max(series)
+            recent_avg = sum(series[-3:]) / 3
+            if recent_avg >= peak * 0.6:
+                rec["status"] = "active"
+                rec.pop("fading_since", None)
+                log.info("📈 Recovered: %s", rec["keyword"])
+
+    log.info("%d keywords marked as fading", fading_count)
+
+    # ── 4. Discover new keywords ───────────────────────────────────────────────
+    existing_set  = {k["keyword"].lower() for k in keyword_records}
+    new_keywords  = discover_new_keywords(existing_set)
+    keyword_records.extend(new_keywords)
+    kw_meta.update({k["keyword"]: k for k in new_keywords})
+
+    # ── 5. Fetch Reddit mentions ───────────────────────────────────────────────
+    log.info("Fetching Reddit mentions…")
     reddit_data = {}
-    for i, kw in enumerate(TRACKED_KEYWORDS):
-        total, this_week, last_week = fetch_reddit_mentions(kw)
-        reddit_data[kw] = {
-            "mentions_30d":   total,
-            "mentions_7d":    this_week,
-            "velocity":       reddit_velocity(this_week, last_week),
-        }
-        if i < len(TRACKED_KEYWORDS) - 1:
-            time.sleep(1.5)  # be polite to Reddit
+    for i, kw in enumerate(active_keywords):
+        total, this_week, velocity = fetch_reddit_mentions(kw)
+        reddit_data[kw] = {"reddit_30d": total, "reddit_7d": this_week, "reddit_velocity": velocity}
+        if i < len(active_keywords) - 1:
+            time.sleep(1.5)
 
-    # ── Step 3: Build output ───────────────────────────────────────────────────
+    # ── 6. Build trends output ─────────────────────────────────────────────────
     keywords_out = []
-    for idx, kw in enumerate(TRACKED_KEYWORDS, 1):
+    for idx, rec in enumerate(keyword_records, 1):
+        kw     = rec["keyword"]
         series = raw.get(kw, [50] * 12)
         growth = compute_growth(series)
-        rd = reddit_data.get(kw, {})
+        rd     = reddit_data.get(kw, {})
+        status = rec.get("status", "active")
+
         keywords_out.append({
-            "id":             idx,
-            "keyword":        kw,
-            "category":       CATEGORY_MAP.get(kw, "General"),
-            "status":         classify_status(growth),
-            "growth":         growth,
-            "score":          trend_score(series, growth),
-            "trend":          series,
-            "fetched":        datetime.utcnow().isoformat(),
-            "reddit_30d":     rd.get("mentions_30d", 0),
-            "reddit_7d":      rd.get("mentions_7d", 0),
-            "reddit_velocity": rd.get("velocity"),
+            "id":               idx,
+            "keyword":          kw,
+            "category":         rec.get("category", "General"),
+            "status":           status,                    # active / fading / paused
+            "momentum":         classify_momentum(growth), # breakout / hot / rising
+            "growth":           growth,
+            "score":            trend_score(series, growth),
+            "trend":            series,
+            "fetched":          datetime.utcnow().isoformat(),
+            "is_new":           rec.get("is_new", False),
+            "added":            rec.get("added"),
+            "fading_since":     rec.get("fading_since"),
+            "reddit_30d":       rd.get("reddit_30d", 0),
+            "reddit_7d":        rd.get("reddit_7d", 0),
+            "reddit_velocity":  rd.get("reddit_velocity"),
         })
 
-    keywords_out.sort(key=lambda k: k["growth"], reverse=True)
+    # Sort: active first (by growth), then fading
+    keywords_out.sort(key=lambda k: (k["status"] == "fading", -k["growth"]))
 
-    CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    # ── 7. Save outputs ────────────────────────────────────────────────────────
+    save_keywords(keyword_records)
+
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
     payload = {"fetched_at": datetime.utcnow().isoformat(), "keywords": keywords_out}
-    CACHE_FILE.write_text(json.dumps(payload, indent=2))
-    log.info("✅ Saved %d keywords to %s", len(keywords_out), CACHE_FILE)
+    TRENDS_FILE.write_text(json.dumps(payload, indent=2))
+    log.info("✅ Saved %d keywords to %s (%d fading, %d new discovered)",
+             len(keywords_out), TRENDS_FILE, fading_count, len(new_keywords))
 
 
 if __name__ == "__main__":

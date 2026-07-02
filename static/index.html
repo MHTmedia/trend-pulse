@@ -84,6 +84,9 @@
   .badge-rising { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
   .badge-hot { background: rgba(249,115,22,0.15); color: var(--orange); border: 1px solid rgba(249,115,22,0.25); }
   .badge-cat { background: rgba(100,116,139,0.15); color: var(--muted); border: 1px solid var(--border); }
+  .badge-fading { background: rgba(100,116,139,0.12); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
+  .card.fading { opacity: 0.65; }
+  .card.fading:hover { opacity: 0.85; }
   .growth-pill { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
   .growth-pill.up { background: rgba(34,197,94,0.15); color: var(--green); }
   .growth-pill.breakout { background: rgba(99,102,241,0.2); color: var(--accent); }
@@ -199,19 +202,25 @@ function fmtGrowth(g) {
 }
 
 function trendColor(status) {
-  return status === 'breakout' ? '#6366f1' : status === 'hot' ? '#f97316' : '#22c55e';
+  if (status === 'breakout') return '#6366f1';
+  if (status === 'hot')      return '#f97316';
+  if (status === 'fading')   return '#64748b';
+  return '#22c55e';
 }
 
 function badgeHTML(k) {
   let b = `<span class="badge badge-cat">${k.category}</span>`;
-  if (k.status === 'breakout') b += `<span class="badge badge-breakout">🚀 Breakout</span>`;
-  else if (k.status === 'hot')  b += `<span class="badge badge-hot">🔥 Hot</span>`;
-  else                          b += `<span class="badge badge-rising">↗ Rising</span>`;
+  if (k.status === 'fading')   b += `<span class="badge badge-fading">📉 Losing Steam</span>`;
+  else if (k.status === 'breakout') b += `<span class="badge badge-breakout">🚀 Breakout</span>`;
+  else if (k.status === 'hot') b += `<span class="badge badge-hot">🔥 Hot</span>`;
+  else                         b += `<span class="badge badge-rising">↗ Rising</span>`;
   return b;
 }
 
 function pillClass(k) {
-  return k.status === 'breakout' ? 'breakout' : 'up';
+  if (k.status === 'breakout') return 'breakout';
+  if (k.status === 'fading')   return '';
+  return 'up';
 }
 
 function redditRowHTML(k) {
@@ -234,14 +243,20 @@ function redditRowHTML(k) {
 
 // ── Filtering / Sorting ───────────────────────────────────────────────────────
 function getCategories() {
-  return ['All', ...new Set(allKeywords.map(k => k.category)).values()];
+  const cats = ['All', ...new Set(allKeywords.filter(k => k.status !== 'fading').map(k => k.category)).values()];
+  if (allKeywords.some(k => k.status === 'fading')) cats.push('Fading');
+  return cats;
 }
 
 function getFiltered() {
   const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
   let data = allKeywords.filter(k => {
-    const matchCat = activeFilter === 'All' || k.category === activeFilter;
-    const matchQ   = !q || k.keyword.toLowerCase().includes(q) || k.category.toLowerCase().includes(q);
+    const matchCat = activeFilter === 'All'
+      ? k.status !== 'fading'
+      : activeFilter === 'Fading'
+        ? k.status === 'fading'
+        : k.category === activeFilter && k.status !== 'fading';
+    const matchQ = !q || k.keyword.toLowerCase().includes(q) || k.category.toLowerCase().includes(q);
     return matchCat && matchQ;
   });
   const sorts = {
@@ -330,7 +345,7 @@ function renderCards() {
   const months = ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
 
   grid.innerHTML = data.map(k => `
-    <div class="card" onclick="openModal(${k.id})">
+    <div class="card${k.status === 'fading' ? ' fading' : ''}" onclick="openModal(${k.id})">
       <div class="card-top">
         <div>
           <div class="card-keyword">${k.keyword}</div>
