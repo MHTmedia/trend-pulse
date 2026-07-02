@@ -386,8 +386,21 @@ def trend_score(series: list[float], growth: float) -> int:
     return min(100, max(0, round(score)))
 
 
-# Global fetch progress state
-fetch_progress = {"current": 0, "total": 0, "status": "idle", "label": ""}
+PROGRESS_FILE = Path("cache/progress.json")
+
+def write_progress(current: int, total: int, status: str, label: str) -> None:
+    PROGRESS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    PROGRESS_FILE.write_text(json.dumps({
+        "current": current, "total": total, "status": status, "label": label
+    }))
+
+def read_progress() -> dict:
+    try:
+        if PROGRESS_FILE.exists():
+            return json.loads(PROGRESS_FILE.read_text())
+    except Exception:
+        pass
+    return {"current": 0, "total": 0, "status": "idle", "label": ""}
 
 
 def fetch_all_trends() -> list[dict]:
@@ -399,13 +412,12 @@ def fetch_all_trends() -> list[dict]:
     # pytrends max 5 keywords per request
     batch_size = 5
     total_batches = -(-len(TRACKED_KEYWORDS) // batch_size)
-    fetch_progress = {"current": 0, "total": total_batches, "status": "fetching", "label": "Starting…"}
+    write_progress(0, total_batches, "fetching", "Starting…")
 
     for i in range(0, len(TRACKED_KEYWORDS), batch_size):
         batch = TRACKED_KEYWORDS[i:i + batch_size]
         batch_num = i // batch_size + 1
-        fetch_progress["current"] = batch_num
-        fetch_progress["label"] = f"Fetching batch {batch_num} of {total_batches}…"
+        write_progress(batch_num, total_batches, "fetching", f"Fetching batch {batch_num} of {total_batches}…")
         log.info("Fetching batch %d/%d: %s", batch_num, total_batches, batch)
         batch_result = fetch_trends_for_batch(pytrends, batch)
         raw.update(batch_result)
@@ -429,20 +441,18 @@ def fetch_all_trends() -> list[dict]:
 
     # Sort by growth descending
     keywords_out.sort(key=lambda k: k["growth"], reverse=True)
-    fetch_progress["status"] = "done"
-    fetch_progress["current"] = total_batches
-    fetch_progress["label"] = "Done"
+    write_progress(total_batches, total_batches, "done", "Done")
     return keywords_out
 
 
-def load_cache() -> Optional[dict]:
-    """Return cached data if fresh, else None."""
+def load_cache(ignore_ttl: bool = False) -> Optional[dict]:
+    """Return cached data if fresh (or any cache if ignore_ttl=True), else None."""
     if not CACHE_FILE.exists():
         return None
     try:
         data = json.loads(CACHE_FILE.read_text())
         fetched_at = datetime.fromisoformat(data["fetched_at"])
-        if datetime.utcnow() - fetched_at < timedelta(hours=CACHE_TTL_H):
+        if ignore_ttl or datetime.utcnow() - fetched_at < timedelta(hours=CACHE_TTL_H):
             return data
     except Exception:
         pass
@@ -468,16 +478,26 @@ def refresh_cache() -> None:
         log.error("Cache refresh failed: %s", exc)
 
 
-def get_trends() -> list[dict]:
-    """Return trends from cache, refreshing if stale/missing."""
+def get_trends() -> tuple[list[dict], Optional[str]]:
+    """Return (keywords, stale_since) — stale_since is set if serving old cache."""
     cached = load_cache()
     if cached:
         log.info("Serving from cache (fetched %s)", cached["fetched_at"])
-        return cached["keywords"]
-    log.info("Cache miss — fetching live data")
-    keywords = fetch_all_trends()
-    save_cache(keywords)
-    return keywords
+        return cached["keywords"], None
+    # Try live fetch
+    try:
+        log.info("Cache miss — fetching live data")
+        keywords = fetch_all_trends()
+        save_cache(keywords)
+        return keywords, None
+    except Exception as exc:
+        log.error("Live fetch failed: %s", exc)
+        # Fall back to stale cache if it exists
+        stale = load_cache(ignore_ttl=True)
+        if stale:
+            log.warning("Serving stale cache from %s", stale["fetched_at"])
+            return stale["keywords"], stale["fetched_at"]
+        raise  # Nothing to fall back to
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────
@@ -489,8 +509,12 @@ def index():
 @app.route("/api/trends")
 def api_trends():
     try:
-        data = get_trends()
-        return jsonify({"ok": True, "keywords": data})
+        keywords, stale_since = get_trends()
+        return jsonify({
+            "ok": True,
+            "keywords": keywords,
+            "stale_since": stale_since,  # None = fresh, ISO string = stale fallback
+        })
     except Exception as exc:
         log.error("API error: %s", exc)
         return jsonify({"ok": False, "error": str(exc)}), 500
@@ -508,7 +532,7 @@ def api_refresh():
 
 @app.route("/api/progress")
 def api_progress():
-    return jsonify(fetch_progress)
+    return jsonify(read_progress())
 
 
 @app.route("/api/debug")
