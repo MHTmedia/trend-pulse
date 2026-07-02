@@ -476,6 +476,9 @@ def refresh_cache() -> None:
         save_cache(keywords)
     except Exception as exc:
         log.error("Cache refresh failed: %s", exc)
+    finally:
+        # Always mark done so the frontend stops polling
+        write_progress(0, 0, "done", "Done")
 
 
 def get_trends() -> tuple[list[dict], Optional[str]]:

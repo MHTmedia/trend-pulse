@@ -154,11 +154,7 @@
 <div id="appContent">
   <div class="loading-overlay">
     <div class="spinner"></div>
-    <p>Fetching trend data from Google…</p>
-    <div class="progress-wrap">
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-label" id="progressLabel">Starting…</div>
-    </div>
+    <p style="color:var(--muted);font-size:14px">Loading cached data…</p>
   </div>
 </div>
 
@@ -173,7 +169,8 @@ let activeFilter = 'All';
 let activeSort = 'growth';
 let charts = {};
 let fetchedAt = null;
-let staleSince = null;
+let staleSince = null;     // set when refresh errored out
+let refreshingInBg = false; // true while silentBackgroundRefresh is running
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 let progressInterval = null;
@@ -195,37 +192,72 @@ async function pollProgress() {
 }
 
 async function loadData() {
+  // Step 1: Load cached data immediately — show the UI right away
   try {
-    // Always start polling — pollProgress is a no-op if status is idle/done
-    progressInterval = setInterval(pollProgress, 2000);
-    pollProgress();
-
     const res = await fetch('/api/trends');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || 'API error');
 
-    clearInterval(progressInterval);
-
-    const fill = document.getElementById('progressFill');
-    const wrap = document.querySelector('.progress-wrap');
-
-    if (fill && fill.style.width !== '0%' && fill.style.width !== '') {
-      // A real fetch happened — flash to 100% then render
-      fill.style.width = '100%';
-      await new Promise(r => setTimeout(r, 400));
-    } else if (wrap) {
-      // Cache hit — hide progress bar immediately
-      wrap.style.display = 'none';
-    }
-
     allKeywords = json.keywords;
+    // If the backend served stale data, mark it as stale so the banner shows
     staleSince = json.stale_since || null;
     fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
     renderApp();
+
+    // Step 2: Silently kick off a background refresh so data stays fresh
+    // Don't show a progress bar or loading overlay — user can keep browsing
+    refreshingInBg = true;
+    renderApp(); // re-render to show "refreshing" banner
+    silentBackgroundRefresh();
   } catch (err) {
-    clearInterval(progressInterval);
     showError(err.message);
+  }
+}
+
+async function silentBackgroundRefresh() {
+  // Trigger a server-side refresh without blocking the UI
+  try {
+    await fetch('/api/refresh', { method: 'POST' });
+  } catch (_) {
+    return; // Network error — silently give up
+  }
+
+  // Poll until done, then reload data and update the cards quietly
+  let seenFetching = false;
+  await new Promise(resolve => {
+    const check = setInterval(async () => {
+      try {
+        const p = await fetch('/api/progress').then(r => r.json());
+        if (p.status === 'fetching') seenFetching = true;
+        if (seenFetching && p.status === 'done') {
+          clearInterval(check);
+          resolve();
+        }
+        // If it was already done before we started polling, skip
+        if (!seenFetching && p.status === 'done') {
+          clearInterval(check);
+          resolve();
+        }
+      } catch (_) {}
+    }, 3000);
+    // Give up after 10 minutes
+    setTimeout(() => { clearInterval(check); resolve(); }, 600000);
+  });
+
+  // Quietly reload and re-render without any loading overlay
+  try {
+    const res = await fetch('/api/trends');
+    const json = await res.json();
+    if (json.ok && json.keywords?.length) {
+      allKeywords = json.keywords;
+      staleSince = json.stale_since || null;
+      fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
+      refreshingInBg = false;
+      renderApp(); // Update cards silently in background
+    }
+  } catch (_) {
+    refreshingInBg = false;
   }
 }
 
@@ -234,50 +266,66 @@ async function manualRefresh() {
   btn.classList.add('spinning');
   btn.disabled = true;
 
-  // Show loading overlay with progress bar
-  document.getElementById('appContent').innerHTML = `
-    <div class="loading-overlay">
-      <div class="spinner"></div>
-      <p>Refreshing trend data from Google…</p>
-      <div class="progress-wrap">
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-label" id="progressLabel">Starting…</div>
+  // Show a slim progress bar at the top WITHOUT wiping the existing cards
+  let progressBar = document.getElementById('refreshProgressBar');
+  if (!progressBar) {
+    progressBar = document.createElement('div');
+    progressBar.id = 'refreshProgressBar';
+    progressBar.style.cssText = `
+      position:fixed; top:0; left:0; right:0; z-index:300;
+      display:flex; flex-direction:column; gap:4px;
+      background:rgba(15,17,23,0.95); padding:10px 32px; border-bottom:1px solid #2e3250;`;
+    progressBar.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:#64748b" id="refreshLabel">Connecting to Google Trends…</span>
+        <span style="font-size:11px;color:#6366f1" id="refreshPct">0%</span>
       </div>
-    </div>`;
+      <div style="height:4px;background:#2e3250;border-radius:2px;overflow:hidden">
+        <div id="refreshFill" style="height:100%;width:0%;background:linear-gradient(90deg,#6366f1,#22d3ee);border-radius:2px;transition:width 0.6s ease"></div>
+      </div>`;
+    document.body.prepend(progressBar);
+  }
 
-  // Kick off the refresh on the server (non-blocking — returns immediately)
+  // Kick off the refresh on the server (non-blocking)
   await fetch('/api/refresh', { method: 'POST' }).catch(() => {});
 
-  // Poll progress: wait for 'fetching' to begin, then wait for 'done'
+  // Poll until fetching → done
   await new Promise(resolve => {
     let seenFetching = false;
     const check = setInterval(async () => {
       try {
         const p = await fetch('/api/progress').then(r => r.json());
-        // Update the progress bar
-        const fill = document.getElementById('progressFill');
-        const label = document.getElementById('progressLabel');
-        if (fill && label && p.total > 0 && p.status === 'fetching') {
+        if (p.status === 'fetching') {
           seenFetching = true;
-          const pct = Math.min(Math.round(((p.current - 0.5) / p.total) * 100), 95);
-          fill.style.width = pct + '%';
-          label.textContent = p.label || `Batch ${p.current} of ${p.total}…`;
+          const pct = p.total > 0
+            ? Math.min(Math.round(((p.current - 0.5) / p.total) * 100), 95)
+            : 10;
+          document.getElementById('refreshFill').style.width = pct + '%';
+          document.getElementById('refreshPct').textContent = pct + '%';
+          document.getElementById('refreshLabel').textContent = p.label || 'Fetching…';
         }
-        if (p.status === 'fetching') seenFetching = true;
         if (seenFetching && p.status === 'done') {
+          clearInterval(check);
+          resolve();
+        }
+        // Safety: if never saw fetching after 10s, assume it finished instantly
+        if (!seenFetching && p.status === 'done') {
           clearInterval(check);
           resolve();
         }
       } catch (_) {}
     }, 2000);
+    // Timeout after 8 min
+    setTimeout(() => { clearInterval(check); resolve(); }, 480000);
   });
-  clearInterval(progressInterval);
 
-  // Flash to 100% then render
-  const fill = document.getElementById('progressFill');
-  if (fill) fill.style.width = '100%';
-  await new Promise(r => setTimeout(r, 400));
+  // Flash to 100%
+  document.getElementById('refreshFill').style.width = '100%';
+  document.getElementById('refreshPct').textContent = '100%';
+  document.getElementById('refreshLabel').textContent = 'Loading results…';
+  await new Promise(r => setTimeout(r, 500));
 
+  // Fetch new data — keep existing cards if it fails
   try {
     const res = await fetch('/api/trends');
     const json = await res.json();
@@ -286,8 +334,12 @@ async function manualRefresh() {
     fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
     renderApp();
   } catch (err) {
-    showError(err.message);
+    // Don't wipe the page — just show stale banner if cards already exist
+    staleSince = new Date().toISOString();
+    if (allKeywords.length > 0) renderApp();
+    else showError('Could not load trends. Please try again.');
   } finally {
+    progressBar.remove();
     btn.classList.remove('spinning');
     btn.disabled = false;
   }
@@ -369,12 +421,17 @@ function renderApp() {
     ${staleSince
       ? `<div class="update-banner stale">
            <div class="stale-dot"></div>
-           <span>⚠️ Latest refresh failed — showing data from ${new Date(staleSince).toLocaleString()}. Will retry automatically in 24 hours, or click Refresh to try now.</span>
+           <span>⚠️ Latest refresh failed — showing data from ${new Date(staleSince).toLocaleString()}. Click Refresh to try again.</span>
          </div>`
-      : `<div class="update-banner">
-           <div class="live-dot"></div>
-           <span>Data refreshed ${ts} · Powered by Google Trends · Refreshes every 24 hours</span>
-         </div>`
+      : refreshingInBg
+        ? `<div class="update-banner" style="border-color:rgba(99,102,241,0.3);color:var(--accent)">
+             <div class="live-dot" style="background:var(--accent)"></div>
+             <span>Showing last saved data from ${ts} — refreshing in background, cards will update when done.</span>
+           </div>`
+        : `<div class="update-banner">
+             <div class="live-dot"></div>
+             <span>Data refreshed ${ts} · Powered by Google Trends · Refreshes every 24 hours</span>
+           </div>`
     }
     <div class="controls">
       <div class="search-box">
