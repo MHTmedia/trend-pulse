@@ -10,10 +10,20 @@ Usage:
 import json
 import time
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import requests
 from pytrends.request import TrendReq
+
+# ── Reddit config ─────────────────────────────────────────────────────────────
+REDDIT_HEADERS = {"User-Agent": "TrendPulse/1.0 (trend research tool)"}
+REDDIT_SUBREDDITS = [
+    "entrepreneur", "ecommerce", "Entrepreneur", "SideProject",
+    "passive_income", "smallbusiness", "amazonmerch", "FulfillmentByAmazon",
+    "dropship", "Fitness", "SkincareAddiction", "femalefashionadvice",
+    "BuyItForLife", "ZeroWaste", "homeimprovement", "gadgets", "Pets",
+]
 
 # ── Config (must match app.py) ────────────────────────────────────────────────
 CACHE_FILE = Path("cache/trends.json")
@@ -204,32 +214,107 @@ def fetch_batch(pytrends, batch):
     return results
 
 
+def fetch_reddit_mentions(keyword):
+    """
+    Search Reddit's public JSON API for a keyword.
+    Returns (total_30d, mentions_this_week, mentions_last_week).
+    No API key needed — uses the public search endpoint.
+    """
+    now = datetime.now(timezone.utc)
+    week_ago  = now - timedelta(days=7)
+    month_ago = now - timedelta(days=30)
+
+    total_30d     = 0
+    this_week     = 0
+    last_week     = 0
+
+    try:
+        url = "https://www.reddit.com/search.json"
+        params = {
+            "q":      keyword,
+            "sort":   "new",
+            "limit":  100,
+            "t":      "month",
+            "type":   "link",
+        }
+        resp = requests.get(url, params=params, headers=REDDIT_HEADERS, timeout=10)
+        if resp.status_code != 200:
+            log.warning("Reddit search returned %s for '%s'", resp.status_code, keyword)
+            return 0, 0, 0
+
+        posts = resp.json().get("data", {}).get("children", [])
+        for post in posts:
+            created = datetime.fromtimestamp(post["data"]["created_utc"], tz=timezone.utc)
+            if created >= month_ago:
+                total_30d += 1
+            if created >= week_ago:
+                this_week += 1
+            elif created >= (week_ago - timedelta(days=7)):
+                last_week += 1
+
+        log.info("  Reddit '%s': %d/30d, %d this week, %d last week",
+                 keyword, total_30d, this_week, last_week)
+    except Exception as exc:
+        log.warning("Reddit fetch failed for '%s': %s", keyword, exc)
+
+    return total_30d, this_week, last_week
+
+
+def reddit_velocity(this_week, last_week):
+    """Week-over-week change as a percentage. None if no data."""
+    if last_week == 0 and this_week == 0:
+        return None
+    if last_week == 0:
+        return 100.0  # new signal
+    return round(((this_week - last_week) / last_week) * 100, 1)
+
+
 def main():
     log.info("Starting trend fetch for %d keywords…", len(TRACKED_KEYWORDS))
+
+    # ── Step 1: Google Trends ──────────────────────────────────────────────────
     pytrends = TrendReq(hl="en-US", tz=360, timeout=(10, 25))
     raw = {}
     batch_size = 5
     batches = [TRACKED_KEYWORDS[i:i+batch_size] for i in range(0, len(TRACKED_KEYWORDS), batch_size)]
 
     for i, batch in enumerate(batches, 1):
-        log.info("Batch %d/%d: %s", i, len(batches), batch)
+        log.info("Google Trends batch %d/%d: %s", i, len(batches), batch)
         raw.update(fetch_batch(pytrends, batch))
         if i < len(batches):
             time.sleep(12)
 
+    # ── Step 2: Reddit mentions ────────────────────────────────────────────────
+    log.info("Fetching Reddit mentions for %d keywords…", len(TRACKED_KEYWORDS))
+    reddit_data = {}
+    for i, kw in enumerate(TRACKED_KEYWORDS):
+        total, this_week, last_week = fetch_reddit_mentions(kw)
+        reddit_data[kw] = {
+            "mentions_30d":   total,
+            "mentions_7d":    this_week,
+            "velocity":       reddit_velocity(this_week, last_week),
+        }
+        if i < len(TRACKED_KEYWORDS) - 1:
+            time.sleep(1.5)  # be polite to Reddit
+
+    # ── Step 3: Build output ───────────────────────────────────────────────────
     keywords_out = []
     for idx, kw in enumerate(TRACKED_KEYWORDS, 1):
         series = raw.get(kw, [50] * 12)
         growth = compute_growth(series)
+        rd = reddit_data.get(kw, {})
         keywords_out.append({
-            "id":       idx,
-            "keyword":  kw,
-            "category": CATEGORY_MAP.get(kw, "General"),
-            "status":   classify_status(growth),
-            "growth":   growth,
-            "score":    trend_score(series, growth),
-            "trend":    series,
-            "fetched":  datetime.utcnow().isoformat(),
+            "id":             idx,
+            "keyword":        kw,
+            "category":       CATEGORY_MAP.get(kw, "General"),
+            "status":         classify_status(growth),
+            "growth":         growth,
+            "score":          trend_score(series, growth),
+            "trend":          series,
+            "fetched":        datetime.utcnow().isoformat(),
+            "reddit_30d":     rd.get("mentions_30d", 0),
+            "reddit_7d":      rd.get("mentions_7d", 0),
+            "reddit_velocity": rd.get("velocity"),
         })
 
     keywords_out.sort(key=lambda k: k["growth"], reverse=True)

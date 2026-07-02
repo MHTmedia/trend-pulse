@@ -102,6 +102,14 @@
   .score-bar { width: 60px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
   .score-fill { height: 100%; border-radius: 2px; background: var(--accent); }
   .score-num { font-size: 11px; color: var(--muted); }
+  .reddit-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .reddit-icon { font-size: 13px; opacity: 0.7; }
+  .reddit-label { font-size: 11px; color: var(--muted); flex: 1; }
+  .reddit-count { font-size: 12px; font-weight: 600; color: var(--text); }
+  .reddit-vel { font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 10px; }
+  .reddit-vel.up   { background: rgba(34,197,94,0.15); color: var(--green); }
+  .reddit-vel.down { background: rgba(239,68,68,0.12); color: var(--red); }
+  .reddit-vel.flat { color: var(--muted); }
 
   /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 24px; }
@@ -443,6 +451,24 @@ function pillClass(k) {
   return k.status === 'breakout' ? 'breakout' : 'up';
 }
 
+function redditRowHTML(k) {
+  if (!k.reddit_30d && k.reddit_30d !== 0) return ''; // no reddit data in cache yet
+  const count = k.reddit_30d;
+  const vel   = k.reddit_velocity;
+  let velHTML = '';
+  if (vel !== null && vel !== undefined) {
+    if (vel > 10)       velHTML = `<span class="reddit-vel up">▲ ${vel}%</span>`;
+    else if (vel < -10) velHTML = `<span class="reddit-vel down">▼ ${Math.abs(vel)}%</span>`;
+    else                velHTML = `<span class="reddit-vel flat">→ stable</span>`;
+  }
+  return `
+    <div class="reddit-row">
+      <span class="reddit-icon">🔶</span>
+      <span class="reddit-label">${count} Reddit mentions / 30d</span>
+      ${velHTML}
+    </div>`;
+}
+
 // ── Filtering / Sorting ───────────────────────────────────────────────────────
 function getCategories() {
   return ['All', ...new Set(allKeywords.map(k => k.category)).values()];
@@ -568,6 +594,7 @@ function renderCards() {
           <span class="score-num">${k.score}/100</span>
         </div>
       </div>
+      ${redditRowHTML(k)}
     </div>
   `).join('');
 
@@ -627,12 +654,35 @@ function openModal(id) {
         <div class="modal-stat"><div class="modal-stat-label">Trend Score</div><div class="modal-stat-value">${k.score}/100</div></div>
         <div class="modal-stat"><div class="modal-stat-label">Status</div><div class="modal-stat-value" style="font-size:14px;text-transform:capitalize">${k.status}</div></div>
       </div>
+      ${k.reddit_30d != null ? `
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
+        <div class="modal-stat">
+          <div class="modal-stat-label">🔶 Reddit / 30d</div>
+          <div class="modal-stat-value" style="font-size:16px">${k.reddit_30d}</div>
+        </div>
+        <div class="modal-stat">
+          <div class="modal-stat-label">🔶 Reddit / 7d</div>
+          <div class="modal-stat-value" style="font-size:16px">${k.reddit_7d ?? '—'}</div>
+        </div>
+        <div class="modal-stat">
+          <div class="modal-stat-label">Week-over-week</div>
+          <div class="modal-stat-value" style="font-size:16px;color:${
+            k.reddit_velocity > 10 ? 'var(--green)' :
+            k.reddit_velocity < -10 ? 'var(--red)' : 'var(--muted)'
+          }">${k.reddit_velocity != null ? (k.reddit_velocity > 0 ? '+' : '') + k.reddit_velocity + '%' : '—'}</div>
+        </div>
+      </div>` : ''}
       <div class="modal-chart-wrap"><canvas id="modal-chart"></canvas></div>
       <div class="modal-section">
         <a class="google-link" href="${googleUrl}" target="_blank" rel="noopener">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           View on Google Trends
         </a>
+        ${k.reddit_30d != null ? `
+        <a class="google-link" href="https://www.reddit.com/search/?q=${encodeURIComponent(k.keyword)}&sort=new" target="_blank" rel="noopener" style="margin-left:12px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View on Reddit
+        </a>` : ''}
       </div>
     </div>
   `;
