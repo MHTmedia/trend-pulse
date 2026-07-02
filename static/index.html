@@ -71,6 +71,12 @@
   .lens-btn.lens-radar.active     { color: #34d399;       border-color: #34d399;       background: rgba(52,211,153,0.12); }
   .lens-btn.lens-multi.active     { color: #f472b6;       border-color: #f472b6;       background: rgba(244,114,182,0.12); }
   .lens-btn.lens-fading.active    { color: #94a3b8;       border-color: #94a3b8;       background: rgba(148,163,184,0.1); }
+  .lens-btn.lens-amz-bsb.active   { color: #f97316;       border-color: #f97316;       background: rgba(249,115,22,0.12); }
+  .lens-btn.lens-amz-choice.active{ color: #22d3ee;       border-color: #22d3ee;       background: rgba(34,211,238,0.12); }
+  .lens-btn.lens-amz-low.active   { color: #34d399;       border-color: #34d399;       background: rgba(52,211,153,0.12); }
+  .lens-btn.lens-amz-val.active   { color: #facc15;       border-color: #facc15;       background: rgba(250,204,21,0.12); }
+  .lens-btn.lens-amz-price.active { color: #86efac;       border-color: #86efac;       background: rgba(134,239,172,0.12); }
+  .lens-btn.lens-triple.active    { color: #ff6b6b;       border-color: #ff6b6b;       background: rgba(255,107,107,0.12); }
   .controls-divider { height: 1px; background: var(--border); margin: 4px 0; }
   .sort-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
   .results-count { font-size: 12px; color: var(--muted); margin-left: auto; white-space: nowrap; }
@@ -117,14 +123,19 @@
   .score-bar { width: 60px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
   .score-fill { height: 100%; border-radius: 2px; background: var(--accent); }
   .score-num { font-size: 11px; color: var(--muted); }
-  .reddit-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
-  .reddit-icon { font-size: 13px; opacity: 0.7; }
-  .reddit-label { font-size: 11px; color: var(--muted); flex: 1; }
-  .reddit-count { font-size: 12px; font-weight: 600; color: var(--text); }
-  .reddit-vel { font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 10px; }
-  .reddit-vel.up   { background: rgba(34,197,94,0.15); color: var(--green); }
-  .reddit-vel.down { background: rgba(239,68,68,0.12); color: var(--red); }
-  .reddit-vel.flat { color: var(--muted); }
+  .data-rows { margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; display: flex; flex-direction: column; gap: 5px; }
+  .data-row { display: flex; align-items: center; gap: 6px; }
+  .data-icon { font-size: 13px; opacity: 0.75; flex-shrink: 0; }
+  .data-label { font-size: 11px; color: var(--muted); flex: 1; }
+  .data-value { font-size: 12px; font-weight: 600; color: var(--text); }
+  .data-badge { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; }
+  .data-badge.vel-up    { background: rgba(34,197,94,0.15);  color: var(--green); }
+  .data-badge.vel-down  { background: rgba(239,68,68,0.12);  color: var(--red); }
+  .data-badge.vel-flat  { color: var(--muted); }
+  .data-badge.bsb       { background: rgba(249,115,22,0.15); color: var(--orange); }
+  .data-badge.choice    { background: rgba(34,211,238,0.15); color: var(--accent2); }
+  .data-badge.comp-low  { background: rgba(52,211,153,0.15); color: #34d399; }
+  .data-badge.comp-high { background: rgba(239,68,68,0.1);   color: var(--red); }
 
   /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 24px; }
@@ -243,6 +254,36 @@ const LENSES = [
     tip: 'Peaked and declining — avoid for new ventures',
     test: k => k.status === 'fading',
   },
+  {
+    id: 'amz_bsb', label: '★ Best Seller', cls: 'lens-amz-bsb',
+    tip: 'Has a Best Seller badge in Amazon top 10 — proven buyer demand',
+    test: k => !!k.amazon_best_seller,
+  },
+  {
+    id: 'amz_choice', label: '✓ Amazon\'s Choice', cls: 'lens-amz-choice',
+    tip: "Amazon's Choice badge in top results — algorithm-endorsed product",
+    test: k => !!k.amazons_choice,
+  },
+  {
+    id: 'amz_low_comp', label: '🏪 Low Competition', cls: 'lens-amz-low',
+    tip: 'Under 500 Amazon listings — easier to enter the market',
+    test: k => k.amazon_result_count != null && k.amazon_result_count < 500,
+  },
+  {
+    id: 'amz_validated', label: '💰 Market Validated', cls: 'lens-amz-val',
+    tip: '1,000+ reviews on top product — customers are already buying',
+    test: k => (k.amazon_top_reviews || 0) >= 1000,
+  },
+  {
+    id: 'amz_affordable', label: '💵 Affordable Entry', cls: 'lens-amz-price',
+    tip: 'Avg Amazon price under $40 — lower barrier for new sellers',
+    test: k => k.amazon_avg_price != null && k.amazon_avg_price < 40,
+  },
+  {
+    id: 'triple', label: '🔥 Triple Signal', cls: 'lens-triple',
+    tip: 'Trending on Google, buzzing on Reddit, AND selling on Amazon',
+    test: k => k.growth >= 100 && (k.reddit_30d||0) >= 10 && k.amazon_result_count != null && k.status !== 'fading',
+  },
 ];
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
@@ -298,22 +339,68 @@ function pillClass(k) {
   return 'up';
 }
 
-function redditRowHTML(k) {
-  if (!k.reddit_30d && k.reddit_30d !== 0) return ''; // no reddit data in cache yet
-  const count = k.reddit_30d;
-  const vel   = k.reddit_velocity;
-  let velHTML = '';
-  if (vel !== null && vel !== undefined) {
-    if (vel > 10)       velHTML = `<span class="reddit-vel up">▲ ${vel}%</span>`;
-    else if (vel < -10) velHTML = `<span class="reddit-vel down">▼ ${Math.abs(vel)}%</span>`;
-    else                velHTML = `<span class="reddit-vel flat">→ stable</span>`;
+function fmtNum(n) {
+  if (n == null) return '—';
+  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
+  return n.toLocaleString();
+}
+
+function dataRowsHTML(k) {
+  const rows = [];
+
+  // Reddit row
+  if (k.reddit_30d != null) {
+    const vel = k.reddit_velocity;
+    let velBadge = '';
+    if (vel != null) {
+      if (vel > 10)       velBadge = `<span class="data-badge vel-up">▲ ${vel}%</span>`;
+      else if (vel < -10) velBadge = `<span class="data-badge vel-down">▼ ${Math.abs(vel)}%</span>`;
+      else                velBadge = `<span class="data-badge vel-flat">→ stable</span>`;
+    }
+    rows.push(`
+      <div class="data-row">
+        <span class="data-icon">🔶</span>
+        <span class="data-label">${fmtNum(k.reddit_30d)} Reddit / 30d</span>
+        ${velBadge}
+      </div>`);
   }
-  return `
-    <div class="reddit-row">
-      <span class="reddit-icon">🔶</span>
-      <span class="reddit-label">${count} Reddit mentions / 30d</span>
-      ${velHTML}
-    </div>`;
+
+  // Amazon row
+  if (k.amazon_result_count != null || k.amazon_best_seller || k.amazons_choice) {
+    let badges = '';
+    if (k.amazon_best_seller) badges += `<span class="data-badge bsb">★ Best Seller</span>`;
+    if (k.amazons_choice)     badges += `<span class="data-badge choice">✓ Amazon's Choice</span>`;
+
+    // Competition: <500 = low, <5000 = medium, else high
+    let compBadge = '';
+    if (k.amazon_result_count != null) {
+      if (k.amazon_result_count < 500)       compBadge = `<span class="data-badge comp-low">Low competition</span>`;
+      else if (k.amazon_result_count > 10000) compBadge = `<span class="data-badge comp-high">Crowded market</span>`;
+    }
+
+    rows.push(`
+      <div class="data-row">
+        <span class="data-icon">📦</span>
+        <span class="data-label">${fmtNum(k.amazon_result_count)} Amazon listings</span>
+        ${badges}${compBadge}
+      </div>`);
+
+    // Price + rating on same row if available
+    if (k.amazon_avg_price != null || k.amazon_avg_rating != null) {
+      const price  = k.amazon_avg_price  != null ? `$${k.amazon_avg_price.toFixed(2)} avg`  : '';
+      const rating = k.amazon_avg_rating != null ? `⭐ ${k.amazon_avg_rating.toFixed(1)}`   : '';
+      const reviews = k.amazon_top_reviews != null ? `${fmtNum(k.amazon_top_reviews)} reviews` : '';
+      rows.push(`
+        <div class="data-row">
+          <span class="data-icon" style="opacity:0">·</span>
+          <span class="data-label" style="color:var(--text);font-size:11px">${[price, rating, reviews].filter(Boolean).join(' · ')}</span>
+        </div>`);
+    }
+  }
+
+  if (!rows.length) return '';
+  return `<div class="data-rows">${rows.join('')}</div>`;
 }
 
 // ── Filtering / Sorting ───────────────────────────────────────────────────────
@@ -507,7 +594,7 @@ function renderCards() {
           <span class="score-num">${k.score}/100</span>
         </div>
       </div>
-      ${redditRowHTML(k)}
+      ${dataRowsHTML(k)}
     </div>
   `).join('');
 
@@ -568,21 +655,57 @@ function openModal(id) {
         <div class="modal-stat"><div class="modal-stat-label">Status</div><div class="modal-stat-value" style="font-size:14px;text-transform:capitalize">${k.status}</div></div>
       </div>
       ${k.reddit_30d != null ? `
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
-        <div class="modal-stat">
-          <div class="modal-stat-label">🔶 Reddit / 30d</div>
-          <div class="modal-stat-value" style="font-size:16px">${k.reddit_30d}</div>
+      <div style="margin-bottom:12px">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">🔶 Reddit</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <div class="modal-stat">
+            <div class="modal-stat-label">30-day mentions</div>
+            <div class="modal-stat-value" style="font-size:16px">${fmtNum(k.reddit_30d)}</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-label">7-day mentions</div>
+            <div class="modal-stat-value" style="font-size:16px">${fmtNum(k.reddit_7d) ?? '—'}</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-label">Week-over-week</div>
+            <div class="modal-stat-value" style="font-size:16px;color:${
+              k.reddit_velocity > 10 ? 'var(--green)' :
+              k.reddit_velocity < -10 ? 'var(--red)' : 'var(--muted)'
+            }">${k.reddit_velocity != null ? (k.reddit_velocity > 0 ? '+' : '') + k.reddit_velocity + '%' : '—'}</div>
+          </div>
         </div>
-        <div class="modal-stat">
-          <div class="modal-stat-label">🔶 Reddit / 7d</div>
-          <div class="modal-stat-value" style="font-size:16px">${k.reddit_7d ?? '—'}</div>
-        </div>
-        <div class="modal-stat">
-          <div class="modal-stat-label">Week-over-week</div>
-          <div class="modal-stat-value" style="font-size:16px;color:${
-            k.reddit_velocity > 10 ? 'var(--green)' :
-            k.reddit_velocity < -10 ? 'var(--red)' : 'var(--muted)'
-          }">${k.reddit_velocity != null ? (k.reddit_velocity > 0 ? '+' : '') + k.reddit_velocity + '%' : '—'}</div>
+      </div>` : ''}
+      ${k.amazon_result_count != null ? `
+      <div style="margin-bottom:16px">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">📦 Amazon</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <div class="modal-stat">
+            <div class="modal-stat-label">Total listings</div>
+            <div class="modal-stat-value" style="font-size:16px">${fmtNum(k.amazon_result_count)}</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-label">Avg. price</div>
+            <div class="modal-stat-value" style="font-size:16px">${k.amazon_avg_price != null ? '$'+k.amazon_avg_price.toFixed(2) : '—'}</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-label">Top reviews</div>
+            <div class="modal-stat-value" style="font-size:16px">${fmtNum(k.amazon_top_reviews) ?? '—'}</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-label">Avg. rating</div>
+            <div class="modal-stat-value" style="font-size:16px">${k.amazon_avg_rating != null ? '⭐ '+k.amazon_avg_rating.toFixed(1) : '—'}</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-label">Market signal</div>
+            <div class="modal-stat-value" style="font-size:13px">${k.amazon_best_seller ? '★ Best Seller' : k.amazons_choice ? "✓ Amazon's Choice" : '—'}</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-label">Competition</div>
+            <div class="modal-stat-value" style="font-size:13px;color:${
+              k.amazon_result_count < 500 ? 'var(--green)' :
+              k.amazon_result_count > 10000 ? 'var(--red)' : 'var(--text)'
+            }">${k.amazon_result_count < 500 ? 'Low' : k.amazon_result_count > 10000 ? 'High' : 'Medium'}</div>
+          </div>
         </div>
       </div>` : ''}
       <div class="modal-chart-wrap"><canvas id="modal-chart"></canvas></div>
@@ -596,6 +719,10 @@ function openModal(id) {
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           View on Reddit
         </a>` : ''}
+        <a class="google-link" href="https://www.amazon.com/s?k=${encodeURIComponent(k.keyword)}" target="_blank" rel="noopener" style="margin-left:12px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Search on Amazon
+        </a>
       </div>
     </div>
   `;

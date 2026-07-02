@@ -18,7 +18,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install pytrends requests
+        run: pip install pytrends requests beautifulsoup4 lxml
 
       - name: Fetch trends and write cache
         run: python scripts/fetch_trends.py

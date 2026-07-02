@@ -1,7 +1,7 @@
 """
 TrendPulse nightly fetch script.
 - Loads dynamic keyword list from cache/keywords.json (falls back to defaults)
-- Fetches Google Trends + Reddit mentions for all active keywords
+- Fetches Google Trends + Reddit + Amazon data for all active keywords
 - Detects fading trends and marks them
 - Discovers new rising keywords via pytrends related_queries
 - Writes updated cache/keywords.json and cache/trends.json
@@ -9,7 +9,7 @@ TrendPulse nightly fetch script.
 Run locally or via GitHub Actions. Do NOT run on Railway (datacenter IPs get blocked).
 
 Usage:
-    pip install pytrends requests
+    pip install pytrends requests beautifulsoup4 lxml
     python scripts/fetch_trends.py
 """
 
@@ -17,10 +17,13 @@ import json
 import time
 import logging
 import re
+import random
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import quote_plus
 
 import requests
+from bs4 import BeautifulSoup
 from pytrends.request import TrendReq
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
@@ -42,6 +45,15 @@ MAX_NEW_PER_RUN = 10
 
 # Reddit
 REDDIT_HEADERS = {"User-Agent": "TrendPulse/1.0 (trend research tool)"}
+
+# Amazon — rotate UAs to reduce fingerprinting
+AMAZON_USER_AGENTS = [
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
+]
+AMAZON_SESSION = requests.Session()   # reuse TCP connection within a run
 
 # ── Default keyword list (used only if keywords.json doesn't exist yet) ───────
 DEFAULT_KEYWORDS = [
@@ -427,6 +439,142 @@ def fetch_reddit_mentions(keyword: str) -> tuple[int, int, float | None]:
     return total_30d, this_week, velocity
 
 
+# ── Amazon ───────────────────────────────────────────────────────────────────
+
+def _amazon_headers() -> dict:
+    return {
+        "User-Agent": random.choice(AMAZON_USER_AGENTS),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Cache-Control": "max-age=0",
+    }
+
+
+def fetch_amazon_data(keyword: str) -> dict:
+    """
+    Scrape Amazon search results for a keyword.
+    Returns:
+      result_count   – approximate total listings (market size)
+      best_seller    – True if any top-10 result has a Best Seller badge
+      amazons_choice – True if any top-10 result has an Amazon's Choice badge
+      top_reviews    – review count of the highest-reviewed top-10 product
+      avg_price      – average price across top-10 priced products (USD)
+      avg_rating     – average star rating across top-10 rated products
+      seller_count   – number of distinct products on the first page (competition proxy)
+    """
+    empty = {
+        "amazon_result_count": None,
+        "amazon_best_seller":  False,
+        "amazons_choice":      False,
+        "amazon_top_reviews":  None,
+        "amazon_avg_price":    None,
+        "amazon_avg_rating":   None,
+        "amazon_seller_count": None,
+    }
+    url = f"https://www.amazon.com/s?k={quote_plus(keyword)}&ref=nb_sb_noss"
+    try:
+        resp = AMAZON_SESSION.get(url, headers=_amazon_headers(), timeout=15)
+        if resp.status_code != 200:
+            log.warning("  Amazon HTTP %d for '%s'", resp.status_code, keyword)
+            return empty
+        # Detect CAPTCHA / robot-check page
+        if "robot" in resp.text[:2000].lower() or "captcha" in resp.text[:2000].lower():
+            log.warning("  Amazon bot-check triggered for '%s' — skipping", keyword)
+            return empty
+
+        soup = BeautifulSoup(resp.text, "lxml")
+
+        # ── Result count ──────────────────────────────────────────────────────
+        result_count = None
+        count_el = soup.select_one("span.a-color-state.a-text-bold, span[data-component-type='s-result-info-bar'] h1")
+        if not count_el:
+            # try the breadcrumb-style count
+            for span in soup.find_all("span", class_="a-color-state"):
+                txt = span.get_text(" ", strip=True)
+                if "result" in txt.lower():
+                    count_el = span
+                    break
+        if count_el:
+            txt = count_el.get_text(" ", strip=True)
+            # e.g. "1-16 of over 4,000 results" or "over 1,000 results"
+            nums = re.findall(r"[\d,]+", txt.replace(",", ""))
+            if nums:
+                result_count = int(max(nums, key=lambda n: int(n)))
+
+        # ── Product cards ─────────────────────────────────────────────────────
+        cards = soup.select("div[data-component-type='s-search-result']")[:10]
+
+        best_seller  = False
+        amazons_choice = False
+        prices       = []
+        ratings      = []
+        review_counts = []
+
+        for card in cards:
+            text = card.get_text(" ", strip=True)
+
+            # Badges
+            for badge in card.select("span.a-badge-text, span[data-component-type='s-status-badge-component']"):
+                bt = badge.get_text(strip=True).lower()
+                if "best seller" in bt:
+                    best_seller = True
+                if "amazon's choice" in bt or "amazons choice" in bt:
+                    amazons_choice = True
+
+            # Price — grab whole + fraction
+            price_whole = card.select_one("span.a-price-whole")
+            price_frac  = card.select_one("span.a-price-fraction")
+            if price_whole:
+                try:
+                    p = float(price_whole.get_text(strip=True).replace(",", "").rstrip("."))
+                    if price_frac:
+                        p += float("0." + price_frac.get_text(strip=True))
+                    if 0.5 < p < 5000:   # sanity-check
+                        prices.append(p)
+                except ValueError:
+                    pass
+
+            # Rating
+            rating_el = card.select_one("span.a-icon-alt")
+            if rating_el:
+                m = re.search(r"([\d.]+) out of", rating_el.get_text())
+                if m:
+                    try:
+                        ratings.append(float(m.group(1)))
+                    except ValueError:
+                        pass
+
+            # Review count
+            for span in card.select("span.a-size-base"):
+                txt = span.get_text(strip=True).replace(",", "")
+                if txt.isdigit() and int(txt) > 10:
+                    review_counts.append(int(txt))
+                    break
+
+        seller_count = len(cards)
+
+        result = {
+            "amazon_result_count": result_count,
+            "amazon_best_seller":  best_seller,
+            "amazons_choice":      amazons_choice,
+            "amazon_top_reviews":  max(review_counts) if review_counts else None,
+            "amazon_avg_price":    round(sum(prices) / len(prices), 2) if prices else None,
+            "amazon_avg_rating":   round(sum(ratings) / len(ratings), 2) if ratings else None,
+            "amazon_seller_count": seller_count,
+        }
+        log.info("  Amazon '%s': %s results, BSB=%s, reviews=%s, price=$%s",
+                 keyword, result_count, best_seller,
+                 result["amazon_top_reviews"], result["amazon_avg_price"])
+        return result
+
+    except Exception as exc:
+        log.warning("  Amazon fetch failed for '%s': %s", keyword, exc)
+        return empty
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -479,21 +627,30 @@ def main():
         if i < len(active_keywords) - 1:
             time.sleep(1.5)
 
-    # ── 6. Build trends output ─────────────────────────────────────────────────
+    # ── 6. Fetch Amazon data ───────────────────────────────────────────────────
+    log.info("Fetching Amazon data…")
+    amazon_data = {}
+    for i, kw in enumerate(active_keywords):
+        amazon_data[kw] = fetch_amazon_data(kw)
+        if i < len(active_keywords) - 1:
+            time.sleep(random.uniform(2.5, 4.5))   # randomised delay
+
+    # ── 7. Build trends output ─────────────────────────────────────────────────
     keywords_out = []
     for idx, rec in enumerate(keyword_records, 1):
         kw     = rec["keyword"]
         series = raw.get(kw, [50] * 12)
         growth = compute_growth(series)
         rd     = reddit_data.get(kw, {})
+        amz    = amazon_data.get(kw, {})
         status = rec.get("status", "active")
 
         keywords_out.append({
             "id":               idx,
             "keyword":          kw,
             "category":         rec.get("category", "General"),
-            "status":           status,                    # active / fading / paused
-            "momentum":         classify_momentum(growth), # breakout / hot / rising
+            "status":           status,
+            "momentum":         classify_momentum(growth),
             "growth":           growth,
             "score":            trend_score(series, growth),
             "trend":            series,
@@ -501,9 +658,18 @@ def main():
             "is_new":           rec.get("is_new", False),
             "added":            rec.get("added"),
             "fading_since":     rec.get("fading_since"),
-            "reddit_30d":       rd.get("reddit_30d", 0),
-            "reddit_7d":        rd.get("reddit_7d", 0),
-            "reddit_velocity":  rd.get("reddit_velocity"),
+            # Reddit
+            "reddit_30d":           rd.get("reddit_30d", 0),
+            "reddit_7d":            rd.get("reddit_7d", 0),
+            "reddit_velocity":      rd.get("reddit_velocity"),
+            # Amazon
+            "amazon_result_count":  amz.get("amazon_result_count"),
+            "amazon_best_seller":   amz.get("amazon_best_seller", False),
+            "amazons_choice":       amz.get("amazons_choice", False),
+            "amazon_top_reviews":   amz.get("amazon_top_reviews"),
+            "amazon_avg_price":     amz.get("amazon_avg_price"),
+            "amazon_avg_rating":    amz.get("amazon_avg_rating"),
+            "amazon_seller_count":  amz.get("amazon_seller_count"),
         })
 
     # Sort: active first (by growth), then fading
@@ -515,8 +681,9 @@ def main():
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     payload = {"fetched_at": datetime.utcnow().isoformat(), "keywords": keywords_out}
     TRENDS_FILE.write_text(json.dumps(payload, indent=2))
-    log.info("✅ Saved %d keywords to %s (%d fading, %d new discovered)",
-             len(keywords_out), TRENDS_FILE, fading_count, len(new_keywords))
+    amz_ok = sum(1 for k in keywords_out if k.get("amazon_result_count") is not None)
+    log.info("✅ Saved %d keywords to %s (%d fading, %d new discovered, %d with Amazon data)",
+             len(keywords_out), TRENDS_FILE, fading_count, len(new_keywords), amz_ok)
 
 
 if __name__ == "__main__":
