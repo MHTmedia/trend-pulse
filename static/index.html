@@ -237,38 +237,81 @@
         <h3>📡 Data Sources</h3>
         <div class="method-row">
           <div class="method-icon">📈</div>
-          <div class="method-text"><strong>Google Trends</strong> — The backbone of every score. We query the US interest-over-time for each keyword over the past 12 months. Google normalises interest to a 0–100 scale (100 = peak popularity), so scores are relative, not absolute search volumes. Fetched in batches of 5 with rate-limit protection.</div>
+          <div class="method-text"><strong>Google Trends</strong> — The backbone of every score. We query US interest-over-time for each keyword across the past 12 months. Google normalises interest to a 0–100 scale where 100 = peak popularity for that term, so values are relative, not absolute search volumes. Data is fetched in batches of 5 with rate-limit protection and 12-second pauses between batches.</div>
         </div>
         <div class="method-row">
           <div class="method-icon">🔶</div>
-          <div class="method-text"><strong>Reddit</strong> — We query Reddit's public search API for each keyword and count posts from the past 30 days and past 7 days. Week-over-week velocity shows whether community buzz is accelerating or cooling. No account or API key required — Reddit's public JSON endpoint is used directly.</div>
+          <div class="method-text"><strong>Reddit</strong> — We query Reddit's public search API for each keyword and count posts from the past 30 days and past 7 days. Week-over-week velocity reveals whether community buzz is accelerating or cooling. No account or API key required — Reddit's public JSON endpoint is used directly with a respectful 1.5s delay between requests.</div>
         </div>
         <div class="method-row">
           <div class="method-icon">📦</div>
-          <div class="method-text"><strong>Amazon</strong> — We scrape the first page of Amazon search results for each keyword to extract: total listing count (market size / competition), Best Seller and Amazon's Choice badges, average price across the top 10 products, average star rating, and the highest review count (demand proxy). Scraping uses randomised delays and rotating user-agents to stay polite.</div>
+          <div class="method-text"><strong>Amazon</strong> — We scrape the first page of Amazon search results for each keyword to extract: total listing count (competition proxy), Best Seller and Amazon's Choice badges, average price across the top 10 products, average star rating, and the highest review count (demand proxy). Scraping uses randomised 2.5–4.5s delays and rotating user-agents.</div>
         </div>
       </div>
 
       <div class="method-section">
-        <h3>🧮 Scoring &amp; Formulas</h3>
+        <h3>🧮 Scores &amp; Formulas</h3>
         <div class="method-row">
           <div class="method-icon">📊</div>
-          <div class="method-text"><strong>12-Month Growth %</strong> — Compares the most recent month's Google Trends index against the earliest non-zero month in the 12-month window.<br>
+          <div class="method-text"><strong>12-Month Growth %</strong> — Compares the most recent month's Google Trends index against the earliest non-zero month in the 12-month window.
             <div class="score-formula">(recent_month − earliest_month) / earliest_month × 100</div>
-            A keyword that was at 10 in January and 50 in December shows +400% growth.
+            A keyword at index 10 in January and 50 in December shows +400% growth.
           </div>
         </div>
         <div class="method-row">
           <div class="method-icon">🏆</div>
-          <div class="method-text"><strong>Trend Score (0–100)</strong> — A composite signal combining recency (how high is interest RIGHT NOW) and momentum (how fast is it growing). Capped at 100.
-            <div class="score-formula">score = 0.6 × current_interest + 0.4 × min(growth/50, 100)</div>
+          <div class="method-text"><strong>Trend Score (0–100)</strong> — A composite signal weighting current interest heavily (is it high RIGHT NOW?) with momentum (how fast is it growing?).
+            <div class="score-formula">score = 0.6 × current_interest + 0.4 × min(growth / 50, 100)</div>
           </div>
         </div>
         <div class="method-row">
           <div class="method-icon">⚡</div>
-          <div class="method-text"><strong>Reddit Velocity</strong> — Week-over-week change in post volume.<br>
+          <div class="method-text"><strong>Reddit Velocity</strong> — Week-over-week change in post volume.
             <div class="score-formula">(this_week_posts − last_week_posts) / last_week_posts × 100</div>
             Shows ▲ if mentions are accelerating, ▼ if slowing, → if flat.
+          </div>
+        </div>
+      </div>
+
+      <div class="method-section">
+        <h3>🎯 Product Viability Score (0–100)</h3>
+        <div class="method-row">
+          <div class="method-icon">💡</div>
+          <div class="method-text">The Viability Score is designed specifically for entrepreneurs evaluating whether a topic represents a real opportunity for a <strong>new product</strong>. It combines five factors that research shows predict new product success, weighted by importance:</div>
+        </div>
+        <div style="margin:10px 0 14px;display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
+            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">30</span>
+            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Trend Momentum</div><div style="font-size:11px;color:var(--muted)">Growth % — the sweet spot is Hot (200–999%). Breakout is penalised slightly for volatility risk; Flat is zeroed out.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
+            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">20</span>
+            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Current Interest</div><div style="font-size:11px;color:var(--muted)">The Google Trends index for the most recent month — is demand live right now, or just historical?</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
+            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">25</span>
+            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Competition</div><div style="font-size:11px;color:var(--muted)">Amazon listing count — fewer listings means easier to rank, stand out, and win market share. &lt;500 = strong; &gt;15K = crowded.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
+            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">10</span>
+            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Price Viability</div><div style="font-size:11px;color:var(--muted)">Average Amazon price — higher prices leave room for marketing, manufacturing, and profit margin. &lt;$20 is a race to the bottom.</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
+            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">15</span>
+            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Social Demand</div><div style="font-size:11px;color:var(--muted)">Reddit mentions (30d) + velocity bonus — organic community interest is the strongest signal that demand is real and not manufactured.</div></div>
+          </div>
+        </div>
+        <div class="method-row">
+          <div class="method-icon">➕</div>
+          <div class="method-text"><strong>Bonuses &amp; Penalties</strong> — Best Seller or Amazon's Choice badge adds +3 (proves buyers exist). Top product with 1,000+ reviews adds +2 (market validated). Average rating below 3.5★ subtracts −3 (quality gap may be hard to overcome). Flat topics are hard-capped at 30 regardless of other factors.</div>
+        </div>
+        <div style="margin-top:10px">
+          <div class="status-pills">
+            <span class="sp" style="background:rgba(34,197,94,0.15);color:#22c55e">75–100 · Strong Opportunity</span>
+            <span class="sp" style="background:rgba(134,239,172,0.15);color:#86efac">60–74 · Good Potential</span>
+            <span class="sp" style="background:rgba(250,204,21,0.15);color:#facc15">45–59 · Moderate Risk</span>
+            <span class="sp" style="background:rgba(249,115,22,0.15);color:#f97316">30–44 · High Risk</span>
+            <span class="sp" style="background:rgba(239,68,68,0.12);color:#ef4444">1–29 · Not Recommended</span>
           </div>
         </div>
       </div>
@@ -279,7 +322,7 @@
           <span class="sp" style="background:rgba(99,102,241,0.15);color:#6366f1">🚀 Breakout — 1,000%+ growth</span>
           <span class="sp" style="background:rgba(249,115,22,0.15);color:#f97316">🔥 Hot — 200–999% growth</span>
           <span class="sp" style="background:rgba(34,197,94,0.15);color:#22c55e">↗ Rising — steady upward trend</span>
-          <span class="sp" style="background:rgba(100,116,139,0.12);color:#94a3b8">⬛ Flat — peaked, no longer climbing. Data frozen at last known values.</span>
+          <span class="sp" style="background:rgba(100,116,139,0.12);color:#94a3b8">⬛ Flat — peaked, no longer climbing. Card stays forever; data frozen.</span>
         </div>
       </div>
 
@@ -287,7 +330,7 @@
         <h3>🔄 Update Schedule</h3>
         <div class="method-row">
           <div class="method-icon">🌙</div>
-          <div class="method-text">The nightly job runs at <strong>3 AM CST (9 AM UTC)</strong> via GitHub Actions. It fetches fresh Google Trends, Reddit, and Amazon data for all active keywords, runs the discovery engine to find up to 20 new keywords from pytrends related queries, then commits the updated cache file to the repo — triggering an automatic Railway redeploy within ~2 minutes. <strong>Flat keywords are skipped</strong> during fetching to save time, but their last known data remains visible on the dashboard forever.</div>
+          <div class="method-text">The nightly job runs at <strong>3 AM CST (9 AM UTC)</strong> via GitHub Actions. It fetches fresh Google Trends, Reddit, and Amazon data for all active keywords, recalculates every score including Viability, runs the discovery engine to find up to 20 new keywords, then commits the updated cache — triggering an automatic Railway redeploy within ~2 minutes. <strong>Flat keywords are skipped</strong> during fetching to save time, but their last known data and scores remain visible forever.</div>
         </div>
       </div>
 
@@ -295,7 +338,7 @@
         <h3>🔍 Keyword Discovery</h3>
         <div class="method-row">
           <div class="method-icon">🤖</div>
-          <div class="method-text">Each night, pytrends' <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">related_queries()</code> API is called on seed terms across all 13 categories. Rising related queries that look like product names (not questions or how-tos) are automatically added to the keyword list — up to 20 new keywords per night. This means the tracker grows organically toward its practical ceiling of ~400–500 keywords.</div>
+          <div class="method-text">Each night, pytrends' <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">related_queries()</code> API is called on seed terms across all 13 categories. Rising related queries that look like product names (not questions or how-tos) are automatically added to the tracking list — up to 20 per night. The list grows organically toward its practical ceiling of ~400–500 keywords. Every newly discovered keyword gets a full Viability Score on its first night.</div>
         </div>
       </div>
 
