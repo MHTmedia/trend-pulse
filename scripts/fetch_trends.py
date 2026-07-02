@@ -570,6 +570,140 @@ def classify_momentum(growth: float) -> str:
     return "rising"
 
 
+def compute_viability(
+    growth: float,
+    series: list[float],
+    status: str,
+    reddit_30d: int,
+    reddit_velocity: float | None,
+    amazon_result_count: int | None,
+    amazon_avg_price: float | None,
+    amazon_avg_rating: float | None,
+    amazon_top_reviews: int | None,
+    amazon_best_seller: bool,
+    amazons_choice: bool,
+) -> tuple[int, dict]:
+    """
+    Product viability score (1–100) for entrepreneurs evaluating a market.
+
+    Five factors (max points shown):
+      1. Trend Momentum   (30 pts) — Is demand growing? At what stage?
+      2. Current Interest (20 pts) — How strong is interest RIGHT NOW?
+      3. Competition      (25 pts) — How crowded is Amazon? Fewer = easier entry.
+      4. Price Viability  (10 pts) — Is the avg price high enough for margin?
+      5. Social Demand    (15 pts) — Reddit community validation + velocity.
+
+    Bonuses/penalties:
+      • Best Seller or Amazon's Choice badge   +3  (proven buyer demand)
+      • Strong reviews on top product          +2  (market validated)
+      • Flat/declining status                  hard cap at 30
+    """
+    breakdown = {}
+
+    # ── 1. Trend Momentum (0–30) ───────────────────────────────────────────────
+    # Sweet spot is Hot (200–999%): proven demand but not yet saturated.
+    # Breakout is exciting but risky (early, unproven longevity) → slight penalty.
+    if status == "flat":
+        m = 0
+    elif growth >= 2000:
+        m = 24   # extreme breakout — huge risk, could be a fad
+    elif growth >= 1000:
+        m = 27   # breakout — exciting but volatile
+    elif growth >= 500:
+        m = 30   # hot sweet spot
+    elif growth >= 200:
+        m = 28
+    elif growth >= 100:
+        m = 22
+    elif growth >= 50:
+        m = 16
+    elif growth > 0:
+        m = 10
+    else:
+        m = 3
+    breakdown["trend_momentum"] = m
+
+    # ── 2. Current Interest (0–20) ─────────────────────────────────────────────
+    # Last month's Google Trends index (0–100) scaled to 0–20.
+    current = series[-1] if series else 0
+    i = round(current / 100 * 20)
+    breakdown["current_interest"] = i
+
+    # ── 3. Competition (0–25) ──────────────────────────────────────────────────
+    # Fewer Amazon listings = easier to rank and stand out.
+    if amazon_result_count is None:
+        c = 12   # no data → neutral
+    elif amazon_result_count < 100:
+        c = 25   # near-blue-ocean
+    elif amazon_result_count < 500:
+        c = 22
+    elif amazon_result_count < 2_000:
+        c = 17
+    elif amazon_result_count < 5_000:
+        c = 12
+    elif amazon_result_count < 15_000:
+        c = 7
+    else:
+        c = 3    # very crowded
+    breakdown["competition"] = c
+
+    # ── 4. Price Viability (0–10) ──────────────────────────────────────────────
+    # Higher avg price = more margin room for a new entrant.
+    if amazon_avg_price is None:
+        p = 5    # neutral
+    elif amazon_avg_price >= 100:
+        p = 10
+    elif amazon_avg_price >= 60:
+        p = 9
+    elif amazon_avg_price >= 35:
+        p = 7
+    elif amazon_avg_price >= 20:
+        p = 4
+    else:
+        p = 1    # race-to-bottom pricing
+    breakdown["price_viability"] = p
+
+    # ── 5. Social Demand (0–15) ────────────────────────────────────────────────
+    # Reddit mentions = organic community interest (not paid/manufactured).
+    r30 = reddit_30d or 0
+    if r30 >= 100:
+        s = 14
+    elif r30 >= 50:
+        s = 12
+    elif r30 >= 20:
+        s = 10
+    elif r30 >= 10:
+        s = 7
+    elif r30 >= 3:
+        s = 4
+    else:
+        s = 1
+    # Velocity bonus: community buzz is accelerating
+    if reddit_velocity is not None and reddit_velocity >= 50:
+        s = min(15, s + 2)
+    breakdown["social_demand"] = s
+
+    # ── Bonuses ────────────────────────────────────────────────────────────────
+    bonus = 0
+    if amazon_best_seller or amazons_choice:
+        bonus += 3   # proven buyer demand exists in this category
+    if (amazon_top_reviews or 0) >= 1000:
+        bonus += 2   # market is validated — customers actively buying
+    # Slight penalty for very poor ratings (quality gap may be hard to overcome)
+    if amazon_avg_rating is not None and amazon_avg_rating < 3.5:
+        bonus -= 3
+    breakdown["bonus"] = bonus
+
+    raw = m + i + c + p + s + bonus
+
+    # ── Flat hard cap ──────────────────────────────────────────────────────────
+    if status == "flat":
+        raw = min(raw, 30)
+
+    score = max(1, min(100, raw))
+    return score, breakdown
+
+
 def is_flat(series: list[float]) -> bool:
     """
     Returns True if the keyword's interest has peaked and is meaningfully
@@ -984,6 +1118,20 @@ def main():
         rd     = reddit_data.get(kw, {})
         amz    = amazon_data.get(kw, {})
 
+        viability, viability_breakdown = compute_viability(
+            growth               = growth,
+            series               = series,
+            status               = status,
+            reddit_30d           = rd.get("reddit_30d", 0),
+            reddit_velocity      = rd.get("reddit_velocity"),
+            amazon_result_count  = amz.get("amazon_result_count"),
+            amazon_avg_price     = amz.get("amazon_avg_price"),
+            amazon_avg_rating    = amz.get("amazon_avg_rating"),
+            amazon_top_reviews   = amz.get("amazon_top_reviews"),
+            amazon_best_seller   = amz.get("amazon_best_seller", False),
+            amazons_choice       = amz.get("amazons_choice", False),
+        )
+
         keywords_out.append({
             "id":               idx,
             "keyword":          kw,
@@ -992,6 +1140,8 @@ def main():
             "momentum":         classify_momentum(growth),
             "growth":           growth,
             "score":            trend_score(series, growth),
+            "viability":        viability,
+            "viability_breakdown": viability_breakdown,
             "trend":            series,
             "fetched":          datetime.utcnow().isoformat(),
             "is_new":           rec.get("is_new", False),

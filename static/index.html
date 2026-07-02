@@ -71,6 +71,7 @@
   .lens-btn.lens-radar.active     { color: #34d399;       border-color: #34d399;       background: rgba(52,211,153,0.12); }
   .lens-btn.lens-multi.active     { color: #f472b6;       border-color: #f472b6;       background: rgba(244,114,182,0.12); }
   .lens-btn.lens-flat.active      { color: #94a3b8;       border-color: #94a3b8;       background: rgba(148,163,184,0.1); }
+  .lens-btn.lens-viable.active    { color: #22c55e;       border-color: #22c55e;       background: rgba(34,197,94,0.12); }
   .lens-btn.lens-amz-bsb.active   { color: #f97316;       border-color: #f97316;       background: rgba(249,115,22,0.12); }
   .lens-btn.lens-amz-choice.active{ color: #22d3ee;       border-color: #22d3ee;       background: rgba(34,211,238,0.12); }
   .lens-btn.lens-amz-low.active   { color: #34d399;       border-color: #34d399;       background: rgba(52,211,153,0.12); }
@@ -172,6 +173,22 @@
   .related-tag { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: 13px; color: var(--text); }
   .google-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--accent); font-size: 13px; text-decoration: none; }
   .google-link:hover { text-decoration: underline; }
+
+  /* VIABILITY */
+  .viability-bar-wrap { margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
+  .viability-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .viability-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .viability-tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+  .viability-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .viability-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+  .viability-num { font-size: 12px; font-weight: 700; }
+  /* Viability breakdown in modal */
+  .vb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+  .vb-row { background: var(--surface2); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; }
+  .vb-name { font-size: 12px; color: var(--muted); }
+  .vb-score { font-size: 14px; font-weight: 700; }
+  .vb-bar-wrap { margin-top: 4px; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .vb-bar { height: 100%; border-radius: 2px; }
 
   /* EMPTY */
   .empty { text-align: center; padding: 60px 32px; color: var(--muted); grid-column: 1/-1; }
@@ -297,6 +314,98 @@ let fetchedAt     = null;
 let visibleCount  = 48;       // pagination — cards shown so far
 const PAGE_SIZE   = 48;       // how many to add per "Show more"
 
+// ── Viability score (mirrors fetch_trends.py logic) ──────────────────────────
+// Computed client-side so cards work immediately from cached data.
+// Server also stores viability in the JSON after next nightly run.
+function calcViability(k) {
+  if (k.viability != null) return k.viability; // use server value if available
+
+  const growth   = k.growth || 0;
+  const status   = k.status || 'active';
+  const series   = k.trend  || [];
+  const r30      = k.reddit_30d || 0;
+  const vel      = k.reddit_velocity;
+  const listings = k.amazon_result_count;
+  const price    = k.amazon_avg_price;
+  const rating   = k.amazon_avg_rating;
+  const reviews  = k.amazon_top_reviews;
+  const bsb      = k.amazon_best_seller;
+  const ac       = k.amazons_choice;
+
+  // 1. Trend momentum (0–30)
+  let m = 0;
+  if (status !== 'flat') {
+    if      (growth >= 2000) m = 24;
+    else if (growth >= 1000) m = 27;
+    else if (growth >= 500)  m = 30;
+    else if (growth >= 200)  m = 28;
+    else if (growth >= 100)  m = 22;
+    else if (growth >= 50)   m = 16;
+    else if (growth > 0)     m = 10;
+    else                     m = 3;
+  }
+
+  // 2. Current interest (0–20)
+  const current = series.length ? series[series.length - 1] : 0;
+  const i = Math.round(current / 100 * 20);
+
+  // 3. Competition (0–25)
+  let c = 12;
+  if (listings != null) {
+    if      (listings < 100)    c = 25;
+    else if (listings < 500)    c = 22;
+    else if (listings < 2000)   c = 17;
+    else if (listings < 5000)   c = 12;
+    else if (listings < 15000)  c = 7;
+    else                        c = 3;
+  }
+
+  // 4. Price viability (0–10)
+  let p = 5;
+  if (price != null) {
+    if      (price >= 100) p = 10;
+    else if (price >= 60)  p = 9;
+    else if (price >= 35)  p = 7;
+    else if (price >= 20)  p = 4;
+    else                   p = 1;
+  }
+
+  // 5. Social demand (0–15)
+  let s = 1;
+  if      (r30 >= 100) s = 14;
+  else if (r30 >= 50)  s = 12;
+  else if (r30 >= 20)  s = 10;
+  else if (r30 >= 10)  s = 7;
+  else if (r30 >= 3)   s = 4;
+  if (vel != null && vel >= 50) s = Math.min(15, s + 2);
+
+  // Bonuses
+  let bonus = 0;
+  if (bsb || ac)         bonus += 3;
+  if ((reviews||0) >= 1000) bonus += 2;
+  if (rating != null && rating < 3.5) bonus -= 3;
+
+  let raw = m + i + c + p + s + bonus;
+  if (status === 'flat') raw = Math.min(raw, 30);
+  return Math.max(1, Math.min(100, raw));
+}
+
+function viabilityColor(v) {
+  if (v >= 75) return '#22c55e';
+  if (v >= 60) return '#86efac';
+  if (v >= 45) return '#facc15';
+  if (v >= 30) return '#f97316';
+  return '#ef4444';
+}
+
+function viabilityLabel(v) {
+  if (v >= 75) return { text: 'Strong Opportunity', color: '#22c55e' };
+  if (v >= 60) return { text: 'Good Potential',     color: '#86efac' };
+  if (v >= 45) return { text: 'Moderate Risk',      color: '#facc15' };
+  if (v >= 30) return { text: 'High Risk',          color: '#f97316' };
+  return             { text: 'Not Recommended',     color: '#ef4444' };
+}
+
 // ── Lens definitions ──────────────────────────────────────────────────────────
 // Each lens has: id, label, cls (CSS suffix), description, and a test fn
 const LENSES = [
@@ -349,6 +458,11 @@ const LENSES = [
     id: 'flat', label: '⬛ Flat', cls: 'lens-flat',
     tip: 'Peaked — no longer climbing. Data frozen at last known values.',
     test: k => k.status === 'flat',
+  },
+  {
+    id: 'viable', label: '🎯 High Viability', cls: 'lens-viable',
+    tip: 'Viability Score 65+ — strong conditions for a new product to succeed',
+    test: k => calcViability(k) >= 65,
   },
   {
     id: 'amz_bsb', label: '★ Best Seller', cls: 'lens-amz-bsb',
@@ -499,6 +613,23 @@ function dataRowsHTML(k) {
   return `<div class="data-rows">${rows.join('')}</div>`;
 }
 
+function viabilityBarHTML(k) {
+  const v   = calcViability(k);
+  const col = viabilityColor(v);
+  const lbl = viabilityLabel(v);
+  return `
+    <div class="viability-bar-wrap">
+      <div class="viability-label-row">
+        <span class="viability-label">🎯 Viability</span>
+        <span class="viability-num" style="color:${col}">${v}/100</span>
+        <span class="viability-tag" style="background:${col}22;color:${col};border:1px solid ${col}44">${lbl.text}</span>
+      </div>
+      <div class="viability-track">
+        <div class="viability-fill" style="width:${v}%;background:${col}"></div>
+      </div>
+    </div>`;
+}
+
 // ── Filtering / Sorting ───────────────────────────────────────────────────────
 function getCategories() {
   return ['All', ...new Set(allKeywords.map(k => k.category)).values()];
@@ -523,11 +654,12 @@ function getFiltered() {
   });
 
   const sorts = {
-    growth:   (a,b) => b.growth - a.growth,
-    score:    (a,b) => b.score - a.score,
-    reddit:   (a,b) => (b.reddit_30d||0) - (a.reddit_30d||0),
-    velocity: (a,b) => (b.reddit_velocity||0) - (a.reddit_velocity||0),
-    az:       (a,b) => a.keyword.localeCompare(b.keyword),
+    growth:    (a,b) => b.growth - a.growth,
+    viability: (a,b) => calcViability(b) - calcViability(a),
+    score:     (a,b) => b.score - a.score,
+    reddit:    (a,b) => (b.reddit_30d||0) - (a.reddit_30d||0),
+    velocity:  (a,b) => (b.reddit_velocity||0) - (a.reddit_velocity||0),
+    az:        (a,b) => a.keyword.localeCompare(b.keyword),
   };
   return data.sort(sorts[activeSort] || sorts.growth);
 }
@@ -597,6 +729,7 @@ function renderApp() {
         </div>
         <select class="sort-select" id="sortSelect" onchange="onSort(this.value)">
           <option value="growth">↓ Growth %</option>
+          <option value="viability">↓ Viability Score</option>
           <option value="score">↓ Trend Score</option>
           <option value="reddit">↓ Reddit Buzz</option>
           <option value="velocity">↓ Social Surge</option>
@@ -704,6 +837,7 @@ function renderCards() {
         </div>
       </div>
       ${dataRowsHTML(k)}
+      ${viabilityBarHTML(k)}
     </div>
   `).join('') + (remaining > 0 ? `
     <div style="grid-column:1/-1;text-align:center;padding:24px 0 8px">
@@ -774,6 +908,47 @@ function openModal(id) {
         <div class="modal-stat"><div class="modal-stat-label">Trend Score</div><div class="modal-stat-value">${k.score}/100</div></div>
         <div class="modal-stat"><div class="modal-stat-label">Status</div><div class="modal-stat-value" style="font-size:14px;text-transform:capitalize">${k.status}</div></div>
       </div>
+      ${(()=>{
+        const v   = calcViability(k);
+        const col = viabilityColor(v);
+        const lbl = viabilityLabel(v);
+        const bd  = k.viability_breakdown || {};
+        const maxPts = { trend_momentum:30, current_interest:20, competition:25, price_viability:10, social_demand:15, bonus:5 };
+        const names  = { trend_momentum:'Trend Momentum', current_interest:'Current Interest', competition:'Competition', price_viability:'Price Viability', social_demand:'Social Demand', bonus:'Bonuses' };
+        const rows = Object.entries(names).map(([key, name]) => {
+          const pts = bd[key] ?? null;
+          const max = maxPts[key];
+          const pct = pts != null ? Math.max(0, Math.min(100, (pts / max) * 100)) : 0;
+          const c2  = pts != null && pts > 0 ? col : (pts < 0 ? '#ef4444' : 'var(--muted)');
+          return `<div class="vb-row">
+            <div>
+              <div class="vb-name">${name}</div>
+              <div class="vb-bar-wrap"><div class="vb-bar" style="width:${pct}%;background:${c2}"></div></div>
+            </div>
+            <div class="vb-score" style="color:${c2}">${pts != null ? (pts > 0 ? '+' : '') + pts : '—'}<span style="font-size:10px;color:var(--muted);font-weight:400">/${max}</span></div>
+          </div>`;
+        }).join('');
+        return `
+        <div style="margin-bottom:16px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <div>
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">🎯 Product Viability Score</div>
+              <div style="font-size:28px;font-weight:800;color:${col}">${v}<span style="font-size:14px;color:var(--muted);font-weight:400">/100</span></div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:15px;font-weight:700;color:${col}">${lbl.text}</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:4px">for new product creation</div>
+            </div>
+          </div>
+          <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:14px">
+            <div style="height:100%;width:${v}%;background:${col};border-radius:3px;transition:width 0.4s ease"></div>
+          </div>
+          <div class="vb-grid">${rows}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5">
+            Score weights: Trend Momentum (30) + Current Interest (20) + Competition (25) + Price Viability (10) + Social Demand (15). Flat topics capped at 30.
+          </div>
+        </div>`;
+      })()}
       ${k.reddit_30d != null ? `
       <div style="margin-bottom:12px">
         <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">🔶 Reddit</div>
