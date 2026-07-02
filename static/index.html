@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrendPulse – Product Trend Tracker</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3250;
+    --accent: #6366f1;
+    --accent2: #22d3ee;
+    --green: #22c55e;
+    --orange: #f97316;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --card-hover: #1f2335;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+
+  /* HEADER */
+  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .logo h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+  .logo span { color: var(--accent); }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .header-meta { font-size: 12px; color: var(--muted); }
+  .refresh-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+  .refresh-btn:hover { border-color: var(--accent); color: var(--text); }
+  .refresh-btn.spinning svg { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* LOADING STATE */
+  .loading-overlay { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 32px; gap: 16px; }
+  .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .loading-overlay p { color: var(--muted); font-size: 14px; }
+
+  /* ERROR STATE */
+  .error-state { text-align: center; padding: 60px 32px; }
+  .error-state h3 { color: var(--red); margin-bottom: 8px; }
+  .error-state p { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+  .retry-btn { background: var(--accent); border: none; color: white; padding: 8px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; }
+
+  /* CONTROLS */
+  .controls { padding: 24px 32px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .search-box { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; flex: 1; max-width: 320px; }
+  .search-box input { background: none; border: none; outline: none; color: var(--text); font-size: 14px; width: 100%; }
+  .search-box svg { color: var(--muted); flex-shrink: 0; }
+  .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn { padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.15s; }
+  .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .sort-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 7px 12px; border-radius: 8px; font-size: 13px; cursor: pointer; margin-left: auto; }
+
+  /* STATS BAR */
+  .stats-bar { padding: 0 32px 20px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; flex: 1; min-width: 160px; }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .stat-value { font-size: 22px; font-weight: 700; }
+  .stat-value.up { color: var(--green); }
+  .stat-change { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* LAST UPDATED BANNER */
+  .update-banner { margin: 0 32px 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  /* GRID */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; padding: 0 32px 40px; }
+
+  /* CARD */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden; }
+  .card:hover { border-color: var(--accent); background: var(--card-hover); transform: translateY(-1px); }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .card-keyword { font-size: 15px; font-weight: 600; line-height: 1.3; flex: 1; padding-right: 12px; }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .badge-breakout { background: rgba(99,102,241,0.2); color: var(--accent); border: 1px solid rgba(99,102,241,0.3); }
+  .badge-rising { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+  .badge-hot { background: rgba(249,115,22,0.15); color: var(--orange); border: 1px solid rgba(249,115,22,0.25); }
+  .badge-cat { background: rgba(100,116,139,0.15); color: var(--muted); border: 1px solid var(--border); }
+  .growth-pill { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+  .growth-pill.up { background: rgba(34,197,94,0.15); color: var(--green); }
+  .growth-pill.breakout { background: rgba(99,102,241,0.2); color: var(--accent); }
+  .chart-wrap { height: 70px; margin: 12px 0; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .volume-label { font-size: 12px; color: var(--muted); }
+  .volume-value { font-size: 13px; font-weight: 600; color: var(--text); }
+  .score-bar-wrap { display: flex; align-items: center; gap: 6px; }
+  .score-bar { width: 60px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+  .score-num { font-size: 11px; color: var(--muted); }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 24px; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 640px; max-height: 85vh; overflow-y: auto; }
+  .modal-header { padding: 24px 24px 0; display: flex; justify-content: space-between; align-items: flex-start; }
+  .modal-title { font-size: 20px; font-weight: 700; }
+  .modal-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 20px; padding: 4px; line-height: 1; }
+  .modal-close:hover { color: var(--text); }
+  .modal-body { padding: 20px 24px 24px; }
+  .modal-chart-wrap { height: 200px; margin: 16px 0; }
+  .modal-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .modal-stat { background: var(--surface2); border-radius: 8px; padding: 12px; }
+  .modal-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+  .modal-stat-value { font-size: 18px; font-weight: 700; margin-top: 2px; }
+  .modal-section { margin-top: 16px; }
+  .modal-section h4 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .related-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .related-tag { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: 13px; color: var(--text); }
+  .google-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--accent); font-size: 13px; text-decoration: none; }
+  .google-link:hover { text-decoration: underline; }
+
+  /* EMPTY */
+  .empty { text-align: center; padding: 60px 32px; color: var(--muted); grid-column: 1/-1; }
+  .empty p { margin-top: 8px; font-size: 14px; }
+
+  @media (max-width: 640px) {
+    .controls, .stats-bar, .grid, .update-banner { padding-left: 16px; padding-right: 16px; }
+    header { padding: 12px 16px; }
+    .modal-stats { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">📈</div>
+    <h1>Trend<span>Pulse</span></h1>
+  </div>
+  <div class="header-right">
+    <span class="header-meta" id="headerMeta">Loading…</span>
+    <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+      Refresh
+    </button>
+  </div>
+</header>
+
+<div id="appContent">
+  <div class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Fetching trend data from Google…</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+// ── State ────────────────────────────────────────────────────────────────────
+let allKeywords = [];
+let activeFilter = 'All';
+let activeSort = 'growth';
+let charts = {};
+let fetchedAt = null;
+
+// ── Bootstrap ─────────────────────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const res = await fetch('/api/trends');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error || 'API error');
+    allKeywords = json.keywords;
+    fetchedAt = json.keywords[0]?.fetched ? new Date(json.keywords[0].fetched) : new Date();
+    renderApp();
+  } catch (err) {
+    showError(err.message);
+  }
+}
+
+async function manualRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  btn.disabled = true;
+  try {
+    await fetch('/api/refresh', { method: 'POST' });
+    await loadData();
+  } catch (err) {
+    alert('Refresh failed: ' + err.message);
+  } finally {
+    btn.classList.remove('spinning');
+    btn.disabled = false;
+  }
+}
+
+function showError(msg) {
+  document.getElementById('appContent').innerHTML = `
+    <div class="error-state">
+      <h3>⚠️ Could not load trends</h3>
+      <p>${msg}</p>
+      <button class="retry-btn" onclick="loadData()">Try Again</button>
+    </div>`;
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function fmtGrowth(g) {
+  if (g >= 5000) return '+5000%+';
+  if (g <= 0) return '—';
+  return '+' + Math.round(g).toLocaleString() + '%';
+}
+
+function trendColor(status) {
+  return status === 'breakout' ? '#6366f1' : status === 'hot' ? '#f97316' : '#22c55e';
+}
+
+function badgeHTML(k) {
+  let b = `<span class="badge badge-cat">${k.category}</span>`;
+  if (k.status === 'breakout') b += `<span class="badge badge-breakout">🚀 Breakout</span>`;
+  else if (k.status === 'hot')  b += `<span class="badge badge-hot">🔥 Hot</span>`;
+  else                          b += `<span class="badge badge-rising">↗ Rising</span>`;
+  return b;
+}
+
+function pillClass(k) {
+  return k.status === 'breakout' ? 'breakout' : 'up';
+}
+
+// ── Filtering / Sorting ───────────────────────────────────────────────────────
+function getCategories() {
+  return ['All', ...new Set(allKeywords.map(k => k.category)).values()];
+}
+
+function getFiltered() {
+  const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  let data = allKeywords.filter(k => {
+    const matchCat = activeFilter === 'All' || k.category === activeFilter;
+    const matchQ   = !q || k.keyword.toLowerCase().includes(q) || k.category.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  const sorts = {
+    growth:  (a,b) => b.growth - a.growth,
+    score:   (a,b) => b.score - a.score,
+    az:      (a,b) => a.keyword.localeCompare(b.keyword),
+  };
+  return data.sort(sorts[activeSort] || sorts.growth);
+}
+
+function setFilter(cat) {
+  activeFilter = cat;
+  renderCards();
+}
+
+function onSort(val) {
+  activeSort = val;
+  renderCards();
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────────
+function renderApp() {
+  const categories = getCategories();
+  const filterBtns = categories.map(c =>
+    `<button class="filter-btn${c === activeFilter ? ' active' : ''}" onclick="setFilter('${c}')">${c}</button>`
+  ).join('');
+
+  const ts = fetchedAt ? fetchedAt.toLocaleString() : '—';
+  document.getElementById('headerMeta').textContent = `Updated ${ts} · US market`;
+
+  document.getElementById('appContent').innerHTML = `
+    <div class="update-banner">
+      <div class="live-dot"></div>
+      <span>Data refreshed ${ts} · Powered by Google Trends · Refreshes every 24 hours</span>
+    </div>
+    <div class="controls">
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Search keywords…" oninput="renderCards()">
+      </div>
+      <div class="filter-group" id="filterGroup">${filterBtns}</div>
+      <select class="sort-select" onchange="onSort(this.value)">
+        <option value="growth">Sort: Growth %</option>
+        <option value="score">Sort: Trend Score</option>
+        <option value="az">Sort: A → Z</option>
+      </select>
+    </div>
+    <div class="stats-bar" id="statsBar"></div>
+    <div class="grid" id="cardGrid"></div>
+  `;
+
+  renderCards();
+}
+
+function renderStats(data) {
+  const breakouts = data.filter(k => k.status === 'breakout').length;
+  const avgGrowth = data.length ? Math.round(data.reduce((s,k)=>s+k.growth,0)/data.length) : 0;
+  const cats = new Set(data.map(k=>k.category)).size;
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat"><div class="stat-label">Keywords Tracked</div><div class="stat-value">${data.length}</div><div class="stat-change">Across ${cats} categories</div></div>
+    <div class="stat"><div class="stat-label">Breakout Topics</div><div class="stat-value up">${breakouts}</div><div class="stat-change">+1000% growth or more</div></div>
+    <div class="stat"><div class="stat-label">Avg. Growth</div><div class="stat-value up">+${avgGrowth.toLocaleString()}%</div><div class="stat-change">12-month trend</div></div>
+  `;
+}
+
+function renderCards() {
+  // Update filter buttons
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === activeFilter);
+  });
+
+  const data = getFiltered();
+  renderStats(data);
+
+  Object.values(charts).forEach(c => c.destroy());
+  charts = {};
+
+  const grid = document.getElementById('cardGrid');
+  if (!grid) return;
+
+  if (data.length === 0) {
+    grid.innerHTML = `<div class="empty"><p>No keywords match your filter.</p></div>`;
+    return;
+  }
+
+  const months = ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+
+  grid.innerHTML = data.map(k => `
+    <div class="card" onclick="openModal(${k.id})">
+      <div class="card-top">
+        <div>
+          <div class="card-keyword">${k.keyword}</div>
+          <div class="badges">${badgeHTML(k)}</div>
+        </div>
+        <div class="growth-pill ${pillClass(k)}">${fmtGrowth(k.growth)}</div>
+      </div>
+      <div class="chart-wrap"><canvas id="chart-${k.id}"></canvas></div>
+      <div class="card-footer">
+        <div><div class="volume-label">Trend Score</div></div>
+        <div class="score-bar-wrap">
+          <div class="score-bar"><div class="score-fill" style="width:${k.score}%"></div></div>
+          <span class="score-num">${k.score}/100</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  requestAnimationFrame(() => {
+    data.forEach(k => {
+      const ctx = document.getElementById(`chart-${k.id}`);
+      if (!ctx) return;
+      const color = trendColor(k.status);
+      charts[k.id] = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: months,
+          datasets: [{
+            data: k.trend,
+            borderColor: color,
+            borderWidth: 2,
+            fill: true,
+            backgroundColor: (context) => {
+              const g = context.chart.ctx.createLinearGradient(0,0,0,70);
+              g.addColorStop(0, color+'40'); g.addColorStop(1, color+'00');
+              return g;
+            },
+            tension: 0.4,
+            pointRadius: 0,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: { x: { display: false }, y: { display: false, min: 0, max: 110 } },
+          animation: { duration: 300 }
+        }
+      });
+    });
+  });
+}
+
+// ── Modal ─────────────────────────────────────────────────────────────────────
+function openModal(id) {
+  const k = allKeywords.find(k => k.id === id);
+  if (!k) return;
+  const color = trendColor(k.status);
+  const months = ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+  const googleUrl = `https://trends.google.com/trends/explore?q=${encodeURIComponent(k.keyword)}&geo=US`;
+
+  document.getElementById('modal').innerHTML = `
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">${k.keyword}</div>
+        <div class="badges" style="margin-top:8px">${badgeHTML(k)}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-stats">
+        <div class="modal-stat"><div class="modal-stat-label">12-mo Growth</div><div class="modal-stat-value" style="color:${color}">${fmtGrowth(k.growth)}</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Trend Score</div><div class="modal-stat-value">${k.score}/100</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Status</div><div class="modal-stat-value" style="font-size:14px;text-transform:capitalize">${k.status}</div></div>
+      </div>
+      <div class="modal-chart-wrap"><canvas id="modal-chart"></canvas></div>
+      <div class="modal-section">
+        <a class="google-link" href="${googleUrl}" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View on Google Trends
+        </a>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('modalOverlay').classList.add('open');
+
+  setTimeout(() => {
+    const ctx = document.getElementById('modal-chart');
+    if (!ctx) return;
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          data: k.trend,
+          backgroundColor: k.trend.map((v,i) => i === k.trend.length-1 ? color : color+'80'),
+          borderRadius: 4,
+          borderSkipped: false,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: { label: c => `Interest: ${c.raw}` },
+            backgroundColor: '#1a1d27', titleColor: '#e2e8f0',
+            bodyColor: '#94a3b8', borderColor: '#2e3250', borderWidth: 1
+          }
+        },
+        scales: {
+          x: { grid: { color: '#2e3250' }, ticks: { color: '#64748b', font: { size: 11 } } },
+          y: { grid: { color: '#2e3250' }, ticks: { color: '#64748b', font: { size: 11 } }, min: 0, max: 110 }
+        }
+      }
+    });
+  }, 50);
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalOverlay')) {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>
