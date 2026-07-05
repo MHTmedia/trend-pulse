@@ -314,8 +314,9 @@
   {
     "keyword": "Niacinamide Serum",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Lash Serum",
@@ -350,14 +351,16 @@
   {
     "keyword": "Facial Gua Sha",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Ice Roller Face",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Lip Filler Alternative",
@@ -458,8 +461,9 @@
   {
     "keyword": "Ceramide Moisturizer",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Centella Asiatica Cream",
@@ -470,8 +474,9 @@
   {
     "keyword": "Glycolic Acid Toner",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Salicylic Acid Cleanser",
@@ -494,8 +499,9 @@
   {
     "keyword": "Dermaplaning Tool",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Pore Vacuum Blackhead",
@@ -506,8 +512,9 @@
   {
     "keyword": "Caffeine Eye Serum",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Minoxidil Serum Hair",
@@ -548,8 +555,9 @@
   {
     "keyword": "Portable Blender",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Barefoot Running Shoes",
@@ -578,8 +586,9 @@
   {
     "keyword": "Walking Pad Treadmill",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Pull Up Bar Doorframe",
@@ -590,8 +599,9 @@
   {
     "keyword": "Resistance Band Set",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Massage Gun",
@@ -626,8 +636,9 @@
   {
     "keyword": "Adjustable Dumbbell Set",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Gymnastic Rings",
@@ -686,8 +697,9 @@
   {
     "keyword": "Ab Roller Wheel",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Balance Board Fitness",
@@ -698,8 +710,9 @@
   {
     "keyword": "Gymnastics Mat",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Acupressure Mat",
@@ -824,8 +837,9 @@
   {
     "keyword": "Wireless Earbuds",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Dashcam 4K",
@@ -836,8 +850,9 @@
   {
     "keyword": "Action Camera",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Smart Glasses",
@@ -848,14 +863,16 @@
   {
     "keyword": "Portable Monitor",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Mechanical Keyboard",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Magnetic Phone Mount",
@@ -884,14 +901,16 @@
   {
     "keyword": "Open Ear Headphones",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Sleep Headphones",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Noise Canceling Earplugs",
@@ -926,8 +945,9 @@
   {
     "keyword": "Ring Light Professional",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Podcast Microphone USB",
@@ -938,8 +958,9 @@
   {
     "keyword": "Lavalier Microphone Wireless",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Smart Plug Energy Monitor",
@@ -998,8 +1019,9 @@
   {
     "keyword": "Air Purifier Smart",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "EMF Meter",
@@ -1028,8 +1050,9 @@
   {
     "keyword": "Standing Desk Electric",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Monitor Light Bar",
@@ -1064,8 +1087,9 @@
   {
     "keyword": "Air Fryer Accessories",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Countertop Dishwasher",
@@ -1352,8 +1376,9 @@
   {
     "keyword": "Automatic Cat Feeder",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Dog DNA Test Kit",
@@ -1376,8 +1401,9 @@
   {
     "keyword": "Orthopedic Dog Bed",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Dog Joint Supplement",
@@ -1454,8 +1480,9 @@
   {
     "keyword": "Aquarium LED Light",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Reptile UVB Light",
@@ -1496,8 +1523,9 @@
   {
     "keyword": "Dog Treadmill",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Linen Clothing",
@@ -1514,8 +1542,9 @@
   {
     "keyword": "Wide Leg Pants",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Bamboo Pajamas",
@@ -1538,8 +1567,9 @@
   {
     "keyword": "Crossbody Bag",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Bucket Hat UV Protection",
@@ -1599,8 +1629,9 @@
   {
     "keyword": "Trail Running Shorts",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Running Vest Hydration",
@@ -1624,8 +1655,9 @@
   {
     "keyword": "Down Jacket Packable",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Rain Jacket Packable",
@@ -1660,14 +1692,16 @@
   {
     "keyword": "Chelsea Boots",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Platform Sneakers",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Puffer Vest",
@@ -1745,8 +1779,9 @@
   {
     "keyword": "Balance Bike Kids",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Wobble Board Kids",
@@ -1817,8 +1852,9 @@
   {
     "keyword": "Baby Swing Electric",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Nursing Pillow",
@@ -1871,8 +1907,9 @@
   {
     "keyword": "Solar Shower Bag",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Backpacking Stove",
@@ -1901,8 +1938,9 @@
   {
     "keyword": "Fire Starter Kit",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Portable Power Bank Solar",
@@ -1913,14 +1951,16 @@
   {
     "keyword": "Hiking Boot Waterproof",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Hydration Pack Backpack",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Tarp Shelter Ultralight",
@@ -1943,8 +1983,9 @@
   {
     "keyword": "Survival Bracelet",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Kayak Inflatable",
@@ -2105,8 +2146,9 @@
   {
     "keyword": "Pour Over Coffee Set",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Aeropress Coffee Maker",
@@ -2207,8 +2249,9 @@
   {
     "keyword": "Butter Coffee Kit",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "French Press Insulated",
@@ -2219,8 +2262,9 @@
   {
     "keyword": "Milk Frother Electric",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Silicone Food Storage Bags",
@@ -2255,8 +2299,9 @@
   {
     "keyword": "Shampoo Bar",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Solid Conditioner Bar",
@@ -2339,14 +2384,16 @@
   {
     "keyword": "Beeswax Wrap",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Nootropic Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Alpha GPC Supplement",
@@ -2363,20 +2410,23 @@
   {
     "keyword": "Rhodiola Rosea Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Panax Ginseng Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Ginkgo Biloba Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "L-Tyrosine Supplement",
@@ -2387,8 +2437,9 @@
   {
     "keyword": "5-HTP Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "St John's Wort Supplement",
@@ -2423,8 +2474,9 @@
   {
     "keyword": "Biofeedback Device",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Journaling Notebook Guided",
@@ -2447,14 +2499,16 @@
   {
     "keyword": "Stress Relief Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Focus Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Memory Supplement",
@@ -2689,9 +2743,10 @@
   {
     "keyword": "Navy Hair Care",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Dyson Hair Care",
@@ -2717,9 +2772,10 @@
   {
     "keyword": "Home Fitness Equipment",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-05"
   },
   {
     "keyword": "Outdoor Fitness Equipment",
@@ -2740,6 +2796,146 @@
     "category": "Fitness",
     "status": "active",
     "added": "2026-07-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Perga",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Kristen Bell Biohacking Trick",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Muscle Building Plan",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Calorie Calculator",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Abs Workout Routine",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Titan Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Healthy Diet Plan",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Marcy 150Lb Stack Weight Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Marcy 150Lb Stack Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Smart Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Smith Machine Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Tonal Smart Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Weight Rack For Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Body Solid Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Home Gym Mirror",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Tonal Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Fitness Gear Cast Hex Dumbbell",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Tek Gear Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Nike Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Cool Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-05",
     "is_new": true
   }
 ]
