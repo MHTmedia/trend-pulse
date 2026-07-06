@@ -735,8 +735,9 @@
   {
     "keyword": "Cupping Therapy Set",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-06"
   },
   {
     "keyword": "Grip Strength Trainer",
@@ -825,8 +826,9 @@
   {
     "keyword": "Robot Vacuum Mop Combo",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-06"
   },
   {
     "keyword": "Air Quality Monitor",
@@ -952,8 +954,9 @@
   {
     "keyword": "Podcast Microphone USB",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-06"
   },
   {
     "keyword": "Lavalier Microphone Wireless",
@@ -1057,8 +1060,9 @@
   {
     "keyword": "Monitor Light Bar",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-06"
   },
   {
     "keyword": "Webcam 4K Streaming",
@@ -1505,8 +1509,9 @@
   {
     "keyword": "Cat Grass Kit",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-06"
   },
   {
     "keyword": "Dog Mobility Harness",
@@ -1536,8 +1541,9 @@
   {
     "keyword": "Merino Wool Base Layer",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-06"
   },
   {
     "keyword": "Wide Leg Pants",
@@ -1561,8 +1567,9 @@
   {
     "keyword": "Minimalist Sneakers",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-06"
   },
   {
     "keyword": "Crossbody Bag",
@@ -1761,8 +1768,9 @@
   {
     "keyword": "Sensory Play Kit",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-06"
   },
   {
     "keyword": "Busy Board Toddler",
@@ -1977,8 +1985,9 @@
   {
     "keyword": "Altimeter Watch",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-06"
   },
   {
     "keyword": "Survival Bracelet",
@@ -2936,6 +2945,146 @@
     "category": "Fitness",
     "status": "active",
     "added": "2026-07-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Adore Semi Permanent Hair",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Www Silicon-Insider .Com Wearable Tech",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Clogs Spring Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Basque Waist Dress Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Capital Of Oman",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Two-Tone Jeans Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Clothing Style Lwspeakstyle",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Clothing Style Wheel",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Pool Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Guitar Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Golf Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Bike Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Bathroom Accessories Set",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Rv Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Mens Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Dog Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Grill Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Boat Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Camping Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Tesla Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-06",
     "is_new": true
   }
 ]
