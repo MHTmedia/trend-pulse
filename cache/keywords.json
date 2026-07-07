@@ -704,8 +704,9 @@
   {
     "keyword": "Balance Board Fitness",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-07"
   },
   {
     "keyword": "Gymnastics Mat",
@@ -2351,8 +2352,9 @@
   {
     "keyword": "Natural Loofah",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-07"
   },
   {
     "keyword": "Beeswax Candle",
@@ -2387,8 +2389,9 @@
   {
     "keyword": "Reusable Straw Set",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-07"
   },
   {
     "keyword": "Beeswax Wrap",
@@ -2556,9 +2559,10 @@
   {
     "keyword": "Kitchen Gadget Set",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-07"
   },
   {
     "keyword": "It'S A 10 Miracle Leave-In Product",
@@ -2922,9 +2926,10 @@
   {
     "keyword": "Fitness Gear Cast Hex Dumbbell",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-07"
   },
   {
     "keyword": "Tek Gear Workout Gear",
@@ -3013,9 +3018,10 @@
   {
     "keyword": "Guitar Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-07"
   },
   {
     "keyword": "Golf Accessories",
@@ -3048,16 +3054,18 @@
   {
     "keyword": "Mens Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-07"
   },
   {
     "keyword": "Dog Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-07"
   },
   {
     "keyword": "Grill Accessories",
@@ -3085,6 +3093,146 @@
     "category": "Fashion",
     "status": "active",
     "added": "2026-07-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Gwyneth Paltrow Skincare Product Recommendations",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Smith Machine",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "80S Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Men'S Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Pink Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Aeonscope Kxhn0001W Tech Gadget",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Focus Factor Brain Supplement",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Brain Focus Supplement",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Healthavera.Com Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Soothhealth.Com Skin Care",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Shop Deals On Needoh Stress Relief Toys",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Nature'S Bounty Anxiety & Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Essential Oil",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Gummies",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Aveeno Stress Relief Body Wash",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Yogi Honey Lavender Stress Relief Tea",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Lotion",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Natural Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Toys",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Products",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-07",
     "is_new": true
   }
 ]
