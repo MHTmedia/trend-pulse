@@ -2955,9 +2955,10 @@
   {
     "keyword": "Adore Semi Permanent Hair",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-08"
   },
   {
     "keyword": "Www Silicon-Insider .Com Wearable Tech",
@@ -3040,9 +3041,10 @@
   {
     "keyword": "Bathroom Accessories Set",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-08"
   },
   {
     "keyword": "Rv Accessories",
@@ -3147,9 +3149,10 @@
   {
     "keyword": "Brain Focus Supplement",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-08"
   },
   {
     "keyword": "Healthavera.Com Stress Relief",
