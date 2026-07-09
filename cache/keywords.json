@@ -1763,8 +1763,9 @@
   {
     "keyword": "Montessori Toy Set",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-09"
   },
   {
     "keyword": "Sensory Play Kit",
@@ -2365,8 +2366,9 @@
   {
     "keyword": "Soy Candle Making Kit",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-09"
   },
   {
     "keyword": "Package Free Deodorant",
@@ -2941,9 +2943,10 @@
   {
     "keyword": "Nike Workout Gear",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-09"
   },
   {
     "keyword": "Cool Workout Gear",
@@ -3178,16 +3181,18 @@
   {
     "keyword": "Nature'S Bounty Anxiety & Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-09"
   },
   {
     "keyword": "Stress Relief Essential Oil",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-09"
   },
   {
     "keyword": "Stress Relief Gummies",
@@ -3213,29 +3218,172 @@
   {
     "keyword": "Stress Relief Lotion",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-09"
   },
   {
     "keyword": "Natural Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-09"
   },
   {
     "keyword": "Stress Relief Toys",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-09"
   },
   {
     "keyword": "Stress Relief Products",
     "category": "Mental Health",
     "status": "active",
     "added": "2026-07-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Subnautica 2 Biohacking Chamber",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Momcozy S12 Pro Wearable Breast Pump",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Wearable Tech Feedbuzzard",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Wearable Tech Mountain Game Purchase Gizmocombo.Com",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Eufy S1 Pro Wearable Breast Pump",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Wearable Tech Constellation Buy Play Gizmocomb",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Willow Go Wearable Breast Pump",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "How Wearable Tech Can Impact Casino Gaming Excntech",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Cleaner Kitchen Gadget",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Kubernetes Orchestration",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Crimson Desert Special Cooking Tool",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Crimson Desert Cooking Tool",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Ice Cream",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Pet Friendly Vacation Rentals",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Nina Dobrev Bridal Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Equilibrium Crossword Clue",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Muss Crossword Clue",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Fashion Trend Forecasting",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Ipad Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Coffee Gear Coffeedeets.Com",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-07-09",
     "is_new": true
   }
 ]
