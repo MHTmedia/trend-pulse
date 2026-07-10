@@ -3145,9 +3145,10 @@
   {
     "keyword": "Focus Factor Brain Supplement",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-10"
   },
   {
     "keyword": "Brain Focus Supplement",
@@ -3291,9 +3292,10 @@
   {
     "keyword": "Willow Go Wearable Breast Pump",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-10"
   },
   {
     "keyword": "How Wearable Tech Can Impact Casino Gaming Excntech",
@@ -3384,6 +3386,146 @@
     "category": "Coffee & Beverages",
     "status": "active",
     "added": "2026-07-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Alpr Technology Smart Device Tracking",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Ringconn Gen 2 Smart Ring",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Breville Smart Oven Air Fryer",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Nepo Babies Fashion Industry Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Trend Forecasting Fashion",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Y2K Fashion",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living Practice Pulsar Buy Clebbnvafron",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living Archives Modularchetecture",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living Stardust Game Purchase Sprngblvbomhoom",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living Association",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Legalsynopsis.Com Definitions",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Bestlawyersinunitedstates.Com Official Website",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Wellavorhealth.Com",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Freshorahealth.Com",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Travelgilt.Com Us Travel Guides",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Healthflexio.Com",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Shop Deals On Needoh Stress Relief Toy",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Aveeno Stress Relief Moisturizing Lotion",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Nature'S Bounty Anxiety And Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Anxiety And Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-10",
     "is_new": true
   }
 ]
