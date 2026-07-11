@@ -1757,8 +1757,9 @@
   {
     "keyword": "Silicone Baby Bib",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-11"
   },
   {
     "keyword": "Montessori Toy Set",
@@ -3205,9 +3206,10 @@
   {
     "keyword": "Aveeno Stress Relief Body Wash",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-11"
   },
   {
     "keyword": "Yogi Honey Lavender Stress Relief Tea",
@@ -3405,9 +3407,10 @@
   {
     "keyword": "Breville Smart Oven Air Fryer",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-10",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-11"
   },
   {
     "keyword": "Nepo Babies Fashion Industry Trend",
@@ -3510,9 +3513,10 @@
   {
     "keyword": "Aveeno Stress Relief Moisturizing Lotion",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-10",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-11"
   },
   {
     "keyword": "Nature'S Bounty Anxiety And Stress Relief",
@@ -3526,6 +3530,146 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-07-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Bowflex Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Bowflex",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Constantly Varied Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Plus Size Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Special Cooking Tool Crimson Desert",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Baby Trend Protect 2-In-1 Folding Booster Seat",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Kids Foot Locker",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Toddler Toy Story Crocs",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Smart Home Devices",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Ultralight Amazon Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Camping Gear Essentials",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Ultralight Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Camping Cot",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Cool Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Baby Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Walmart Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Camping Gear Storage",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Essential Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Camping Tent",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Hangdog Outdoor Adventure",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-11",
     "is_new": true
   }
 ]
