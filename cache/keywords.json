@@ -1778,8 +1778,9 @@
   {
     "keyword": "Busy Board Toddler",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-12"
   },
   {
     "keyword": "Learning Tower Kitchen Kids",
@@ -2419,8 +2420,9 @@
   {
     "keyword": "Bacopa Monnieri Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-07-12"
   },
   {
     "keyword": "Rhodiola Rosea Supplement",
@@ -2767,9 +2769,10 @@
   {
     "keyword": "Dyson Hair Care",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-12"
   },
   {
     "keyword": "The Ordinary Hair Care",
@@ -3125,9 +3128,10 @@
   {
     "keyword": "Men'S Workout Gear",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-12"
   },
   {
     "keyword": "Pink Workout Gear",
@@ -3626,9 +3630,10 @@
   {
     "keyword": "Cool Camping Gear",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-12"
   },
   {
     "keyword": "Baby Camping Gear",
@@ -3670,6 +3675,146 @@
     "category": "Outdoor",
     "status": "active",
     "added": "2026-07-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Brian Johnson",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Devops Practices",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Dyson Supersonic R Hair Dryer",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Fitness Equipment Repair",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Dbz Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Tech Gadget From Techidemics",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Travel",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Weber Grill Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Moving Company Quotes",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Healthy Meal Prep",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Meal Delivery Service",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Tax Software Comparison",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Podcast Equipment Setup",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Organic Skincare Products",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Diy Home Renovation",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Credit Card Rewards",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Japan Exclusive Salomon Hiking Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Fitness Gear Resistance Tube Kit",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Gossamer Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Hiking Shoes",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-12",
     "is_new": true
   }
 ]
