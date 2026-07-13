@@ -3757,9 +3757,10 @@
   {
     "keyword": "Tax Software Comparison",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-12",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-13"
   },
   {
     "keyword": "Podcast Equipment Setup",
@@ -3815,6 +3816,41 @@
     "category": "Outdoor",
     "status": "active",
     "added": "2026-07-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Healthrova.Com Guides",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-13",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Sheep For Men",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-13",
+    "is_new": true
+  },
+  {
+    "keyword": "Ritual Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-13",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Tea",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-13",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Massage",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-13",
     "is_new": true
   }
 ]
