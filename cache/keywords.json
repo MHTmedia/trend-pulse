@@ -3961,9 +3961,10 @@
   {
     "keyword": "Dyson Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-17"
   },
   {
     "keyword": "Paraben Free Baby Product",
@@ -3989,8 +3990,65 @@
   {
     "keyword": "Eco Friendly Mattress",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-16",
+    "is_new": true,
+    "flat_since": "2026-07-17"
+  },
+  {
+    "keyword": "Skincare Product Crossword Clue",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-07-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Discount Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Bogg Bag Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Apple Watch Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Aldi Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Agile Methodology",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Harbor Freight Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Get Out Gear Down Camping Blanket",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-17",
     "is_new": true
   }
 ]
