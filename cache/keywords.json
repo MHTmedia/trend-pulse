@@ -3926,9 +3926,10 @@
   {
     "keyword": "Fashion Nova",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-18"
   },
   {
     "keyword": "Blackstone Grill Accessories",
@@ -4049,6 +4050,146 @@
     "category": "Outdoor",
     "status": "active",
     "added": "2026-07-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Cosequin Joint Health Supplement",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Zeke Emanuel Ice Cream Wellness",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Popular Movies 2025",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Malibu C Hard Water Wellness Shampoo",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Ping",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Mimi Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Black Owned Hair Care Brands",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Rep Fitness",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Home Gym Essentials",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Salamander Cooking Tool",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "New York Times",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Soundcore Sleep A20 By Anker Earbuds Noise",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Fitbit Air",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Cbd As A Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Home Remedy Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Nootropic Pouches",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Lawdefiner.Com Site",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Yogalith.Com",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Massage For Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Lyrics",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-18",
     "is_new": true
   }
 ]
