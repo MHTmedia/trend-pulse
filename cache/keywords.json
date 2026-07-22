@@ -4006,9 +4006,10 @@
   {
     "keyword": "Discount Workout Gear",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-22"
   },
   {
     "keyword": "Bogg Bag Accessories",
@@ -4386,6 +4387,76 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-07-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Navigational Aids For Website Users Nyt",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Golf Cart Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Harley Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Toddler Toy Story Shirt",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Flying With Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Rafting",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Swipesparkleus.Com Eco Friendly",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Lawfold.Com",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Supplements",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress And Anxiety Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-22",
     "is_new": true
   }
 ]
