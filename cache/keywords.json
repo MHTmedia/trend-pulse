@@ -4105,9 +4105,10 @@
   {
     "keyword": "Rep Fitness",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-18",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-23"
   },
   {
     "keyword": "Home Gym Essentials",
@@ -4457,6 +4458,48 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-07-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Wearable Tech Jewelry",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-07-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Prescription Sleep Aid Medications",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-07-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Little Saints Mushroom Drink",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-07-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living Innovations Bloomfieldabode",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-07-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Healthnuro.Com Site",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Gifts",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-23",
     "is_new": true
   }
 ]
