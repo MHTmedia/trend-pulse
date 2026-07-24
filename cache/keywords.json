@@ -2705,9 +2705,10 @@
   {
     "keyword": "Subnautica 2 Biohacking",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-24"
   },
   {
     "keyword": "Beyond Biohacking Conference 2026",
@@ -4498,8 +4499,23 @@
   {
     "keyword": "Stress Relief Gifts",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-23",
+    "is_new": true,
+    "flat_since": "2026-07-24"
+  },
+  {
+    "keyword": "Biohacking Que Es Y Como Funciona",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Museums",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-24",
     "is_new": true
   }
 ]
