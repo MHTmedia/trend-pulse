@@ -4022,9 +4022,10 @@
   {
     "keyword": "Apple Watch Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-26"
   },
   {
     "keyword": "Aldi Camping Gear",
@@ -4457,9 +4458,10 @@
   {
     "keyword": "Stress And Anxiety Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-22",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-26"
   },
   {
     "keyword": "Wearable Tech Jewelry",
@@ -4516,6 +4518,118 @@
     "category": "Fitness",
     "status": "active",
     "added": "2026-07-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Cycling",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacker Bryan Johnson",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Defcon Biohacking Village",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacking Guy",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Natural Care Flea And Tick Home Spray",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Tracee Ellis Ross Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Top Songs This Week",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story 5 Showtimes",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "How Long Is Toy Story 5",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story 5",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Meditation",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Magic Mushroom Drink",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Nello Super Focus",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Travelchasm.Com Beaches",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Candle",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Bath And Body Works Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-07-26",
     "is_new": true
   }
 ]
