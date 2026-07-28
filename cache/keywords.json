@@ -4621,15 +4621,45 @@
   {
     "keyword": "Stress Relief Candle",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-28"
   },
   {
     "keyword": "Bath And Body Works Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-26",
+    "is_new": true,
+    "flat_since": "2026-07-28"
+  },
+  {
+    "keyword": "Banks",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Soup",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Whats Biohacking",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-07-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Fitness Equipment Movers",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-28",
     "is_new": true
   }
 ]
