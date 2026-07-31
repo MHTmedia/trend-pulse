@@ -4304,9 +4304,10 @@
   {
     "keyword": "Eco Friendly Sunscreen",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-07-31"
   },
   {
     "keyword": "Eco Friendly Pest Control",
@@ -4660,6 +4661,13 @@
     "category": "Fitness",
     "status": "active",
     "added": "2026-07-28",
+    "is_new": true
+  },
+  {
+    "keyword": "The Rock Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-07-31",
     "is_new": true
   }
 ]
