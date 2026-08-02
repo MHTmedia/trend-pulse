@@ -14,8 +14,9 @@
   {
     "keyword": "Collagen Peptides Powder",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Hydrogen Water Bottle",
@@ -104,8 +105,9 @@
   {
     "keyword": "Peptide Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Urolithin A Supplement",
@@ -134,8 +136,9 @@
   {
     "keyword": "Turkey Tail Mushroom",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Reishi Mushroom Supplement",
@@ -206,8 +209,9 @@
   {
     "keyword": "Red Light Therapy Device",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "PEMF Mat Device",
@@ -266,8 +270,9 @@
   {
     "keyword": "Ashwagandha Gummies",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Coenzyme Q10 Supplement",
@@ -327,8 +332,9 @@
   {
     "keyword": "LED Face Mask",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Retinol Alternative",
@@ -377,8 +383,9 @@
   {
     "keyword": "Body Sunscreen SPF",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Scalp Serum Hair Growth",
@@ -407,8 +414,9 @@
   {
     "keyword": "Blue Light Glasses",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Microcurrent Face Device",
@@ -431,8 +439,9 @@
   {
     "keyword": "Hyaluronic Acid Serum",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Bakuchiol Serum",
@@ -443,8 +452,9 @@
   {
     "keyword": "Azelaic Acid Cream",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Tranexamic Acid Serum",
@@ -537,8 +547,9 @@
   {
     "keyword": "Teeth Whitening Kit",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Probiotic Skincare",
@@ -612,14 +623,16 @@
   {
     "keyword": "Incline Treadmill Walking",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Pilates Reformer Home",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Rucking Backpack",
@@ -718,8 +731,9 @@
   {
     "keyword": "Acupressure Mat",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Compression Boots Recovery",
@@ -761,14 +775,16 @@
   {
     "keyword": "Plant Based Protein Powder",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Collagen Protein Powder",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Pre Workout Supplement",
@@ -791,8 +807,9 @@
   {
     "keyword": "Red Light Therapy Panel",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "AI Smart Ring",
@@ -803,14 +820,16 @@
   {
     "keyword": "Mini Projector",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Portable Power Station",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Solar Panel Charger",
@@ -860,8 +879,9 @@
   {
     "keyword": "Smart Glasses",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Portable Monitor",
@@ -898,8 +918,9 @@
   {
     "keyword": "Bone Conduction Headphones",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Open Ear Headphones",
@@ -930,8 +951,9 @@
   {
     "keyword": "Thunderbolt Dock",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Capture Card 4K Streaming",
@@ -981,8 +1003,9 @@
   {
     "keyword": "Electric Bike Conversion Kit",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "E Scooter Commuter",
@@ -993,14 +1016,16 @@
   {
     "keyword": "Handheld Game Console",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Portable Gaming PC",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "AI Meeting Recorder",
@@ -1017,8 +1042,9 @@
   {
     "keyword": "Water Purifier Countertop",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Air Purifier Smart",
@@ -1048,8 +1074,9 @@
   {
     "keyword": "KVM Switch Monitor",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Standing Desk Electric",
@@ -1080,8 +1107,9 @@
   {
     "keyword": "Water Bottle with Filter",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Freeze Dryer Home",
@@ -1111,8 +1139,9 @@
   {
     "keyword": "Dutch Oven Cast Iron",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Bread Maker Machine",
@@ -1165,8 +1194,9 @@
   {
     "keyword": "Cordless Vacuum",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Indoor Garden Hydroponics",
@@ -1291,8 +1321,9 @@
   {
     "keyword": "Mandoline Slicer",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Tortilla Press",
@@ -1333,8 +1364,9 @@
   {
     "keyword": "Robot Mop Smart",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Window Cleaning Robot",
@@ -1363,8 +1395,9 @@
   {
     "keyword": "Raw Dog Food",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Dog Anxiety Vest",
@@ -1375,8 +1408,9 @@
   {
     "keyword": "Cat GPS Tracker",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Automatic Cat Feeder",
@@ -1400,8 +1434,9 @@
   {
     "keyword": "Freeze Dried Dog Food",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Orthopedic Dog Bed",
@@ -1413,8 +1448,9 @@
   {
     "keyword": "Dog Joint Supplement",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Dog Omega 3 Supplement",
@@ -1443,8 +1479,9 @@
   {
     "keyword": "Pet Stroller",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Dog Backpack Carrier",
@@ -1479,8 +1516,9 @@
   {
     "keyword": "Bird Feeder Camera",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Aquarium LED Light",
@@ -1562,8 +1600,9 @@
   {
     "keyword": "Tactical Pants",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Minimalist Sneakers",
@@ -1594,8 +1633,9 @@
   {
     "keyword": "Merino Wool Socks",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Compression Socks Performance",
@@ -1650,8 +1690,9 @@
   {
     "keyword": "Hiking Pants Convertible",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Fleece Lined Leggings",
@@ -1670,8 +1711,9 @@
   {
     "keyword": "Rain Jacket Packable",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Windbreaker Ultralight",
@@ -1733,8 +1775,9 @@
   {
     "keyword": "Convertible Car Seat",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Baby Sound Machine",
@@ -1834,8 +1877,9 @@
   {
     "keyword": "Smartwatch Kids GPS",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Diaper Bag Backpack",
@@ -1901,8 +1945,9 @@
   {
     "keyword": "Trekking Poles Carbon",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Hiking Water Filter",
@@ -1938,8 +1983,9 @@
   {
     "keyword": "Headlamp Rechargeable",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Emergency Bivouac Bag",
@@ -1957,8 +2003,9 @@
   {
     "keyword": "Portable Power Bank Solar",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Hiking Boot Waterproof",
@@ -2081,8 +2128,9 @@
   {
     "keyword": "L-Theanine Supplement",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Ashwagandha Sleep Supplement",
@@ -2105,8 +2153,9 @@
   {
     "keyword": "Sunrise Alarm Clock",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Sleep Tracking Ring",
@@ -2166,20 +2215,23 @@
   {
     "keyword": "Aeropress Coffee Maker",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Moka Pot Espresso",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Cold Brew Coffee Maker",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Nitro Cold Brew Kit",
@@ -2208,14 +2260,16 @@
   {
     "keyword": "Burr Grinder Electric",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Hand Grinder Coffee",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Matcha Whisk Set",
@@ -2226,8 +2280,9 @@
   {
     "keyword": "Ceremonial Grade Matcha",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Mushroom Coffee Mix",
@@ -2294,8 +2349,9 @@
   {
     "keyword": "Bamboo Toothbrush",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Compostable Trash Bags",
@@ -2306,8 +2362,9 @@
   {
     "keyword": "Wool Dryer Balls",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Shampoo Bar",
@@ -2362,8 +2419,9 @@
   {
     "keyword": "Beeswax Candle",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Soy Candle Making Kit",
@@ -2530,15 +2588,17 @@
   {
     "keyword": "Memory Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Joint Health Supplement",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Gut Health Supplement",
@@ -2579,9 +2639,10 @@
   {
     "keyword": "Toy Story 5 Release Date",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Toddler Toy Story Sambas",
@@ -2670,9 +2731,10 @@
   {
     "keyword": "Home Security Camera",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Biohacking Chamber Subnautica 2",
@@ -2992,9 +3054,10 @@
   {
     "keyword": "Capital Of Oman",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Two-Tone Jeans Fashion Trend",
@@ -3035,16 +3098,18 @@
   {
     "keyword": "Golf Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Bike Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Bathroom Accessories Set",
@@ -3405,9 +3470,10 @@
   {
     "keyword": "Ringconn Gen 2 Smart Ring",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-10",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Breville Smart Oven Air Fryer",
@@ -3547,9 +3613,10 @@
   {
     "keyword": "Bowflex",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Constantly Varied Gear",
@@ -3624,9 +3691,10 @@
   {
     "keyword": "Camping Cot",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Cool Camping Gear",
@@ -3843,16 +3911,18 @@
   {
     "keyword": "Stress Relief Tea",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-13",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Stress Relief Massage",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-13",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Bio Hacking",
@@ -4234,9 +4304,10 @@
   {
     "keyword": "Toddler Toy Story Adidas",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Toy Story Toddler Shoes",
@@ -4319,9 +4390,10 @@
   {
     "keyword": "Eco Friendly Apartments",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-02"
   },
   {
     "keyword": "Sustainable Living Cliffrockmeadow.Com Archive",
