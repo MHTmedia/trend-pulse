@@ -680,14 +680,16 @@
   {
     "keyword": "Cable Machine Home",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Kettlebell Set",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Sandbag Training Bag",
@@ -757,8 +759,9 @@
   {
     "keyword": "Grip Strength Trainer",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Zone 2 Training Monitor",
@@ -945,8 +948,9 @@
   {
     "keyword": "USB C Hub Multiport",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Thunderbolt Dock",
@@ -964,8 +968,9 @@
   {
     "keyword": "Teleprompter Phone",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Ring Light Professional",
@@ -1010,8 +1015,9 @@
   {
     "keyword": "E Scooter Commuter",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Handheld Game Console",
@@ -1030,8 +1036,9 @@
   {
     "keyword": "AI Meeting Recorder",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Pocket AI Device",
@@ -1170,8 +1177,9 @@
   {
     "keyword": "Fermentation Crock",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Dehydrator Machine",
@@ -2160,8 +2168,9 @@
   {
     "keyword": "Sleep Tracking Ring",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Chilipad Alternative",
@@ -2254,8 +2263,9 @@
   {
     "keyword": "Coffee Scale Precision",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Burr Grinder Electric",
@@ -2274,8 +2284,9 @@
   {
     "keyword": "Matcha Whisk Set",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Ceremonial Grade Matcha",
@@ -2287,8 +2298,9 @@
   {
     "keyword": "Mushroom Coffee Mix",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Adaptogen Coffee",
@@ -2946,16 +2958,18 @@
   {
     "keyword": "Smart Home Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Smith Machine Home Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Tonal Smart Home Gym",
@@ -3003,9 +3017,10 @@
   {
     "keyword": "Tek Gear Workout Gear",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Nike Workout Gear",
@@ -3329,9 +3344,10 @@
   {
     "keyword": "Momcozy S12 Pro Wearable Breast Pump",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Wearable Tech Feedbuzzard",
@@ -4524,9 +4540,10 @@
   {
     "keyword": "Stress Relief Supplements",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-22",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-03"
   },
   {
     "keyword": "Stress And Anxiety Relief",
