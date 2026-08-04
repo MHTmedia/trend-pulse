@@ -69,8 +69,9 @@
   {
     "keyword": "Tallow Balm",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-04"
   },
   {
     "keyword": "Beef Liver Supplement",
@@ -1311,8 +1312,9 @@
   {
     "keyword": "Bread Proofing Basket",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-04"
   },
   {
     "keyword": "Grain Mill Home",
@@ -2981,9 +2983,10 @@
   {
     "keyword": "Weight Rack For Home Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-04"
   },
   {
     "keyword": "Body Solid Home Gym",
@@ -2995,9 +2998,10 @@
   {
     "keyword": "Home Gym Mirror",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-04"
   },
   {
     "keyword": "Tonal Home Gym",
@@ -3465,9 +3469,10 @@
   {
     "keyword": "Ipad Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-04"
   },
   {
     "keyword": "Coffee Gear Coffeedeets.Com",
@@ -3615,9 +3620,10 @@
   {
     "keyword": "Anxiety And Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-10",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-04"
   },
   {
     "keyword": "Bowflex Home Gym",
@@ -3723,9 +3729,10 @@
   {
     "keyword": "Baby Camping Gear",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-04"
   },
   {
     "keyword": "Walmart Camping Gear",
@@ -3744,9 +3751,10 @@
   {
     "keyword": "Essential Camping Gear",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-04"
   },
   {
     "keyword": "Camping Tent",
