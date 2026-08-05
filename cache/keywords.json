@@ -162,8 +162,9 @@
   {
     "keyword": "Quercetin Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Fisetin Supplement",
@@ -247,8 +248,9 @@
   {
     "keyword": "Heavy Metal Test Kit",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Hormone Test Kit Home",
@@ -409,8 +411,9 @@
   {
     "keyword": "Barrier Repair Moisturizer",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Blue Light Glasses",
@@ -838,14 +841,16 @@
   {
     "keyword": "Solar Panel Charger",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Smart Home Hub",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Robot Vacuum Mop Combo",
@@ -904,8 +909,9 @@
   {
     "keyword": "Magnetic Phone Mount",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "E Ink Tablet",
@@ -1064,8 +1070,9 @@
   {
     "keyword": "EMF Meter",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Thermal Camera Smartphone",
@@ -1477,8 +1484,9 @@
   {
     "keyword": "Cat Probiotic Supplement",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Dog CBD Oil",
@@ -1496,14 +1504,16 @@
   {
     "keyword": "Dog Backpack Carrier",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Cat Backpack Carrier",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Dog Cooling Mat",
@@ -1514,8 +1524,9 @@
   {
     "keyword": "Dog Life Jacket",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Automatic Litter Box",
@@ -1734,8 +1745,9 @@
   {
     "keyword": "Trail Running Shoes",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Barefoot Shoes",
@@ -1798,8 +1810,9 @@
   {
     "keyword": "Baby Monitor AI",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Baby Food Maker",
@@ -2991,9 +3004,10 @@
   {
     "keyword": "Body Solid Home Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Home Gym Mirror",
@@ -3288,9 +3302,10 @@
   {
     "keyword": "Stress Relief Gummies",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Aveeno Stress Relief Body Wash",
@@ -3334,9 +3349,10 @@
   {
     "keyword": "Stress Relief Products",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Subnautica 2 Biohacking Chamber",
@@ -3477,9 +3493,10 @@
   {
     "keyword": "Coffee Gear Coffeedeets.Com",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Alpr Technology Smart Device Tracking",
@@ -3928,9 +3945,10 @@
   {
     "keyword": "Ritual Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-13",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Stress Relief Tea",
@@ -4279,9 +4297,10 @@
   {
     "keyword": "Massage For Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-18",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-05"
   },
   {
     "keyword": "Stress Relief Lyrics",
@@ -4793,6 +4812,118 @@
     "category": "Baby & Kids",
     "status": "active",
     "added": "2026-08-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Parks",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacking Village",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Coffee Shops Nearby",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Healthy Recipes",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Book Recommendations",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Remedy Skincare",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Learn Programming",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Aveda Sun Care Protective Hair Veil",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Hot Like Me Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Concerts",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "G&G Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Oversized Pumps Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Glam Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Whale Tail Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Brazilcore Fashion Trend Summer",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Artificial Intelligence News",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-05",
     "is_new": true
   }
 ]
