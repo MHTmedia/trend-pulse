@@ -286,8 +286,9 @@
   {
     "keyword": "Omega 3 Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Sea Buckthorn Supplement",
@@ -342,14 +343,16 @@
   {
     "keyword": "Retinol Alternative",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Snail Mucin Serum",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Slugging Skincare",
@@ -380,8 +383,9 @@
   {
     "keyword": "Glass Skin Routine",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Body Sunscreen SPF",
@@ -450,8 +454,9 @@
   {
     "keyword": "Bakuchiol Serum",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Azelaic Acid Cream",
@@ -678,8 +683,9 @@
   {
     "keyword": "Power Rack Home Gym",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Cable Machine Home",
@@ -796,8 +802,9 @@
   {
     "keyword": "Pre Workout Supplement",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "BCAA Supplement",
@@ -821,8 +828,9 @@
   {
     "keyword": "AI Smart Ring",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Mini Projector",
@@ -1253,8 +1261,9 @@
   {
     "keyword": "Yogurt Maker",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Kombucha Brewing Kit",
@@ -1439,14 +1448,16 @@
   {
     "keyword": "Dog DNA Test Kit",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Pet Camera Treat Dispenser",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Freeze Dried Dog Food",
@@ -1472,8 +1483,9 @@
   {
     "keyword": "Dog Omega 3 Supplement",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Cat Dental Chews",
@@ -1785,8 +1797,9 @@
   {
     "keyword": "Trucker Hat Mesh",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Baby Carrier Ergonomic",
@@ -1888,8 +1901,9 @@
   {
     "keyword": "Magnetic Drawing Board",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Audiobook Player Kids",
@@ -2109,8 +2123,9 @@
   {
     "keyword": "Cooling Mattress Topper",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Weighted Blanket",
@@ -2427,14 +2442,16 @@
   {
     "keyword": "Bamboo Paper Towel",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Swedish Dishcloth",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Natural Loofah",
@@ -2630,9 +2647,10 @@
   {
     "keyword": "Gut Health Supplement",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Revolutionary Kitchen Gadget",
@@ -2659,9 +2677,10 @@
   {
     "keyword": "It'S A 10 Miracle Leave-In Product",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Toy Story 5 Release Date",
@@ -2896,9 +2915,10 @@
   {
     "keyword": "Home Gym Equipment",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Alo Home Gym Studio",
@@ -3716,9 +3736,10 @@
   {
     "keyword": "Camping Gear Essentials",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-07"
   },
   {
     "keyword": "Ultralight Camping Gear",
@@ -4924,6 +4945,34 @@
     "category": "Baby & Kids",
     "status": "active",
     "added": "2026-08-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacking Bestie",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Kristen Bell",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Polar Hair Care Reviews",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Google Fitbit Air",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-07",
     "is_new": true
   }
 ]
