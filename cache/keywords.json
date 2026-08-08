@@ -550,8 +550,9 @@
   {
     "keyword": "Biotin Hair Supplement",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Teeth Whitening Kit",
@@ -569,8 +570,9 @@
   {
     "keyword": "Portable Sauna Blanket",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Portable Blender",
@@ -582,8 +584,9 @@
   {
     "keyword": "Barefoot Running Shoes",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Weighted Vest",
@@ -883,8 +886,9 @@
   {
     "keyword": "Dashcam 4K",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Action Camera",
@@ -924,8 +928,9 @@
   {
     "keyword": "E Ink Tablet",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Satellite Communicator",
@@ -1011,8 +1016,9 @@
   {
     "keyword": "Smart Plug Energy Monitor",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Robot Lawnmower",
@@ -1085,8 +1091,9 @@
   {
     "keyword": "Thermal Camera Smartphone",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Stream Deck Alternative",
@@ -1569,8 +1576,9 @@
   {
     "keyword": "Chicken Coop Backyard",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Beekeeping Starter Kit",
@@ -1588,14 +1596,16 @@
   {
     "keyword": "Dog Mobility Harness",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Pet GPS Tracker Collar",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Dog Treadmill",
@@ -1673,8 +1683,9 @@
   {
     "keyword": "Compression Socks Performance",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Posture Corrector Brace",
@@ -1830,8 +1841,9 @@
   {
     "keyword": "Baby Food Maker",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Silicone Baby Bib",
@@ -2275,8 +2287,9 @@
   {
     "keyword": "Nitro Cold Brew Kit",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Espresso Puck Screen",
@@ -2287,8 +2300,9 @@
   {
     "keyword": "WDT Tool Coffee",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Coffee Scale Precision",
@@ -2335,8 +2349,9 @@
   {
     "keyword": "Adaptogen Coffee",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Chaga Tea",
@@ -2477,8 +2492,9 @@
   {
     "keyword": "Package Free Deodorant",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Refillable Water Bottle",
@@ -2516,8 +2532,9 @@
   {
     "keyword": "Alpha GPC Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Bacopa Monnieri Supplement",
@@ -2606,14 +2623,16 @@
   {
     "keyword": "Light Therapy Lamp SAD",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Anxiety Relief Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Stress Relief Supplement",
@@ -2908,9 +2927,10 @@
   {
     "keyword": "Outdoor Fitness Equipment",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-08"
   },
   {
     "keyword": "Home Gym Equipment",
@@ -4973,6 +4993,146 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-08-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Swimming",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Tonal Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "At-Home Workout Routines",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Tek Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Device That Helps You Make A Point In Class",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Upcoming Events",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Sports Scores Today",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Technology News",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Fashion Trend Downey",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Fashion Trend Crossword Clue",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Palworld Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Kdm Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Smyrna Outdoor Adventure Center",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Great Pond Outdoor Adventure Center",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Bethel Outdoor Adventure",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Pocono Outdoor Adventure Tours",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aid Brand Crossword",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Coffeedeets",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Abrahamquirosvillalba .Com",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-08-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Coffeedeets.Com",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-08-08",
     "is_new": true
   }
 ]
