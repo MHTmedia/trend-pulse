@@ -409,8 +409,9 @@
   {
     "keyword": "Hair Gloss Treatment",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-09"
   },
   {
     "keyword": "Barrier Repair Moisturizer",
@@ -1404,8 +1405,9 @@
   {
     "keyword": "Window Cleaning Robot",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-09"
   },
   {
     "keyword": "Pool Cleaning Robot",
@@ -1690,8 +1692,9 @@
   {
     "keyword": "Posture Corrector Brace",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-09"
   },
   {
     "keyword": "Heated Vest",
@@ -1970,8 +1973,9 @@
   {
     "keyword": "Toddler Toothbrush Electric",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-09"
   },
   {
     "keyword": "Packable Hammock",
@@ -3006,9 +3010,10 @@
   {
     "keyword": "Marcy 150Lb Stack Home Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-09"
   },
   {
     "keyword": "Smart Home Gym",
@@ -4381,9 +4386,10 @@
   {
     "keyword": "Toy Story Samba Jane",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-09"
   },
   {
     "keyword": "Toddler Toy Story Adidas",
@@ -5131,8 +5137,149 @@
   {
     "keyword": "Coffeedeets.Com",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-08",
+    "is_new": true,
+    "flat_since": "2026-08-09"
+  },
+  {
+    "keyword": "Polar Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Concept2 Strengtherg Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Mikes Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Upper Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadget Also Known As A Parisienne Scoop",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadget Stores",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Trend Mall",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Starlink Mini Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story Adidas",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Adidas Toy Story Toddler",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Adidas Toy Story Shoes Toddler",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story Crocs",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story Shirt",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Toddler Toy Story Clothes",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Toddler Crocs",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Camping World",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living @Greenpathassessment.Com",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Saffron Supplement",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Song",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Cat Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-09",
     "is_new": true
   }
 ]
