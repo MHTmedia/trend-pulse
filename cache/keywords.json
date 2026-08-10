@@ -681,8 +681,9 @@
   {
     "keyword": "Foam Roller Electric",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-10"
   },
   {
     "keyword": "Power Rack Home Gym",
@@ -1412,8 +1413,9 @@
   {
     "keyword": "Pool Cleaning Robot",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-10"
   },
   {
     "keyword": "Dog Probiotic Chews",
@@ -5278,8 +5280,23 @@
   {
     "keyword": "Cat Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
+    "is_new": true,
+    "flat_since": "2026-08-10"
+  },
+  {
+    "keyword": "Sominex Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief The Office",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-10",
     "is_new": true
   }
 ]
