@@ -3525,9 +3525,10 @@
   {
     "keyword": "Fashion Trend Forecasting",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-11"
   },
   {
     "keyword": "Ipad Accessories",
@@ -3677,9 +3678,10 @@
   {
     "keyword": "Nature'S Bounty Anxiety And Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-10",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-11"
   },
   {
     "keyword": "Anxiety And Stress Relief",
