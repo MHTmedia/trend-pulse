@@ -5297,8 +5297,37 @@
   {
     "keyword": "Stress Relief The Office",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-10",
+    "is_new": true,
+    "flat_since": "2026-08-12"
+  },
+  {
+    "keyword": "Fitness Equipment Shops",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Life Fitness Gym Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Whoop Sleep Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Whoop",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-12",
     "is_new": true
   }
 ]
