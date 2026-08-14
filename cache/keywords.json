@@ -5329,5 +5329,26 @@
     "status": "active",
     "added": "2026-08-12",
     "is_new": true
+  },
+  {
+    "keyword": "Sushi",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-14",
+    "is_new": true
+  },
+  {
+    "keyword": "Tonal",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-14",
+    "is_new": true
+  },
+  {
+    "keyword": "Home Gym Con",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-14",
+    "is_new": true
   }
 ]
