@@ -280,8 +280,9 @@
   {
     "keyword": "Coenzyme Q10 Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-15"
   },
   {
     "keyword": "Omega 3 Supplement",
@@ -5349,6 +5350,146 @@
     "category": "Fitness",
     "status": "active",
     "added": "2026-08-14",
+    "is_new": true
+  },
+  {
+    "keyword": "Recipes",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Fishing",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacking Your Body",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Fitness Equipment Stores",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Rogue Fitness",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "August 2026 Tech Gadgets",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Capital Of France Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Vintage Photo Tone Crossword",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Humiliated Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Audibly Shocked Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadget For Flour Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadget For Apples",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Garden Pest",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Early Anesthetic",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Wimbledon",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Vintage Photo Tone",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Man Of Steel Director",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Garden Pest Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Early Anesthetic Crossword",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Nomination From The Academy",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-15",
     "is_new": true
   }
 ]
