@@ -82,8 +82,9 @@
   {
     "keyword": "Electrolyte Powder",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-16"
   },
   {
     "keyword": "Adaptogen Supplements",
@@ -985,8 +986,9 @@
   {
     "keyword": "Capture Card 4K Streaming",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-16"
   },
   {
     "keyword": "Teleprompter Phone",
@@ -2008,8 +2010,9 @@
   {
     "keyword": "Hiking Water Filter",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-16"
   },
   {
     "keyword": "Gravity Water Filter",
@@ -2868,9 +2871,10 @@
   {
     "keyword": "Beyond Biohacking",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-16"
   },
   {
     "keyword": "Dave Asprey Biohacking Conference",
@@ -3366,9 +3370,10 @@
   {
     "keyword": "Yogi Honey Lavender Stress Relief Tea",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-16"
   },
   {
     "keyword": "Stress Relief Lotion",
@@ -4946,9 +4951,10 @@
   {
     "keyword": "Oversized Pumps Fashion Trend",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-16"
   },
   {
     "keyword": "Glam Trend",
@@ -5490,6 +5496,146 @@
     "category": "Home & Kitchen",
     "status": "active",
     "added": "2026-08-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Product Lifecycle Management",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohackers",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Planet Fitness New Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "At Home Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Blackstone Griddle Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Rivian Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Vegetables",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Kalamazoo",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Southern Gap Outdoor Adventure",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Garmin Sleep Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Garmin",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Tracker Device",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Pregnancy Safe Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Casino Deets .Com",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Cat Litter",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Dentistry",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Cleaning Products",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Cleaning",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Products",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Auto Spa",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-16",
     "is_new": true
   }
 ]
