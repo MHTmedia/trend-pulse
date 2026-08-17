@@ -243,8 +243,9 @@
   {
     "keyword": "Food Sensitivity Test Kit",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-17"
   },
   {
     "keyword": "Heavy Metal Test Kit",
@@ -3585,9 +3586,10 @@
   {
     "keyword": "Trend Forecasting Fashion",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-10",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-17"
   },
   {
     "keyword": "Y2K Fashion",
@@ -5198,9 +5200,10 @@
   {
     "keyword": "Trend Mall",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-17"
   },
   {
     "keyword": "Starlink Mini Accessories",
@@ -5466,9 +5469,10 @@
   {
     "keyword": "Vintage Photo Tone",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-15",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-17"
   },
   {
     "keyword": "Man Of Steel Director",
@@ -5501,9 +5505,10 @@
   {
     "keyword": "Product Lifecycle Management",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-17"
   },
   {
     "keyword": "Biohackers",
@@ -5613,9 +5618,10 @@
   {
     "keyword": "Eco Friendly Cleaning Products",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-17"
   },
   {
     "keyword": "Eco Friendly Cleaning",
@@ -5627,15 +5633,156 @@
   {
     "keyword": "Eco Friendly Products",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-17"
   },
   {
     "keyword": "Eco Friendly Auto Spa",
     "category": "Sustainability",
     "status": "active",
     "added": "2026-08-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Dasuquin Advanced Joint Health Supplement",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Skincare Product Checker",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Diy Projects",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Urgent Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Man Of Steel",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Wimbledon Org",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Official Record On A Ship",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Sushi Wrapper",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Capital Of France",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Cuts Down Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Taurasi",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "David Ortiz Nickname",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadget Crossword",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Crossword",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Cleopatra Reportedly Started What Fashion Trend In Rome?",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Blockchain Technology",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Baggy Hiking Pants",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Flight Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Tracker App",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Oak Willow Eco Friendly",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-17",
     "is_new": true
   }
 ]
