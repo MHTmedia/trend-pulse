@@ -13,7 +13,7 @@ from pathlib import Path
 from flask import Flask, jsonify, send_from_directory
 
 # ── Config ────────────────────────────────────────────────────────────────────
-CACHE_FILE = Path("cache/trends.json")
+CACHE_FILE = Path(__file__).resolve().parent / "cache" / "trends.json"
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)

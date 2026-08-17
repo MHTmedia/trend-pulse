@@ -1,0 +1,12 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.github/
+scripts/
+DEPLOY.md
+railway.toml
+push.sh
+.DS_Store
