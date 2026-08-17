@@ -6,7 +6,7 @@ TrendPulse nightly fetch script.
 - Discovers new rising keywords via pytrends related_queries
 - Writes updated cache/keywords.json and cache/trends.json
 
-Run locally or via GitHub Actions. Do NOT run on Railway (datacenter IPs get blocked).
+Run locally or via GitHub Actions. Do NOT run on a cloud host (datacenter IPs get blocked).
 
 Usage:
     pip install pytrends requests beautifulsoup4 lxml
