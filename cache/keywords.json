@@ -5784,5 +5784,33 @@
     "status": "active",
     "added": "2026-08-17",
     "is_new": true
+  },
+  {
+    "keyword": "Medicare Supplement Plans",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-18",
+    "is_new": true
+  },
+  {
+    "keyword": "What Does Biohacking Mean",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Alodia Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Joe Rogan Focus Supplement",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-18",
+    "is_new": true
   }
 ]
