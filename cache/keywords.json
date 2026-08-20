@@ -5875,5 +5875,82 @@
     "status": "active",
     "added": "2026-08-19",
     "is_new": true
+  },
+  {
+    "keyword": "Gym Membership Deals",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Dragon Ball Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "90S Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Paddle Board Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Costco Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Water Balloons",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Office Cleaning",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living Trust Trek Koala Modularchetecture",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium L-Threonate",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "L Theanine",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "The Office Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-20",
+    "is_new": true
   }
 ]
