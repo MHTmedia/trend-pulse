@@ -3148,9 +3148,10 @@
   {
     "keyword": "Two-Tone Jeans Fashion Trend",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-21"
   },
   {
     "keyword": "Clothing Style Lwspeakstyle",
@@ -5951,6 +5952,76 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-08-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Tadalafil Biohacking Trends",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Travel Destinations",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Tuya Smart Device",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-08-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Audibly Shocked",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadget Brand Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Ballet Heels Fashion Trend 2026",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Zoar Outdoor Adventure Resort",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Roam Outdoor Adventure",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Supplements",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Stock Portfolio Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-21",
     "is_new": true
   }
 ]
