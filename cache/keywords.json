@@ -5584,9 +5584,10 @@
   {
     "keyword": "Sleep Tracker Device",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-22"
   },
   {
     "keyword": "Pregnancy Safe Sleep Aid",
@@ -5789,9 +5790,10 @@
   {
     "keyword": "Medicare Supplement Plans",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-18",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-22"
   },
   {
     "keyword": "What Does Biohacking Mean",
@@ -6020,8 +6022,44 @@
   {
     "keyword": "Stock Portfolio Tracker",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-21",
+    "is_new": true,
+    "flat_since": "2026-08-22"
+  },
+  {
+    "keyword": "Biohacking Diet",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Bryan Johnson",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Humiliated Crossword",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadget Brand",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-08-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Safari Outdoor Adventure Park",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-22",
     "is_new": true
   }
 ]
