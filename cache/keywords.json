@@ -4486,9 +4486,10 @@
   {
     "keyword": "Eco Friendly Pest Control",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-23"
   },
   {
     "keyword": "Eco Friendly Apartments",
@@ -5628,9 +5629,10 @@
   {
     "keyword": "Eco Friendly Cleaning",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-23"
   },
   {
     "keyword": "Eco Friendly Products",
@@ -5854,9 +5856,10 @@
   {
     "keyword": "Nootropic Supplements",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-23"
   },
   {
     "keyword": "Wet N Wild Bare Focus Tinted Hydrator",
@@ -6060,6 +6063,76 @@
     "category": "Outdoor",
     "status": "active",
     "added": "2026-08-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Treluxe Hair Care Reviews",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Planet Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Planet Fitness",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Horse Stall Mats For Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Camping Gear Checklist",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Anthracite Outdoor Adventure Area",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Supplement To Help Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aid Without Melatonin",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Car Wash Soap",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living Space Bloomstonehome",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-23",
     "is_new": true
   }
 ]
