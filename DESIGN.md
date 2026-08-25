@@ -32,9 +32,31 @@ guarded `:root:not([data-theme="dark"])`, and again under `:root[data-theme="lig
 | `--accent` | `#5b5bd6` | `#5b5bd6` | Interactive + selected **only** |
 | `--up` / `--down` | `#30a46c` / `#e5484d` | `#218358` / `#ce2c31` | Direction |
 | `--warn` | `#ffb224` | `#a15c00` | Watchlist star, flagged notice, poor accuracy |
+| `--c1`–`--c12` | vivid step | step 11 | Category identity |
+| `--b1`–`--b5` | ramp | ramp | Viability bands |
 
-Color strategy is **Restrained**. Direction never relies on color alone — every
-delta also carries a sign and a caret glyph.
+### Colour systems
+
+Three, each carrying meaning. Nothing is coloured for its own sake.
+
+1. **Category identity** — 12 hues (`--c1`…`--c12`) assigned by a stable hash of
+   the category name, so a category keeps its colour across sorts, filters and
+   sessions and becomes something you learn rather than noise. Appears as a 7px
+   dot beside the category label and as the 2px accent strip on a card.
+2. **Viability ramp** — `--b1`…`--b5`, green → lime → amber → orange → red,
+   applied to the score figure and its meter. The colour is derived from the
+   *same* band that produces the label, because the server's bands are calibrated
+   and move; a fixed threshold would print "Strong Opportunity" in amber.
+   Adjacent steps are deliberately far apart in hue — the calibrated bands put
+   most keywords in the top two, so near-identical greens would carry no
+   information.
+3. **Direction** — `--up` / `--down` on deltas and sparklines, always alongside a
+   sign and a caret glyph, so the table survives monochrome and colour-vision
+   differences.
+
+Lens chips take their own hue when active and stay neutral when inactive. Stat
+cards carry a tinted icon badge. The primary CTA is a vertical gradient with an
+inset highlight; its hover lift is a real offset shadow, never a coloured halo.
 
 ## Type
 
@@ -60,6 +82,8 @@ even though a generic 1.25 heuristic flags it.
   deltas, listings, viability with a meter.
 - **Cards** — secondary grid view, same data per keyword.
 - **Dialogs** — native `<dialog>`, 12px radius, header rule, scrolling body.
+- **Price panel** — one paid tier only. The figure comes from `plans.PRICE` via
+  the API; the view never hardcodes it.
 - **Icons** — 16-unit SVG sprite, 1.5 stroke, `currentColor`. No emoji.
 
 ## Locked states

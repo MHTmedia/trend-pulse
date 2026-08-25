@@ -32,6 +32,17 @@ from typing import Optional
 
 TRIAL_DAYS = 7
 
+# One paid tier, deliberately. Until there are features that genuinely separate
+# two price points, a second tier only asks the buyer to do work the product
+# cannot yet reward — so the ladder is free -> trial -> one subscription.
+PRICE = {
+    "amount":   "9.99",
+    "currency": "USD",
+    "symbol":   "$",
+    "interval": "month",
+    "display":  "$9.99/mo",
+}
+
 FREE  = "free"
 TRIAL = "trial"
 PRO   = "pro"
@@ -117,6 +128,7 @@ def resolve(user: Optional[dict]) -> dict:
 def public(ent: dict) -> dict:
     """The entitlement as the browser should see it — policy, never internals."""
     return {
+        "price":           dict(PRICE),
         "tier":            ent["tier"],
         "label":           ent["label"],
         "trialing":        ent["trialing"],

@@ -20,6 +20,13 @@
   --up:#30a46c; --up-soft:#0f2e21; --down:#e5484d; --down-soft:#3b1219;
   --warn:#ffb224; --warn-soft:#3a2606;
   --r:6px; --r-lg:8px;
+  /* Category identity — 12 hues at the vivid step, assigned by a stable hash so
+     a category keeps its colour across sessions, sorts and filters. */
+  --c1:#e5484d; --c2:#f76b15; --c3:#ffb224; --c4:#46a758;
+  --c5:#30a46c; --c6:#12a594; --c7:#00a2c7; --c8:#0090ff;
+  --c9:#6e56cf; --c10:#8e4ec6; --c11:#d6409f; --c12:#e93d82;
+  /* Viability ramp — semantic, not decorative: the five bands the score uses. */
+  --b1:#30a46c; --b2:#9bbf3d; --b3:#ffb224; --b4:#f76b15; --b5:#e5484d;
   --sans:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --shadow:0 1px 2px rgba(0,0,0,.28), 0 12px 32px -12px rgba(0,0,0,.55);
@@ -31,6 +38,10 @@
   --accent:#5b5bd6; --accent-hi:#4a4ac4; --accent-soft:#f1f1fe; --accent-line:#c9c9f5;
   --up:#218358; --up-soft:#e8f5ee; --down:#ce2c31; --down-soft:#fdeced;
   --warn:#a15c00; --warn-soft:#fff3e0;
+  --c1:#ce2c31; --c2:#cc4e00; --c3:#a15c00; --c4:#2a7e3b;
+  --c5:#218358; --c6:#008573; --c7:#0c7792; --c8:#0069c2;
+  --c9:#5746af; --c10:#7d3daf; --c11:#c2298a; --c12:#d6409f;
+  --b1:#218358; --b2:#5d8a1e; --b3:#a15c00; --b4:#cc4e00; --b5:#ce2c31;
   --shadow:0 1px 2px rgba(0,0,0,.05), 0 12px 32px -12px rgba(0,0,0,.16);
 } }
 :root[data-theme="light"] {
@@ -40,6 +51,10 @@
   --accent-hi:#4a4ac4; --accent-soft:#f1f1fe; --accent-line:#c9c9f5;
   --up:#218358; --up-soft:#e8f5ee; --down:#ce2c31; --down-soft:#fdeced;
   --warn:#a15c00; --warn-soft:#fff3e0;
+  --c1:#ce2c31; --c2:#cc4e00; --c3:#a15c00; --c4:#2a7e3b;
+  --c5:#218358; --c6:#008573; --c7:#0c7792; --c8:#0069c2;
+  --c9:#5746af; --c10:#7d3daf; --c11:#c2298a; --c12:#d6409f;
+  --b1:#218358; --b2:#5d8a1e; --b3:#a15c00; --b4:#cc4e00; --b5:#ce2c31;
   --shadow:0 1px 2px rgba(0,0,0,.05), 0 12px 32px -12px rgba(0,0,0,.16);
 }
 
@@ -243,6 +258,29 @@ dialog::backdrop{background:rgba(0,0,0,.62);backdrop-filter:blur(2px)}
 .price li .icon{width:14px;height:14px;margin-top:3px;color:var(--up);flex:none}
 .price li.no{color:var(--text-3)} .price li.no .icon{color:var(--text-3)}
 
+/* ═══ COLOUR ═════════════════════════════════════════════════════════════════
+   Three systems, each carrying meaning: category identity, the viability ramp,
+   and direction. Nothing here is colour for its own sake.                    */
+.cdot{width:7px;height:7px;border-radius:2px;display:inline-block;margin-right:6px;flex:none}
+.kw-sub{display:flex;align-items:center}
+.stat .badge{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;
+             justify-content:center;margin-bottom:9px}
+.stat .badge .icon{width:14px;height:14px}
+.entry{position:relative;overflow:hidden;transition:border-color .15s, transform .15s}
+.entry::before{content:'';position:absolute;inset:0 0 auto 0;height:2px;
+               background:var(--cat, var(--accent))}
+.entry:hover{border-color:var(--cat, var(--border-3));transform:translateY(-1px)}
+.lens.on{background:color-mix(in srgb, var(--lc, var(--accent)) 14%, transparent);
+         border-color:color-mix(in srgb, var(--lc, var(--accent)) 45%, transparent);
+         color:var(--lc, var(--accent))}
+.btn.pri{background:linear-gradient(180deg, var(--accent-hi), var(--accent));
+         border-color:var(--accent);color:#fff;
+         box-shadow:0 1px 2px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.14)}
+.btn.pri:hover{background:linear-gradient(180deg,#8080e6, var(--accent-hi));
+               box-shadow:0 4px 12px -4px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.18)}
+.growth-hot{color:var(--c2);font-weight:600}
+.growth-break{color:var(--c11);font-weight:600}
+
 /* ═══ STATES ═════════════════════════════════════════════════════════════════ */
 .empty{padding:60px 20px;text-align:center;background:var(--panel);
        border:1px solid var(--border);border-radius:var(--r-lg)}
@@ -348,6 +386,27 @@ const ic = (n, cls) => `<svg class="icon ${cls||''}" viewBox="0 0 16 16"><use hr
 const calcViability = k => k.viability != null ? k.viability : 0;
 const bandFor = v => (scoreBands.length ? scoreBands : DEFAULT_BANDS).find(b => v >= b.min) || DEFAULT_BANDS[4];
 const limits = () => (plan && plan.limits) || {};
+// Price is policy, served by plans.py — never a literal in the view.
+const price = () => (plan && plan.price) || {display:'$9.99/mo', symbol:'$', amount:'9.99', interval:'month'};
+
+// Stable per-category hue: a category keeps its colour across sorts, filters and
+// sessions, so colour becomes something you learn rather than noise.
+function catColor(cat) {
+  let h = 0; const t = String(cat || '');
+  for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) >>> 0;
+  return `var(--c${(h % 12) + 1})`;
+}
+// Colour must come from the same band the label does, or a keyword reads
+// "Strong Opportunity" in amber. The server's bands are calibrated and move.
+function bandColor(v) {
+  const bands = scoreBands.length ? scoreBands : DEFAULT_BANDS;
+  let i = bands.findIndex(b => v >= b.min);
+  if (i < 0) i = bands.length - 1;
+  return `var(--b${Math.min(5, i + 1)})`;
+}
+function growthClass(g) {
+  return g >= 1000 ? 'growth-break' : g >= 200 ? 'growth-hot' : '';
+}
 // Reddit has returned 403 to unauthenticated search for the whole series, and the
 // cache records that as 0 rather than null. A zero rendered as a measurement reads
 // as "nobody is discussing this", which is the opposite of "we could not ask", so
@@ -392,17 +451,17 @@ function sparkHTML(series, w, h) {
 
 // ── Lenses ────────────────────────────────────────────────────────────────────
 const LENSES = [
-  {id:'viable',   icon:'check', label:'Viability 65+',   tip:'Strong conditions for a new product',
+  {id:'viable', hue:'--b1',   icon:'check', label:'Viability 65+',   tip:'Strong conditions for a new product',
    test:k => calcViability(k) >= 65},
-  {id:'breakout', icon:'up',    label:'Breakout',        tip:'1,000%+ 12-month growth',
+  {id:'breakout', hue:'--c11', icon:'up',    label:'Breakout',        tip:'1,000%+ 12-month growth',
    test:k => k.momentum === 'breakout' || k.status === 'breakout' || k.growth >= 1000},
-  {id:'hot',      icon:'chart', label:'200–999% growth', tip:'Proven demand, still room to enter',
+  {id:'hot', hue:'--c2',      icon:'chart', label:'200–999% growth', tip:'Proven demand, still room to enter',
    test:k => (k.momentum === 'hot' || k.growth >= 200) && k.growth < 1000 && k.status !== 'flat'},
-  {id:'amz_low_comp', icon:'table', label:'Low competition', tip:'Under 500 Amazon listings',
+  {id:'amz_low_comp', hue:'--c7', icon:'table', label:'Low competition', tip:'Under 500 Amazon listings',
    test:k => k.amazon_result_count != null && k.amazon_result_count < 500},
-  {id:'reddit',   icon:'user',  label:'Reddit 20+',      tip:'20+ mentions in 30 days',
+  {id:'reddit', hue:'--c2',   icon:'user',  label:'Reddit 20+',      tip:'20+ mentions in 30 days',
    needs:'reddit', test:k => (k.reddit_30d || 0) >= 20},
-  {id:'new',      icon:'star',  label:'Newly discovered', tip:'Added by the nightly discovery engine',
+  {id:'new', hue:'--c9',      icon:'star',  label:'Newly discovered', tip:'Added by the nightly discovery engine',
    test:k => !!k.is_new},
 ];
 
@@ -467,15 +526,18 @@ function renderAbstract() {
              warn: c.correlation <= 0};
     }
   }
+  const badge = (hue, icon) =>
+    `<div class="badge" style="background:color-mix(in srgb, var(${hue}) 16%, transparent);
+      color:var(${hue})">${ic(icon)}</div>`;
   el.innerHTML = `
-    <div class="stat"><span>Keywords tracked</span>
+    <div class="stat">${badge('--c8','table')}<span>Keywords tracked</span>
       <b>${allKeywords.length.toLocaleString()}</b></div>
-    <div class="stat"><span>Still climbing</span>
-      <b>${rising.toLocaleString()}<em>${Math.round(rising / Math.max(1,allKeywords.length) * 100)}%</em></b></div>
-    <div class="stat"><span>Breakouts \u00b7 1,000%+</span>
-      <b>${brk}${days ? `<em>${days}d history</em>` : ''}</b></div>
-    <div class="stat${acc.warn ? ' warnstat' : ''}"><span>Score accuracy</span>
-      <b>${acc.v}<em>${acc.note}</em></b></div>`;
+    <div class="stat">${badge('--b1','up')}<span>Still climbing</span>
+      <b style="color:var(--b1)">${rising.toLocaleString()}<em>${Math.round(rising / Math.max(1,allKeywords.length) * 100)}%</em></b></div>
+    <div class="stat">${badge('--c11','chart')}<span>Breakouts · 1,000%+</span>
+      <b style="color:var(--c11)">${brk}${days ? `<em>${days}d history</em>` : ''}</b></div>
+    <div class="stat${acc.warn ? ' warnstat' : ''}">${badge(acc.warn ? '--warn' : '--b1','alert')}
+      <span>Score accuracy</span><b>${acc.v}<em>${acc.note}</em></b></div>`;
 }
 
 function renderNotices() {
@@ -489,12 +551,12 @@ function renderNotices() {
     out.push(`<div class="notice"><span>${ic('info')}</span>
       <div><b>Trial — ${d} day${d === 1 ? '' : 's'} remaining.</b>
       Full history, movers and trajectory are open until then.</div>
-      <span class="sp"><button class="linkbtn" onclick="openUpgrade()">Subscribe — $29/mo ${ic('arrow')}</button></span></div>`);
+      <span class="sp"><button class="linkbtn" onclick="openUpgrade()">Subscribe — ${price().display} ${ic('arrow')}</button></span></div>`);
   } else if (p.trial_expired) {
     out.push(`<div class="notice flagged"><span>${ic('alert')}</span>
       <div><b>Your trial has ended.</b> Today's snapshot stays open;
       trajectory, movers and full history now need a subscription.</div>
-      <span class="sp"><button class="linkbtn" onclick="openUpgrade()">Subscribe — $29/mo ${ic('arrow')}</button></span></div>`);
+      <span class="sp"><button class="linkbtn" onclick="openUpgrade()">Subscribe — ${price().display} ${ic('arrow')}</button></span></div>`);
   } else if (accountsEnabled && !currentUser) {
     out.push(`<div class="notice"><span>${ic('info')}</span>
       <div>You are reading the public series. A free account opens keyword
@@ -534,7 +596,7 @@ function renderShell() {
       <div class="trow lenses">
         ${LENSES.filter(l => l.needs !== 'reddit' || redditLive).map(l =>
           `<button class="lens${activeLenses.has(l.id)?' on':''}" title="${esc(l.tip)}"
-           onclick="toggleLens('${l.id}')">${ic(l.icon)}${esc(l.label)}</button>`).join('')}
+           style="--lc:var(${l.hue})" onclick="toggleLens('${l.id}')">${ic(l.icon)}${esc(l.label)}</button>`).join('')}
         <button class="linkbtn" onclick="clearFilters()">Clear</button>
       </div>
     </div>
@@ -630,14 +692,15 @@ function tableHTML(rows) {
         <td class="starcell"><button class="star${on?' on':''}" title="${on?'Remove from watchlist':'Add to watchlist'}"
             onclick="event.stopPropagation();toggleWatch('${esc(k.keyword).replace(/'/g,"\\'")}')">${ic('star')}</button></td>
         <td><div class="kw">${esc(k.keyword)}${k.is_new?'<span class="new">NEW</span>':''}</div>
-            <div class="kw-sub">${esc(k.category)}</div></td>
+            <div class="kw-sub"><span class="cdot" style="background:${catColor(k.category)}"></span>${esc(k.category)}</div></td>
         <td class="hide-sm">${sparkHTML(k.trend)}</td>
-        <td class="u">${fmtGrowth(k.growth)}</td>
+        <td class="u ${growthClass(k.growth)}">${fmtGrowth(k.growth)}</td>
         <td class="u hide-md">${k.score ?? '—'}</td>
         <td class="hide-md">${traj}</td>
         <td class="hide-md">${traj30}</td>
         <td class="u hide-sm">${fmtNum(k.amazon_result_count)}</td>
-        <td><span class="score">${v}</span><span class="meter"><i style="width:${v}%"></i></span></td>
+        <td><span class="score" style="color:${bandColor(v)}">${v}</span>
+            <span class="meter"><i style="width:${v}%;background:${bandColor(v)}"></i></span></td>
       </tr>`;
     }).join('')}
     </tbody></table></div>`;
@@ -648,23 +711,23 @@ function lockNote() {
     <div>Seven- and thirty-day movement comes from the tracked history.
     ${currentUser ? 'Subscribe to unlock it.' : 'A free 7-day trial unlocks it \u2014 no card required.'}</div>
     <span class="sp"><button class="btn sm pri" onclick="${currentUser?'openUpgrade()':"openAuth('register')"}">
-      ${currentUser ? 'Subscribe \u2014 $29/mo' : 'Start free trial'}</button></span></div>`;
+      ${currentUser ? 'Subscribe \u2014 ' + price().display : 'Start free trial'}</button></span></div>`;
 }
 
 function entriesHTML(rows) {
   return `<div class="entries">${rows.map(k => {
     const v = calcViability(k), on = watchSet.has(normKw(k.keyword));
-    return `<article class="entry" onclick="openKeyword('${esc(k.keyword).replace(/'/g,"\\'")}')">
+    return `<article class="entry" style="--cat:${catColor(k.category)}" onclick="openKeyword('${esc(k.keyword).replace(/'/g,"\\'")}')">
       <div class="entry-top"><div class="kw">${esc(k.keyword)}</div>
         <button class="star${on?' on':''}" onclick="event.stopPropagation();toggleWatch('${esc(k.keyword).replace(/'/g,"\\'")}')">${ic('star')}</button></div>
-      <div class="kw-sub">${esc(k.category)}</div>
+      <div class="kw-sub"><span class="cdot" style="background:${catColor(k.category)}"></span>${esc(k.category)}</div>
       <div class="entry-fig">${sparkHTML(k.trend, 240, 42)}</div>
       <dl>
-        <dt>Growth</dt><dd>${fmtGrowth(k.growth)}</dd>
+        <dt>Growth</dt><dd class="${growthClass(k.growth)}">${fmtGrowth(k.growth)}</dd>
         <dt>Interest</dt><dd>${k.score ?? '—'}</dd>
         <dt>Listings</dt><dd>${fmtNum(k.amazon_result_count)}</dd>
         <dt>7-day</dt><dd>${canSeries() ? deltaHTML(k.d7) : `<span class="locked">${ic('lock')}</span>`}</dd>
-        <dt>Viability</dt><dd><b>${v}</b> — ${esc(bandFor(v).label)}</dd>
+        <dt>Viability</dt><dd style="color:${bandColor(v)};font-weight:600">${v} · ${esc(bandFor(v).label)}</dd>
       </dl></article>`;
   }).join('')}</div>`;
 }
@@ -732,7 +795,7 @@ async function openKeyword(keyword) {
       : `<p class="small">The nightly trajectory for this keyword is part of the tracked
          history. ${currentUser ? 'It opens with a subscription.' : 'A free 7-day trial opens it — no card required.'}</p>
          <button class="btn pri" onclick="closeDlg('dlgKeyword');${currentUser?'openUpgrade()':"openAuth('register')"}">
-         ${currentUser ? 'Subscribe — $29/mo' : 'Start free trial'}</button>`}</div>
+         ${currentUser ? 'Subscribe — ${price().display}' : 'Start free trial'}</button>`}</div>
 
     ${currentUser ? `<h3>Your record</h3><div id="kwWorkspace"><p class="small">Loading…</p></div>`
                   : ''}
@@ -748,13 +811,13 @@ async function loadKeywordHistory(keyword) {
   if (!el()) return;
   if (res.status === 429) {
     el().innerHTML = `<p class="small">${esc(res.error)}</p>
-      <button class="btn pri" onclick="closeDlg('dlgKeyword');openUpgrade()">Remove the limit — $29/mo</button>`;
+      <button class="btn pri" onclick="closeDlg('dlgKeyword');openUpgrade()">Remove the limit — ${price().display}</button>`;
     return;
   }
   if (res.status === 401 || res.status === 402) {
     el().innerHTML = `<p class="small">${esc(res.error)}</p>
       <button class="btn pri" onclick="closeDlg('dlgKeyword');${res.status===401?"openAuth('register')":'openUpgrade()'}">
-      ${res.status === 401 ? 'Start free trial' : 'Subscribe — $29/mo'}</button>`;
+      ${res.status === 401 ? 'Start free trial' : 'Subscribe — ${price().display}'}</button>`;
     return;
   }
   if (!res.ok) { el().innerHTML = `<p class="small">${esc(res.error || 'No history recorded yet.')}</p>`; return; }
@@ -823,7 +886,7 @@ async function openMovers(win) {
          the last observation. It is derived entirely from the nightly history, which is
          why it sits behind the trial.</p>
       <button class="btn pri" onclick="closeDlg('dlgGeneric');${res.status===401?"openAuth('register')":'openUpgrade()'}">
-        ${res.status === 401 ? 'Start free trial — no card' : 'Subscribe — $29/mo'}</button></div>`);
+        ${res.status === 401 ? 'Start free trial — no card' : 'Subscribe — ${price().display}'}</button></div>`);
     return;
   }
   if (!res.ok) {
@@ -867,7 +930,7 @@ function openUpgrade() {
   const li = (yes, t) => `<li class="${yes?'':'no'}">${ic(yes?'check':'x')}<span>${t}</span></li>`;
   openDlg('dlgGeneric', dlgHead('Subscription','dlgGeneric') + `<div class="dlg-b">
     <div class="price">
-      <div class="price-top"><span class="price-amt">$29</span>
+      <div class="price-top"><span class="price-amt">${price().symbol}${price().amount}</span>
         <span class="price-per">per month · cancel any time</span></div>
       <ul>
         ${li(true,'Full nightly trajectory for every tracked keyword')}

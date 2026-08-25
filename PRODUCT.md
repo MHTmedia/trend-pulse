@@ -51,7 +51,9 @@ real-time data it does not have.
   buildless — no npm, no bundler, no framework runtime.
 - **Google Trends blocks datacenter IPs**, which is why fetching runs in GitHub
   Actions and never on the host.
-- **Plans:** Free, a 7-day Trial, and Pro at **$29/month**. The trial requires
+- **Plans:** Free, a 7-day Trial, and a single paid tier at **$9.99/month** —
+  deliberately one price until there are features that justify separating two.
+  The trial requires
   email and password only — no card up front. Quotas meter distinct keywords
   per day rather than requests.
 - **Reddit has returned 403 for the entire tracked history**, scoring as zero
