@@ -158,3 +158,66 @@ trend-tracker/
 └── .github/workflows/
     └── refresh-trends.yml        ← Nightly schedule
 ```
+
+---
+
+## Environment variables
+
+The public dashboard needs none of these — it reads committed cache files. They
+unlock the account features and the non-commodity signals.
+
+| Variable | Required for | Notes |
+|---|---|---|
+| `DATABASE_URL` | Watchlists, notes, outcomes | Postgres URL (Neon/Supabase/RDS). Without it the app runs read-only: the dashboard works, account features report themselves unavailable. Serverless filesystems are read-only, so SQLite is local-dev only. |
+| `SECRET_KEY` | Sessions | Long random string. If unset in production every cold start mints a new key and silently logs everyone out. |
+| `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` | Social demand | Reddit's unauthenticated search JSON now returns 403. Without credentials social demand is recorded as **unknown**, not zero, and affected keywords carry a lower confidence rating. |
+| `YOUTUBE_API_KEY` | Creator-supply signal | Optional. |
+| `TRENDPULSE_VERTICAL` | Vertical focus | One of the ids in `config/verticals.json`. Overrides the `active` field there. |
+| `SIGNAL_ETSY` | Etsy listing counts | Off by default — Etsy 403s datacenter IPs. Set to `1` only if routing through a proxy. |
+
+Set these in the Vercel project settings, and the `REDDIT_*` / `YOUTUBE_API_KEY`
+ones as GitHub Actions secrets too, since the nightly job needs them.
+
+## Scripts
+
+```bash
+python scripts/fetch_trends.py        # nightly: fetch, score, append a snapshot
+python scripts/backfill_history.py    # one-off: replay git history into snapshots
+python scripts/calibrate.py           # backtest the score, re-derive bands
+python scripts/weekly_report.py       # build the shareable weekly report
+```
+
+`backfill_history.py` is safe to re-run; it skips days already present unless
+`--force` is passed.
+
+## First-party signal drops
+
+Put JSON files in `data/proprietary/`:
+
+```json
+[
+  {
+    "keyword": "Creatine Gummies",
+    "source":  "mht-client-campaigns",
+    "as_of":   "2026-08-01",
+    "signal":  78,
+    "notes":   "3 clients, blended ROAS 2.4 across $48k spend"
+  }
+]
+```
+
+`signal` is a normalised 0–100 demand score, deliberately not raw spend or
+revenue, so client-confidential figures never enter the repo. These feed the
+`first_party` scoring factor — the one input a competitor cannot obtain.
+
+## Data layout
+
+| Path | Purpose |
+|---|---|
+| `cache/trends.json` | Current snapshot, served to the dashboard |
+| `cache/history/snapshots/` | Append-only nightly record (archival; excluded from the Vercel bundle) |
+| `cache/history/series.json` | Rolled-up per-keyword series |
+| `cache/history/deltas.json` | Trajectory summary shipped with each page load |
+| `cache/history/movers.json` | Precomputed movers |
+| `cache/calibration.json` | Backtest results and score bands |
+| `static/reports/` | Generated weekly reports |

@@ -13,3 +13,8 @@ venv/
 .venv/
 .DS_Store
 .DS_Store
+
+# Local dev database — production uses DATABASE_URL
+cache/trendpulse.db
+cache/trendpulse.db-shm
+cache/trendpulse.db-wal

@@ -1,0 +1,61 @@
+{
+  "active": "all",
+  "_comment": "Set `active` (or the TRENDPULSE_VERTICAL env var) to go deep on one niche instead of a mile wide across 13 categories. A vertical narrows what is tracked and re-weights scoring for what actually predicts success in that niche.",
+  "verticals": {
+    "all": {
+      "label": "All Categories",
+      "description": "Every tracked category. Broadest coverage, shallowest expertise — hardest position to defend.",
+      "categories": null,
+      "weight_overrides": {},
+      "discovery_seeds": []
+    },
+    "health-performance": {
+      "label": "Health & Performance",
+      "description": "Supplements, recovery, sleep and fitness gear. The largest coherent cluster already tracked (~293 keywords) and the category where community validation leads retail demand most reliably.",
+      "categories": ["Health & Wellness", "Fitness", "Sleep", "Mental Health"],
+      "weight_overrides": {
+        "social_demand": 18,
+        "web_attention": 12,
+        "current_interest": 12,
+        "price_viability": 6,
+        "competition": 18,
+        "trend_momentum": 24,
+        "first_party": 10
+      },
+      "discovery_seeds": [
+        "supplement", "recovery tool", "sleep aid", "nootropic",
+        "protein", "mobility", "longevity", "gut health"
+      ]
+    },
+    "beauty-personal-care": {
+      "label": "Beauty & Personal Care",
+      "description": "Skincare, haircare and at-home devices. Short trend cycles, so momentum is weighted hard and crowding matters more than price.",
+      "categories": ["Beauty"],
+      "weight_overrides": {
+        "trend_momentum": 30,
+        "social_demand": 16,
+        "competition": 22,
+        "current_interest": 14,
+        "price_viability": 4,
+        "web_attention": 6,
+        "first_party": 8
+      },
+      "discovery_seeds": ["serum", "skin barrier", "hair growth", "led device", "cleanser"]
+    },
+    "home-outdoor": {
+      "label": "Home & Outdoor",
+      "description": "Kitchen, home goods and outdoor equipment. Higher ticket, slower cycles — margin and competition carry more weight than social buzz.",
+      "categories": ["Home & Kitchen", "Outdoor", "Sustainability", "Pets"],
+      "weight_overrides": {
+        "price_viability": 14,
+        "competition": 24,
+        "trend_momentum": 22,
+        "current_interest": 16,
+        "social_demand": 8,
+        "web_attention": 8,
+        "first_party": 8
+      },
+      "discovery_seeds": ["camping", "kitchen gadget", "storage", "pet gear", "reusable"]
+    }
+  }
+}

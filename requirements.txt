@@ -1,1 +1,4 @@
 flask==3.0.3
+# Only needed when DATABASE_URL points at Postgres (accounts, watchlists,
+# outcomes). The app degrades to read-only if it is absent.
+psycopg[binary]==3.2.3

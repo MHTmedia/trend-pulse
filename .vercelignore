@@ -10,3 +10,9 @@ DEPLOY.md
 railway.toml
 push.sh
 .DS_Store
+# Raw nightly snapshots are the archival record and grow without bound. The app
+# only ever reads the rolled-up series/deltas/movers files, so keep the bundle small.
+cache/history/snapshots/
+# Local dev database; production uses DATABASE_URL.
+cache/trendpulse.db
+cache/trendpulse.db-*

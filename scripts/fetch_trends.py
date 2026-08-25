@@ -14,6 +14,7 @@ Usage:
 """
 
 import json
+import os
 import time
 import logging
 import re
@@ -22,9 +23,18 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import quote_plus
 
+import sys
+
 import requests
 from bs4 import BeautifulSoup
 from pytrends.request import TrendReq
+
+# Repo root on sys.path so the shared trendpulse/ package is importable when this
+# script is invoked as `python scripts/fetch_trends.py`.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from trendpulse import history, signals, verticals
+from trendpulse.scoring import compute_viability
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 CACHE_DIR      = Path("cache")
@@ -518,6 +528,65 @@ NON_PRODUCT_PATTERNS = re.compile(
     re.IGNORECASE,
 )
 
+# The related-queries feed is noisy: it surfaces SEO domains, celebrity names,
+# showtimes and news chatter alongside genuine product terms. Those were being
+# admitted and then tracked forever, so the accumulated history — the asset the
+# whole product is meant to be built on — filled up with keywords nobody can
+# sell. These reject anything that is clearly not a purchasable product.
+DOMAIN_PATTERN = re.compile(
+    r"(\.com|\.net|\.org|\.co\b|\.io\b|\.shop|\bwww\b|\bhttp)", re.IGNORECASE)
+
+NON_COMMERCE_PATTERNS = re.compile(
+    r"\b(showtimes?|trailer|episodes?|season|cast|lyrics|obituary|died|death|"
+    r"net worth|wife|husband|girlfriend|boyfriend|birthday|"
+    r"stock|share price|earnings|ipo|news|weather|schedule|scores?|standings|"
+    r"login|sign in|customer service|phone number|hours|locations?|"
+    r"jobs?|salary|hiring|careers?|coupon|promo code|discount code|"
+    r"movie|film|series|game ?play|walkthrough|apk|download|torrent|"
+    r"site|official|website)\b",
+    re.IGNORECASE,
+)
+
+# A product keyword almost always contains a physical-goods noun somewhere.
+# Requiring one is blunt, but it is the difference between tracking a market and
+# tracking a news cycle.
+PRODUCT_NOUN_PATTERN = re.compile(
+    r"\b(supplement|powder|capsules?|tablets?|gummies|vitamins?|protein|"
+    r"serum|cream|oil|balm|lotion|mask|cleanser|moisturi[sz]er|shampoo|"
+    r"device|machine|tool|kit|set|bottle|mug|cup|bag|case|holder|stand|rack|"
+    r"mat|pad|pillow|blanket|sheets?|cover|chair|desk|lamp|light|mirror|"
+    r"tracker|monitor|scale|sensor|watch|band|ring|headphones?|earbuds?|"
+    r"speaker|camera|charger|cable|adapter|battery|purifier|humidifier|"
+    r"blender|grinder|maker|cooker|kettle|pan|pot|knife|board|container|"
+    r"brush|roller|trimmer|razor|clipper|dryer|straightener|curler|"
+    r"shoes?|boots?|sandals?|sneakers?|jacket|coat|shirt|pants|shorts|dress|"
+    r"leggings|socks|hat|cap|gloves|belt|wallet|backpack|luggage|"
+    r"toy|puzzle|blocks?|stroller|carrier|crib|bottle|diapers?|"
+    r"leash|collar|harness|bed|bowl|feeder|litter|treats?|chew|"
+    r"weights?|dumbbell|kettlebell|bands?|mat|rope|bike|treadmill|rower|"
+    r"tent|sleeping bag|cooler|backpack|lantern|stove|compass|binoculars|"
+    r"coffee|tea|drink|snack|bar|mix|syrup|sauce|seasoning|"
+    r"cleaner|detergent|spray|wipes?|filter|refill|dispenser|organizer|"
+    # Power / outdoor equipment
+    r"station|generator|power ?bank|inverter|panel|heater|fan|"
+    # Supplement and cosmetic compounds, which rarely carry a generic noun
+    r"magnesium|zinc|calcium|iron|potassium|iodine|selenium|collagen|creatine|"
+    r"glycinate|citrate|monohydrate|bisglycinate|oxide|sulfate|chloride|"
+    r"ascorbate|malate|taurate|orotate|threonate|"
+    r"peptides?|probiotics?|prebiotics?|enzymes?|electrolytes?|amino ?acids?|"
+    r"extract|tincture|complex|blend|formula|concentrate|isolate|"
+    r"retinol|niacinamide|ceramides?|squalane|bakuchiol|hyaluronic|salicylic|"
+    r"glycolic|azelaic|tranexamic|adaptogens?|nootropics?|acid|"
+    # Forms and formats that read as products on their own
+    r"gel|gum|patch(?:es)?|strips?|wrap|sleeves?|insoles?|cushion|tumbler|"
+    r"straw|jug|flask|canteen|thermos|diffuser|infuser|steamer|press|"
+    r"mushrooms?|herbs?|tea|honey|butter|ghee|jerky|"
+    r"skincare|haircare|sunscreen|spf|tape|treatment|routine|alternative|"
+    r"trainer|massager|stretcher|corrector|support|brace|splint|wedge|"
+    r"planter|seeds?|soil|feeder|trap|repellent|deterrent)\b",
+    re.IGNORECASE,
+)
+
 # ── Logging ───────────────────────────────────────────────────────────────────
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
@@ -570,138 +639,8 @@ def classify_momentum(growth: float) -> str:
     return "rising"
 
 
-def compute_viability(
-    growth: float,
-    series: list[float],
-    status: str,
-    reddit_30d: int,
-    reddit_velocity: float | None,
-    amazon_result_count: int | None,
-    amazon_avg_price: float | None,
-    amazon_avg_rating: float | None,
-    amazon_top_reviews: int | None,
-    amazon_best_seller: bool,
-    amazons_choice: bool,
-) -> tuple[int, dict]:
-    """
-    Product viability score (1–100) for entrepreneurs evaluating a market.
-
-    Five factors (max points shown):
-      1. Trend Momentum   (30 pts) — Is demand growing? At what stage?
-      2. Current Interest (20 pts) — How strong is interest RIGHT NOW?
-      3. Competition      (25 pts) — How crowded is Amazon? Fewer = easier entry.
-      4. Price Viability  (10 pts) — Is the avg price high enough for margin?
-      5. Social Demand    (15 pts) — Reddit community validation + velocity.
-
-    Bonuses/penalties:
-      • Best Seller or Amazon's Choice badge   +3  (proven buyer demand)
-      • Strong reviews on top product          +2  (market validated)
-      • Flat/declining status                  hard cap at 30
-    """
-    breakdown = {}
-
-    # ── 1. Trend Momentum (0–30) ───────────────────────────────────────────────
-    # Sweet spot is Hot (200–999%): proven demand but not yet saturated.
-    # Breakout is exciting but risky (early, unproven longevity) → slight penalty.
-    if status == "flat":
-        m = 0
-    elif growth >= 2000:
-        m = 24   # extreme breakout — huge risk, could be a fad
-    elif growth >= 1000:
-        m = 27   # breakout — exciting but volatile
-    elif growth >= 500:
-        m = 30   # hot sweet spot
-    elif growth >= 200:
-        m = 28
-    elif growth >= 100:
-        m = 22
-    elif growth >= 50:
-        m = 16
-    elif growth > 0:
-        m = 10
-    else:
-        m = 3
-    breakdown["trend_momentum"] = m
-
-    # ── 2. Current Interest (0–20) ─────────────────────────────────────────────
-    # Last month's Google Trends index (0–100) scaled to 0–20.
-    current = series[-1] if series else 0
-    i = round(current / 100 * 20)
-    breakdown["current_interest"] = i
-
-    # ── 3. Competition (0–25) ──────────────────────────────────────────────────
-    # Fewer Amazon listings = easier to rank and stand out.
-    if amazon_result_count is None:
-        c = 12   # no data → neutral
-    elif amazon_result_count < 100:
-        c = 25   # near-blue-ocean
-    elif amazon_result_count < 500:
-        c = 22
-    elif amazon_result_count < 2_000:
-        c = 17
-    elif amazon_result_count < 5_000:
-        c = 12
-    elif amazon_result_count < 15_000:
-        c = 7
-    else:
-        c = 3    # very crowded
-    breakdown["competition"] = c
-
-    # ── 4. Price Viability (0–10) ──────────────────────────────────────────────
-    # Higher avg price = more margin room for a new entrant.
-    if amazon_avg_price is None:
-        p = 5    # neutral
-    elif amazon_avg_price >= 100:
-        p = 10
-    elif amazon_avg_price >= 60:
-        p = 9
-    elif amazon_avg_price >= 35:
-        p = 7
-    elif amazon_avg_price >= 20:
-        p = 4
-    else:
-        p = 1    # race-to-bottom pricing
-    breakdown["price_viability"] = p
-
-    # ── 5. Social Demand (0–15) ────────────────────────────────────────────────
-    # Reddit mentions = organic community interest (not paid/manufactured).
-    r30 = reddit_30d or 0
-    if r30 >= 100:
-        s = 14
-    elif r30 >= 50:
-        s = 12
-    elif r30 >= 20:
-        s = 10
-    elif r30 >= 10:
-        s = 7
-    elif r30 >= 3:
-        s = 4
-    else:
-        s = 1
-    # Velocity bonus: community buzz is accelerating
-    if reddit_velocity is not None and reddit_velocity >= 50:
-        s = min(15, s + 2)
-    breakdown["social_demand"] = s
-
-    # ── Bonuses ────────────────────────────────────────────────────────────────
-    bonus = 0
-    if amazon_best_seller or amazons_choice:
-        bonus += 3   # proven buyer demand exists in this category
-    if (amazon_top_reviews or 0) >= 1000:
-        bonus += 2   # market is validated — customers actively buying
-    # Slight penalty for very poor ratings (quality gap may be hard to overcome)
-    if amazon_avg_rating is not None and amazon_avg_rating < 3.5:
-        bonus -= 3
-    breakdown["bonus"] = bonus
-
-    raw = m + i + c + p + s + bonus
-
-    # ── Flat hard cap ──────────────────────────────────────────────────────────
-    if status == "flat":
-        raw = min(raw, 30)
-
-    score = max(1, min(100, raw))
-    return score, breakdown
+# compute_viability now lives in trendpulse/scoring.py so the nightly job,
+# the API, the calibration backtest and the weekly report all agree.
 
 
 def is_flat(series: list[float]) -> bool:
@@ -798,16 +737,67 @@ def fetch_all_trends(keywords: list[str]) -> dict:
 # ── Keyword discovery ─────────────────────────────────────────────────────────
 
 def looks_like_product(query: str) -> bool:
-    """Heuristic: filter out questions, how-tos, and non-product searches."""
+    """Heuristic: is this a purchasable product, or just a trending search?
+
+    Deliberately strict. A false negative costs one keyword; a false positive
+    gets tracked forever and pollutes the historical dataset permanently.
+    """
     q = query.strip()
     if len(q) < 4 or len(q) > 60:
         return False
     if NON_PRODUCT_PATTERNS.search(q):
         return False
+    if DOMAIN_PATTERN.search(q):
+        return False
+    if NON_COMMERCE_PATTERNS.search(q):
+        return False
     # Must contain at least one letter (no pure numbers/symbols)
     if not re.search(r"[a-zA-Z]{3}", q):
         return False
+    # No casing heuristics here: discovery calls .title() on every candidate, so
+    # "Kristen Bell" and "Weighted Vest" are indistinguishable by shape. Names
+    # that slip through this gate are caught empirically by the commerce check
+    # below, which retires anything with no sellers behind it.
     return True
+
+
+# Regexes cannot enumerate every product noun, so the second gate is empirical:
+# a real product has sellers. Anything that survives discovery but shows no
+# commercial footprint after a few nights of Amazon lookups gets retired, which
+# keeps the accumulated history clean without hand-maintaining a word list.
+MIN_COMMERCE_LISTINGS = 10
+COMMERCE_GRACE_DAYS   = 3
+
+
+def prune_non_commercial(keyword_records: list[dict], amazon_data: dict, today: str) -> int:
+    """Retire discovered keywords with no sellers behind them."""
+    retired = 0
+    for rec in keyword_records:
+        if rec.get("status") in ("flat", "retired"):
+            continue
+        # Curated seeds are trusted; only auto-discovered terms are policed.
+        if not rec.get("discovered"):
+            continue
+
+        amz = amazon_data.get(rec["keyword"])
+        if not amz:
+            continue
+        count = amz.get("amazon_result_count")
+        if count is None:
+            continue          # scrape failed — absence of evidence, not evidence
+
+        if count < MIN_COMMERCE_LISTINGS:
+            rec["no_commerce_strikes"] = rec.get("no_commerce_strikes", 0) + 1
+            if rec["no_commerce_strikes"] >= COMMERCE_GRACE_DAYS:
+                rec["status"] = "retired"
+                rec["retired_on"] = today
+                rec["retired_reason"] = f"only {count} Amazon listings"
+                retired += 1
+                log.info("\U0001f5d1  Retired '%s' — no commercial footprint (%d listings)",
+                         rec["keyword"], count)
+        else:
+            rec.pop("no_commerce_strikes", None)
+    return retired
 
 
 def discover_new_keywords(existing_keywords: set[str]) -> list[dict]:
@@ -856,21 +846,81 @@ def discover_new_keywords(existing_keywords: set[str]) -> list[dict]:
 
 # ── Reddit ────────────────────────────────────────────────────────────────────
 
-def fetch_reddit_mentions(keyword: str) -> tuple[int, int, float | None]:
+# Reddit shut the unauthenticated search JSON endpoint behind bot protection —
+# it now returns a 403 HTML page. The old code checked for status != 200 and
+# returned 0, which is indistinguishable from "nobody is talking about this", so
+# every keyword has scored zero social demand for the entire history of the app.
+# Failures now return None (unknown) so the confidence system can discount them.
+_REDDIT_TOKEN: str | None = None
+_REDDIT_DEAD = False
+
+
+def _reddit_token() -> str | None:
+    """OAuth token via client credentials. Requires REDDIT_CLIENT_ID/SECRET."""
+    global _REDDIT_TOKEN
+    if _REDDIT_TOKEN:
+        return _REDDIT_TOKEN
+
+    client_id = os.environ.get("REDDIT_CLIENT_ID", "").strip()
+    secret    = os.environ.get("REDDIT_CLIENT_SECRET", "").strip()
+    if not (client_id and secret):
+        return None
+
+    try:
+        resp = requests.post(
+            "https://www.reddit.com/api/v1/access_token",
+            auth=(client_id, secret),
+            data={"grant_type": "client_credentials"},
+            headers=REDDIT_HEADERS,
+            timeout=15,
+        )
+        if resp.ok:
+            _REDDIT_TOKEN = resp.json().get("access_token")
+            log.info("Reddit: authenticated via OAuth")
+            return _REDDIT_TOKEN
+        log.warning("Reddit: OAuth failed (%s)", resp.status_code)
+    except Exception as exc:
+        log.warning("Reddit: OAuth error %s", exc)
+    return None
+
+
+def fetch_reddit_mentions(keyword: str):
+    """Return (posts_30d, posts_7d, velocity) or (None, None, None) if unavailable."""
+    global _REDDIT_DEAD
+    if _REDDIT_DEAD:
+        return None, None, None
+
     now       = datetime.now(timezone.utc)
     week_ago  = now - timedelta(days=7)
     month_ago = now - timedelta(days=30)
     total_30d = this_week = last_week = 0
+
+    token   = _reddit_token()
+    headers = dict(REDDIT_HEADERS)
+    if token:
+        headers["Authorization"] = f"bearer {token}"
+        url = "https://oauth.reddit.com/search"
+    else:
+        url = "https://www.reddit.com/search.json"
+
     try:
         resp = requests.get(
-            "https://www.reddit.com/search.json",
+            url,
             params={"q": keyword, "sort": "new", "limit": 100, "t": "month", "type": "link"},
-            headers=REDDIT_HEADERS,
+            headers=headers,
             timeout=10,
         )
         if resp.status_code != 200:
-            return 0, 0, None
-        for post in resp.json().get("data", {}).get("children", []):
+            if not token:
+                # Unauthenticated access is blocked outright — stop hammering it.
+                _REDDIT_DEAD = True
+                log.error("Reddit returned %s without credentials. Social demand will be "
+                          "recorded as UNKNOWN, not zero. Set REDDIT_CLIENT_ID and "
+                          "REDDIT_CLIENT_SECRET to restore this signal.", resp.status_code)
+            return None, None, None
+
+        children = resp.json().get("data", {}).get("children", [])
+        for post in children:
             created = datetime.fromtimestamp(post["data"]["created_utc"], tz=timezone.utc)
             if created >= month_ago:
                 total_30d += 1
@@ -880,10 +930,11 @@ def fetch_reddit_mentions(keyword: str) -> tuple[int, int, float | None]:
                 last_week += 1
     except Exception as exc:
         log.warning("Reddit fetch failed for '%s': %s", keyword, exc)
+        return None, None, None
+
     velocity = None
     if this_week > 0 or last_week > 0:
         velocity = 100.0 if last_week == 0 else round(((this_week - last_week) / last_week) * 100, 1)
-    log.info("  Reddit '%s': %d/30d  %d this week", keyword, total_30d, this_week)
     return total_30d, this_week, velocity
 
 
@@ -1028,6 +1079,13 @@ def fetch_amazon_data(keyword: str) -> dict:
 def main():
     today = datetime.utcnow().date().isoformat()
 
+    # ── 0. Apply the active vertical profile ───────────────────────────────────
+    vertical = verticals.active_vertical()
+    verticals.apply_scoring_weights()
+    scope = verticals.categories_for()
+    log.info("Vertical: %s (%s)", vertical.get("label", vertical["id"]),
+             "all categories" if scope is None else ", ".join(scope))
+
     # ── 1. Load keyword list ───────────────────────────────────────────────────
     keyword_records = load_keywords()
     kw_meta         = {k["keyword"]: k for k in keyword_records}
@@ -1035,7 +1093,13 @@ def main():
     # Keywords to actively fetch: everything except already-flat ones.
     # Flat keywords are preserved forever but we skip re-fetching — they keep
     # their last known trend data so the card stays visible on the dashboard.
-    fetchable_records  = [k for k in keyword_records if k.get("status") != "flat"]
+    fetchable_records  = [k for k in keyword_records
+                          if k.get("status") not in ("flat", "retired")]
+    if scope is not None:
+        allowed = set(scope)
+        skipped = [k for k in fetchable_records if k.get("category") not in allowed]
+        fetchable_records = [k for k in fetchable_records if k.get("category") in allowed]
+        log.info("Vertical filter: skipping %d out-of-scope keywords", len(skipped))
     fetchable_keywords = [k["keyword"] for k in fetchable_records]
 
     log.info("Tracking %d keywords total (%d active/new, %d flat — skipping re-fetch)",
@@ -1078,8 +1142,10 @@ def main():
     for i, kw in enumerate(fetchable_keywords):
         total, this_week, velocity = fetch_reddit_mentions(kw)
         reddit_data[kw] = {"reddit_30d": total, "reddit_7d": this_week, "reddit_velocity": velocity}
-        if i < len(fetchable_keywords) - 1:
+        if i < len(fetchable_keywords) - 1 and not _REDDIT_DEAD:
             time.sleep(1.5)
+    reddit_ok = sum(1 for v in reddit_data.values() if v.get("reddit_30d") is not None)
+    log.info("Reddit resolved for %d/%d keywords", reddit_ok, len(fetchable_keywords))
 
     # ── 6. Fetch Amazon data (active keywords only) ────────────────────────────
     log.info("Fetching Amazon data…")
@@ -1088,6 +1154,21 @@ def main():
         amazon_data[kw] = fetch_amazon_data(kw)
         if i < len(fetchable_keywords) - 1:
             time.sleep(random.uniform(2.5, 4.5))
+
+    # ── 6a. Retire discovered keywords with no commercial footprint ───────────
+    retired = prune_non_commercial(keyword_records, amazon_data, today)
+    if retired:
+        log.info("Retired %d keywords with no sellers behind them", retired)
+
+    # ── 6b. Fetch proprietary / non-commodity signals ──────────────────────────
+    log.info("Fetching extra signals (%s)…",
+             ", ".join(k for k, v in signals.enabled_sources().items() if v) or "none enabled")
+    signal_data = {}
+    for kw in fetchable_keywords:
+        signal_data[kw] = signals.fetch_all_signals(kw)
+    signals.flush_caches()
+    sig_ok = sum(1 for v in signal_data.values() if v)
+    log.info("Extra signals resolved for %d/%d keywords", sig_ok, len(fetchable_keywords))
 
     # ── 7. Build trends output ─────────────────────────────────────────────────
     # Load the previous cache so flat keywords can carry forward their last data
@@ -1103,6 +1184,8 @@ def main():
     for idx, rec in enumerate(keyword_records, 1):
         kw     = rec["keyword"]
         status = rec.get("status", "active")
+        if status == "retired":
+            continue
 
         if status == "flat" and kw in prev_cache:
             # Carry forward last known data — only update status/flat_since
@@ -1117,12 +1200,13 @@ def main():
         growth = compute_growth(series)
         rd     = reddit_data.get(kw, {})
         amz    = amazon_data.get(kw, {})
+        sig    = signal_data.get(kw, {})
 
         viability, viability_breakdown = compute_viability(
             growth               = growth,
             series               = series,
             status               = status,
-            reddit_30d           = rd.get("reddit_30d", 0),
+            reddit_30d           = rd.get("reddit_30d"),
             reddit_velocity      = rd.get("reddit_velocity"),
             amazon_result_count  = amz.get("amazon_result_count"),
             amazon_avg_price     = amz.get("amazon_avg_price"),
@@ -1130,6 +1214,9 @@ def main():
             amazon_top_reviews   = amz.get("amazon_top_reviews"),
             amazon_best_seller   = amz.get("amazon_best_seller", False),
             amazons_choice       = amz.get("amazons_choice", False),
+            first_party_signal   = sig.get("first_party_signal"),
+            wiki_views_30d       = sig.get("wiki_views_30d"),
+            wiki_momentum        = sig.get("wiki_momentum"),
         )
 
         keywords_out.append({
@@ -1148,8 +1235,8 @@ def main():
             "added":            rec.get("added"),
             "flat_since":       rec.get("flat_since"),
             # Reddit
-            "reddit_30d":       rd.get("reddit_30d", 0),
-            "reddit_7d":        rd.get("reddit_7d", 0),
+            "reddit_30d":       rd.get("reddit_30d"),
+            "reddit_7d":        rd.get("reddit_7d"),
             "reddit_velocity":  rd.get("reddit_velocity"),
             # Amazon
             "amazon_result_count":  amz.get("amazon_result_count"),
@@ -1159,6 +1246,15 @@ def main():
             "amazon_avg_price":     amz.get("amazon_avg_price"),
             "amazon_avg_rating":    amz.get("amazon_avg_rating"),
             "amazon_seller_count":  amz.get("amazon_seller_count"),
+            # Non-commodity signals
+            "wiki_views_30d":       sig.get("wiki_views_30d"),
+            "wiki_momentum":        sig.get("wiki_momentum"),
+            "wiki_title":           sig.get("wiki_title"),
+            "etsy_listings":        sig.get("etsy_listings"),
+            "youtube_results":      sig.get("youtube_results"),
+            "first_party_signal":   sig.get("first_party_signal"),
+            "first_party_source":   sig.get("first_party_source"),
+            "confidence":           viability_breakdown.get("confidence"),
         })
 
     # Sort: active/new first (by growth desc), flat last
@@ -1168,12 +1264,28 @@ def main():
     save_keywords(keyword_records)
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    payload = {"fetched_at": datetime.utcnow().isoformat(), "keywords": keywords_out}
+    payload = {
+        "fetched_at":     datetime.utcnow().isoformat(),
+        "vertical":       verticals.active_vertical_id(),
+        "signal_sources": signals.enabled_sources(),
+        "keywords":       keywords_out,
+    }
     TRENDS_FILE.write_text(json.dumps(payload, indent=2))
     amz_ok    = sum(1 for k in keywords_out if k.get("amazon_result_count") is not None)
     flat_total = sum(1 for k in keywords_out if k.get("status") == "flat")
     log.info("✅ Saved %d keywords to %s (%d flat, %d new discovered, %d with Amazon data)",
              len(keywords_out), TRENDS_FILE, flat_total, len(new_keywords), amz_ok)
+
+    # ── 9. Append to the time-series store ──────────────────────────────────
+    # trends.json only ever holds "today". The snapshot store is what accumulates
+    # into a dataset a competitor cannot reconstruct after the fact.
+    history.write_snapshot(keywords_out, day=today, source="nightly")
+    series = history.rebuild_series()
+    history.rebuild_movers(series=series)
+    history.rebuild_deltas(series=series)
+    cov = history.coverage()
+    log.info("📚 History: %d snapshots (%s → %s), %d keywords tracked over time",
+             cov["snapshot_count"], cov["first_date"], cov["last_date"], cov["keyword_count"])
 
 
 if __name__ == "__main__":

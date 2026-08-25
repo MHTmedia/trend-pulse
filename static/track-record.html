@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TrendPulse — Track Record</title>
+<style>
+  :root { --bg:#0b0f17; --surface:#131926; --surface2:#1b2334; --line:#212a3b;
+          --text:#e6edf7; --muted:#8b97ab; --up:#22c55e; --down:#ef4444;
+          --warn:#f97316; --accent:#6366f1; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f7f8fb; --surface:#fff; --surface2:#f0f2f7; --line:#e3e7ee;
+            --text:#131926; --muted:#5d6675; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:34px 20px; background:var(--bg); color:var(--text);
+         font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  .wrap { max-width:900px; margin:0 auto; }
+  header { display:flex; align-items:center; justify-content:space-between;
+           gap:16px; flex-wrap:wrap; margin-bottom:6px; }
+  h1 { font-size:27px; margin:0; letter-spacing:-.02em; }
+  h2 { font-size:17px; margin:34px 0 12px; letter-spacing:-.01em; }
+  .sub { color:var(--muted); font-size:13px; }
+  a { color:var(--accent); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+           gap:10px; margin-top:18px; }
+  .stat { background:var(--surface); border:1px solid var(--line);
+          border-radius:11px; padding:13px 15px; }
+  .stat b { display:block; font-size:22px; letter-spacing:-.02em; }
+  .stat span { color:var(--muted); font-size:11px; text-transform:uppercase;
+               letter-spacing:.05em; }
+  table { width:100%; border-collapse:collapse; background:var(--surface);
+          border:1px solid var(--line); border-radius:11px; overflow:hidden; }
+  th,td { padding:9px 12px; text-align:left; border-bottom:1px solid var(--line);
+          font-size:13.5px; }
+  th { color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase;
+       letter-spacing:.05em; }
+  tr:last-child td { border-bottom:none; }
+  .num { text-align:right; font-variant-numeric:tabular-nums; }
+  .muted { color:var(--muted); }
+  .up { color:var(--up); font-weight:600; }
+  .down { color:var(--down); font-weight:600; }
+  .callout { border-radius:11px; padding:14px 16px; font-size:13.5px; margin:16px 0; }
+  .callout.warn { background:rgba(249,115,22,.09); border:1px solid rgba(249,115,22,.32); }
+  .callout.info { background:rgba(99,102,241,.09); border:1px solid rgba(99,102,241,.28); }
+  .scroll { overflow-x:auto; }
+  .loading, .error { padding:40px; text-align:center; color:var(--muted); }
+  code { background:var(--surface2); padding:1px 5px; border-radius:4px; font-size:12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Track Record</h1>
+      <div class="sub">What the score said, and what actually happened next.</div>
+    </div>
+    <a href="/">← Back to dashboard</a>
+  </header>
+  <div id="content"><div class="loading">Loading…</div></div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function pct(v) { return v == null ? '—' : v + '%'; }
+
+function bandRows(perf) {
+  if (!perf || !perf.length) return '<tr><td colspan="4" class="muted">No data.</td></tr>';
+  return perf.map(p => `
+    <tr>
+      <td><span style="color:${esc(p.color)};font-weight:600">${esc(p.label)}</span>
+          <span class="muted">≥${p.min}</span></td>
+      <td class="num">${p.n}</td>
+      <td class="num">${pct(p.hit_rate)}</td>
+      <td class="num muted">${p.median_change ?? '—'}</td>
+    </tr>`).join('');
+}
+
+function diagnosticRows(diag) {
+  if (!diag) return '';
+  return Object.entries(diag).map(([field, d]) => {
+    const rho = d.correlation;
+    const cls = rho == null ? 'muted' : (rho > 0.05 ? 'up' : (rho < -0.05 ? 'down' : 'muted'));
+    const verdict = rho == null ? 'no variance in the data'
+                  : (rho > 0.05 ? 'predictive' : (rho < -0.05 ? 'inversely related' : 'no signal'));
+    return `<tr>
+      <td><code>${esc(field)}</code><div class="muted" style="font-size:12px">${esc(d.description)}</div></td>
+      <td class="num ${cls}">${rho == null ? '—' : rho}</td>
+      <td class="num muted">${d.n}</td>
+      <td class="${cls}">${verdict}</td>
+    </tr>`;
+  }).join('');
+}
+
+function trackRows(rows) {
+  if (!rows || !rows.length)
+    return '<tr><td colspan="5" class="muted">No qualifying calls yet.</td></tr>';
+  return rows.map(r => `
+    <tr>
+      <td>${esc(r.keyword)}</td>
+      <td class="muted">${esc(r.category || '—')}</td>
+      <td class="muted">${esc(r.flagged_on)}</td>
+      <td class="num">${r.score_at_flag}</td>
+      <td class="num up">+${Math.round(r.change_pct)}</td>
+    </tr>`).join('');
+}
+
+async function load() {
+  let data;
+  try {
+    const res = await fetch('/api/track-record');
+    data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'No calibration data yet.');
+  } catch (err) {
+    $('content').innerHTML =
+      `<div class="error"><strong>Could not load track record.</strong><br>${esc(err.message)}
+       <p class="muted">Run <code>python scripts/calibrate.py</code> to generate it.</p></div>`;
+    return;
+  }
+
+  const uo = data.user_outcomes || {};
+  const warn = data.warning
+    ? `<div class="callout warn"><strong>Accuracy caveat.</strong> ${esc(data.warning)}</div>` : '';
+
+  $('content').innerHTML = `
+    <div class="stats">
+      <div class="stat"><b>${data.sample_size}</b><span>Backtest sample</span></div>
+      <div class="stat"><b>${pct(data.overall_hit_rate)}</b><span>Overall hit rate</span></div>
+      <div class="stat"><b>${data.horizon_days}d</b><span>Forward horizon</span></div>
+      <div class="stat"><b>${data.history_days}</b><span>Days of history</span></div>
+      <div class="stat"><b>${data.score_separates_outcomes ? 'Yes' : 'No'}</b>
+        <span>Score predicts demand</span></div>
+    </div>
+
+    ${warn}
+
+    <div class="callout info">
+      <strong>How this is measured.</strong> ${esc(data.notes || '')}
+      Keywords whose interest index was below ${data.min_base} at the start are excluded
+      (${data.dropped_low_base} dropped) because a move from 1 to 3 on a 0–100 index
+      reads as +200% and would dominate the result.
+    </div>
+
+    <h2>Accuracy by score band</h2>
+    <div class="scroll"><table>
+      <tr><th>Band</th><th class="num">Keywords</th><th class="num">Hit rate</th>
+          <th class="num">Median change</th></tr>
+      ${bandRows(data.band_performance)}
+    </table></div>
+
+    <h2>Which inputs actually predict demand</h2>
+    <p class="sub">Rank correlation between each input and forward demand movement.
+       Positive means the input helps; negative means it is actively hurting the score.</p>
+    <div class="scroll"><table>
+      <tr><th>Input</th><th class="num">Correlation</th><th class="num">n</th><th>Verdict</th></tr>
+      ${diagnosticRows(data.factor_diagnostics)}
+    </table></div>
+
+    <h2>Calls that worked</h2>
+    <p class="sub">Keywords scored 50+ whose demand subsequently rose.</p>
+    <div class="scroll"><table>
+      <tr><th>Keyword</th><th>Category</th><th>Flagged</th>
+          <th class="num">Score</th><th class="num">Change</th></tr>
+      ${trackRows(data.track_record)}
+    </table></div>
+
+    <h2>Real launch outcomes</h2>
+    ${uo.available
+      ? `<div class="stats">
+           <div class="stat"><b>${uo.rows}</b><span>Outcomes logged</span></div>
+           <div class="stat"><b>${uo.scored_rows}</b><span>With a score attached</span></div>
+           <div class="stat"><b>${pct(uo.hit_rate)}</b><span>Reported success rate</span></div>
+         </div>`
+      : `<div class="callout info">No user-reported outcomes yet.
+           ${esc(uo.reason || '')} Once people log what they launched and how it went,
+           the score can be trained against revenue rather than search interest —
+           the one input a competitor cannot copy.</div>`}
+
+    <p class="sub" style="margin-top:30px">Generated ${esc(data.generated)}.</p>`;
+}
+load();
+</script>
+</body>
+</html>

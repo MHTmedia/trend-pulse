@@ -1,0 +1,151 @@
+{
+  "generated": "2026-08-17T01:59:27.970593",
+  "horizon_days": 30,
+  "hit_threshold": 5.0,
+  "sample_size": 355,
+  "metric": "abs",
+  "min_base": 10.0,
+  "dropped_low_base": 268,
+  "factor_diagnostics": {
+    "growth_at_score": {
+      "description": "12-month growth % (drives trend_momentum)",
+      "n": 355,
+      "correlation": 0.233,
+      "predictive": true
+    },
+    "interest_at_score": {
+      "description": "current interest (drives current_interest)",
+      "n": 355,
+      "correlation": -0.562,
+      "predictive": false
+    },
+    "reddit_at_score": {
+      "description": "Reddit posts / 30d (drives social_demand)",
+      "n": 355,
+      "correlation": null,
+      "predictive": null
+    },
+    "listings_at_score": {
+      "description": "Amazon listings (drives competition)",
+      "n": 326,
+      "correlation": 0.343,
+      "predictive": true
+    },
+    "score_then": {
+      "description": "composite viability score",
+      "n": 355,
+      "correlation": -0.132,
+      "predictive": false
+    }
+  },
+  "history_days": 46,
+  "provisional": false,
+  "overall_hit_rate": 11.8,
+  "score_separates_outcomes": false,
+  "bands": [
+    {
+      "min": 50,
+      "label": "Strong Opportunity",
+      "color": "#22c55e"
+    },
+    {
+      "min": 40,
+      "label": "Good Potential",
+      "color": "#86efac"
+    },
+    {
+      "min": 33,
+      "label": "Moderate Risk",
+      "color": "#facc15"
+    },
+    {
+      "min": 27,
+      "label": "High Risk",
+      "color": "#f97316"
+    },
+    {
+      "min": 0,
+      "label": "Not Recommended",
+      "color": "#ef4444"
+    }
+  ],
+  "band_performance": [
+    {
+      "min": 50,
+      "label": "Strong Opportunity",
+      "color": "#22c55e",
+      "n": 33,
+      "hit_rate": 9.1,
+      "median_change": 0.0
+    },
+    {
+      "min": 40,
+      "label": "Good Potential",
+      "color": "#86efac",
+      "n": 109,
+      "hit_rate": 6.4,
+      "median_change": -41.3
+    },
+    {
+      "min": 33,
+      "label": "Moderate Risk",
+      "color": "#facc15",
+      "n": 83,
+      "hit_rate": 14.5,
+      "median_change": -1.2
+    },
+    {
+      "min": 27,
+      "label": "High Risk",
+      "color": "#f97316",
+      "n": 92,
+      "hit_rate": 13.0,
+      "median_change": 0.0
+    },
+    {
+      "min": 0,
+      "label": "Not Recommended",
+      "color": "#ef4444",
+      "n": 38,
+      "hit_rate": 21.1,
+      "median_change": -0.3
+    }
+  ],
+  "user_outcomes": {
+    "available": true,
+    "rows": 0,
+    "scored_rows": 0,
+    "hit_rate": null
+  },
+  "track_record": [
+    {
+      "keyword": "Momcozy S12 Pro Wearable Breast Pump",
+      "category": "Tech",
+      "flagged_on": "2026-07-17",
+      "score_at_flag": 64,
+      "interest_then": 13.0,
+      "interest_now": 50,
+      "change_pct": 37.0
+    },
+    {
+      "keyword": "Azelaic Acid Cream",
+      "category": "Beauty",
+      "flagged_on": "2026-07-17",
+      "score_at_flag": 53,
+      "interest_then": 21.0,
+      "interest_now": 50,
+      "change_pct": 29.0
+    },
+    {
+      "keyword": "Healthflexio.Com",
+      "category": "Mental Health",
+      "flagged_on": "2026-07-17",
+      "score_at_flag": 62,
+      "interest_then": 35.0,
+      "interest_now": 46.7,
+      "change_pct": 11.7
+    }
+  ],
+  "warning": "Higher scores did NOT precede stronger demand in this backtest \u2014 the relationship is inverted. The score is weighted toward momentum already achieved, so it tends to flag keywords at their peak, which then revert. Treat the bands as descriptive of the current distribution, not as a validated prediction, until the factor weights are retrained.",
+  "notes": "Bands are percentile thresholds over the current score distribution. Hit rate is the share of keywords whose Google Trends interest rose by at least 5% over the following 30 days. This measures demand direction, not revenue \u2014 revenue calibration needs user-reported outcomes, which accumulate once accounts are in use."
+}
