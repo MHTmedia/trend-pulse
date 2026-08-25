@@ -215,6 +215,55 @@
     .modal-stats { grid-template-columns: 1fr 1fr; }
   }
 </style>
+<style>
+  /* ── Added: accounts, trajectory, history, outcomes ── */
+  #genericOverlay { z-index: 1200; }
+  .nav { display:flex; align-items:center; gap:10px; margin-left:auto; flex-wrap:wrap; }
+  .nav a, .nav button { font-size:12.5px; }
+  .nav a { color:var(--muted); text-decoration:none; }
+  .nav a:hover { color:var(--text); }
+  .btn-sm { background:var(--surface); border:1px solid var(--border); color:var(--text);
+            padding:6px 12px; border-radius:8px; font-size:12.5px; cursor:pointer;
+            font-weight:600; transition:all .15s; }
+  .btn-sm:hover { border-color:var(--accent); color:var(--accent); }
+  .btn-sm.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .btn-sm.primary:hover { opacity:.9; color:#fff; }
+  .badge-traj { font-weight:700; }
+  .traj-up { background:rgba(34,197,94,.15); color:#22c55e; }
+  .traj-down { background:rgba(239,68,68,.13); color:#ef4444; }
+  .traj-flat { background:rgba(100,116,139,.14); color:#94a3b8; }
+  .badge-conf { background:rgba(148,163,184,.13); color:#94a3b8; }
+  .badge-conf.low { background:rgba(249,115,22,.14); color:#f97316; }
+  .watch-star { background:none; border:none; cursor:pointer; font-size:15px;
+                line-height:1; padding:0 2px; opacity:.35; transition:opacity .15s; }
+  .watch-star:hover { opacity:1; }
+  .watch-star.on { opacity:1; }
+  .panel { border:1px solid var(--border); border-radius:12px; padding:14px 16px;
+           margin-top:16px; background:var(--surface); }
+  .panel h4 { margin:0 0 10px; font-size:13px; letter-spacing:.02em; }
+  .panel .hint { color:var(--muted); font-size:12px; margin:0 0 10px; }
+  .panel textarea, .panel select, .panel input[type=text] {
+      width:100%; background:var(--surface2,#1b2334); color:var(--text);
+      border:1px solid var(--border); border-radius:8px; padding:8px 10px;
+      font:inherit; font-size:13px; }
+  .panel textarea { min-height:64px; resize:vertical; }
+  .field-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+  .field-row > label { flex:1; min-width:130px; font-size:11px; color:var(--muted);
+                       text-transform:uppercase; letter-spacing:.05em; }
+  .spark { width:100%; height:56px; display:block; }
+  .auth-form { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .auth-form input { background:var(--surface2,#1b2334); color:var(--text);
+      border:1px solid var(--border); border-radius:8px; padding:7px 10px;
+      font:inherit; font-size:13px; min-width:190px; }
+  .msg { font-size:12.5px; margin-top:8px; }
+  .msg.err { color:#ef4444; } .msg.ok { color:#22c55e; }
+  .movers-tbl { width:100%; border-collapse:collapse; }
+  .movers-tbl td, .movers-tbl th { padding:7px 10px; border-bottom:1px solid var(--border);
+      font-size:13px; text-align:left; }
+  .movers-tbl th { color:var(--muted); font-size:10.5px; text-transform:uppercase;
+      letter-spacing:.05em; }
+  .movers-tbl .num { text-align:right; font-variant-numeric:tabular-nums; }
+</style>
 </head>
 <body>
 
@@ -223,7 +272,18 @@
     <div class="logo-icon">📈</div>
     <h1>Trend<span>Pulse</span></h1>
   </div>
+  <nav class="nav">
+    <select class="sort-select" id="verticalSelect" onchange="setVertical(this.value)"
+            title="Narrow to one vertical"></select>
+    <button class="btn-sm" onclick="openMovers()">📊 Movers</button>
+    <a href="/track-record">Track record</a>
+    <span id="authSlot"></span>
+  </nav>
 </header>
+
+<div class="modal-overlay" id="genericOverlay" onclick="closeGeneric(event)">
+  <div class="modal" style="max-width:720px" id="genericModal"></div>
+</div>
 
 <div id="appContent">
   <div class="loading-overlay">
@@ -252,11 +312,36 @@
         </div>
         <div class="method-row">
           <div class="method-icon">🔶</div>
-          <div class="method-text"><strong>Reddit</strong> — We query Reddit's public search API for each keyword and count posts from the past 30 days and past 7 days. Week-over-week velocity reveals whether community buzz is accelerating or cooling. No account or API key required — Reddit's public JSON endpoint is used directly with a respectful 1.5s delay between requests.</div>
+          <div class="method-text"><strong>Reddit</strong> — <em>Currently unavailable.</em> Reddit put its
+            public search JSON behind bot protection, so unauthenticated requests now return 403. Until
+            <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">REDDIT_CLIENT_ID</code>
+            and <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">REDDIT_CLIENT_SECRET</code>
+            are configured, social demand is recorded as <strong>unknown</strong> — not as zero — and the
+            affected keywords carry a lower confidence rating instead of a silently deflated score.</div>
         </div>
         <div class="method-row">
           <div class="method-icon">📦</div>
           <div class="method-text"><strong>Amazon</strong> — We scrape the first page of Amazon search results for each keyword to extract: total listing count (competition proxy), Best Seller and Amazon's Choice badges, average price across the top 10 products, average star rating, and the highest review count (demand proxy). Scraping uses randomised 2.5–4.5s delays and rotating user-agents.</div>
+        </div>
+        <div class="method-row">
+          <div class="method-icon">📚</div>
+          <div class="method-text"><strong>Wikipedia pageviews</strong> — Daily article traffic over 60 days
+            via the Wikimedia REST API, giving both absolute attention and 30-day momentum. Unlike Google
+            Trends this is a real count rather than a 0–100 relative index, so it can distinguish a small
+            category from a shrinking one.</div>
+        </div>
+        <div class="method-row">
+          <div class="method-icon">🔒</div>
+          <div class="method-text"><strong>First-party data</strong> — Normalised 0–100 demand signals dropped
+            into <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">data/proprietary/</code>,
+            sourced from real campaign performance. Present for only a handful of keywords, but it is the one
+            input a competitor cannot obtain at any price.</div>
+        </div>
+        <div class="method-row">
+          <div class="method-icon">🗂️</div>
+          <div class="method-text"><strong>Tracked history</strong> — Every night's observation is appended to a
+            snapshot store rather than overwriting the last one, so each keyword has a real trajectory. This is
+            what powers the 7-day movement badges, the Movers view and the accuracy backtest.</div>
         </div>
       </div>
 
@@ -316,6 +401,14 @@
           <div class="method-icon">➕</div>
           <div class="method-text"><strong>Bonuses &amp; Penalties</strong> — Best Seller or Amazon's Choice badge adds +3 (proves buyers exist). Top product with 1,000+ reviews adds +2 (market validated). Average rating below 3.5★ subtracts −3 (quality gap may be hard to overcome). Flat topics are hard-capped at 30 regardless of other factors.</div>
         </div>
+        <div class="method-row">
+          <div class="method-icon">◔</div>
+          <div class="method-text"><strong>Confidence</strong> — Factors are scored only over the weight that
+            actually has data, and the result is scaled by how much of the total weight that represents. A
+            keyword measured on Google Trends alone cannot reach the top band. Previously a missing Amazon
+            lookup quietly earned a mid-table 12 of 25 for competition, which flattered exactly the keywords
+            we knew least about.
+        </div>
         <div style="margin-top:10px">
           <div class="status-pills">
             <span class="sp" style="background:rgba(34,197,94,0.15);color:#22c55e">75–100 · Strong Opportunity</span>
@@ -341,7 +434,7 @@
         <h3>🔄 Update Schedule</h3>
         <div class="method-row">
           <div class="method-icon">🌙</div>
-          <div class="method-text">The nightly job runs at <strong>1 AM CST (7 AM UTC)</strong> via GitHub Actions. It fetches fresh Google Trends, Reddit, and Amazon data for all active keywords, recalculates every score including Viability, runs the discovery engine to find up to 20 new keywords, then commits the updated cache — triggering an automatic Railway redeploy within ~2 minutes. <strong>Flat keywords are skipped</strong> during fetching to save time, but their last known data and scores remain visible forever.</div>
+          <div class="method-text">The nightly job runs at <strong>1 AM CST (7 AM UTC)</strong> via GitHub Actions. It fetches fresh Google Trends, Reddit, and Amazon data for all active keywords, recalculates every score including Viability, runs the discovery engine to find up to 20 new keywords, then commits the updated cache — triggering an automatic Vercel redeploy within ~2 minutes. <strong>Flat keywords are skipped</strong> during fetching to save time, but their last known data and scores remain visible forever.</div>
         </div>
       </div>
 
@@ -369,97 +462,23 @@ let fetchedAt     = null;
 let visibleCount  = 48;       // pagination — cards shown so far
 const PAGE_SIZE   = 48;       // how many to add per "Show more"
 
-// ── Viability score (mirrors fetch_trends.py logic) ──────────────────────────
-// Computed client-side so cards work immediately from cached data.
-// Server also stores viability in the JSON after next nightly run.
+// Viability always comes from the server now. The old client-side mirror of the
+// scoring formula has been removed — it duplicated weights that have since
+// changed, and would silently disagree with the real score.
 function calcViability(k) {
-  if (k.viability != null) return k.viability; // use server value if available
-
-  const growth   = k.growth || 0;
-  const status   = k.status || 'active';
-  const series   = k.trend  || [];
-  const r30      = k.reddit_30d || 0;
-  const vel      = k.reddit_velocity;
-  const listings = k.amazon_result_count;
-  const price    = k.amazon_avg_price;
-  const rating   = k.amazon_avg_rating;
-  const reviews  = k.amazon_top_reviews;
-  const bsb      = k.amazon_best_seller;
-  const ac       = k.amazons_choice;
-
-  // 1. Trend momentum (0–30)
-  let m = 0;
-  if (status !== 'flat') {
-    if      (growth >= 2000) m = 24;
-    else if (growth >= 1000) m = 27;
-    else if (growth >= 500)  m = 30;
-    else if (growth >= 200)  m = 28;
-    else if (growth >= 100)  m = 22;
-    else if (growth >= 50)   m = 16;
-    else if (growth > 0)     m = 10;
-    else                     m = 3;
-  }
-
-  // 2. Current interest (0–20)
-  const current = series.length ? series[series.length - 1] : 0;
-  const i = Math.round(current / 100 * 20);
-
-  // 3. Competition (0–25)
-  let c = 12;
-  if (listings != null) {
-    if      (listings < 100)    c = 25;
-    else if (listings < 500)    c = 22;
-    else if (listings < 2000)   c = 17;
-    else if (listings < 5000)   c = 12;
-    else if (listings < 15000)  c = 7;
-    else                        c = 3;
-  }
-
-  // 4. Price viability (0–10)
-  let p = 5;
-  if (price != null) {
-    if      (price >= 100) p = 10;
-    else if (price >= 60)  p = 9;
-    else if (price >= 35)  p = 7;
-    else if (price >= 20)  p = 4;
-    else                   p = 1;
-  }
-
-  // 5. Social demand (0–15)
-  let s = 1;
-  if      (r30 >= 100) s = 14;
-  else if (r30 >= 50)  s = 12;
-  else if (r30 >= 20)  s = 10;
-  else if (r30 >= 10)  s = 7;
-  else if (r30 >= 3)   s = 4;
-  if (vel != null && vel >= 50) s = Math.min(15, s + 2);
-
-  // Bonuses
-  let bonus = 0;
-  if (bsb || ac)         bonus += 3;
-  if ((reviews||0) >= 1000) bonus += 2;
-  if (rating != null && rating < 3.5) bonus -= 3;
-
-  let raw = m + i + c + p + s + bonus;
-  if (status === 'flat') raw = Math.min(raw, 30);
-  return Math.max(1, Math.min(100, raw));
+  return k.viability != null ? k.viability : 0;
 }
 
-function viabilityColor(v) {
-  if (v >= 75) return '#22c55e';
-  if (v >= 60) return '#86efac';
-  if (v >= 45) return '#facc15';
-  if (v >= 30) return '#f97316';
-  return '#ef4444';
+// Thresholds are served by the API so they can be re-derived from the observed
+// score distribution by scripts/calibrate.py rather than guessed here.
+function bandFor(v) {
+  for (const b of (scoreBands.length ? scoreBands : DEFAULT_BANDS)) {
+    if (v >= b.min) return b;
+  }
+  return { label: 'Not Recommended', color: '#ef4444', min: 0 };
 }
-
-function viabilityLabel(v) {
-  if (v >= 75) return { text: 'Strong Opportunity', color: '#22c55e' };
-  if (v >= 60) return { text: 'Good Potential',     color: '#86efac' };
-  if (v >= 45) return { text: 'Moderate Risk',      color: '#facc15' };
-  if (v >= 30) return { text: 'High Risk',          color: '#f97316' };
-  return             { text: 'Not Recommended',     color: '#ef4444' };
-}
+function viabilityColor(v) { return bandFor(v).color; }
+function viabilityLabel(v) { const b = bandFor(v); return { text: b.label, color: b.color }; }
 
 // ── Lens definitions ──────────────────────────────────────────────────────────
 // Each lens has: id, label, cls (CSS suffix), description, and a test fn
@@ -507,7 +526,15 @@ async function loadData() {
     if (!json.ok) throw new Error(json.error || 'No data available yet — check back after 1 AM CST.');
     allKeywords = json.keywords;
     fetchedAt = json.fetched_at ? new Date(json.fetched_at) : new Date();
+    verticalList = json.verticals || [];
+    activeVertical = json.vertical || 'all';
+    scoreBands = json.bands || scoreBands;
+    historyCoverage = json.history || null;
+    signalSources = json.signal_sources || {};
+    factorWeights = json.factor_weights || {};
     renderApp();
+    renderVerticalSelect();
+    refreshAccount();
   } catch (err) {
     showError(err.message);
   }
@@ -537,7 +564,18 @@ function trendColor(status) {
 }
 
 function badgeHTML(k) {
-  let b = `<span class="badge badge-cat">${k.category}</span>`;
+  let b = '';
+  // Trajectory from the proprietary history store — the thing a fresh competitor
+  // cannot show at all, since it requires having been watching for weeks.
+  if (k.d7 != null && Math.abs(k.d7) >= 1) {
+    const cls = k.d7 > 0 ? 'traj-up' : 'traj-down';
+    const arrow = k.d7 > 0 ? '▲' : '▼';
+    b += `<span class="badge badge-traj ${cls}" title="Viability change over the last 7 days (${k.days_tracked} days tracked)">${arrow} ${Math.abs(k.d7)} / 7d</span>`;
+  }
+  if (k.confidence != null && k.confidence < 0.6) {
+    b += `<span class="badge badge-conf low" title="Only ${Math.round(k.confidence*100)}% of scoring inputs had data for this keyword">◔ Low confidence</span>`;
+  }
+  b += `<span class="badge badge-cat">${k.category}</span>`;
   if (k.status === 'flat')         b += `<span class="badge badge-flat">⬛ Flat</span>`;
   else if (k.status === 'breakout') b += `<span class="badge badge-breakout">🚀 Breakout</span>`;
   else if (k.status === 'hot')      b += `<span class="badge badge-hot">🔥 Hot</span>`;
@@ -728,7 +766,7 @@ function renderApp() {
     <div class="page">
     <div class="update-banner">
       <div class="live-dot"></div>
-      <span>Last updated ${ts} · US market · Google Trends + Reddit · Updates nightly at 1 AM CST</span>
+      <span>Last updated ${ts} · US market · ${sourceSummary()} · Updates nightly at 1 AM CST${historyCoverage ? ` · ${historyCoverage.snapshot_count} days of tracked history` : ''}</span>
       <button class="info-btn" onclick="openMethodologyModal()">ℹ️ How it works</button>
     </div>
     <div class="controls">
@@ -856,7 +894,7 @@ function renderCards() {
       return `
       <div class="list-row${k.status === 'flat' ? ' flat' : ''}" onclick="openModal(${k.id})">
         <div class="lr-main">
-          <div class="lr-keyword">${k.keyword}</div>
+          <div class="lr-keyword">${accountsEnabled ? `<button class="watch-star${watchSet.has(normKw(k.keyword)) ? ' on' : ''}" title="Save to watchlist" onclick="event.stopPropagation();toggleWatch('${escHtml(k.keyword).replace(/'/g, "\\'")}')">${watchSet.has(normKw(k.keyword)) ? '\u2605' : '\u2606'}</button>` : ''} ${k.keyword}</div>
           <div class="badges lr-badges">${badgeHTML(k)}</div>
         </div>
         <div class="lr-metric lr-growth">
@@ -884,7 +922,7 @@ function renderCards() {
     <div class="card${k.status === 'flat' ? ' flat' : ''}" onclick="openModal(${k.id})">
       <div class="card-top">
         <div>
-          <div class="card-keyword">${k.keyword}</div>
+          <div class="card-keyword">${accountsEnabled ? `<button class="watch-star${watchSet.has(normKw(k.keyword)) ? ' on' : ''}" title="Save to watchlist" onclick="event.stopPropagation();toggleWatch('${escHtml(k.keyword).replace(/'/g, "\\'")}')">${watchSet.has(normKw(k.keyword)) ? '\u2605' : '\u2606'}</button>` : ''} ${k.keyword}</div>
           <div class="badges">${badgeHTML(k)}</div>
         </div>
         <div class="growth-pill ${pillClass(k)}">${fmtGrowth(k.growth)}</div>
@@ -963,19 +1001,35 @@ function openModal(id) {
         const col = viabilityColor(v);
         const lbl = viabilityLabel(v);
         const bd  = k.viability_breakdown || {};
-        const maxPts = { trend_momentum:30, current_interest:20, competition:25, price_viability:10, social_demand:15, bonus:5 };
-        const names  = { trend_momentum:'Trend Momentum', current_interest:'Current Interest', competition:'Competition', price_viability:'Price Viability', social_demand:'Social Demand', bonus:'Bonuses' };
-        const rows = Object.entries(names).map(([key, name]) => {
+        const measured = bd.measured || null;
+        // Records written before the rescoring carry the old weights in their
+        // breakdown; mixing them with the new denominators would misreport them.
+        const isNewFormat = bd.confidence != null || bd.measured != null;
+        const maxPts = isNewFormat
+          ? Object.assign({ bonus: 5 }, factorWeights)
+          : LEGACY_WEIGHTS;
+        const names  = { trend_momentum:'Trend Momentum', current_interest:'Current Interest',
+                         competition:'Competition', price_viability:'Price Viability',
+                         social_demand:'Social Demand', first_party:'First-Party Data',
+                         web_attention:'Web Attention', bonus:'Bonuses' };
+        const rows = Object.entries(names).filter(([key]) => key in maxPts || key in bd)
+          .map(([key, name]) => {
           const pts = bd[key] ?? null;
-          const max = maxPts[key];
-          const pct = pts != null ? Math.max(0, Math.min(100, (pts / max) * 100)) : 0;
-          const c2  = pts != null && pts > 0 ? col : (pts < 0 ? '#ef4444' : 'var(--muted)');
+          const max = maxPts[key] ?? 5;
+          // A factor with no data is shown as unmeasured, not as a zero score.
+          const hasData = measured ? (key === 'bonus' ? true : measured[key] !== false) : true;
+          const pct = (pts != null && hasData) ? Math.max(0, Math.min(100, (pts / max) * 100)) : 0;
+          const c2  = !hasData ? 'var(--muted)'
+                    : (pts != null && pts > 0 ? col : (pts < 0 ? '#ef4444' : 'var(--muted)'));
+          const val = !hasData ? 'no data' : (pts != null ? (pts > 0 ? '+' : '') + pts : '—');
+          const suffix = (hasData && pts != null)
+            ? `<span style="font-size:10px;color:var(--muted);font-weight:400">/${max}</span>` : '';
           return `<div class="vb-row">
             <div>
               <div class="vb-name">${name}</div>
               <div class="vb-bar-wrap"><div class="vb-bar" style="width:${pct}%;background:${c2}"></div></div>
             </div>
-            <div class="vb-score" style="color:${c2}">${pts != null ? (pts > 0 ? '+' : '') + pts : '—'}<span style="font-size:10px;color:var(--muted);font-weight:400">/${max}</span></div>
+            <div class="vb-score" style="color:${c2}">${val}${suffix}</div>
           </div>`;
         }).join('');
         return `
@@ -995,7 +1049,8 @@ function openModal(id) {
           </div>
           <div class="vb-grid">${rows}</div>
           <div style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5">
-            Score weights: Trend Momentum (30) + Current Interest (20) + Competition (25) + Price Viability (10) + Social Demand (15). Flat topics capped at 30.
+            ${weightSummary(isNewFormat)}. Flat topics capped at 30.
+            ${bd.confidence != null ? `<br><strong>Confidence ${Math.round(bd.confidence*100)}%</strong> — the share of scoring inputs that had real data for this keyword. Unmeasured factors earn nothing and pull the result down, rather than being filled in with an average.` : ''}
           </div>
         </div>`;
       })()}
@@ -1074,6 +1129,15 @@ function openModal(id) {
 
   document.getElementById('modalOverlay').classList.add('open');
 
+  // Everything above is the original card detail. The workspace below is what
+  // keeps people in the product: their own tracked history, notes and outcome.
+  const mbody = document.querySelector('#modal .modal-body');
+  if (mbody) {
+    mbody.insertAdjacentHTML('beforeend', workspaceHTML(k));
+    loadKeywordHistory(k.keyword);
+    if (currentUser) loadKeywordWorkspace(k.keyword);
+  }
+
   setTimeout(() => {
     const ctx = document.getElementById('modal-chart');
     if (!ctx) return;
@@ -1113,7 +1177,7 @@ function closeModal(e) {
   }
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeMethodologyModal(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeMethodologyModal(); closeGeneric(); } });
 
 // ── Methodology modal ─────────────────────────────────────────────────────────
 function openMethodologyModal() {
@@ -1122,6 +1186,377 @@ function openMethodologyModal() {
 function closeMethodologyModal(e) {
   if (!e || e.target === document.getElementById('methodOverlay')) {
     document.getElementById('methodOverlay').classList.remove('open');
+  }
+}
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Accounts, watchlist, notes, outcomes, history and movers.
+//
+// The read-only dashboard above works with no backend state at all. Everything
+// below degrades gracefully: if no database is configured the API reports
+// accounts_enabled:false and these controls simply don't appear.
+// ══════════════════════════════════════════════════════════════════════════════
+
+let currentUser     = null;
+let accountsEnabled = false;
+let watchSet        = new Set();
+let verticalList    = [];
+let activeVertical  = 'all';
+let scoreBands      = [];
+let historyCoverage = null;
+let signalSources   = {};
+let factorWeights   = {};
+const LEGACY_WEIGHTS = { trend_momentum:30, current_interest:20, competition:25,
+                         price_viability:10, social_demand:15, bonus:5 };
+const DEFAULT_BANDS = [
+  { min:75, label:'Strong Opportunity', color:'#22c55e' },
+  { min:60, label:'Good Potential',     color:'#86efac' },
+  { min:45, label:'Moderate Risk',      color:'#facc15' },
+  { min:30, label:'High Risk',          color:'#f97316' },
+  { min:0,  label:'Not Recommended',    color:'#ef4444' },
+];
+
+function weightSummary(isNewFormat) {
+  const names = { trend_momentum:'Trend Momentum', current_interest:'Current Interest',
+                  competition:'Competition', price_viability:'Price Viability',
+                  social_demand:'Social Demand', first_party:'First-Party Data',
+                  web_attention:'Web Attention' };
+  const w = (isNewFormat && Object.keys(factorWeights).length)
+    ? factorWeights : LEGACY_WEIGHTS;
+  return 'Score weights: ' + Object.entries(names)
+    .filter(([k]) => w[k] != null)
+    .map(([k, n]) => `${n} (${w[k]})`).join(' + ');
+}
+
+const normKw = (s) => String(s).trim().toLowerCase().replace(/\s+/g, ' ');
+const escHtml = (s) => String(s ?? '').replace(/[&<>"]/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function api(path, opts) {
+  const res  = await fetch(path, Object.assign({headers: {'Content-Type': 'application/json'}}, opts));
+  const json = await res.json().catch(() => ({ok: false, error: 'Bad response'}));
+  return {status: res.status, ...json};
+}
+
+// ── Vertical selector ─────────────────────────────────────────────────────────
+function renderVerticalSelect() {
+  const sel = document.getElementById('verticalSelect');
+  if (!sel || !verticalList.length) return;
+  sel.innerHTML = verticalList.map(v =>
+    `<option value="${escHtml(v.id)}"${v.id === activeVertical ? ' selected' : ''}>${escHtml(v.label)}</option>`
+  ).join('');
+}
+
+async function setVertical(id) {
+  activeVertical = id;
+  const json = await api(`/api/trends?vertical=${encodeURIComponent(id)}`);
+  if (json.ok) {
+    allKeywords  = json.keywords;
+    visibleCount = PAGE_SIZE;
+    activeCategory = 'All';
+    renderApp();
+    renderVerticalSelect();
+  }
+}
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+async function refreshAccount() {
+  const me = await api('/api/auth/me');
+  accountsEnabled = !!me.accounts_enabled;
+  currentUser     = me.user || null;
+  if (currentUser) await refreshWatchlist();
+  renderAuthSlot();
+  renderCards();
+}
+
+function renderAuthSlot() {
+  const slot = document.getElementById('authSlot');
+  if (!slot) return;
+  if (!accountsEnabled) { slot.innerHTML = ''; return; }
+  slot.innerHTML = currentUser
+    ? `<button class="btn-sm" onclick="openWatchlist()">★ Watchlist</button>
+       <button class="btn-sm" onclick="doLogout()" title="${escHtml(currentUser.email)}">Sign out</button>`
+    : `<button class="btn-sm primary" onclick="openAuth()">Sign in</button>`;
+}
+
+function openAuth(mode) {
+  mode = mode || 'login';
+  const isLogin = mode === 'login';
+  showGeneric(`
+    <div class="modal-header">
+      <div class="modal-title">${isLogin ? 'Sign in' : 'Create an account'}</div>
+      <button class="modal-close" onclick="closeGeneric()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="hint" style="color:var(--muted);font-size:13px;margin-top:0">
+        An account keeps your watchlist, notes and launch outcomes — and the
+        outcomes are what train the score against real results.</p>
+      <div class="auth-form">
+        <input type="email" id="authEmail" placeholder="you@company.com" autocomplete="username">
+        <input type="password" id="authPass" placeholder="Password (10+ characters)"
+               autocomplete="${isLogin ? 'current-password' : 'new-password'}">
+        <button class="btn-sm primary" onclick="doAuth('${mode}')">
+          ${isLogin ? 'Sign in' : 'Create account'}</button>
+      </div>
+      <div id="authMsg" class="msg"></div>
+      <p style="margin-top:14px;font-size:12.5px;color:var(--muted)">
+        ${isLogin ? 'No account yet?' : 'Already registered?'}
+        <a href="#" onclick="openAuth('${isLogin ? 'register' : 'login'}');return false"
+           style="color:var(--accent)">${isLogin ? 'Create one' : 'Sign in'}</a>
+      </p>
+    </div>`);
+  setTimeout(() => { const el = document.getElementById('authEmail'); if (el) el.focus(); }, 60);
+}
+
+async function doAuth(mode) {
+  const email = (document.getElementById('authEmail') || {}).value || '';
+  const pass  = (document.getElementById('authPass')  || {}).value || '';
+  const msg   = document.getElementById('authMsg');
+  msg.className = 'msg'; msg.textContent = 'Working…';
+
+  const res = await api(`/api/auth/${mode === 'login' ? 'login' : 'register'}`,
+                        {method: 'POST', body: JSON.stringify({email, password: pass})});
+  if (!res.ok) { msg.className = 'msg err'; msg.textContent = res.error || 'Something went wrong.'; return; }
+  currentUser = res.user;
+  await refreshWatchlist();
+  renderAuthSlot();
+  renderCards();
+  closeGeneric();
+}
+
+async function doLogout() {
+  await api('/api/auth/logout', {method: 'POST'});
+  currentUser = null;
+  watchSet = new Set();
+  renderAuthSlot();
+  renderCards();
+}
+
+// ── Watchlist ─────────────────────────────────────────────────────────────────
+async function refreshWatchlist() {
+  const res = await api('/api/watchlist');
+  watchSet = new Set((res.watchlist || []).map(w => normKw(w.keyword)));
+}
+
+async function toggleWatch(keyword) {
+  if (!currentUser) { openAuth(); return; }
+  const key = normKw(keyword);
+  if (watchSet.has(key)) {
+    await api(`/api/watchlist?keyword=${encodeURIComponent(keyword)}`, {method: 'DELETE'});
+    watchSet.delete(key);
+  } else {
+    await api('/api/watchlist', {method: 'POST', body: JSON.stringify({keyword})});
+    watchSet.add(key);
+  }
+  renderCards();
+}
+
+async function openWatchlist() {
+  const res = await api('/api/watchlist');
+  const rows = (res.watchlist || []);
+  showGeneric(`
+    <div class="modal-header">
+      <div class="modal-title">★ Your watchlist</div>
+      <button class="modal-close" onclick="closeGeneric()">✕</button>
+    </div>
+    <div class="modal-body">
+      ${rows.length ? `<table class="movers-tbl">
+        <tr><th>Keyword</th><th class="num">Viability</th><th class="num">7d</th>
+            <th class="num">Since added</th><th>Band</th></tr>
+        ${rows.map(r => `<tr>
+          <td>${escHtml(r.keyword)}</td>
+          <td class="num">${r.viability ?? '—'}</td>
+          <td class="num" style="color:${r.d7 > 0 ? '#22c55e' : (r.d7 < 0 ? '#ef4444' : 'var(--muted)')}">
+              ${r.d7 == null ? '—' : (r.d7 > 0 ? '+' : '') + r.d7}</td>
+          <td class="num" style="color:${r.since_added > 0 ? '#22c55e' : (r.since_added < 0 ? '#ef4444' : 'var(--muted)')}">
+              ${r.since_added == null ? '—' : (r.since_added > 0 ? '+' : '') + r.since_added}</td>
+          <td style="color:var(--muted)">${escHtml(r.band || '—')}</td>
+        </tr>`).join('')}
+      </table>` : `<p style="color:var(--muted)">Nothing saved yet. Star a keyword to track it here.</p>`}
+    </div>`);
+}
+
+// ── Movers ────────────────────────────────────────────────────────────────────
+async function openMovers(window) {
+  window = window || '7';
+  const res = await api(`/api/movers?window=${window}`);
+  if (!res.ok) {
+    showGeneric(`<div class="modal-header"><div class="modal-title">Movers</div>
+      <button class="modal-close" onclick="closeGeneric()">✕</button></div>
+      <div class="modal-body"><p style="color:var(--muted)">${escHtml(res.error)}</p></div>`);
+    return;
+  }
+  const tbl = (rows, sign) => rows.length ? `<table class="movers-tbl">
+      <tr><th>Keyword</th><th>Category</th><th class="num">Viability</th><th class="num">Change</th></tr>
+      ${rows.slice(0, 15).map(r => `<tr>
+        <td>${escHtml(r.keyword)}</td>
+        <td style="color:var(--muted)">${escHtml(r.category || '—')}</td>
+        <td class="num">${r.viability}</td>
+        <td class="num" style="color:${r.delta > 0 ? '#22c55e' : '#ef4444'};font-weight:600">
+          ${r.delta > 0 ? '+' : ''}${r.delta}</td></tr>`).join('')}
+    </table>` : `<p style="color:var(--muted)">Not enough history yet.</p>`;
+
+  showGeneric(`
+    <div class="modal-header">
+      <div class="modal-title">📊 Biggest movers</div>
+      <button class="modal-close" onclick="closeGeneric()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        ${(res.available_windows || ['7']).map(w =>
+          `<button class="btn-sm${w === window ? ' primary' : ''}" onclick="openMovers('${w}')">${w} days</button>`).join('')}
+        <span style="margin-left:auto;color:var(--muted);font-size:12px;align-self:center">
+          ${res.coverage} keywords with enough history</span>
+      </div>
+      <h4 style="margin:0 0 8px;font-size:13px">Rising</h4>${tbl(res.risers || [], '+')}
+      <h4 style="margin:20px 0 8px;font-size:13px">Cooling</h4>${tbl(res.fallers || [], '')}
+    </div>`);
+}
+
+// ── Per-keyword workspace inside the detail modal ─────────────────────────────
+function workspaceHTML(k) {
+  return `
+    <div class="panel">
+      <h4>📈 Tracked history</h4>
+      <p class="hint" id="histHint">Loading…</p>
+      <svg class="spark" id="histSpark" viewBox="0 0 600 56" preserveAspectRatio="none"></svg>
+    </div>
+    <div class="panel" id="wsPanel">
+      ${currentUser ? `
+        <h4>Your notes &amp; outcome</h4>
+        <p class="hint">Recording what you actually did is what lets the score be
+           trained against real results instead of search interest.</p>
+        <textarea id="wsNote" placeholder="Supplier quotes, angles, competitors…"></textarea>
+        <div class="field-row" style="margin-top:10px">
+          <label>Stage
+            <select id="wsStage">
+              <option value="">—</option>
+              <option value="considering">Considering</option>
+              <option value="launched">Launched</option>
+              <option value="passed">Passed</option>
+            </select></label>
+          <label>Result
+            <select id="wsResult">
+              <option value="">—</option>
+              <option value="too_early">Too early to tell</option>
+              <option value="flop">Flop</option>
+              <option value="breakeven">Broke even</option>
+              <option value="worked">Worked</option>
+              <option value="hit">Big hit</option>
+            </select></label>
+          <label>Revenue
+            <select id="wsRevenue">
+              <option value="">—</option>
+              <option value="none">None</option>
+              <option value="under_1k">Under $1k</option>
+              <option value="1k_10k">$1k–$10k</option>
+              <option value="10k_50k">$10k–$50k</option>
+              <option value="50k_plus">$50k+</option>
+            </select></label>
+        </div>
+        <button class="btn-sm primary" onclick="saveWorkspace('${escHtml(k.keyword).replace(/'/g, "\\'")}')">Save</button>
+        <span id="wsMsg" class="msg"></span>`
+      : `<h4>Track this keyword</h4>
+         <p class="hint">Sign in to save notes, star this keyword and record how a
+            launch went.</p>
+         <button class="btn-sm primary" onclick="openAuth()">Sign in</button>`}
+    </div>`;
+}
+
+async function loadKeywordHistory(keyword) {
+  const hint  = document.getElementById('histHint');
+  const spark = document.getElementById('histSpark');
+  if (!hint || !spark) return;
+
+  const res = await api(`/api/history/${encodeURIComponent(keyword)}`);
+  if (!res.ok || !res.points || res.points.length < 2) {
+    hint.textContent = 'Not enough tracked history for this keyword yet.';
+    spark.style.display = 'none';
+    return;
+  }
+
+  const pts  = res.points.filter(p => p.viability != null);
+  if (pts.length < 2) { hint.textContent = 'Not enough tracked history yet.'; spark.style.display='none'; return; }
+  const vals = pts.map(p => p.viability);
+  const min  = Math.min(...vals), max = Math.max(...vals);
+  const span = Math.max(1, max - min);
+  const path = pts.map((p, i) => {
+    const x = (i / (pts.length - 1)) * 600;
+    const y = 52 - ((p.viability - min) / span) * 46;
+    return `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+
+  const first = pts[0], last = pts[pts.length - 1];
+  const delta = last.viability - first.viability;
+  const col   = delta > 0 ? '#22c55e' : (delta < 0 ? '#ef4444' : '#94a3b8');
+
+  hint.innerHTML = `Viability <strong>${first.viability}</strong> on ${escHtml(first.date)}
+      → <strong>${last.viability}</strong> on ${escHtml(last.date)}
+      (<span style="color:${col}">${delta > 0 ? '+' : ''}${delta}</span>
+      over ${pts.length} observations)`;
+  spark.innerHTML =
+    `<path d="${path}" fill="none" stroke="${col}" stroke-width="2"
+       stroke-linejoin="round" stroke-linecap="round"/>`;
+}
+
+async function loadKeywordWorkspace(keyword) {
+  const [note, outcome] = await Promise.all([
+    api(`/api/notes?keyword=${encodeURIComponent(keyword)}`),
+    api(`/api/outcomes?keyword=${encodeURIComponent(keyword)}`),
+  ]);
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+  if (note.note)      set('wsNote', note.note.body);
+  if (outcome.outcome) {
+    set('wsStage',   outcome.outcome.stage);
+    set('wsResult',  outcome.outcome.result);
+    set('wsRevenue', outcome.outcome.revenue_band);
+  }
+}
+
+async function saveWorkspace(keyword) {
+  const msg = document.getElementById('wsMsg');
+  const val = (id) => (document.getElementById(id) || {}).value || '';
+  msg.className = 'msg'; msg.textContent = 'Saving…';
+
+  await api('/api/notes', {method: 'POST',
+    body: JSON.stringify({keyword, body: val('wsNote')})});
+
+  const stage = val('wsStage');
+  if (stage) {
+    const res = await api('/api/outcomes', {method: 'POST', body: JSON.stringify({
+      keyword, stage,
+      result:       val('wsResult')  || null,
+      revenue_band: val('wsRevenue') || null,
+    })});
+    if (!res.ok) { msg.className = 'msg err'; msg.textContent = res.error; return; }
+  }
+  msg.className = 'msg ok';
+  msg.textContent = 'Saved.';
+}
+
+// ── Source summary ────────────────────────────────────────────────────────────
+// Reads what the nightly job actually managed to collect, so the banner can't
+// keep advertising a source that has silently stopped returning data.
+function sourceSummary() {
+  const live = ['Google Trends', 'Amazon'];
+  if (signalSources.wikipedia)   live.push('Wikipedia');
+  if (signalSources.youtube)     live.push('YouTube');
+  if (signalSources.first_party) live.push('first-party data');
+  return live.join(' + ');
+}
+
+// ── Generic modal ─────────────────────────────────────────────────────────────
+function showGeneric(html) {
+  // The detail modal is often already open when this is triggered from inside it.
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.getElementById('methodOverlay').classList.remove('open');
+  document.getElementById('genericModal').innerHTML = html;
+  document.getElementById('genericOverlay').classList.add('open');
+}
+function closeGeneric(e) {
+  if (!e || e.target === document.getElementById('genericOverlay')) {
+    document.getElementById('genericOverlay').classList.remove('open');
   }
 }
 
