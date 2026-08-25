@@ -3,1271 +3,1039 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrendPulse – Product Trend Tracker</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<title>TrendPulse — Product Trend Series</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0f1117;
-    --surface: #1a1d27;
-    --surface2: #22263a;
-    --border: #2e3250;
-    --accent: #6366f1;
-    --accent2: #22d3ee;
-    --green: #22c55e;
-    --orange: #f97316;
-    --red: #ef4444;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --card-hover: #1f2335;
+/* ═══ TOKENS ══════════════════════════════════════════════════════════════════
+   A working paper, not a dashboard. The app ground is desk; the content sits on
+   a sheet. Light is the primary rendition — this is a document — and dark is the
+   same document reversed, never a separate "dark UI" identity.            */
+:root {
+  --desk:        #e8e8e4;
+  --sheet:       #ffffff;
+  --sheet-sunk:  #f4f4f1;
+  --ink:         #14161a;
+  --ink-2:       #4a4e57;
+  --ink-3:       #767b85;
+  --rule:        #d8d8d3;
+  --rule-strong: #14161a;
+  --accent:      #23417e;   /* ink blue: links, primary action, selection only */
+  --accent-soft: #e7ecf6;
+  --rise:        #1c6046;
+  --fall:        #8f2f2f;
+  --flag:        #8a6d1f;
+  --shadow:      0 1px 2px rgba(20,22,26,.05), 0 8px 24px -12px rgba(20,22,26,.18);
+  --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --sans:  'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --desk: #0c0d10; --sheet: #17191d; --sheet-sunk: #1e2126;
+    --ink: #e8e7e3; --ink-2: #a8aab0; --ink-3: #7e828a;
+    --rule: #2c2f35; --rule-strong: #e8e7e3;
+    --accent: #8fb0ea; --accent-soft: #1d2635;
+    --rise: #5fbf90; --fall: #e08a8a; --flag: #d6b45c;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+}
+:root[data-theme="dark"] {
+  --desk: #0c0d10; --sheet: #17191d; --sheet-sunk: #1e2126;
+  --ink: #e8e7e3; --ink-2: #a8aab0; --ink-3: #7e828a;
+  --rule: #2c2f35; --rule-strong: #e8e7e3;
+  --accent: #8fb0ea; --accent-soft: #1d2635;
+  --rise: #5fbf90; --fall: #e08a8a; --flag: #d6b45c;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
 
-  /* HEADER */
-  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 100; }
-  .logo { display: flex; align-items: center; gap: 10px; }
-  .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-  .logo h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
-  .logo span { color: var(--accent); }
-  .header-right { display: flex; align-items: center; gap: 16px; }
-  .header-meta { font-size: 12px; color: var(--muted); }
-  /* LOADING STATE */
-  .loading-overlay { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 32px; gap: 16px; }
-  .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
-  .loading-overlay p { color: var(--muted); font-size: 14px; }
-  .progress-wrap { width: 320px; display: flex; flex-direction: column; gap: 8px; }
-  .progress-track { width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width 0.6s ease; width: 0%; }
-  .progress-label { font-size: 12px; color: var(--muted); text-align: center; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--desk); color: var(--ink);
+  font-family: var(--serif); font-size: 16px; line-height: 1.55;
+  font-variant-numeric: oldstyle-nums;
+  -webkit-font-smoothing: antialiased;
+}
+.num, .u, table, input, select, button, .sans { font-variant-numeric: tabular-nums lining-nums; }
+::selection { background: var(--accent-soft); color: var(--ink); }
+a { color: var(--accent); text-underline-offset: 2px; text-decoration-thickness: .5px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 1px; }
+svg { display: block; }
+.icon { width: 1em; height: 1em; stroke: currentColor; fill: none;
+        stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
-  /* ERROR STATE */
-  .error-state { text-align: center; padding: 60px 32px; }
-  .error-state h3 { color: var(--red); margin-bottom: 8px; }
-  .error-state p { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
-  .retry-btn { background: var(--accent); border: none; color: white; padding: 8px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; }
+/* ═══ THE SHEET ══════════════════════════════════════════════════════════════ */
+.sheet { max-width: 1180px; margin: 0 auto; background: var(--sheet);
+         border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);
+         box-shadow: var(--shadow); min-height: 100vh; }
+@media (max-width: 1220px) { .sheet { border-left: 0; border-right: 0; box-shadow: none; } }
+.pad { padding: 0 clamp(18px, 4vw, 56px); }
 
-  /* CONTROLS */
-  .controls { padding: 20px 32px 0; display: flex; flex-direction: column; gap: 12px; }
-  .controls-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-  .filter-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; min-width: 68px; }
-  .search-box { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; flex: 1; max-width: 340px; }
-  .search-box input { background: none; border: none; outline: none; color: var(--text); font-size: 14px; width: 100%; }
-  .search-box svg { color: var(--muted); flex-shrink: 0; }
-  .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
-  /* Lens filters — multi-select toggles */
-  .lens-btn { padding: 6px 13px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-  .lens-btn:hover { color: var(--text); border-color: var(--accent); }
-  .lens-btn.active { color: #fff; background: var(--accent); border-color: var(--accent); }
-  .sort-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
-  .results-count { font-size: 12px; color: var(--muted); margin-left: auto; white-space: nowrap; }
-  .clear-btn { font-size: 11px; color: var(--accent); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; }
+/* ═══ MASTHEAD ═══════════════════════════════════════════════════════════════ */
+.masthead { padding-top: 26px; border-bottom: 2px solid var(--rule-strong); }
+.mast-top { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+.wordmark { font-family: var(--serif); font-size: clamp(30px, 4.4vw, 44px);
+            font-weight: 700; letter-spacing: -0.022em; line-height: 1; }
+.wordmark i { font-style: italic; font-weight: 400; }
+.mast-nav { margin-left: auto; display: flex; align-items: center; gap: 8px 18px;
+            flex-wrap: wrap; font-family: var(--sans); font-size: 12.5px; }
+.mast-nav .sel { max-width: 100%; }
+@media (max-width: 760px) {
+  .mast-top { flex-direction: column; align-items: stretch; gap: 14px; }
+  .mast-nav { margin-left: 0; justify-content: flex-start; gap: 10px 16px; }
+}
+.mast-nav a, .linkbtn { color: var(--ink-2); text-decoration: none; background: none;
+            border: 0; font: inherit; cursor: pointer; padding: 0;
+            display: inline-flex; align-items: center; gap: 6px; }
+.mast-nav a:hover, .linkbtn:hover { color: var(--accent); }
+.dateline { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px;
+            font-family: var(--sans); font-size: 11.5px; letter-spacing: .06em;
+            text-transform: uppercase; color: var(--ink-3);
+            padding: 12px 0 10px; }
+.dateline b { color: var(--ink-2); font-weight: 600; }
 
-  /* STATS BAR */
-  .stats-bar { padding: 0 32px 20px; display: flex; gap: 16px; flex-wrap: wrap; }
-  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; flex: 1; min-width: 160px; }
-  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .stat-value { font-size: 22px; font-weight: 700; }
-  .stat-value.up { color: var(--green); }
-  .stat-change { font-size: 12px; color: var(--muted); margin-top: 2px; }
+/* ═══ ABSTRACT ═══════════════════════════════════════════════════════════════ */
+.abstract { display: grid; grid-template-columns: 128px 1fr; gap: 0 28px;
+            padding: 22px 0 24px; border-bottom: 1px solid var(--rule); }
+.abstract > h2 { font-family: var(--sans); font-size: 11px; font-weight: 600;
+            letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+            padding-top: 4px; }
+.abstract p { font-size: 17.5px; line-height: 1.5; max-width: 68ch; }
+.abstract p + p { margin-top: 9px; }
+.abstract .caveat { font-size: 14.5px; color: var(--ink-2); }
+sup.fn { font-family: var(--sans); font-size: 9.5px; font-weight: 600;
+         vertical-align: super; line-height: 0; }
+sup.fn a { text-decoration: none; }
+@media (max-width: 720px) { .abstract { grid-template-columns: 1fr; gap: 8px; } }
 
-  /* LAST UPDATED BANNER */
-  .update-banner { margin: 0 32px 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
-  .update-banner .info-btn { margin-left: auto; }
-  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+/* ═══ NOTICES (trial / quota / paywall) ══════════════════════════════════════ */
+.notice { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0;
+          border-bottom: 1px solid var(--rule); font-family: var(--sans);
+          font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+.notice .icon { width: 15px; height: 15px; margin-top: 2px; color: var(--ink-3); }
+.notice b { color: var(--ink); font-weight: 600; }
+.notice .sp { margin-left: auto; display: flex; gap: 14px; white-space: nowrap; }
+.notice.flagged .icon { color: var(--flag); }
+@media (max-width: 640px) { .notice { flex-wrap: wrap; } .notice .sp { margin-left: 0; } }
 
-  /* PAGE WRAPPER — centers content and caps width so only 4 cards show on desktop */
-  .page { max-width: 1440px; margin: 0 auto; padding-top: 20px; }
+/* ═══ CONTROLS ═══════════════════════════════════════════════════════════════ */
+.controls { padding: 16px 0 14px; border-bottom: 1px solid var(--rule);
+            display: flex; flex-direction: column; gap: 12px; font-family: var(--sans); }
+.crow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.search { display: flex; align-items: center; gap: 8px; border: 1px solid var(--rule);
+          background: var(--sheet); padding: 7px 11px; min-width: 220px; flex: 0 1 300px; }
+.search:focus-within { border-color: var(--accent); }
+.search .icon { width: 14px; height: 14px; color: var(--ink-3); }
+.search input { border: 0; outline: 0; background: none; color: var(--ink);
+                font: 500 13px var(--sans); width: 100%; }
+.search input::placeholder { color: var(--ink-3); }
+select.sel { font: 500 12.5px var(--sans); color: var(--ink); background: var(--sheet);
+             border: 1px solid var(--rule); padding: 7px 10px; cursor: pointer; }
+select.sel:hover { border-color: var(--ink-3); }
+.seg { display: inline-flex; border: 1px solid var(--rule); }
+.seg button { font: 600 12px var(--sans); color: var(--ink-3); background: none;
+              border: 0; padding: 7px 12px; cursor: pointer; display: flex;
+              align-items: center; gap: 6px; }
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button:hover { color: var(--ink); }
+.seg button.on { background: var(--ink); color: var(--sheet); }
+.seg .icon { width: 13px; height: 13px; }
+.lenses { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+.lens { font: 500 12px var(--sans); color: var(--ink-2); background: none;
+        border: 1px solid var(--rule); padding: 5px 11px; cursor: pointer;
+        display: inline-flex; align-items: center; gap: 6px; }
+.lens:hover { border-color: var(--ink-3); color: var(--ink); }
+.lens.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.lens .icon { width: 12px; height: 12px; }
+.count { margin-left: auto; font: 500 12px var(--sans); color: var(--ink-3); white-space: nowrap; }
 
-  /* GRID */
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 0 32px 40px; }
-  @media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 900px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px)  { .grid { grid-template-columns: 1fr; } }
+/* ═══ TABLE (the primary view) ═══════════════════════════════════════════════ */
+.tcap { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+        padding: 20px 0 9px; }
+.tcap h2 { font-family: var(--sans); font-size: 11.5px; font-weight: 700;
+        letter-spacing: .09em; text-transform: uppercase; }
+.tcap span { font-size: 14.5px; color: var(--ink-2); font-style: italic; }
+table.data { width: 100%; border-collapse: collapse; font-family: var(--sans); }
+table.data thead th { font-size: 10px; font-weight: 600; letter-spacing: .085em;
+        text-transform: uppercase; color: var(--ink-3); text-align: right;
+        padding: 0 0 7px; border-bottom: 1px solid var(--rule-strong); white-space: nowrap; }
+table.data thead th:nth-child(2), table.data tbody td:nth-child(2) { text-align: left; }
+table.data tbody td { padding: 9px 0; border-bottom: 1px solid var(--rule);
+        text-align: right; font-size: 13px; vertical-align: middle; }
 
-  /* VIEW TOGGLE (card / list segmented control) */
-  .view-toggle { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 2px; gap: 2px; }
-  .view-toggle button { background: none; border: none; color: var(--muted); padding: 5px 11px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s; }
-  .view-toggle button:hover { color: var(--text); }
-  .view-toggle button.active { background: var(--accent); color: #fff; }
+table.data tbody tr { cursor: pointer; }
+table.data tbody tr:hover td { background: var(--sheet-sunk); }
+table.data td + td, table.data th + th { padding-left: 14px; }
+.kw { font-family: var(--serif); font-size: 16px; font-weight: 600; line-height: 1.25; }
+.kw-sub { font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase;
+          color: var(--ink-3); margin-top: 1px; }
+.rank { font-size: 11px; color: var(--ink-3); width: 30px; }
+.delta { display: inline-flex; align-items: center; gap: 3px; font-weight: 600; }
+.delta .icon { width: 10px; height: 10px; }
+.up { color: var(--rise); } .down { color: var(--fall); } .flat { color: var(--ink-3); }
+.spark { width: 74px; height: 22px; }
+.spark path { fill: none; stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+.score { font-weight: 700; }
+.meter { display: inline-block; width: 46px; height: 3px; background: var(--rule);
+         vertical-align: middle; margin-left: 7px; }
+.meter i { display: block; height: 100%; background: var(--ink-2); }
+.locked { color: var(--ink-3); display: inline-flex; align-items: center; gap: 4px;
+          font-size: 11px; }
+.locked .icon { width: 11px; height: 11px; }
+.starcell { width: 26px; text-align: left; }
+.star { background: none; border: 0; cursor: pointer; color: var(--ink-3); padding: 2px; }
+.star:hover { color: var(--flag); }
+.star.on { color: var(--flag); }
+.star.on .icon { fill: var(--flag); }
+.star .icon { width: 14px; height: 14px; }
+@media (max-width: 900px) { .hide-md { display: none; } }
+@media (max-width: 640px) { .hide-sm { display: none; } .kw { font-size: 15px; } }
 
-  /* LIST VIEW */
-  .list { padding: 0 32px 40px; display: flex; flex-direction: column; gap: 8px; }
-  .list-row { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 18px; }
-  .list-row:hover { border-color: var(--accent); background: var(--card-hover); }
-  .list-row.flat { opacity: 0.55; }
-  .list-row.flat:hover { opacity: 0.8; }
-  .lr-main { flex: 1; min-width: 0; }
-  .lr-keyword { font-size: 14px; font-weight: 600; line-height: 1.3; }
-  .lr-badges { margin-top: 4px; }
-  .lr-metric { text-align: right; flex-shrink: 0; }
-  .lr-metric-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px; }
-  .lr-metric-value { font-size: 13px; font-weight: 700; }
-  .lr-growth { min-width: 74px; }
-  .lr-score { min-width: 58px; }
-  .lr-viability { min-width: 96px; }
-  .lr-viability .lr-metric-value { display: inline-flex; align-items: center; gap: 6px; }
-  .lr-mini-track { width: 44px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; display: inline-block; }
-  .lr-mini-fill { height: 100%; border-radius: 2px; }
-  @media (max-width: 720px) {
-    .list-row { flex-wrap: wrap; gap: 10px 14px; }
-    .lr-main { flex-basis: 100%; }
-  }
+/* ═══ ENTRY CARDS (secondary view) ═══════════════════════════════════════════ */
+.entries { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+           gap: 0; border-top: 1px solid var(--rule-strong); }
+.entry { border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule);
+         padding: 16px 18px 18px; cursor: pointer; }
+.entry:hover { background: var(--sheet-sunk); }
+.entry-top { display: flex; align-items: baseline; gap: 10px; }
+.entry-top .kw { flex: 1; }
+.entry-fig { margin: 12px 0 10px; }
+.entry-fig svg { width: 100%; height: 42px; }
+.entry dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px;
+            font-family: var(--sans); font-size: 12px; }
+.entry dt { color: var(--ink-3); }
+.entry dd { text-align: right; font-variant-numeric: tabular-nums; }
 
-  /* CARD */
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden; }
-  .card:hover { border-color: var(--accent); background: var(--card-hover); transform: translateY(-1px); }
-  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .card-keyword { font-size: 15px; font-weight: 600; line-height: 1.3; flex: 1; padding-right: 12px; }
-  .badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
-  .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px; }
-  .badge-breakout { background: rgba(99,102,241,0.2); color: var(--accent); border: 1px solid rgba(99,102,241,0.3); }
-  .badge-rising { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
-  .badge-hot { background: rgba(249,115,22,0.15); color: var(--orange); border: 1px solid rgba(249,115,22,0.25); }
-  .badge-cat { background: rgba(100,116,139,0.15); color: var(--muted); border: 1px solid var(--border); }
-  .badge-flat { background: rgba(100,116,139,0.12); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
-  .card.flat { opacity: 0.55; }
-  .card.flat:hover { opacity: 0.8; }
+/* ═══ FOOTNOTES + COLOPHON ═══════════════════════════════════════════════════ */
+.notes { border-top: 2px solid var(--rule-strong); margin-top: 34px;
+         padding: 20px 0 34px; }
+.notes h2 { font-family: var(--sans); font-size: 11px; font-weight: 700;
+         letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+         margin-bottom: 12px; }
+.notes ol { list-style: none; counter-reset: fn; max-width: 78ch; }
+.notes li { counter-increment: fn; position: relative; padding-left: 26px;
+         font-size: 14.5px; line-height: 1.5; color: var(--ink-2); margin-bottom: 9px; }
+.notes li::before { content: counter(fn); position: absolute; left: 0; top: 1px;
+         font-family: var(--sans); font-size: 9.5px; font-weight: 600; color: var(--ink-3); }
+.notes b { color: var(--ink); font-weight: 600; }
+.colophon { font-family: var(--sans); font-size: 11px; letter-spacing: .05em;
+         text-transform: uppercase; color: var(--ink-3); padding: 14px 0 40px;
+         border-top: 1px solid var(--rule); display: flex; gap: 18px; flex-wrap: wrap; }
 
-  /* INFO BUTTON */
-  .info-btn { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 6px; padding: 4px 10px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s; }
-  .info-btn:hover { border-color: var(--accent); color: var(--text); }
+/* ═══ BUTTONS ════════════════════════════════════════════════════════════════ */
+.btn { font: 600 12.5px var(--sans); padding: 8px 15px; cursor: pointer;
+       border: 1px solid var(--rule-strong); background: var(--sheet); color: var(--ink);
+       display: inline-flex; align-items: center; gap: 7px; }
+.btn:hover { background: var(--sheet-sunk); }
+.btn.pri { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.btn.pri:hover { opacity: .86; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn .icon { width: 13px; height: 13px; }
 
-  /* METHODOLOGY MODAL */
-  .method-section { margin-bottom: 20px; }
-  .method-section h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-  .method-row { display: flex; gap: 12px; margin-bottom: 8px; }
-  .method-icon { font-size: 18px; flex-shrink: 0; width: 28px; text-align: center; padding-top: 2px; }
-  .method-text { font-size: 13px; color: var(--text); line-height: 1.5; }
-  .method-text strong { color: var(--accent2); }
-  .score-formula { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; font-size: 13px; font-family: monospace; color: var(--accent); margin: 8px 0; }
-  .status-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-  .sp { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-  .growth-pill { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
-  .growth-pill.up { background: rgba(34,197,94,0.15); color: var(--green); }
-  .growth-pill.breakout { background: rgba(99,102,241,0.2); color: var(--accent); }
-  .chart-wrap { height: 70px; margin: 12px 0; }
-  .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
-  .volume-label { font-size: 12px; color: var(--muted); }
-  .volume-value { font-size: 13px; font-weight: 600; color: var(--text); }
-  .score-bar-wrap { display: flex; align-items: center; gap: 6px; }
-  .score-bar { width: 60px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-  .score-fill { height: 100%; border-radius: 2px; background: var(--muted); }
-  .score-num { font-size: 11px; color: var(--muted); }
-  .data-rows { margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; display: flex; flex-direction: column; gap: 5px; }
-  .data-row { display: flex; align-items: center; gap: 6px; }
-  .data-icon { font-size: 13px; opacity: 0.75; flex-shrink: 0; }
-  .data-label { font-size: 11px; color: var(--muted); flex: 1; }
-  .data-value { font-size: 12px; font-weight: 600; color: var(--text); }
-  .data-badge { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; }
-  .data-badge.vel-up    { background: rgba(34,197,94,0.15);  color: var(--green); }
-  .data-badge.vel-down  { background: rgba(239,68,68,0.12);  color: var(--red); }
-  .data-badge.vel-flat  { color: var(--muted); }
-  .data-badge.bsb       { background: rgba(249,115,22,0.15); color: var(--orange); }
-  .data-badge.choice    { border: 1px solid var(--border); color: var(--muted); }
-  .data-badge.comp-low  { border: 1px solid var(--border); color: #34d399; }
-  .data-badge.comp-high { border: 1px solid var(--border); color: var(--muted); }
+/* ═══ DIALOG ═════════════════════════════════════════════════════════════════ */
+dialog { border: 0; padding: 0; background: none; width: min(700px, 94vw);
+         margin: auto; color: var(--ink); }
+dialog::backdrop { background: rgba(12,13,16,.52); backdrop-filter: blur(1.5px); }
+.dlg { background: var(--sheet); border: 1px solid var(--rule);
+       box-shadow: 0 24px 60px -20px rgba(0,0,0,.4); max-height: 88vh;
+       display: flex; flex-direction: column; }
+.dlg-h { display: flex; align-items: baseline; gap: 14px; padding: 20px 26px 12px;
+         border-bottom: 2px solid var(--rule-strong); }
+.dlg-h h2 { font-family: var(--serif); font-size: 23px; font-weight: 700;
+            letter-spacing: -.015em; line-height: 1.2; }
+.dlg-h .x { margin-left: auto; background: none; border: 0; cursor: pointer;
+            color: var(--ink-3); padding: 3px; }
+.dlg-h .x:hover { color: var(--ink); }
+.dlg-h .x .icon { width: 16px; height: 16px; }
+.dlg-b { padding: 20px 26px 26px; overflow-y: auto; }
+.dlg-b h3 { font-family: var(--sans); font-size: 11px; font-weight: 700;
+            letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+            margin: 22px 0 9px; }
+.dlg-b h3:first-child { margin-top: 0; }
+.dlg-b p { font-size: 15px; line-height: 1.55; margin-bottom: 9px; max-width: 68ch; }
+.dlg-b p.small { font-size: 13.5px; color: var(--ink-2); }
+.formula { font: 500 12.5px/1.5 var(--sans); background: var(--sheet-sunk);
+           border-left: 1px solid var(--rule-strong); padding: 8px 12px;
+           margin: 8px 0; color: var(--ink-2); }
+.deflist { display: grid; grid-template-columns: auto 1fr; gap: 7px 16px;
+           font-size: 14.5px; }
+.deflist dt { font-family: var(--sans); font-size: 12px; font-weight: 600;
+              color: var(--ink-3); white-space: nowrap; padding-top: 2px; }
+.field { display: block; margin-bottom: 10px; }
+.field span { display: block; font: 600 11px var(--sans); letter-spacing: .08em;
+              text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px; }
+.field input, .field select, .field textarea {
+  width: 100%; font: 400 14px var(--sans); color: var(--ink); background: var(--sheet);
+  border: 1px solid var(--rule); padding: 9px 11px; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); outline: 0; }
+.msg { font: 500 12.5px var(--sans); margin-top: 10px; }
+.msg.err { color: var(--fall); } .msg.ok { color: var(--rise); }
 
-  /* MODAL */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 24px; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 640px; max-height: 85vh; overflow-y: auto; }
-  .modal-header { padding: 24px 24px 0; display: flex; justify-content: space-between; align-items: flex-start; }
-  .modal-title { font-size: 20px; font-weight: 700; }
-  .modal-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 20px; padding: 4px; line-height: 1; }
-  .modal-close:hover { color: var(--text); }
-  .modal-body { padding: 20px 24px 24px; }
-  .modal-chart-wrap { height: 200px; margin: 16px 0; }
-  .modal-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
-  .modal-stat { background: var(--surface2); border-radius: 8px; padding: 12px; }
-  .modal-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
-  .modal-stat-value { font-size: 18px; font-weight: 700; margin-top: 2px; }
-  .modal-section { margin-top: 16px; }
-  .modal-section h4 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-  .related-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .related-tag { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: 13px; color: var(--text); }
-  .google-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--accent); font-size: 13px; text-decoration: none; }
-  .google-link:hover { text-decoration: underline; }
+/* ═══ PRICE PANEL ════════════════════════════════════════════════════════════ */
+.price { border: 1px solid var(--rule-strong); padding: 20px 22px; }
+.price-top { display: flex; align-items: baseline; gap: 10px;
+             border-bottom: 1px solid var(--rule); padding-bottom: 12px; margin-bottom: 14px; }
+.price-amt { font-family: var(--serif); font-size: 38px; font-weight: 700; line-height: 1; }
+.price-per { font-family: var(--sans); font-size: 12px; color: var(--ink-3); }
+.price ul { list-style: none; font-size: 14.5px; }
+.price li { display: flex; gap: 10px; padding: 5px 0; align-items: flex-start; }
+.price li .icon { width: 14px; height: 14px; margin-top: 5px; color: var(--rise); }
+.price li.no { color: var(--ink-3); } .price li.no .icon { color: var(--ink-3); }
 
-  /* VIABILITY */
-  .viability-bar-wrap { margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
-  .viability-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-  .viability-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-  .viability-tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
-  .viability-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
-  .viability-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
-  .viability-num { font-size: 12px; font-weight: 700; }
-  /* Viability breakdown in modal */
-  .vb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
-  .vb-row { background: var(--surface2); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; }
-  .vb-name { font-size: 12px; color: var(--muted); }
-  .vb-score { font-size: 14px; font-weight: 700; }
-  .vb-bar-wrap { margin-top: 4px; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-  .vb-bar { height: 100%; border-radius: 2px; }
-
-  /* EMPTY */
-  .empty { text-align: center; padding: 60px 32px; color: var(--muted); grid-column: 1/-1; }
-  .empty p { margin-top: 8px; font-size: 14px; }
-
-  @media (max-width: 640px) {
-    .controls, .stats-bar, .grid, .list, .update-banner { padding-left: 16px; padding-right: 16px; }
-    header { padding: 12px 16px; }
-    .modal-stats { grid-template-columns: 1fr 1fr; }
-  }
-</style>
-<style>
-  /* ── Added: accounts, trajectory, history, outcomes ── */
-  #genericOverlay { z-index: 1200; }
-  .nav { display:flex; align-items:center; gap:10px; margin-left:auto; flex-wrap:wrap; }
-  .nav a, .nav button { font-size:12.5px; }
-  .nav a { color:var(--muted); text-decoration:none; }
-  .nav a:hover { color:var(--text); }
-  .btn-sm { background:var(--surface); border:1px solid var(--border); color:var(--text);
-            padding:6px 12px; border-radius:8px; font-size:12.5px; cursor:pointer;
-            font-weight:600; transition:all .15s; }
-  .btn-sm:hover { border-color:var(--accent); color:var(--accent); }
-  .btn-sm.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
-  .btn-sm.primary:hover { opacity:.9; color:#fff; }
-  .badge-traj { font-weight:700; }
-  .traj-up { background:rgba(34,197,94,.15); color:#22c55e; }
-  .traj-down { background:rgba(239,68,68,.13); color:#ef4444; }
-  .traj-flat { background:rgba(100,116,139,.14); color:#94a3b8; }
-  .badge-conf { background:rgba(148,163,184,.13); color:#94a3b8; }
-  .badge-conf.low { background:rgba(249,115,22,.14); color:#f97316; }
-  .watch-star { background:none; border:none; cursor:pointer; font-size:15px;
-                line-height:1; padding:0 2px; opacity:.35; transition:opacity .15s; }
-  .watch-star:hover { opacity:1; }
-  .watch-star.on { opacity:1; }
-  .panel { border:1px solid var(--border); border-radius:12px; padding:14px 16px;
-           margin-top:16px; background:var(--surface); }
-  .panel h4 { margin:0 0 10px; font-size:13px; letter-spacing:.02em; }
-  .panel .hint { color:var(--muted); font-size:12px; margin:0 0 10px; }
-  .panel textarea, .panel select, .panel input[type=text] {
-      width:100%; background:var(--surface2,#1b2334); color:var(--text);
-      border:1px solid var(--border); border-radius:8px; padding:8px 10px;
-      font:inherit; font-size:13px; }
-  .panel textarea { min-height:64px; resize:vertical; }
-  .field-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
-  .field-row > label { flex:1; min-width:130px; font-size:11px; color:var(--muted);
-                       text-transform:uppercase; letter-spacing:.05em; }
-  .spark { width:100%; height:56px; display:block; }
-  .auth-form { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-  .auth-form input { background:var(--surface2,#1b2334); color:var(--text);
-      border:1px solid var(--border); border-radius:8px; padding:7px 10px;
-      font:inherit; font-size:13px; min-width:190px; }
-  .msg { font-size:12.5px; margin-top:8px; }
-  .msg.err { color:#ef4444; } .msg.ok { color:#22c55e; }
-  .movers-tbl { width:100%; border-collapse:collapse; }
-  .movers-tbl td, .movers-tbl th { padding:7px 10px; border-bottom:1px solid var(--border);
-      font-size:13px; text-align:left; }
-  .movers-tbl th { color:var(--muted); font-size:10.5px; text-transform:uppercase;
-      letter-spacing:.05em; }
-  .movers-tbl .num { text-align:right; font-variant-numeric:tabular-nums; }
+/* ═══ STATES ═════════════════════════════════════════════════════════════════ */
+.empty { padding: 56px 0; text-align: center; }
+.empty h3 { font-family: var(--serif); font-size: 21px; font-weight: 600; margin-bottom: 6px; }
+.empty p { font-size: 15px; color: var(--ink-2); max-width: 46ch; margin: 0 auto 14px; }
+.skel { border-bottom: 1px solid var(--rule); padding: 13px 0; display: flex; gap: 16px; align-items: center; }
+.skel i { display: block; height: 11px; background: var(--rule); animation: bl 1.4s ease-in-out infinite; }
+@keyframes bl { 0%,100% { opacity: .5 } 50% { opacity: .95 } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
+<!--
+  THESIS: A nightly research series a seller reads before betting inventory —
+  not a dashboard of glowing tiles. Refuses the metric-card grid the category
+  ships, and refuses to hide that its own score currently fails.
+  OWN-WORLD: A working paper on a sheet over a desk. Source Serif 4 with Archivo
+  for data, hairline rules instead of card borders, ink blue as the only accent,
+  numbered tables and real footnotes. Light is the document; dark is it reversed.
+  STORY: A seller sees today's series, reads the abstract with the accuracy
+  caveat stated up front, scans the ranked table, opens one keyword, decides.
+  FIRST VIEWPORT: Masthead and dateline, an abstract stating n and the measured
+  correlation, then Table 1 ranked and already legible. Primary action is the
+  keyword row itself; sign-in sits quiet in the masthead.
+  FORM: Academic working paper / preprint — candidate 5 of 7, seed key 49d4fabe.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the
+  finish review, the verdict, and DESIGN.md.
+-->
 
-<header>
-  <div class="logo">
-    <div class="logo-icon">📈</div>
-    <h1>Trend<span>Pulse</span></h1>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<g id="i-search"><circle cx="7" cy="7" r="5"/><path d="M11 11l4 4"/></g>
+<g id="i-up"><path d="M8 3v10M4 7l4-4 4 4"/></g>
+<g id="i-down"><path d="M8 13V3M4 9l4 4 4-4"/></g>
+<g id="i-flat"><path d="M3 8h10"/></g>
+<g id="i-lock"><rect x="3.5" y="7" width="9" height="6.5" rx="1"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2"/></g>
+<g id="i-star"><path d="M8 2.5l1.7 3.5 3.8.5-2.8 2.7.7 3.8L8 11.2l-3.4 1.8.7-3.8L2.5 6.5l3.8-.5z"/></g>
+<g id="i-table"><rect x="2.5" y="3" width="11" height="10"/><path d="M2.5 6.5h11M6.5 6.5V13"/></g>
+<g id="i-grid"><rect x="2.5" y="3" width="4.5" height="4.5"/><rect x="9" y="3" width="4.5" height="4.5"/><rect x="2.5" y="8.5" width="4.5" height="4.5"/><rect x="9" y="8.5" width="4.5" height="4.5"/></g>
+<g id="i-x"><path d="M4 4l8 8M12 4l-8 8"/></g>
+<g id="i-check"><path d="M3 8.5l3.5 3.5L13 5"/></g>
+<g id="i-info"><circle cx="8" cy="8" r="6"/><path d="M8 7.5v4M8 5.2v.1"/></g>
+<g id="i-alert"><path d="M8 2.5l6 11H2z"/><path d="M8 6.5v3.2M8 11.6v.1"/></g>
+<g id="i-user"><circle cx="8" cy="5.5" r="2.75"/><path d="M2.75 14c.6-2.9 2.7-4.4 5.25-4.4S12.65 11.1 13.25 14"/></g>
+<g id="i-chart"><path d="M2.5 13.5V2.5M2.5 13.5h11"/><path d="M5 11l2.5-3.5L10 9l3-5"/></g>
+<g id="i-note"><path d="M3.5 2.5h6L12.5 6v7.5h-9z"/><path d="M9.5 2.5V6h3"/></g>
+<g id="i-arrow"><path d="M3 8h10M9.5 4.5L13 8l-3.5 3.5"/></g>
+</defs></svg>
+
+<div class="sheet">
+  <div class="pad">
+    <header class="masthead">
+      <div class="mast-top">
+        <div class="wordmark">Trend<i>Pulse</i></div>
+        <nav class="mast-nav">
+          <select class="sel" id="verticalSelect" onchange="setVertical(this.value)" title="Narrow to one vertical"></select>
+          <button class="linkbtn" onclick="openMovers()"><svg class="icon"><use href="#i-chart"/></svg>Movers</button>
+          <a href="/track-record">Track record</a>
+          <button class="linkbtn" onclick="openMethods()"><svg class="icon"><use href="#i-note"/></svg>Methods</button>
+          <span id="authSlot"></span>
+        </nav>
+      </div>
+      <div class="dateline" id="dateline"></div>
+    </header>
   </div>
-  <nav class="nav">
-    <select class="sort-select" id="verticalSelect" onchange="setVertical(this.value)"
-            title="Narrow to one vertical"></select>
-    <button class="btn-sm" onclick="openMovers()">📊 Movers</button>
-    <a href="/track-record">Track record</a>
-    <span id="authSlot"></span>
-  </nav>
-</header>
 
-<div class="modal-overlay" id="genericOverlay" onclick="closeGeneric(event)">
-  <div class="modal" style="max-width:720px" id="genericModal"></div>
-</div>
-
-<div id="appContent">
-  <div class="loading-overlay">
-    <div class="spinner"></div>
-    <p style="color:var(--muted);font-size:14px">Loading cached data…</p>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modal"></div>
-</div>
-
-<div class="modal-overlay" id="methodOverlay" onclick="closeMethodologyModal(event)">
-  <div class="modal" style="max-width:680px" id="methodModal">
-    <div class="modal-header">
-      <div class="modal-title">How TrendPulse Works</div>
-      <button class="modal-close" onclick="closeMethodologyModal()">✕</button>
+  <div class="pad"><div id="noticeSlot"></div></div>
+  <div class="pad" id="appContent">
+    <div style="padding:22px 0">
+      <div class="skel"><i style="width:34%"></i><i style="width:9%;margin-left:auto"></i><i style="width:7%"></i></div>
+      <div class="skel"><i style="width:26%"></i><i style="width:9%;margin-left:auto"></i><i style="width:7%"></i></div>
+      <div class="skel"><i style="width:31%"></i><i style="width:9%;margin-left:auto"></i><i style="width:7%"></i></div>
+      <div class="skel"><i style="width:22%"></i><i style="width:9%;margin-left:auto"></i><i style="width:7%"></i></div>
     </div>
-    <div class="modal-body">
+  </div>
 
-      <div class="method-section">
-        <h3>📡 Data Sources</h3>
-        <div class="method-row">
-          <div class="method-icon">📈</div>
-          <div class="method-text"><strong>Google Trends</strong> — The backbone of every score. We query US interest-over-time for each keyword across the past 12 months. Google normalises interest to a 0–100 scale where 100 = peak popularity for that term, so values are relative, not absolute search volumes. Data is fetched in batches of 5 with rate-limit protection and 12-second pauses between batches.</div>
-        </div>
-        <div class="method-row">
-          <div class="method-icon">🔶</div>
-          <div class="method-text"><strong>Reddit</strong> — <em>Currently unavailable.</em> Reddit put its
-            public search JSON behind bot protection, so unauthenticated requests now return 403. Until
-            <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">REDDIT_CLIENT_ID</code>
-            and <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">REDDIT_CLIENT_SECRET</code>
-            are configured, social demand is recorded as <strong>unknown</strong> — not as zero — and the
-            affected keywords carry a lower confidence rating instead of a silently deflated score.</div>
-        </div>
-        <div class="method-row">
-          <div class="method-icon">📦</div>
-          <div class="method-text"><strong>Amazon</strong> — We scrape the first page of Amazon search results for each keyword to extract: total listing count (competition proxy), Best Seller and Amazon's Choice badges, average price across the top 10 products, average star rating, and the highest review count (demand proxy). Scraping uses randomised 2.5–4.5s delays and rotating user-agents.</div>
-        </div>
-        <div class="method-row">
-          <div class="method-icon">📚</div>
-          <div class="method-text"><strong>Wikipedia pageviews</strong> — Daily article traffic over 60 days
-            via the Wikimedia REST API, giving both absolute attention and 30-day momentum. Unlike Google
-            Trends this is a real count rather than a 0–100 relative index, so it can distinguish a small
-            category from a shrinking one.</div>
-        </div>
-        <div class="method-row">
-          <div class="method-icon">🔒</div>
-          <div class="method-text"><strong>First-party data</strong> — Normalised 0–100 demand signals dropped
-            into <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">data/proprietary/</code>,
-            sourced from real campaign performance. Present for only a handful of keywords, but it is the one
-            input a competitor cannot obtain at any price.</div>
-        </div>
-        <div class="method-row">
-          <div class="method-icon">🗂️</div>
-          <div class="method-text"><strong>Tracked history</strong> — Every night's observation is appended to a
-            snapshot store rather than overwriting the last one, so each keyword has a real trajectory. This is
-            what powers the 7-day movement badges, the Movers view and the accuracy backtest.</div>
-        </div>
-      </div>
-
-      <div class="method-section">
-        <h3>🧮 Scores &amp; Formulas</h3>
-        <div class="method-row">
-          <div class="method-icon">📊</div>
-          <div class="method-text"><strong>12-Month Growth %</strong> — Compares the most recent month's Google Trends index against the earliest non-zero month in the 12-month window.
-            <div class="score-formula">(recent_month − earliest_month) / earliest_month × 100</div>
-            A keyword at index 10 in January and 50 in December shows +400% growth.
-          </div>
-        </div>
-        <div class="method-row">
-          <div class="method-icon">🏆</div>
-          <div class="method-text"><strong>Trend Score (0–100)</strong> — A composite signal weighting current interest heavily (is it high RIGHT NOW?) with momentum (how fast is it growing?).
-            <div class="score-formula">score = 0.6 × current_interest + 0.4 × min(growth / 50, 100)</div>
-          </div>
-        </div>
-        <div class="method-row">
-          <div class="method-icon">⚡</div>
-          <div class="method-text"><strong>Reddit Velocity</strong> — Week-over-week change in post volume.
-            <div class="score-formula">(this_week_posts − last_week_posts) / last_week_posts × 100</div>
-            Shows ▲ if mentions are accelerating, ▼ if slowing, → if flat.
-          </div>
-        </div>
-      </div>
-
-      <div class="method-section">
-        <h3>🎯 Product Viability Score (0–100)</h3>
-        <div class="method-row">
-          <div class="method-icon">💡</div>
-          <div class="method-text">The Viability Score is designed specifically for entrepreneurs evaluating whether a topic represents a real opportunity for a <strong>new product</strong>. It combines five factors that research shows predict new product success, weighted by importance:</div>
-        </div>
-        <div style="margin:10px 0 14px;display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
-            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">30</span>
-            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Trend Momentum</div><div style="font-size:11px;color:var(--muted)">Growth % — the sweet spot is Hot (200–999%). Breakout is penalised slightly for volatility risk; Flat is zeroed out.</div></div>
-          </div>
-          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
-            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">20</span>
-            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Current Interest</div><div style="font-size:11px;color:var(--muted)">The Google Trends index for the most recent month — is demand live right now, or just historical?</div></div>
-          </div>
-          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
-            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">25</span>
-            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Competition</div><div style="font-size:11px;color:var(--muted)">Amazon listing count — fewer listings means easier to rank, stand out, and win market share. &lt;500 = strong; &gt;15K = crowded.</div></div>
-          </div>
-          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
-            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">10</span>
-            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Price Viability</div><div style="font-size:11px;color:var(--muted)">Average Amazon price — higher prices leave room for marketing, manufacturing, and profit margin. &lt;$20 is a race to the bottom.</div></div>
-          </div>
-          <div style="display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px">
-            <span style="font-size:13px;font-weight:700;color:var(--accent);width:28px;flex-shrink:0">15</span>
-            <div><div style="font-size:12px;font-weight:600;color:var(--text)">Social Demand</div><div style="font-size:11px;color:var(--muted)">Reddit mentions (30d) + velocity bonus — organic community interest is the strongest signal that demand is real and not manufactured.</div></div>
-          </div>
-        </div>
-        <div class="method-row">
-          <div class="method-icon">➕</div>
-          <div class="method-text"><strong>Bonuses &amp; Penalties</strong> — Best Seller or Amazon's Choice badge adds +3 (proves buyers exist). Top product with 1,000+ reviews adds +2 (market validated). Average rating below 3.5★ subtracts −3 (quality gap may be hard to overcome). Flat topics are hard-capped at 30 regardless of other factors.</div>
-        </div>
-        <div class="method-row">
-          <div class="method-icon">◔</div>
-          <div class="method-text"><strong>Confidence</strong> — Factors are scored only over the weight that
-            actually has data, and the result is scaled by how much of the total weight that represents. A
-            keyword measured on Google Trends alone cannot reach the top band. Previously a missing Amazon
-            lookup quietly earned a mid-table 12 of 25 for competition, which flattered exactly the keywords
-            we knew least about.
-        </div>
-        <div style="margin-top:10px">
-          <div class="status-pills">
-            <span class="sp" style="background:rgba(34,197,94,0.15);color:#22c55e">75–100 · Strong Opportunity</span>
-            <span class="sp" style="background:rgba(134,239,172,0.15);color:#86efac">60–74 · Good Potential</span>
-            <span class="sp" style="background:rgba(250,204,21,0.15);color:#facc15">45–59 · Moderate Risk</span>
-            <span class="sp" style="background:rgba(249,115,22,0.15);color:#f97316">30–44 · High Risk</span>
-            <span class="sp" style="background:rgba(239,68,68,0.12);color:#ef4444">1–29 · Not Recommended</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="method-section">
-        <h3>🏷️ Card Status Labels</h3>
-        <div class="status-pills">
-          <span class="sp" style="background:rgba(99,102,241,0.15);color:#6366f1">🚀 Breakout — 1,000%+ growth</span>
-          <span class="sp" style="background:rgba(249,115,22,0.15);color:#f97316">🔥 Hot — 200–999% growth</span>
-          <span class="sp" style="background:rgba(34,197,94,0.15);color:#22c55e">↗ Rising — steady upward trend</span>
-          <span class="sp" style="background:rgba(100,116,139,0.12);color:#94a3b8">⬛ Flat — peaked, no longer climbing. Card stays forever; data frozen.</span>
-        </div>
-      </div>
-
-      <div class="method-section">
-        <h3>🔄 Update Schedule</h3>
-        <div class="method-row">
-          <div class="method-icon">🌙</div>
-          <div class="method-text">The nightly job runs at <strong>1 AM CST (7 AM UTC)</strong> via GitHub Actions. It fetches fresh Google Trends, Reddit, and Amazon data for all active keywords, recalculates every score including Viability, runs the discovery engine to find up to 20 new keywords, then commits the updated cache — triggering an automatic Vercel redeploy within ~2 minutes. <strong>Flat keywords are skipped</strong> during fetching to save time, but their last known data and scores remain visible forever.</div>
-        </div>
-      </div>
-
-      <div class="method-section">
-        <h3>🔍 Keyword Discovery</h3>
-        <div class="method-row">
-          <div class="method-icon">🤖</div>
-          <div class="method-text">Each night, pytrends' <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:12px">related_queries()</code> API is called on seed terms across all 13 categories. Rising related queries that look like product names (not questions or how-tos) are automatically added to the tracking list — up to 20 per night. The list grows organically toward its practical ceiling of ~400–500 keywords. Every newly discovered keyword gets a full Viability Score on its first night.</div>
-        </div>
-      </div>
-
+  <div class="pad">
+    <section class="notes" id="notesSlot"></section>
+    <div class="colophon">
+      <span>TrendPulse — nightly product-trend series</span>
+      <span id="colophonRun"></span>
+      <a href="/track-record">Measured accuracy</a>
     </div>
   </div>
 </div>
 
+<dialog id="dlgKeyword"><div class="dlg" id="dlgKeywordBody"></div></dialog>
+<dialog id="dlgGeneric"><div class="dlg" id="dlgGenericBody"></div></dialog>
+<dialog id="dlgMethods"><div class="dlg" id="dlgMethodsBody"></div></dialog>
 <script>
-// ── State ────────────────────────────────────────────────────────────────────
-let allKeywords = [];
-let activeCategory = 'All';   // category tab
-let activeLenses  = new Set(); // multi-select opportunity lenses
-let activeSort    = 'growth';
-let viewMode      = 'card';   // 'card' | 'list'
-let charts        = {};
-let fetchedAt     = null;
-let visibleCount  = 48;       // pagination — cards shown so far
-const PAGE_SIZE   = 48;       // how many to add per "Show more"
+// ── State ─────────────────────────────────────────────────────────────────────
+let allKeywords = [], activeCategory = 'All', activeLenses = new Set();
+let activeSort = 'growth', viewMode = 'table', visibleCount = 60;
+const PAGE_SIZE = 60;
+let fetchedAt = null, verticalList = [], activeVertical = 'all';
+let scoreBands = [], historyCoverage = null, signalSources = {}, factorWeights = {};
+let currentUser = null, accountsEnabled = false, watchSet = new Set();
+let plan = null, calibration = null, charts = {};
 
-// Viability always comes from the server now. The old client-side mirror of the
-// scoring formula has been removed — it duplicated weights that have since
-// changed, and would silently disagree with the real score.
-function calcViability(k) {
-  return k.viability != null ? k.viability : 0;
+const DEFAULT_BANDS = [
+  {min:75,label:'Strong opportunity'},{min:60,label:'Good potential'},
+  {min:45,label:'Moderate risk'},{min:30,label:'High risk'},{min:0,label:'Not recommended'}];
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const normKw = s => String(s).trim().toLowerCase().replace(/\s+/g,' ');
+const ic = (n, cls) => `<svg class="icon ${cls||''}" viewBox="0 0 16 16"><use href="#i-${n}"/></svg>`;
+const calcViability = k => k.viability != null ? k.viability : 0;
+const bandFor = v => (scoreBands.length ? scoreBands : DEFAULT_BANDS).find(b => v >= b.min) || DEFAULT_BANDS[4];
+const limits = () => (plan && plan.limits) || {};
+// Reddit has returned 403 to unauthenticated search for the whole series, and the
+// cache records that as 0 rather than null. A zero rendered as a measurement reads
+// as "nobody is discussing this", which is the opposite of "we could not ask", so
+// the signal is treated as unmeasured until any keyword actually carries a count.
+let redditLive = false;
+const hasReddit = k => redditLive && k.reddit_30d != null;
+const canSeries = () => !!limits().series_in_list;
+
+function fmtNum(n) {
+  if (n == null) return '—';
+  if (n >= 1e6) return (n/1e6).toFixed(1).replace(/\.0$/,'') + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1).replace(/\.0$/,'') + 'k';
+  return String(Math.round(n));
+}
+function fmtGrowth(g) {
+  if (g == null) return '—';
+  if (g >= 5000) return '+5,000%+';
+  if (g <= 0) return '—';
+  return '+' + Math.round(g).toLocaleString() + '%';
+}
+function deltaHTML(v, suffix) {
+  if (v == null) return '<span class="flat">—</span>';
+  const cls = v > 0 ? 'up' : v < 0 ? 'down' : 'flat';
+  const arrow = v > 0 ? 'up' : v < 0 ? 'down' : 'flat';
+  const sign = v > 0 ? '+' : v < 0 ? '\u2212' : '';
+  return `<span class="delta ${cls}">${ic(arrow)}${sign}${Math.abs(v)}${suffix||''}</span>`;
+}
+function sparkHTML(series, w, h) {
+  const s = (series || []).filter(n => n != null);
+  if (s.length < 2) return '';
+  w = w || 74; h = h || 22;
+  const max = Math.max(...s), min = Math.min(...s), span = (max - min) || 1;
+  const pts = s.map((v, i) => [
+    (i / (s.length - 1)) * (w - 2) + 1,
+    h - 1 - ((v - min) / span) * (h - 2)
+  ]);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const rising = s[s.length - 1] >= s[0];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${d}"
+    stroke="var(--${rising ? 'rise' : 'fall'})"/></svg>`;
 }
 
-// Thresholds are served by the API so they can be re-derived from the observed
-// score distribution by scripts/calibrate.py rather than guessed here.
-function bandFor(v) {
-  for (const b of (scoreBands.length ? scoreBands : DEFAULT_BANDS)) {
-    if (v >= b.min) return b;
-  }
-  return { label: 'Not Recommended', color: '#ef4444', min: 0 };
-}
-function viabilityColor(v) { return bandFor(v).color; }
-function viabilityLabel(v) { const b = bandFor(v); return { text: b.label, color: b.color }; }
-
-// ── Lens definitions ──────────────────────────────────────────────────────────
-// Each lens has: id, label, cls (CSS suffix), description, and a test fn
-// Curated to the six most decision-useful lenses. Active state uses a single
-// unified accent (see .lens-btn.active) rather than 17 per-lens colors.
+// ── Lenses ────────────────────────────────────────────────────────────────────
 const LENSES = [
-  {
-    id: 'viable', label: '🎯 High Viability', cls: 'lens-viable',
-    tip: 'Viability Score 65+ — strong conditions for a new product to succeed',
-    test: k => calcViability(k) >= 65,
-  },
-  {
-    id: 'breakout', label: '🚀 Breakout', cls: 'lens-breakout',
-    tip: '1,000%+ growth — explosive early-stage opportunity',
-    test: k => k.momentum === 'breakout' || k.status === 'breakout' || k.growth >= 1000,
-  },
-  {
-    id: 'hot', label: '🔥 Hot', cls: 'lens-hot',
-    tip: '200–999% growth — proven demand, still room to enter',
-    test: k => (k.momentum === 'hot' || k.growth >= 200) && k.growth < 1000 && k.status !== 'flat',
-  },
-  {
-    id: 'amz_low_comp', label: '🏪 Low Competition', cls: 'lens-amz-low',
-    tip: 'Under 500 Amazon listings — easier to enter the market',
-    test: k => k.amazon_result_count != null && k.amazon_result_count < 500,
-  },
-  {
-    id: 'reddit', label: '🔶 Reddit Buzz', cls: 'lens-reddit',
-    tip: '20+ Reddit mentions / 30d — community-validated demand',
-    test: k => (k.reddit_30d || 0) >= 20,
-  },
-  {
-    id: 'new', label: '🆕 Newly Discovered', cls: 'lens-new',
-    tip: 'Added by the nightly discovery engine — first movers only',
-    test: k => !!k.is_new,
-  },
+  {id:'viable',   icon:'check', label:'Viability 65+',   tip:'Strong conditions for a new product',
+   test:k => calcViability(k) >= 65},
+  {id:'breakout', icon:'up',    label:'Breakout',        tip:'1,000%+ 12-month growth',
+   test:k => k.momentum === 'breakout' || k.status === 'breakout' || k.growth >= 1000},
+  {id:'hot',      icon:'chart', label:'200–999% growth', tip:'Proven demand, still room to enter',
+   test:k => (k.momentum === 'hot' || k.growth >= 200) && k.growth < 1000 && k.status !== 'flat'},
+  {id:'amz_low_comp', icon:'table', label:'Low competition', tip:'Under 500 Amazon listings',
+   test:k => k.amazon_result_count != null && k.amazon_result_count < 500},
+  {id:'reddit',   icon:'user',  label:'Reddit 20+',      tip:'20+ mentions in 30 days',
+   needs:'reddit', test:k => (k.reddit_30d || 0) >= 20},
+  {id:'new',      icon:'star',  label:'Newly discovered', tip:'Added by the nightly discovery engine',
+   test:k => !!k.is_new},
 ];
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 async function loadData() {
   try {
-    const res = await fetch('/api/trends');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const json = await res.json();
-    if (!json.ok) throw new Error(json.error || 'No data available yet — check back after 1 AM CST.');
+    const json = await api('/api/trends');
+    if (!json.ok) throw new Error(json.error || 'No data yet — the nightly job has not run.');
     allKeywords = json.keywords;
     fetchedAt = json.fetched_at ? new Date(json.fetched_at) : new Date();
-    verticalList = json.verticals || [];
-    activeVertical = json.vertical || 'all';
-    scoreBands = json.bands || scoreBands;
-    historyCoverage = json.history || null;
-    signalSources = json.signal_sources || {};
-    factorWeights = json.factor_weights || {};
-    renderApp();
+    verticalList = json.verticals || []; activeVertical = json.vertical || 'all';
+    scoreBands = json.bands || []; historyCoverage = json.history || null;
+    signalSources = json.signal_sources || {}; factorWeights = json.factor_weights || {};
+    plan = json.plan || null;
+    redditLive = allKeywords.some(k => (k.reddit_30d || 0) > 0);
+    api('/api/track-record').then(r => { if (r.ok) { calibration = r; renderAbstract(); renderNotes(); } });
+    renderShell();
     renderVerticalSelect();
     refreshAccount();
-  } catch (err) {
-    showError(err.message);
-  }
+  } catch (err) { showError(err.message); }
 }
 
 function showError(msg) {
+  document.getElementById('appContent').innerHTML =
+    `<div class="empty"><h3>The series could not be loaded</h3>
+     <p>${esc(msg)}</p>
+     <p style="font-size:13px">Observations are published nightly at 1 AM CST.</p>
+     <button class="btn" onclick="location.reload()">Retry</button></div>`;
+}
+
+// ── Dateline, abstract, notices ───────────────────────────────────────────────
+function sourceSummary() {
+  const nice = {google:'Google Trends', amazon:'Amazon', wikipedia:'Wikipedia',
+                reddit:'Reddit', youtube:'YouTube', etsy:'Etsy', first_party:'first-party'};
+  const out = ['Google Trends'];
+  if (allKeywords.some(k => k.amazon_result_count != null)) out.push('Amazon');
+  Object.entries(signalSources || {}).forEach(([k, v]) => { if (v) out.push(nice[k] || k); });
+  if (redditLive) out.push('Reddit');
+  return [...new Set(out)].join(' · ');
+}
+
+function renderDateline() {
+  const d = fetchedAt;
+  const date = d ? d.toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'}) : '—';
+  const n = historyCoverage ? historyCoverage.snapshot_count : null;
+  document.getElementById('dateline').innerHTML = [
+    n ? `Observation <b>No.&nbsp;${n}</b>` : null,
+    `<b>${date}</b>`,
+    `US market`,
+    `${sourceSummary()}`,
+    `<b>${allKeywords.length.toLocaleString()}</b> keywords tracked`,
+  ].filter(Boolean).join('<span aria-hidden="true">·</span>');
+  const cr = document.getElementById('colophonRun');
+  if (cr) cr.textContent = 'Compiled ' + (d ? d.toLocaleString() : '—');
+}
+
+function renderAbstract() {
+  const el = document.getElementById('abstractSlot');
+  if (!el) return;
+  const rising = allKeywords.filter(k => k.status !== 'flat').length;
+  const brk = allKeywords.filter(k => k.growth >= 1000).length;
+  const strong = allKeywords.filter(k => calcViability(k) >= 65).length;
+  const days = historyCoverage ? historyCoverage.snapshot_count : null;
+
+  let caveat = `<p class="caveat">The viability score has not yet been shown to predict
+    forward demand. Read it as a summary of present conditions, not a forecast.</p>`;
+  if (calibration && calibration.factor_diagnostics) {
+    const c = calibration.factor_diagnostics.score_then;
+    if (c && c.correlation != null) {
+      caveat = `<p class="caveat">Measured against what happened next, the viability score
+        correlates <b>${c.correlation.toFixed(3)}</b> with 30-day forward movement
+        (n=${c.n}<sup class="fn"><a href="#fn2">2</a></sup>). It is not yet predictive, and is
+        published here as a description of present conditions rather than a forecast.</p>`;
+    }
+  }
+  el.innerHTML = `<h2>Abstract</h2><div>
+    <p>Of <b>${allKeywords.length.toLocaleString()}</b> keywords in the current series,
+       <b>${rising.toLocaleString()}</b> are still climbing, <b>${brk}</b> exceed 1,000%
+       twelve-month growth, and <b>${strong}</b> score 65 or above for launch
+       viability<sup class="fn"><a href="#fn1">1</a></sup>.
+       ${days ? `Each has been observed nightly for ${days} consecutive days.` : ''}</p>
+    ${caveat}</div>`;
+}
+
+function renderNotices() {
+  const el = document.getElementById('noticeSlot');
+  if (!el) return;
+  const out = [];
+  const p = plan || {};
+
+  if (p.trialing) {
+    const d = p.trial_days_left;
+    out.push(`<div class="notice"><span>${ic('info')}</span>
+      <div><b>Trial — ${d} day${d === 1 ? '' : 's'} remaining.</b>
+      Full history, movers and trajectory are open until then.</div>
+      <span class="sp"><button class="linkbtn" onclick="openUpgrade()">Subscribe — $29/mo ${ic('arrow')}</button></span></div>`);
+  } else if (p.trial_expired) {
+    out.push(`<div class="notice flagged"><span>${ic('alert')}</span>
+      <div><b>Your trial has ended.</b> Today's snapshot stays open;
+      trajectory, movers and full history now need a subscription.</div>
+      <span class="sp"><button class="linkbtn" onclick="openUpgrade()">Subscribe — $29/mo ${ic('arrow')}</button></span></div>`);
+  } else if (accountsEnabled && !currentUser) {
+    out.push(`<div class="notice"><span>${ic('info')}</span>
+      <div>You are reading the public series. A free account opens keyword
+      trajectories and the movers table for 7 days — no card.</div>
+      <span class="sp"><button class="linkbtn" onclick="openAuth('register')">Start trial ${ic('arrow')}</button></span></div>`);
+  }
+  el.innerHTML = out.join('');
+}
+
+// ── Shell ─────────────────────────────────────────────────────────────────────
+function renderShell() {
+  const cats = ['All', ...new Set(allKeywords.map(k => k.category))];
   document.getElementById('appContent').innerHTML = `
-    <div class="error-state">
-      <h3>⚠️ Could not load trends</h3>
-      <p>${msg}</p>
-      <p style="font-size:12px;color:var(--muted);margin-top:4px">Data updates nightly at 1 AM CST.</p>
-    </div>`;
-}
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-function fmtGrowth(g) {
-  if (g >= 5000) return '+5000%+';
-  if (g <= 0) return '—';
-  return '+' + Math.round(g).toLocaleString() + '%';
-}
-
-function trendColor(status) {
-  if (status === 'breakout') return '#6366f1';
-  if (status === 'hot')      return '#f97316';
-  if (status === 'flat')     return '#64748b';
-  return '#22c55e';
-}
-
-function badgeHTML(k) {
-  let b = '';
-  // Trajectory from the proprietary history store — the thing a fresh competitor
-  // cannot show at all, since it requires having been watching for weeks.
-  if (k.d7 != null && Math.abs(k.d7) >= 1) {
-    const cls = k.d7 > 0 ? 'traj-up' : 'traj-down';
-    const arrow = k.d7 > 0 ? '▲' : '▼';
-    b += `<span class="badge badge-traj ${cls}" title="Viability change over the last 7 days (${k.days_tracked} days tracked)">${arrow} ${Math.abs(k.d7)} / 7d</span>`;
-  }
-  if (k.confidence != null && k.confidence < 0.6) {
-    b += `<span class="badge badge-conf low" title="Only ${Math.round(k.confidence*100)}% of scoring inputs had data for this keyword">◔ Low confidence</span>`;
-  }
-  b += `<span class="badge badge-cat">${k.category}</span>`;
-  if (k.status === 'flat')         b += `<span class="badge badge-flat">⬛ Flat</span>`;
-  else if (k.status === 'breakout') b += `<span class="badge badge-breakout">🚀 Breakout</span>`;
-  else if (k.status === 'hot')      b += `<span class="badge badge-hot">🔥 Hot</span>`;
-  else                              b += `<span class="badge badge-rising">↗ Rising</span>`;
-  return b;
-}
-
-function pillClass(k) {
-  if (k.status === 'breakout') return 'breakout';
-  if (k.status === 'flat')     return '';
-  return 'up';
-}
-
-function fmtNum(n) {
-  if (n == null) return '—';
-  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
-  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
-  return n.toLocaleString();
-}
-
-function dataRowsHTML(k) {
-  const rows = [];
-
-  // Reddit row
-  if (k.reddit_30d != null) {
-    const vel = k.reddit_velocity;
-    let velBadge = '';
-    if (vel != null) {
-      if (vel > 10)       velBadge = `<span class="data-badge vel-up">▲ ${vel}%</span>`;
-      else if (vel < -10) velBadge = `<span class="data-badge vel-down">▼ ${Math.abs(vel)}%</span>`;
-      else                velBadge = `<span class="data-badge vel-flat">→ stable</span>`;
-    }
-    rows.push(`
-      <div class="data-row">
-        <span class="data-icon">🔶</span>
-        <span class="data-label">${fmtNum(k.reddit_30d)} Reddit / 30d</span>
-        ${velBadge}
-      </div>`);
-  }
-
-  // Amazon row
-  if (k.amazon_result_count != null || k.amazon_best_seller || k.amazons_choice) {
-    let badges = '';
-    if (k.amazon_best_seller) badges += `<span class="data-badge bsb">★ Best Seller</span>`;
-    if (k.amazons_choice)     badges += `<span class="data-badge choice">✓ Amazon's Choice</span>`;
-
-    // Competition: <500 = low, <5000 = medium, else high
-    let compBadge = '';
-    if (k.amazon_result_count != null) {
-      if (k.amazon_result_count < 500)       compBadge = `<span class="data-badge comp-low">Low competition</span>`;
-      else if (k.amazon_result_count > 10000) compBadge = `<span class="data-badge comp-high">Crowded market</span>`;
-    }
-
-    rows.push(`
-      <div class="data-row">
-        <span class="data-icon">📦</span>
-        <span class="data-label">${fmtNum(k.amazon_result_count)} Amazon listings</span>
-        ${badges}${compBadge}
-      </div>`);
-
-    // Price + rating on same row if available
-    if (k.amazon_avg_price != null || k.amazon_avg_rating != null) {
-      const price  = k.amazon_avg_price  != null ? `$${k.amazon_avg_price.toFixed(2)} avg`  : '';
-      const rating = k.amazon_avg_rating != null ? `⭐ ${k.amazon_avg_rating.toFixed(1)}`   : '';
-      const reviews = k.amazon_top_reviews != null ? `${fmtNum(k.amazon_top_reviews)} reviews` : '';
-      rows.push(`
-        <div class="data-row">
-          <span class="data-icon" style="opacity:0">·</span>
-          <span class="data-label" style="color:var(--text);font-size:11px">${[price, rating, reviews].filter(Boolean).join(' · ')}</span>
-        </div>`);
-    }
-  }
-
-  if (!rows.length) return '';
-  return `<div class="data-rows">${rows.join('')}</div>`;
-}
-
-function viabilityBarHTML(k) {
-  const v   = calcViability(k);
-  const col = viabilityColor(v);
-  const lbl = viabilityLabel(v);
-  return `
-    <div class="viability-bar-wrap">
-      <div class="viability-label-row">
-        <span class="viability-label">🎯 Viability</span>
-        <span class="viability-num" style="color:${col}">${v}/100</span>
-        <span class="viability-tag" style="background:${col}22;color:${col};border:1px solid ${col}44">${lbl.text}</span>
+    <section class="abstract" id="abstractSlot"></section>
+    <section class="controls">
+      <div class="crow">
+        <label class="search">${ic('search')}
+          <input type="search" id="searchInput" placeholder="Search keywords"
+                 oninput="visibleCount=PAGE_SIZE;renderRows()" aria-label="Search keywords">
+        </label>
+        <select class="sel" id="catSelect" onchange="setCategory(this.value)" aria-label="Category">
+          ${cats.map(c => `<option value="${esc(c)}"${c===activeCategory?' selected':''}>${c==='All'?'All categories':esc(c)}</option>`).join('')}
+        </select>
+        <select class="sel" id="sortSelect" onchange="onSort(this.value)" aria-label="Sort by">
+          <option value="growth">Sort — growth</option>
+          <option value="viability">Sort — viability</option>
+          <option value="score">Sort — trend score</option>
+          ${redditLive ? '<option value="reddit">Sort — Reddit volume</option>' : ''}
+          <option value="az">Sort — A–Z</option>
+        </select>
+        <div class="seg" role="group" aria-label="View">
+          <button data-view="table" class="${viewMode==='table'?'on':''}" onclick="setView('table')">${ic('table')}Table</button>
+          <button data-view="entry" class="${viewMode==='entry'?'on':''}" onclick="setView('entry')">${ic('grid')}Entries</button>
+        </div>
+        <span class="count" id="countSlot"></span>
       </div>
-      <div class="viability-track">
-        <div class="viability-fill" style="width:${v}%;background:${col}"></div>
+      <div class="crow lenses">
+        ${LENSES.filter(l => l.needs !== 'reddit' || redditLive).map(l =>
+          `<button class="lens${activeLenses.has(l.id)?' on':''}" title="${esc(l.tip)}"
+           onclick="toggleLens('${l.id}')">${ic(l.icon)}${esc(l.label)}</button>`).join('')}
+        <button class="linkbtn" style="font-size:12px" onclick="clearFilters()">Clear</button>
       </div>
-    </div>`;
+    </section>
+    <div id="rowsSlot"></div>`;
+  document.getElementById('sortSelect').value = activeSort;
+  renderDateline(); renderAbstract(); renderNotices(); renderRows(); renderNotes();
 }
 
-// ── Filtering / Sorting ───────────────────────────────────────────────────────
-function getCategories() {
-  return ['All', ...new Set(allKeywords.map(k => k.category)).values()];
-}
-
+// ── Filter / sort ─────────────────────────────────────────────────────────────
 function getFiltered() {
   const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
-
-  let data = allKeywords.filter(k => {
-    // Category tab
-    const matchCat = activeCategory === 'All' || k.category === activeCategory;
-    // Search
-    const matchQ = !q || k.keyword.toLowerCase().includes(q) || k.category.toLowerCase().includes(q);
-    // Lenses (AND logic — must pass ALL active lenses)
-    const matchLens = activeLenses.size === 0
-      ? k.status !== 'flat'      // default view hides flat keywords unless explicitly selected
-      : [...activeLenses].every(id => {
-          const lens = LENSES.find(l => l.id === id);
-          return lens ? lens.test(k) : true;
-        });
-    return matchCat && matchQ && matchLens;
+  const data = allKeywords.filter(k => {
+    const mc = activeCategory === 'All' || k.category === activeCategory;
+    const mq = !q || k.keyword.toLowerCase().includes(q) || k.category.toLowerCase().includes(q);
+    const ml = activeLenses.size === 0 ? k.status !== 'flat'
+      : [...activeLenses].every(id => (LENSES.find(l => l.id === id) || {test:()=>true}).test(k));
+    return mc && mq && ml;
   });
-
   const sorts = {
-    growth:    (a,b) => b.growth - a.growth,
-    viability: (a,b) => calcViability(b) - calcViability(a),
-    score:     (a,b) => b.score - a.score,
-    reddit:    (a,b) => (b.reddit_30d||0) - (a.reddit_30d||0),
-    velocity:  (a,b) => (b.reddit_velocity||0) - (a.reddit_velocity||0),
-    az:        (a,b) => a.keyword.localeCompare(b.keyword),
+    growth:(a,b)=>b.growth-a.growth, viability:(a,b)=>calcViability(b)-calcViability(a),
+    score:(a,b)=>b.score-a.score, reddit:(a,b)=>(b.reddit_30d||0)-(a.reddit_30d||0),
+    az:(a,b)=>a.keyword.localeCompare(b.keyword),
   };
   return data.sort(sorts[activeSort] || sorts.growth);
 }
-
-function setCategory(cat) {
-  activeCategory = cat;
-  visibleCount = PAGE_SIZE;
-  renderCards();
+function setCategory(c){activeCategory=c;visibleCount=PAGE_SIZE;renderRows();}
+function toggleLens(id){activeLenses.has(id)?activeLenses.delete(id):activeLenses.add(id);
+  visibleCount=PAGE_SIZE;renderShellLenses();renderRows();}
+function renderShellLenses(){
+  const shown = LENSES.filter(l => l.needs !== 'reddit' || redditLive);
+  document.querySelectorAll('.lenses .lens').forEach((b,i) =>
+    b.classList.toggle('on', shown[i] && activeLenses.has(shown[i].id)));
 }
+function clearFilters(){activeLenses.clear();activeCategory='All';visibleCount=PAGE_SIZE;
+  const s=document.getElementById('searchInput');if(s)s.value='';
+  const c=document.getElementById('catSelect');if(c)c.value='All';
+  renderShellLenses();renderRows();}
+function onSort(v){activeSort=v;visibleCount=PAGE_SIZE;renderRows();}
+function setView(m){if(viewMode===m)return;viewMode=m;
+  document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('on',b.dataset.view===m));
+  renderRows();}
+function showMore(){visibleCount+=PAGE_SIZE;renderRows();}
 
-function toggleLens(id) {
-  if (activeLenses.has(id)) activeLenses.delete(id);
-  else activeLenses.add(id);
-  visibleCount = PAGE_SIZE;
-  renderCards();
-}
-
-function clearFilters() {
-  activeLenses.clear();
-  activeCategory = 'All';
-  visibleCount = PAGE_SIZE;
-  const si = document.getElementById('searchInput');
-  if (si) si.value = '';
-  renderCards();
-}
-
-function onSort(val) {
-  activeSort = val;
-  visibleCount = PAGE_SIZE;
-  renderCards();
-}
-
-function setView(mode) {
-  if (viewMode === mode) return;
-  viewMode = mode;
-  document.querySelectorAll('.view-toggle button').forEach(b =>
-    b.classList.toggle('active', b.dataset.view === mode));
-  renderCards();
-}
-
-function showMore() {
-  visibleCount += PAGE_SIZE;
-  renderCards();
-  // Scroll down a bit so the new cards are visible
-  window.scrollBy({ top: 400, behavior: 'smooth' });
-}
-
-// ── Render ─────────────────────────────────────────────────────────────────────
-function renderApp() {
-  const ts = fetchedAt ? fetchedAt.toLocaleString() : '—';
-
-  const lensHTML = LENSES.map(l =>
-    `<button class="lens-btn ${l.cls}${activeLenses.has(l.id) ? ' active' : ''}"
-      title="${l.tip}"
-      onclick="toggleLens('${l.id}')">${l.label}</button>`
-  ).join('');
-
-  const categories = getCategories();
-  const catHTML = categories.map(c =>
-    `<option value="${c}"${c === activeCategory ? ' selected' : ''}>${c === 'All' ? 'All categories' : c}</option>`
-  ).join('');
-
-  document.getElementById('appContent').innerHTML = `
-    <div class="page">
-    <div class="update-banner">
-      <div class="live-dot"></div>
-      <span>Last updated ${ts} · US market · ${sourceSummary()} · Updates nightly at 1 AM CST${historyCoverage ? ` · ${historyCoverage.snapshot_count} days of tracked history` : ''}</span>
-      <button class="info-btn" onclick="openMethodologyModal()">ℹ️ How it works</button>
-    </div>
-    <div class="controls">
-      <div class="controls-row">
-        <div class="search-box">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input type="text" id="searchInput" placeholder="Search keywords…" oninput="visibleCount=PAGE_SIZE;renderCards()">
-        </div>
-        <select class="sort-select" id="catSelect" onchange="setCategory(this.value)">${catHTML}</select>
-        <select class="sort-select" id="sortSelect" onchange="onSort(this.value)">
-          <option value="growth">↓ Growth %</option>
-          <option value="viability">↓ Viability Score</option>
-          <option value="score">↓ Trend Score</option>
-          <option value="reddit">↓ Reddit Buzz</option>
-          <option value="velocity">↓ Social Surge</option>
-          <option value="az">A → Z</option>
-        </select>
-        <div class="view-toggle" style="margin-left:auto">
-          <button data-view="card" class="${viewMode==='card'?'active':''}" onclick="setView('card')" title="Card view">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            Cards
-          </button>
-          <button data-view="list" class="${viewMode==='list'?'active':''}" onclick="setView('list')" title="List view">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            List
-          </button>
-        </div>
-        <button class="clear-btn" onclick="clearFilters()">Clear all</button>
-      </div>
-      <div class="controls-row">
-        <span class="filter-label">🎯 Lens</span>
-        <div class="filter-group" id="lensGroup">${lensHTML}</div>
-      </div>
-    </div>
-    <div class="stats-bar" id="statsBar" style="margin-top:20px"></div>
-    <div id="cardGrid"></div>
-    </div>
-  `;
-
-  renderCards();
-}
-
-function renderStats(data) {
-  const all     = allKeywords.filter(k => k.status !== 'flat');
-  const breakouts = all.filter(k => k.growth >= 1000).length;
-  const withReddit = data.filter(k => (k.reddit_30d||0) >= 20).length;
-  const topScore   = data.length ? Math.max(...data.map(k=>k.score)) : 0;
-  const avgGrowth  = data.length ? Math.round(data.reduce((s,k)=>s+k.growth,0)/data.length) : 0;
-  const multiSig   = data.filter(k => k.growth >= 100 && (k.reddit_30d||0) >= 15).length;
-  const activeFiltersCount = activeLenses.size + (activeCategory !== 'All' ? 1 : 0);
-  document.getElementById('statsBar').innerHTML = `
-    <div class="stat">
-      <div class="stat-label">Showing</div>
-      <div class="stat-value">${data.length}</div>
-      <div class="stat-change">${activeFiltersCount > 0 ? `${activeFiltersCount} filter${activeFiltersCount>1?'s':''} active` : `of ${all.length} tracked`}</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Breakouts in view</div>
-      <div class="stat-value up">${data.filter(k=>k.growth>=1000).length}</div>
-      <div class="stat-change">${breakouts} total across all</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Avg. Growth</div>
-      <div class="stat-value up">+${avgGrowth.toLocaleString()}%</div>
-      <div class="stat-change">12-month trend</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Multi-Signal</div>
-      <div class="stat-value" style="color:#f472b6">${multiSig}</div>
-      <div class="stat-change">Google + Reddit aligned</div>
-    </div>
-  `;
-}
-
-function renderCards() {
-  // Sync category dropdown
-  const cs = document.getElementById('catSelect');
-  if (cs) cs.value = activeCategory;
-  // Sync lens buttons
-  LENSES.forEach(l => {
-    const btn = document.querySelector(`.lens-btn.${l.cls}`);
-    if (btn) btn.classList.toggle('active', activeLenses.has(l.id));
-  });
-  // Sync sort select
-  const ss = document.getElementById('sortSelect');
-  if (ss) ss.value = activeSort;
-
+// ── Rows ──────────────────────────────────────────────────────────────────────
+function renderRows() {
   const data = getFiltered();
-  renderStats(data);
-
-  Object.values(charts).forEach(c => c.destroy());
-  charts = {};
-
-  const grid = document.getElementById('cardGrid');
-  if (!grid) return;
-  grid.className = viewMode === 'list' ? 'list' : 'grid';
-
-  if (data.length === 0) {
-    grid.innerHTML = `<div class="empty"><p>No keywords match your filter.</p></div>`;
+  const shown = data.slice(0, visibleCount);
+  const cnt = document.getElementById('countSlot');
+  if (cnt) cnt.textContent = `${shown.length.toLocaleString()} of ${data.length.toLocaleString()} shown`;
+  const slot = document.getElementById('rowsSlot');
+  if (!data.length) {
+    slot.innerHTML = `<div class="empty"><h3>No keywords match</h3>
+      <p>Every filter is combined, so narrow criteria can exclude everything.</p>
+      <button class="btn" onclick="clearFilters()">Clear filters</button></div>`;
     return;
   }
-
-  const months = ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
-  const page   = data.slice(0, visibleCount);
-  const remaining = data.length - page.length;
-
-  const showMoreHTML = remaining > 0 ? `
-    <div style="grid-column:1/-1;text-align:center;padding:24px 0 8px">
-      <button onclick="showMore()" style="
-        background:var(--surface);border:1px solid var(--border);color:var(--text);
-        padding:10px 28px;border-radius:10px;font-size:14px;font-weight:600;
-        cursor:pointer;transition:all 0.15s;letter-spacing:0.2px"
-        onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
-        onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
-        Show ${Math.min(remaining, PAGE_SIZE)} more
-        <span style="color:var(--muted);font-weight:400;font-size:12px;margin-left:6px">${remaining} remaining</span>
-      </button>
-    </div>` : '';
-
-  // ── LIST VIEW ──────────────────────────────────────────────────────────────
-  if (viewMode === 'list') {
-    grid.innerHTML = page.map(k => {
-      const v   = calcViability(k);
-      const col = viabilityColor(k.viability != null ? k.viability : v);
-      return `
-      <div class="list-row${k.status === 'flat' ? ' flat' : ''}" onclick="openModal(${k.id})">
-        <div class="lr-main">
-          <div class="lr-keyword">${accountsEnabled ? `<button class="watch-star${watchSet.has(normKw(k.keyword)) ? ' on' : ''}" title="Save to watchlist" onclick="event.stopPropagation();toggleWatch('${escHtml(k.keyword).replace(/'/g, "\\'")}')">${watchSet.has(normKw(k.keyword)) ? '\u2605' : '\u2606'}</button>` : ''} ${k.keyword}</div>
-          <div class="badges lr-badges">${badgeHTML(k)}</div>
-        </div>
-        <div class="lr-metric lr-growth">
-          <div class="lr-metric-label">Growth</div>
-          <div class="lr-metric-value growth-pill ${pillClass(k)}" style="display:inline-block;padding:2px 8px">${fmtGrowth(k.growth)}</div>
-        </div>
-        <div class="lr-metric lr-score">
-          <div class="lr-metric-label">Score</div>
-          <div class="lr-metric-value">${k.score}<span style="font-size:10px;color:var(--muted);font-weight:400">/100</span></div>
-        </div>
-        <div class="lr-metric lr-viability">
-          <div class="lr-metric-label">🎯 Viability</div>
-          <div class="lr-metric-value" style="color:${col}">
-            <span class="lr-mini-track"><span class="lr-mini-fill" style="width:${v}%;background:${col}"></span></span>
-            ${v}
-          </div>
-        </div>
-      </div>`;
-    }).join('') + showMoreHTML;
-    return;
-  }
-
-  // ── CARD VIEW ──────────────────────────────────────────────────────────────
-  grid.innerHTML = page.map(k => `
-    <div class="card${k.status === 'flat' ? ' flat' : ''}" onclick="openModal(${k.id})">
-      <div class="card-top">
-        <div>
-          <div class="card-keyword">${accountsEnabled ? `<button class="watch-star${watchSet.has(normKw(k.keyword)) ? ' on' : ''}" title="Save to watchlist" onclick="event.stopPropagation();toggleWatch('${escHtml(k.keyword).replace(/'/g, "\\'")}')">${watchSet.has(normKw(k.keyword)) ? '\u2605' : '\u2606'}</button>` : ''} ${k.keyword}</div>
-          <div class="badges">${badgeHTML(k)}</div>
-        </div>
-        <div class="growth-pill ${pillClass(k)}">${fmtGrowth(k.growth)}</div>
-      </div>
-      <div class="chart-wrap"><canvas id="chart-${k.id}"></canvas></div>
-      <div class="card-footer">
-        <div><div class="volume-label">Trend Score</div></div>
-        <div class="score-bar-wrap">
-          <div class="score-bar"><div class="score-fill" style="width:${k.score}%"></div></div>
-          <span class="score-num">${k.score}/100</span>
-        </div>
-      </div>
-      ${dataRowsHTML(k)}
-      ${viabilityBarHTML(k)}
-    </div>
-  `).join('') + showMoreHTML;
-
-  requestAnimationFrame(() => {
-    page.forEach(k => {
-      const ctx = document.getElementById(`chart-${k.id}`);
-      if (!ctx) return;
-      const color = trendColor(k.status);
-      charts[k.id] = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: months,
-          datasets: [{
-            data: k.trend,
-            borderColor: color,
-            borderWidth: 2,
-            fill: true,
-            backgroundColor: (context) => {
-              const g = context.chart.ctx.createLinearGradient(0,0,0,70);
-              g.addColorStop(0, color+'40'); g.addColorStop(1, color+'00');
-              return g;
-            },
-            tension: 0.4,
-            pointRadius: 0,
-          }]
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { display: false }, tooltip: { enabled: false } },
-          scales: { x: { display: false }, y: { display: false, min: 0, max: 110 } },
-          animation: { duration: 300 }
-        }
-      });
-    });
-  });
+  const caption = `<div class="tcap"><h2>Table 1</h2>
+    <span>Tracked keywords, ranked by ${({growth:'twelve-month growth',viability:'viability score',
+      score:'trend score',reddit:'Reddit volume',az:'name'})[activeSort] || 'growth'}</span></div>`;
+  slot.innerHTML = caption + (viewMode === 'table' ? tableHTML(shown) : entriesHTML(shown)) +
+    (shown.length < data.length
+      ? `<div style="padding:18px 0 6px;text-align:center">
+           <button class="btn" onclick="showMore()">Show ${Math.min(PAGE_SIZE, data.length-shown.length)} more</button></div>`
+      : '');
 }
 
-// ── Modal ─────────────────────────────────────────────────────────────────────
-function openModal(id) {
-  const k = allKeywords.find(k => k.id === id);
+function tableHTML(rows) {
+  const locked = !canSeries();
+  return `<div style="overflow-x:auto"><table class="data">
+    <thead><tr>
+      <th></th><th>Keyword</th>
+      <th class="hide-sm">12-mo</th>
+      <th>Growth</th>
+      <th class="hide-md">Interest</th>
+      <th class="hide-md">7d</th>
+      <th class="hide-md">30d</th>
+      <th class="hide-sm">Listings</th>
+      <th>Viability</th>
+    </tr></thead><tbody>
+    ${rows.map(k => {
+      const v = calcViability(k);
+      const on = watchSet.has(normKw(k.keyword));
+      const traj = locked
+        ? `<span class="locked">${ic('lock')}</span>`
+        : deltaHTML(k.d7);
+      const traj30 = locked ? `<span class="locked">${ic('lock')}</span>` : deltaHTML(k.d30);
+      return `<tr onclick="openKeyword('${esc(k.keyword).replace(/'/g,"\\'")}')">
+        <td class="starcell"><button class="star${on?' on':''}" title="${on?'Remove from watchlist':'Add to watchlist'}"
+            onclick="event.stopPropagation();toggleWatch('${esc(k.keyword).replace(/'/g,"\\'")}')">${ic('star')}</button></td>
+        <td><div class="kw">${esc(k.keyword)}</div>
+            <div class="kw-sub">${esc(k.category)}${k.is_new?' · new':''}</div></td>
+        <td class="hide-sm">${sparkHTML(k.trend)}</td>
+        <td class="u">${fmtGrowth(k.growth)}</td>
+        <td class="u hide-md">${k.score ?? '—'}</td>
+        <td class="hide-md">${traj}</td>
+        <td class="hide-md">${traj30}</td>
+        <td class="u hide-sm">${fmtNum(k.amazon_result_count)}</td>
+        <td><span class="score">${v}</span><span class="meter"><i style="width:${v}%"></i></span></td>
+      </tr>`;
+    }).join('')}
+    </tbody></table></div>` + (locked ? lockNote() : '');
+}
+
+function lockNote() {
+  return `<div class="notice" style="border-bottom:0">${ic('lock')}
+    <div>Seven- and thirty-day trajectory is part of the tracked history.
+    ${currentUser ? 'Subscribe to open it.' : 'A free 7-day trial opens it — no card.'}</div>
+    <span class="sp"><button class="linkbtn" onclick="${currentUser?'openUpgrade()':"openAuth('register')"}">
+      ${currentUser ? 'Subscribe — $29/mo' : 'Start trial'} ${ic('arrow')}</button></span></div>`;
+}
+
+function entriesHTML(rows) {
+  return `<div class="entries">${rows.map(k => {
+    const v = calcViability(k), on = watchSet.has(normKw(k.keyword));
+    return `<article class="entry" onclick="openKeyword('${esc(k.keyword).replace(/'/g,"\\'")}')">
+      <div class="entry-top"><div class="kw">${esc(k.keyword)}</div>
+        <button class="star${on?' on':''}" onclick="event.stopPropagation();toggleWatch('${esc(k.keyword).replace(/'/g,"\\'")}')">${ic('star')}</button></div>
+      <div class="kw-sub">${esc(k.category)}</div>
+      <div class="entry-fig">${sparkHTML(k.trend, 240, 42)}</div>
+      <dl>
+        <dt>Growth</dt><dd>${fmtGrowth(k.growth)}</dd>
+        <dt>Interest</dt><dd>${k.score ?? '—'}</dd>
+        <dt>Listings</dt><dd>${fmtNum(k.amazon_result_count)}</dd>
+        <dt>7-day</dt><dd>${canSeries() ? deltaHTML(k.d7) : `<span class="locked">${ic('lock')}</span>`}</dd>
+        <dt>Viability</dt><dd><b>${v}</b> — ${esc(bandFor(v).label)}</dd>
+      </dl></article>`;
+  }).join('')}</div>` + (canSeries() ? '' : lockNote());
+}
+
+// ── Footnotes ─────────────────────────────────────────────────────────────────
+function renderNotes() {
+  const el = document.getElementById('notesSlot');
+  if (!el) return;
+  const w = factorWeights || {};
+  const wtxt = Object.keys(w).length
+    ? Object.entries(w).map(([k,v]) => `${k.replace(/_/g,' ')} ${v}`).join(', ')
+    : 'trend momentum, current interest, competition, price viability and social demand';
+  el.innerHTML = `<h2>Notes</h2><ol>
+    <li id="fn1"><b>Viability</b> is a 0–100 composite of ${esc(wtxt)}. Factors are
+      scored only over the weight that actually has data and the result is scaled by
+      how much of the total weight that represents, so a keyword measured on Google
+      Trends alone cannot reach the top band. Missing inputs score as unknown, never
+      as a favourable value.</li>
+    <li id="fn2"><b>Backtest.</b> Each night's score is compared against the same
+      keyword's Google Trends interest 30 days later.
+      ${calibration ? `Current sample n=${calibration.sample_size}, hit rate
+        ${calibration.overall_hit_rate}% at a ${calibration.hit_threshold}-point threshold.
+        ${calibration.provisional ? 'The sample is still provisional.' : ''}` : ''}
+      The full table, including which individual factors do and do not predict, is on the
+      <a href="/track-record">track record</a> page.</li>
+    <li id="fn3"><b>Sources.</b> ${esc(sourceSummary())}, collected nightly at 1 AM CST.
+      ${redditLive ? '' : 'Reddit has returned 403 to unauthenticated search for the whole of this series, so social demand is unmeasured and is shown as unknown rather than as zero.'}
+      Google Trends interest is a 0–100 relative index, not a volume count.</li>
+    <li id="fn4"><b>Trajectory</b> (7- and 30-day change) is derived from the nightly
+      snapshot store rather than from any single observation, so it exists only for
+      keywords tracked since the series began.</li>
+  </ol>`;
+}
+
+// ── Dialogs ───────────────────────────────────────────────────────────────────
+function openDlg(id, html) {
+  document.getElementById(id + 'Body').innerHTML = html;
+  const d = document.getElementById(id);
+  if (!d.open) d.showModal();
+}
+function closeDlg(id) { const d = document.getElementById(id); if (d.open) d.close(); }
+function dlgHead(title, id) {
+  return `<div class="dlg-h"><h2>${title}</h2>
+    <button class="x" onclick="closeDlg('${id}')" aria-label="Close">${ic('x')}</button></div>`;
+}
+document.addEventListener('click', e => {
+  // Clicking the backdrop (the dialog element itself) closes it.
+  if (e.target.tagName === 'DIALOG') e.target.close();
+});
+
+// ── Keyword detail ────────────────────────────────────────────────────────────
+async function openKeyword(keyword) {
+  const k = allKeywords.find(x => normKw(x.keyword) === normKw(keyword));
   if (!k) return;
-  const color = trendColor(k.status);
-  const months = ['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
-  const googleUrl = `https://trends.google.com/trends/explore?q=${encodeURIComponent(k.keyword)}&geo=US`;
+  const v = calcViability(k), band = bandFor(v);
+  const b = k.viability_breakdown || {};
+  const on = watchSet.has(normKw(k.keyword));
 
-  document.getElementById('modal').innerHTML = `
-    <div class="modal-header">
-      <div>
-        <div class="modal-title">${k.keyword}</div>
-        <div class="badges" style="margin-top:8px">${badgeHTML(k)}</div>
-      </div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+  openDlg('dlgKeyword', dlgHead(esc(k.keyword), 'dlgKeyword') + `<div class="dlg-b">
+    <div style="display:flex;gap:22px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px">
+      <div><span style="font:700 34px var(--serif)">${v}</span>
+           <span style="font-family:var(--sans);font-size:12px;color:var(--ink-3)">/100 viability</span></div>
+      <div style="font-family:var(--sans);font-size:13px">${esc(band.label)}</div>
+      <button class="btn ${on?'':'pri'}" style="margin-left:auto"
+        onclick="toggleWatch('${esc(k.keyword).replace(/'/g,"\\'")}');closeDlg('dlgKeyword')">
+        ${ic('star')}${on ? 'Watching' : 'Add to watchlist'}</button>
     </div>
-    <div class="modal-body">
-      <div class="modal-stats">
-        <div class="modal-stat"><div class="modal-stat-label">12-mo Growth</div><div class="modal-stat-value" style="color:${color}">${fmtGrowth(k.growth)}</div></div>
-        <div class="modal-stat"><div class="modal-stat-label">Trend Score</div><div class="modal-stat-value">${k.score}/100</div></div>
-        <div class="modal-stat"><div class="modal-stat-label">Status</div><div class="modal-stat-value" style="font-size:14px;text-transform:capitalize">${k.status}</div></div>
-      </div>
-      ${(()=>{
-        const v   = calcViability(k);
-        const col = viabilityColor(v);
-        const lbl = viabilityLabel(v);
-        const bd  = k.viability_breakdown || {};
-        const measured = bd.measured || null;
-        // Records written before the rescoring carry the old weights in their
-        // breakdown; mixing them with the new denominators would misreport them.
-        const isNewFormat = bd.confidence != null || bd.measured != null;
-        const maxPts = isNewFormat
-          ? Object.assign({ bonus: 5 }, factorWeights)
-          : LEGACY_WEIGHTS;
-        const names  = { trend_momentum:'Trend Momentum', current_interest:'Current Interest',
-                         competition:'Competition', price_viability:'Price Viability',
-                         social_demand:'Social Demand', first_party:'First-Party Data',
-                         web_attention:'Web Attention', bonus:'Bonuses' };
-        const rows = Object.entries(names).filter(([key]) => key in maxPts || key in bd)
-          .map(([key, name]) => {
-          const pts = bd[key] ?? null;
-          const max = maxPts[key] ?? 5;
-          // A factor with no data is shown as unmeasured, not as a zero score.
-          const hasData = measured ? (key === 'bonus' ? true : measured[key] !== false) : true;
-          const pct = (pts != null && hasData) ? Math.max(0, Math.min(100, (pts / max) * 100)) : 0;
-          const c2  = !hasData ? 'var(--muted)'
-                    : (pts != null && pts > 0 ? col : (pts < 0 ? '#ef4444' : 'var(--muted)'));
-          const val = !hasData ? 'no data' : (pts != null ? (pts > 0 ? '+' : '') + pts : '—');
-          const suffix = (hasData && pts != null)
-            ? `<span style="font-size:10px;color:var(--muted);font-weight:400">/${max}</span>` : '';
-          return `<div class="vb-row">
-            <div>
-              <div class="vb-name">${name}</div>
-              <div class="vb-bar-wrap"><div class="vb-bar" style="width:${pct}%;background:${c2}"></div></div>
-            </div>
-            <div class="vb-score" style="color:${c2}">${val}${suffix}</div>
-          </div>`;
-        }).join('');
-        return `
-        <div style="margin-bottom:16px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <div>
-              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">🎯 Product Viability Score</div>
-              <div style="font-size:28px;font-weight:800;color:${col}">${v}<span style="font-size:14px;color:var(--muted);font-weight:400">/100</span></div>
-            </div>
-            <div style="text-align:right">
-              <div style="font-size:15px;font-weight:700;color:${col}">${lbl.text}</div>
-              <div style="font-size:12px;color:var(--muted);margin-top:4px">for new product creation</div>
-            </div>
-          </div>
-          <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:14px">
-            <div style="height:100%;width:${v}%;background:${col};border-radius:3px;transition:width 0.4s ease"></div>
-          </div>
-          <div class="vb-grid">${rows}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5">
-            ${weightSummary(isNewFormat)}. Flat topics capped at 30.
-            ${bd.confidence != null ? `<br><strong>Confidence ${Math.round(bd.confidence*100)}%</strong> — the share of scoring inputs that had real data for this keyword. Unmeasured factors earn nothing and pull the result down, rather than being filled in with an average.` : ''}
-          </div>
-        </div>`;
-      })()}
-      ${k.reddit_30d != null ? `
-      <div style="margin-bottom:12px">
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">🔶 Reddit</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-          <div class="modal-stat">
-            <div class="modal-stat-label">30-day mentions</div>
-            <div class="modal-stat-value" style="font-size:16px">${fmtNum(k.reddit_30d)}</div>
-          </div>
-          <div class="modal-stat">
-            <div class="modal-stat-label">7-day mentions</div>
-            <div class="modal-stat-value" style="font-size:16px">${fmtNum(k.reddit_7d) ?? '—'}</div>
-          </div>
-          <div class="modal-stat">
-            <div class="modal-stat-label">Week-over-week</div>
-            <div class="modal-stat-value" style="font-size:16px;color:${
-              k.reddit_velocity > 10 ? 'var(--green)' :
-              k.reddit_velocity < -10 ? 'var(--red)' : 'var(--muted)'
-            }">${k.reddit_velocity != null ? (k.reddit_velocity > 0 ? '+' : '') + k.reddit_velocity + '%' : '—'}</div>
-          </div>
-        </div>
-      </div>` : ''}
-      ${k.amazon_result_count != null ? `
-      <div style="margin-bottom:16px">
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">📦 Amazon</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-          <div class="modal-stat">
-            <div class="modal-stat-label">Total listings</div>
-            <div class="modal-stat-value" style="font-size:16px">${fmtNum(k.amazon_result_count)}</div>
-          </div>
-          <div class="modal-stat">
-            <div class="modal-stat-label">Avg. price</div>
-            <div class="modal-stat-value" style="font-size:16px">${k.amazon_avg_price != null ? '$'+k.amazon_avg_price.toFixed(2) : '—'}</div>
-          </div>
-          <div class="modal-stat">
-            <div class="modal-stat-label">Top reviews</div>
-            <div class="modal-stat-value" style="font-size:16px">${fmtNum(k.amazon_top_reviews) ?? '—'}</div>
-          </div>
-          <div class="modal-stat">
-            <div class="modal-stat-label">Avg. rating</div>
-            <div class="modal-stat-value" style="font-size:16px">${k.amazon_avg_rating != null ? '⭐ '+k.amazon_avg_rating.toFixed(1) : '—'}</div>
-          </div>
-          <div class="modal-stat">
-            <div class="modal-stat-label">Market signal</div>
-            <div class="modal-stat-value" style="font-size:13px">${k.amazon_best_seller ? '★ Best Seller' : k.amazons_choice ? "✓ Amazon's Choice" : '—'}</div>
-          </div>
-          <div class="modal-stat">
-            <div class="modal-stat-label">Competition</div>
-            <div class="modal-stat-value" style="font-size:13px;color:${
-              k.amazon_result_count < 500 ? 'var(--green)' :
-              k.amazon_result_count > 10000 ? 'var(--red)' : 'var(--text)'
-            }">${k.amazon_result_count < 500 ? 'Low' : k.amazon_result_count > 10000 ? 'High' : 'Medium'}</div>
-          </div>
-        </div>
-      </div>` : ''}
-      <div class="modal-chart-wrap"><canvas id="modal-chart"></canvas></div>
-      <div class="modal-section">
-        <a class="google-link" href="${googleUrl}" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          View on Google Trends
-        </a>
-        ${k.reddit_30d != null ? `
-        <a class="google-link" href="https://www.reddit.com/search/?q=${encodeURIComponent(k.keyword)}&sort=new" target="_blank" rel="noopener" style="margin-left:12px">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          View on Reddit
-        </a>` : ''}
-        <a class="google-link" href="https://www.amazon.com/s?k=${encodeURIComponent(k.keyword)}" target="_blank" rel="noopener" style="margin-left:12px">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Search on Amazon
-        </a>
-      </div>
+
+    <h3>Twelve-month interest</h3>
+    <div style="border:1px solid var(--rule);padding:10px">${sparkHTML(k.trend, 600, 90)}</div>
+
+    <h3>Figures</h3>
+    <dl class="deflist">
+      <dt>Growth</dt><dd>${fmtGrowth(k.growth)} over twelve months</dd>
+      <dt>Interest</dt><dd>${k.score ?? '—'} / 100 (relative index)</dd>
+      <dt>Category</dt><dd>${esc(k.category)}</dd>
+      <dt>Listings</dt><dd>${k.amazon_result_count == null ? 'Not collected for this keyword'
+        : fmtNum(k.amazon_result_count) + ' on Amazon' + (
+          k.amazon_avg_price != null ? `, $${k.amazon_avg_price.toFixed(2)} average` : '') + (
+          k.amazon_avg_rating != null ? `, rated ${k.amazon_avg_rating.toFixed(1)}` : '')}</dd>
+      <dt>Reddit</dt><dd>${hasReddit(k) ? fmtNum(k.reddit_30d) + ' posts / 30 days'
+        : 'Unknown — not collected, see note 3'}</dd>
+      ${k.amazon_best_seller ? '<dt>Flags</dt><dd>Best Seller present in results</dd>' : ''}
+      ${k.amazons_choice ? "<dt>Flags</dt><dd>Amazon's Choice present in results</dd>" : ''}
+    </dl>
+
+    ${Object.keys(b).length ? `<h3>Score composition</h3><dl class="deflist">
+      ${Object.entries(b).sort((x,y) => (x[0]==='bonus') - (y[0]==='bonus') || y[1]-x[1])
+        .map(([key,val]) => `<dt>${esc(humanize(key))}</dt><dd>${val}</dd>`).join('')}
+    </dl>` : ''}
+
+    <h3>Tracked trajectory</h3>
+    <div id="kwHistory">${canSeries()
+      ? '<p class="small">Loading…</p>'
+      : `<p class="small">The nightly trajectory for this keyword is part of the tracked
+         history. ${currentUser ? 'It opens with a subscription.' : 'A free 7-day trial opens it — no card required.'}</p>
+         <button class="btn pri" onclick="closeDlg('dlgKeyword');${currentUser?'openUpgrade()':"openAuth('register')"}">
+         ${currentUser ? 'Subscribe — $29/mo' : 'Start free trial'}</button>`}</div>
+
+    ${currentUser ? `<h3>Your record</h3><div id="kwWorkspace"><p class="small">Loading…</p></div>`
+                  : ''}
+  </div>`);
+
+  if (canSeries()) loadKeywordHistory(k.keyword);
+  if (currentUser) loadKeywordWorkspace(k.keyword);
+}
+
+async function loadKeywordHistory(keyword) {
+  const el = () => document.getElementById('kwHistory');
+  const res = await api('/api/history/' + encodeURIComponent(keyword));
+  if (!el()) return;
+  if (res.status === 429) {
+    el().innerHTML = `<p class="small">${esc(res.error)}</p>
+      <button class="btn pri" onclick="closeDlg('dlgKeyword');openUpgrade()">Remove the limit — $29/mo</button>`;
+    return;
+  }
+  if (res.status === 401 || res.status === 402) {
+    el().innerHTML = `<p class="small">${esc(res.error)}</p>
+      <button class="btn pri" onclick="closeDlg('dlgKeyword');${res.status===401?"openAuth('register')":'openUpgrade()'}">
+      ${res.status === 401 ? 'Start free trial' : 'Subscribe — $29/mo'}</button>`;
+    return;
+  }
+  if (!res.ok) { el().innerHTML = `<p class="small">${esc(res.error || 'No history recorded yet.')}</p>`; return; }
+  const pts = (res.points || res.series || []);
+  const vals = pts.map(p => p.viability ?? p.value ?? p.interest).filter(v => v != null);
+  el().innerHTML = vals.length > 1
+    ? `<div style="border:1px solid var(--rule);padding:10px">${sparkHTML(vals, 600, 90)}</div>
+       <p class="small" style="margin-top:7px">${vals.length} nightly observations.</p>`
+    : `<p class="small">Not enough observations yet.</p>`;
+}
+
+// ── Workspace (notes + outcome) ───────────────────────────────────────────────
+const STAGES = ['considering','launched','passed'];
+const RESULTS = ['too_early','flop','breakeven','worked','hit'];
+const REVENUE = ['none','under_1k','1k_10k','10k_50k','50k_plus'];
+const humanize = s => s.replace(/_/g,' ').replace(/^\w/, c => c.toUpperCase());
+
+async function loadKeywordWorkspace(keyword) {
+  const [note, out] = await Promise.all([
+    api('/api/notes?keyword=' + encodeURIComponent(keyword)),
+    api('/api/outcomes?keyword=' + encodeURIComponent(keyword)),
+  ]);
+  const el = document.getElementById('kwWorkspace');
+  if (!el) return;
+  const o = out.outcome || {};
+  const sel = (id, opts, cur) => `<select id="${id}">
+    <option value="">—</option>
+    ${opts.map(v => `<option value="${v}"${v===cur?' selected':''}>${humanize(v)}</option>`).join('')}</select>`;
+  el.innerHTML = `
+    <p class="small">Recording what you actually did is what lets the backtest
+       measure the score against real outcomes rather than only against interest.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+      <label class="field"><span>Stage</span>${sel('wsStage', STAGES, o.stage)}</label>
+      <label class="field"><span>Result</span>${sel('wsResult', RESULTS, o.result)}</label>
+      <label class="field"><span>Revenue</span>${sel('wsRevenue', REVENUE, o.revenue_band)}</label>
     </div>
-  `;
+    <label class="field"><span>Notes</span>
+      <textarea id="wsNote" rows="3" placeholder="What made you decide?">${esc((note.note||{}).body || '')}</textarea></label>
+    <button class="btn pri" onclick="saveWorkspace('${esc(keyword).replace(/'/g,"\\'")}')">Save</button>
+    <span class="msg" id="wsMsg"></span>`;
+}
 
-  document.getElementById('modalOverlay').classList.add('open');
-
-  // Everything above is the original card detail. The workspace below is what
-  // keeps people in the product: their own tracked history, notes and outcome.
-  const mbody = document.querySelector('#modal .modal-body');
-  if (mbody) {
-    mbody.insertAdjacentHTML('beforeend', workspaceHTML(k));
-    loadKeywordHistory(k.keyword);
-    if (currentUser) loadKeywordWorkspace(k.keyword);
+async function saveWorkspace(keyword) {
+  const val = id => (document.getElementById(id) || {}).value || '';
+  const msg = document.getElementById('wsMsg');
+  msg.className = 'msg'; msg.textContent = 'Saving…';
+  const stage = val('wsStage');
+  if (stage) {
+    const r = await api('/api/outcomes', {method:'POST', body: JSON.stringify({
+      keyword, stage, result: val('wsResult') || null, revenue_band: val('wsRevenue') || null})});
+    if (!r.ok) { msg.className='msg err'; msg.textContent = r.error || 'Could not save.'; return; }
   }
-
-  setTimeout(() => {
-    const ctx = document.getElementById('modal-chart');
-    if (!ctx) return;
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: months,
-        datasets: [{
-          data: k.trend,
-          backgroundColor: k.trend.map((v,i) => i === k.trend.length-1 ? color : color+'80'),
-          borderRadius: 4,
-          borderSkipped: false,
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: { label: c => `Interest: ${c.raw}` },
-            backgroundColor: '#1a1d27', titleColor: '#e2e8f0',
-            bodyColor: '#94a3b8', borderColor: '#2e3250', borderWidth: 1
-          }
-        },
-        scales: {
-          x: { grid: { color: '#2e3250' }, ticks: { color: '#64748b', font: { size: 11 } } },
-          y: { grid: { color: '#2e3250' }, ticks: { color: '#64748b', font: { size: 11 } }, min: 0, max: 110 }
-        }
-      }
-    });
-  }, 50);
+  const r2 = await api('/api/notes', {method:'POST', body: JSON.stringify({keyword, body: val('wsNote')})});
+  if (!r2.ok) { msg.className='msg err'; msg.textContent = r2.error || 'Could not save the note.'; return; }
+  msg.className = 'msg ok'; msg.textContent = 'Saved.';
 }
 
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('modalOverlay')) {
-    document.getElementById('modalOverlay').classList.remove('open');
+// ── Movers ────────────────────────────────────────────────────────────────────
+async function openMovers(win) {
+  win = win || '7';
+  const res = await api(`/api/movers?window=${win}`);
+  if (res.status === 401 || res.status === 402) {
+    openDlg('dlgGeneric', dlgHead('Movers', 'dlgGeneric') + `<div class="dlg-b">
+      <p>${esc(res.error)}</p>
+      <p class="small">Movers ranks every tracked keyword by how far it has moved since
+         the last observation. It is derived entirely from the nightly history, which is
+         why it sits behind the trial.</p>
+      <button class="btn pri" onclick="closeDlg('dlgGeneric');${res.status===401?"openAuth('register')":'openUpgrade()'}">
+        ${res.status === 401 ? 'Start free trial — no card' : 'Subscribe — $29/mo'}</button></div>`);
+    return;
   }
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeMethodologyModal(); closeGeneric(); } });
-
-// ── Methodology modal ─────────────────────────────────────────────────────────
-function openMethodologyModal() {
-  document.getElementById('methodOverlay').classList.add('open');
-}
-function closeMethodologyModal(e) {
-  if (!e || e.target === document.getElementById('methodOverlay')) {
-    document.getElementById('methodOverlay').classList.remove('open');
+  if (!res.ok) {
+    openDlg('dlgGeneric', dlgHead('Movers','dlgGeneric') +
+      `<div class="dlg-b"><p>${esc(res.error || 'Not enough history yet.')}</p></div>`);
+    return;
   }
+  const tbl = rows => rows.length ? `<table class="data"><thead><tr>
+      <th>Keyword</th><th>Category</th><th>Viability</th><th>Change</th></tr></thead><tbody>
+      ${rows.slice(0,15).map(r => `<tr><td><div class="kw" style="font-size:15px">${esc(r.keyword)}</div></td>
+        <td style="color:var(--ink-3)">${esc(r.category||'—')}</td>
+        <td class="u">${r.viability}</td><td>${deltaHTML(r.delta)}</td></tr>`).join('')}
+      </tbody></table>` : `<p class="small">Not enough history yet.</p>`;
+  openDlg('dlgGeneric', dlgHead('Biggest movers','dlgGeneric') + `<div class="dlg-b">
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+      <div class="seg">${(res.available_windows||['7']).map(w =>
+        `<button class="${w===win?'on':''}" onclick="openMovers('${w}')">${w} days</button>`).join('')}</div>
+      <span class="count">${res.coverage} keywords with enough history</span></div>
+    <h3>Rising</h3>${tbl(res.risers||[])}
+    <h3>Cooling</h3>${tbl(res.fallers||[])}</div>`);
 }
 
-
-// ══════════════════════════════════════════════════════════════════════════════
-// Accounts, watchlist, notes, outcomes, history and movers.
-//
-// The read-only dashboard above works with no backend state at all. Everything
-// below degrades gracefully: if no database is configured the API reports
-// accounts_enabled:false and these controls simply don't appear.
-// ══════════════════════════════════════════════════════════════════════════════
-
-let currentUser     = null;
-let accountsEnabled = false;
-let watchSet        = new Set();
-let verticalList    = [];
-let activeVertical  = 'all';
-let scoreBands      = [];
-let historyCoverage = null;
-let signalSources   = {};
-let factorWeights   = {};
-const LEGACY_WEIGHTS = { trend_momentum:30, current_interest:20, competition:25,
-                         price_viability:10, social_demand:15, bonus:5 };
-const DEFAULT_BANDS = [
-  { min:75, label:'Strong Opportunity', color:'#22c55e' },
-  { min:60, label:'Good Potential',     color:'#86efac' },
-  { min:45, label:'Moderate Risk',      color:'#facc15' },
-  { min:30, label:'High Risk',          color:'#f97316' },
-  { min:0,  label:'Not Recommended',    color:'#ef4444' },
-];
-
-function weightSummary(isNewFormat) {
-  const names = { trend_momentum:'Trend Momentum', current_interest:'Current Interest',
-                  competition:'Competition', price_viability:'Price Viability',
-                  social_demand:'Social Demand', first_party:'First-Party Data',
-                  web_attention:'Web Attention' };
-  const w = (isNewFormat && Object.keys(factorWeights).length)
-    ? factorWeights : LEGACY_WEIGHTS;
-  return 'Score weights: ' + Object.entries(names)
-    .filter(([k]) => w[k] != null)
-    .map(([k, n]) => `${n} (${w[k]})`).join(' + ');
+// ── Watchlist ─────────────────────────────────────────────────────────────────
+async function openWatchlist() {
+  const res = await api('/api/watchlist');
+  const rows = res.watchlist || [];
+  openDlg('dlgGeneric', dlgHead('Watchlist','dlgGeneric') + `<div class="dlg-b">
+    ${rows.length ? `<table class="data"><thead><tr><th>Keyword</th><th>Viability</th>
+        <th>7d</th><th>Since added</th><th>Band</th></tr></thead><tbody>
+      ${rows.map(r => `<tr><td><div class="kw" style="font-size:15px">${esc(r.keyword)}</div></td>
+        <td class="u">${r.viability ?? '—'}</td><td>${deltaHTML(r.d7)}</td>
+        <td>${deltaHTML(r.since_added)}</td>
+        <td style="color:var(--ink-3)">${esc(r.band || '—')}</td></tr>`).join('')}
+      </tbody></table>`
+    : `<p>Nothing saved yet.</p><p class="small">Star a keyword in the table to follow it here
+       and to see how it has moved since the day you added it.</p>`}</div>`);
 }
 
-const normKw = (s) => String(s).trim().toLowerCase().replace(/\s+/g, ' ');
-const escHtml = (s) => String(s ?? '').replace(/[&<>"]/g, c =>
-  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// ── Subscription ──────────────────────────────────────────────────────────────
+function openUpgrade() {
+  const li = (yes, t) => `<li class="${yes?'':'no'}">${ic(yes?'check':'x')}<span>${t}</span></li>`;
+  openDlg('dlgGeneric', dlgHead('Subscription','dlgGeneric') + `<div class="dlg-b">
+    <div class="price">
+      <div class="price-top"><span class="price-amt">$29</span>
+        <span class="price-per">per month · cancel any time</span></div>
+      <ul>
+        ${li(true,'Full nightly trajectory for every tracked keyword')}
+        ${li(true,'Movers — what rose and cooled, each night')}
+        ${li(true,'Unlimited keyword history (the trial allows 25 a day)')}
+        ${li(true,'Watchlist, notes and outcome tracking')}
+        ${li(true,'The current week&rsquo;s report, as it is published')}
+      </ul>
+    </div>
+    <p class="small" style="margin-top:16px">Billing is not connected yet, so this button
+      cannot take payment. The plan, trial clock and limits behind it are live —
+      what is missing is the payment step.</p>
+    <button class="btn" disabled>Payment not yet available</button>
+    <p class="small" style="margin-top:14px">Today&rsquo;s snapshot and the
+      <a href="/track-record">measured accuracy</a> stay free for everyone, always.</p>
+  </div>`);
+}
 
+// ── Methods ───────────────────────────────────────────────────────────────────
+function openMethods() {
+  const red = !redditLive;
+  openDlg('dlgMethods', dlgHead('Methods','dlgMethods') + `<div class="dlg-b">
+    <h3>Collection</h3>
+    <p>Every night at 1 AM CST a scheduled job queries each tracked keyword and appends
+      the result to a snapshot store rather than overwriting the previous night. The web
+      application only ever reads that store; nothing is fetched live.</p>
+    <dl class="deflist">
+      <dt>Google Trends</dt><dd>US interest-over-time across twelve months. A 0–100
+        relative index, not a volume count.</dd>
+      <dt>Amazon</dt><dd>First page of search results: listing count, average price,
+        rating, review counts and Best Seller / Amazon&rsquo;s Choice flags.</dd>
+      <dt>Wikipedia</dt><dd>Daily pageviews over 60 days — a real count, so it can tell a
+        small category from a shrinking one.</dd>
+      <dt>Reddit</dt><dd>${red ? 'Currently unavailable. Reddit returns 403 to unauthenticated search, so social demand is recorded as unknown — not as zero — and affected keywords carry lower confidence.' : 'Post volume over 30 days, with week-over-week velocity.'}</dd>
+    </dl>
+
+    <h3>Twelve-month growth</h3>
+    <div class="formula">(recent_month − earliest_month) / earliest_month × 100</div>
+    <p class="small">A keyword at index 10 in January and 50 in December shows +400%.</p>
+
+    <h3>Viability</h3>
+    <p>A 0–100 composite. Factors score only over the weight that actually has data, and
+      the result is scaled by the share of total weight that represents — so a keyword
+      measured on Google Trends alone cannot reach the top band, and a missing Amazon
+      lookup no longer quietly earns a mid-table score.</p>
+    ${Object.keys(factorWeights||{}).length ? `<dl class="deflist">
+      ${Object.entries(factorWeights).map(([k,v]) =>
+        `<dt>${v}</dt><dd>${esc(humanize(k))}</dd>`).join('')}</dl>` : ''}
+
+    <h3>What this score is not</h3>
+    <p>${calibration && calibration.factor_diagnostics && calibration.factor_diagnostics.score_then
+        ? `Backtested against 30-day forward movement the composite correlates
+           <b>${calibration.factor_diagnostics.score_then.correlation.toFixed(3)}</b>
+           (n=${calibration.factor_diagnostics.score_then.n}). It is not predictive today.`
+        : 'The score is backtested nightly against 30-day forward movement.'}
+      The weights have deliberately not been re-fitted to that result — the sample is
+      still small enough that doing so would fit noise. The full breakdown is public on
+      the <a href="/track-record">track record</a> page.</p>
+  </div>`);
+}
+
+// ── API + account ─────────────────────────────────────────────────────────────
 async function api(path, opts) {
-  const res  = await fetch(path, Object.assign({headers: {'Content-Type': 'application/json'}}, opts));
-  const json = await res.json().catch(() => ({ok: false, error: 'Bad response'}));
+  const res  = await fetch(path, Object.assign({headers:{'Content-Type':'application/json'}}, opts));
+  const json = await res.json().catch(() => ({ok:false, error:'Unreadable response'}));
   return {status: res.status, ...json};
 }
 
-// ── Vertical selector ─────────────────────────────────────────────────────────
 function renderVerticalSelect() {
   const sel = document.getElementById('verticalSelect');
-  if (!sel || !verticalList.length) return;
+  if (!sel || !verticalList.length) { if (sel) sel.style.display = 'none'; return; }
   sel.innerHTML = verticalList.map(v =>
-    `<option value="${escHtml(v.id)}"${v.id === activeVertical ? ' selected' : ''}>${escHtml(v.label)}</option>`
-  ).join('');
+    `<option value="${esc(v.id)}"${v.id===activeVertical?' selected':''}>${esc(v.label)}</option>`).join('');
 }
 
 async function setVertical(id) {
   activeVertical = id;
-  const json = await api(`/api/trends?vertical=${encodeURIComponent(id)}`);
+  const json = await api('/api/trends?vertical=' + encodeURIComponent(id));
   if (json.ok) {
-    allKeywords  = json.keywords;
-    visibleCount = PAGE_SIZE;
-    activeCategory = 'All';
-    renderApp();
-    renderVerticalSelect();
+    allKeywords = json.keywords; plan = json.plan || plan;
+    visibleCount = PAGE_SIZE; activeCategory = 'All';
+    renderShell(); renderVerticalSelect();
   }
 }
 
-// ── Auth ──────────────────────────────────────────────────────────────────────
 async function refreshAccount() {
   const me = await api('/api/auth/me');
   accountsEnabled = !!me.accounts_enabled;
-  currentUser     = me.user || null;
+  currentUser = me.user || null;
+  if (me.plan) plan = me.plan;
   if (currentUser) await refreshWatchlist();
-  renderAuthSlot();
-  renderCards();
+  renderAuthSlot(); renderNotices(); renderRows();
 }
 
 function renderAuthSlot() {
@@ -1275,292 +1043,75 @@ function renderAuthSlot() {
   if (!slot) return;
   if (!accountsEnabled) { slot.innerHTML = ''; return; }
   slot.innerHTML = currentUser
-    ? `<button class="btn-sm" onclick="openWatchlist()">★ Watchlist</button>
-       <button class="btn-sm" onclick="doLogout()" title="${escHtml(currentUser.email)}">Sign out</button>`
-    : `<button class="btn-sm primary" onclick="openAuth()">Sign in</button>`;
+    ? `<button class="linkbtn" onclick="openWatchlist()">${ic('star')}Watchlist</button>
+       <button class="linkbtn" onclick="doLogout()" title="${esc(currentUser.email)}">Sign out</button>`
+    : `<button class="linkbtn" onclick="openAuth('login')">${ic('user')}Sign in</button>`;
 }
 
 function openAuth(mode) {
   mode = mode || 'login';
-  const isLogin = mode === 'login';
-  showGeneric(`
-    <div class="modal-header">
-      <div class="modal-title">${isLogin ? 'Sign in' : 'Create an account'}</div>
-      <button class="modal-close" onclick="closeGeneric()">✕</button>
-    </div>
-    <div class="modal-body">
-      <p class="hint" style="color:var(--muted);font-size:13px;margin-top:0">
-        An account keeps your watchlist, notes and launch outcomes — and the
-        outcomes are what train the score against real results.</p>
-      <div class="auth-form">
-        <input type="email" id="authEmail" placeholder="you@company.com" autocomplete="username">
-        <input type="password" id="authPass" placeholder="Password (10+ characters)"
-               autocomplete="${isLogin ? 'current-password' : 'new-password'}">
-        <button class="btn-sm primary" onclick="doAuth('${mode}')">
-          ${isLogin ? 'Sign in' : 'Create account'}</button>
-      </div>
-      <div id="authMsg" class="msg"></div>
-      <p style="margin-top:14px;font-size:12.5px;color:var(--muted)">
-        ${isLogin ? 'No account yet?' : 'Already registered?'}
-        <a href="#" onclick="openAuth('${isLogin ? 'register' : 'login'}');return false"
-           style="color:var(--accent)">${isLogin ? 'Create one' : 'Sign in'}</a>
-      </p>
-    </div>`);
-  setTimeout(() => { const el = document.getElementById('authEmail'); if (el) el.focus(); }, 60);
+  const reg = mode === 'register';
+  openDlg('dlgGeneric', dlgHead(reg ? 'Start your trial' : 'Sign in', 'dlgGeneric') + `<div class="dlg-b">
+    ${reg ? `<p>Seven days of the full series — trajectory, movers and keyword history.
+      No card required, and nothing is charged when the trial ends.</p>` : ''}
+    <label class="field"><span>Email</span>
+      <input type="email" id="authEmail" autocomplete="username" placeholder="you@example.com"></label>
+    <label class="field"><span>Password</span>
+      <input type="password" id="authPass" placeholder="At least 10 characters"
+        autocomplete="${reg?'new-password':'current-password'}"
+        onkeydown="if(event.key==='Enter')doAuth('${mode}')"></label>
+    <button class="btn pri" onclick="doAuth('${mode}')">${reg ? 'Start 7-day trial' : 'Sign in'}</button>
+    <div id="authMsg" class="msg"></div>
+    <p class="small" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--rule)">
+      ${reg ? 'Already have an account? <button class="linkbtn" style="color:var(--accent)" onclick="openAuth(\'login\')">Sign in</button>'
+            : 'No account yet? <button class="linkbtn" style="color:var(--accent)" onclick="openAuth(\'register\')">Start a free trial</button>'}
+      <br>There is no password reset yet — keep your password somewhere safe.</p>
+  </div>`);
+  setTimeout(() => { const e = document.getElementById('authEmail'); if (e) e.focus(); }, 30);
 }
 
 async function doAuth(mode) {
-  const email = (document.getElementById('authEmail') || {}).value || '';
-  const pass  = (document.getElementById('authPass')  || {}).value || '';
-  const msg   = document.getElementById('authMsg');
+  const email = (document.getElementById('authEmail')||{}).value || '';
+  const pass  = (document.getElementById('authPass') ||{}).value || '';
+  const msg = document.getElementById('authMsg');
   msg.className = 'msg'; msg.textContent = 'Working…';
-
-  const res = await api(`/api/auth/${mode === 'login' ? 'login' : 'register'}`,
-                        {method: 'POST', body: JSON.stringify({email, password: pass})});
+  const res = await api('/api/auth/' + (mode === 'login' ? 'login' : 'register'),
+    {method:'POST', body: JSON.stringify({email, password: pass})});
   if (!res.ok) { msg.className = 'msg err'; msg.textContent = res.error || 'Something went wrong.'; return; }
-  currentUser = res.user;
+  currentUser = res.user; plan = (res.user && res.user.plan) || plan;
   await refreshWatchlist();
-  renderAuthSlot();
-  renderCards();
-  closeGeneric();
+  closeDlg('dlgGeneric');
+  const t = await api('/api/trends' + (activeVertical ? '?vertical=' + encodeURIComponent(activeVertical) : ''));
+  if (t.ok) { allKeywords = t.keywords; plan = t.plan || plan; }
+  renderAuthSlot(); renderShell();
 }
 
 async function doLogout() {
-  await api('/api/auth/logout', {method: 'POST'});
-  currentUser = null;
-  watchSet = new Set();
-  renderAuthSlot();
-  renderCards();
+  await api('/api/auth/logout', {method:'POST'});
+  currentUser = null; watchSet = new Set();
+  const t = await api('/api/trends');
+  if (t.ok) { allKeywords = t.keywords; plan = t.plan || null; }
+  renderAuthSlot(); renderShell();
 }
 
-// ── Watchlist ─────────────────────────────────────────────────────────────────
 async function refreshWatchlist() {
   const res = await api('/api/watchlist');
   watchSet = new Set((res.watchlist || []).map(w => normKw(w.keyword)));
 }
 
 async function toggleWatch(keyword) {
-  if (!currentUser) { openAuth(); return; }
+  if (!currentUser) { openAuth('register'); return; }
   const key = normKw(keyword);
   if (watchSet.has(key)) {
-    await api(`/api/watchlist?keyword=${encodeURIComponent(keyword)}`, {method: 'DELETE'});
+    await api('/api/watchlist?keyword=' + encodeURIComponent(keyword), {method:'DELETE'});
     watchSet.delete(key);
   } else {
-    await api('/api/watchlist', {method: 'POST', body: JSON.stringify({keyword})});
+    await api('/api/watchlist', {method:'POST', body: JSON.stringify({keyword})});
     watchSet.add(key);
   }
-  renderCards();
+  renderRows();
 }
 
-async function openWatchlist() {
-  const res = await api('/api/watchlist');
-  const rows = (res.watchlist || []);
-  showGeneric(`
-    <div class="modal-header">
-      <div class="modal-title">★ Your watchlist</div>
-      <button class="modal-close" onclick="closeGeneric()">✕</button>
-    </div>
-    <div class="modal-body">
-      ${rows.length ? `<table class="movers-tbl">
-        <tr><th>Keyword</th><th class="num">Viability</th><th class="num">7d</th>
-            <th class="num">Since added</th><th>Band</th></tr>
-        ${rows.map(r => `<tr>
-          <td>${escHtml(r.keyword)}</td>
-          <td class="num">${r.viability ?? '—'}</td>
-          <td class="num" style="color:${r.d7 > 0 ? '#22c55e' : (r.d7 < 0 ? '#ef4444' : 'var(--muted)')}">
-              ${r.d7 == null ? '—' : (r.d7 > 0 ? '+' : '') + r.d7}</td>
-          <td class="num" style="color:${r.since_added > 0 ? '#22c55e' : (r.since_added < 0 ? '#ef4444' : 'var(--muted)')}">
-              ${r.since_added == null ? '—' : (r.since_added > 0 ? '+' : '') + r.since_added}</td>
-          <td style="color:var(--muted)">${escHtml(r.band || '—')}</td>
-        </tr>`).join('')}
-      </table>` : `<p style="color:var(--muted)">Nothing saved yet. Star a keyword to track it here.</p>`}
-    </div>`);
-}
-
-// ── Movers ────────────────────────────────────────────────────────────────────
-async function openMovers(window) {
-  window = window || '7';
-  const res = await api(`/api/movers?window=${window}`);
-  if (!res.ok) {
-    showGeneric(`<div class="modal-header"><div class="modal-title">Movers</div>
-      <button class="modal-close" onclick="closeGeneric()">✕</button></div>
-      <div class="modal-body"><p style="color:var(--muted)">${escHtml(res.error)}</p></div>`);
-    return;
-  }
-  const tbl = (rows, sign) => rows.length ? `<table class="movers-tbl">
-      <tr><th>Keyword</th><th>Category</th><th class="num">Viability</th><th class="num">Change</th></tr>
-      ${rows.slice(0, 15).map(r => `<tr>
-        <td>${escHtml(r.keyword)}</td>
-        <td style="color:var(--muted)">${escHtml(r.category || '—')}</td>
-        <td class="num">${r.viability}</td>
-        <td class="num" style="color:${r.delta > 0 ? '#22c55e' : '#ef4444'};font-weight:600">
-          ${r.delta > 0 ? '+' : ''}${r.delta}</td></tr>`).join('')}
-    </table>` : `<p style="color:var(--muted)">Not enough history yet.</p>`;
-
-  showGeneric(`
-    <div class="modal-header">
-      <div class="modal-title">📊 Biggest movers</div>
-      <button class="modal-close" onclick="closeGeneric()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div style="display:flex;gap:8px;margin-bottom:14px">
-        ${(res.available_windows || ['7']).map(w =>
-          `<button class="btn-sm${w === window ? ' primary' : ''}" onclick="openMovers('${w}')">${w} days</button>`).join('')}
-        <span style="margin-left:auto;color:var(--muted);font-size:12px;align-self:center">
-          ${res.coverage} keywords with enough history</span>
-      </div>
-      <h4 style="margin:0 0 8px;font-size:13px">Rising</h4>${tbl(res.risers || [], '+')}
-      <h4 style="margin:20px 0 8px;font-size:13px">Cooling</h4>${tbl(res.fallers || [], '')}
-    </div>`);
-}
-
-// ── Per-keyword workspace inside the detail modal ─────────────────────────────
-function workspaceHTML(k) {
-  return `
-    <div class="panel">
-      <h4>📈 Tracked history</h4>
-      <p class="hint" id="histHint">Loading…</p>
-      <svg class="spark" id="histSpark" viewBox="0 0 600 56" preserveAspectRatio="none"></svg>
-    </div>
-    <div class="panel" id="wsPanel">
-      ${currentUser ? `
-        <h4>Your notes &amp; outcome</h4>
-        <p class="hint">Recording what you actually did is what lets the score be
-           trained against real results instead of search interest.</p>
-        <textarea id="wsNote" placeholder="Supplier quotes, angles, competitors…"></textarea>
-        <div class="field-row" style="margin-top:10px">
-          <label>Stage
-            <select id="wsStage">
-              <option value="">—</option>
-              <option value="considering">Considering</option>
-              <option value="launched">Launched</option>
-              <option value="passed">Passed</option>
-            </select></label>
-          <label>Result
-            <select id="wsResult">
-              <option value="">—</option>
-              <option value="too_early">Too early to tell</option>
-              <option value="flop">Flop</option>
-              <option value="breakeven">Broke even</option>
-              <option value="worked">Worked</option>
-              <option value="hit">Big hit</option>
-            </select></label>
-          <label>Revenue
-            <select id="wsRevenue">
-              <option value="">—</option>
-              <option value="none">None</option>
-              <option value="under_1k">Under $1k</option>
-              <option value="1k_10k">$1k–$10k</option>
-              <option value="10k_50k">$10k–$50k</option>
-              <option value="50k_plus">$50k+</option>
-            </select></label>
-        </div>
-        <button class="btn-sm primary" onclick="saveWorkspace('${escHtml(k.keyword).replace(/'/g, "\\'")}')">Save</button>
-        <span id="wsMsg" class="msg"></span>`
-      : `<h4>Track this keyword</h4>
-         <p class="hint">Sign in to save notes, star this keyword and record how a
-            launch went.</p>
-         <button class="btn-sm primary" onclick="openAuth()">Sign in</button>`}
-    </div>`;
-}
-
-async function loadKeywordHistory(keyword) {
-  const hint  = document.getElementById('histHint');
-  const spark = document.getElementById('histSpark');
-  if (!hint || !spark) return;
-
-  const res = await api(`/api/history/${encodeURIComponent(keyword)}`);
-  if (!res.ok || !res.points || res.points.length < 2) {
-    hint.textContent = 'Not enough tracked history for this keyword yet.';
-    spark.style.display = 'none';
-    return;
-  }
-
-  const pts  = res.points.filter(p => p.viability != null);
-  if (pts.length < 2) { hint.textContent = 'Not enough tracked history yet.'; spark.style.display='none'; return; }
-  const vals = pts.map(p => p.viability);
-  const min  = Math.min(...vals), max = Math.max(...vals);
-  const span = Math.max(1, max - min);
-  const path = pts.map((p, i) => {
-    const x = (i / (pts.length - 1)) * 600;
-    const y = 52 - ((p.viability - min) / span) * 46;
-    return `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`;
-  }).join(' ');
-
-  const first = pts[0], last = pts[pts.length - 1];
-  const delta = last.viability - first.viability;
-  const col   = delta > 0 ? '#22c55e' : (delta < 0 ? '#ef4444' : '#94a3b8');
-
-  hint.innerHTML = `Viability <strong>${first.viability}</strong> on ${escHtml(first.date)}
-      → <strong>${last.viability}</strong> on ${escHtml(last.date)}
-      (<span style="color:${col}">${delta > 0 ? '+' : ''}${delta}</span>
-      over ${pts.length} observations)`;
-  spark.innerHTML =
-    `<path d="${path}" fill="none" stroke="${col}" stroke-width="2"
-       stroke-linejoin="round" stroke-linecap="round"/>`;
-}
-
-async function loadKeywordWorkspace(keyword) {
-  const [note, outcome] = await Promise.all([
-    api(`/api/notes?keyword=${encodeURIComponent(keyword)}`),
-    api(`/api/outcomes?keyword=${encodeURIComponent(keyword)}`),
-  ]);
-  const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
-  if (note.note)      set('wsNote', note.note.body);
-  if (outcome.outcome) {
-    set('wsStage',   outcome.outcome.stage);
-    set('wsResult',  outcome.outcome.result);
-    set('wsRevenue', outcome.outcome.revenue_band);
-  }
-}
-
-async function saveWorkspace(keyword) {
-  const msg = document.getElementById('wsMsg');
-  const val = (id) => (document.getElementById(id) || {}).value || '';
-  msg.className = 'msg'; msg.textContent = 'Saving…';
-
-  await api('/api/notes', {method: 'POST',
-    body: JSON.stringify({keyword, body: val('wsNote')})});
-
-  const stage = val('wsStage');
-  if (stage) {
-    const res = await api('/api/outcomes', {method: 'POST', body: JSON.stringify({
-      keyword, stage,
-      result:       val('wsResult')  || null,
-      revenue_band: val('wsRevenue') || null,
-    })});
-    if (!res.ok) { msg.className = 'msg err'; msg.textContent = res.error; return; }
-  }
-  msg.className = 'msg ok';
-  msg.textContent = 'Saved.';
-}
-
-// ── Source summary ────────────────────────────────────────────────────────────
-// Reads what the nightly job actually managed to collect, so the banner can't
-// keep advertising a source that has silently stopped returning data.
-function sourceSummary() {
-  const live = ['Google Trends', 'Amazon'];
-  if (signalSources.wikipedia)   live.push('Wikipedia');
-  if (signalSources.youtube)     live.push('YouTube');
-  if (signalSources.first_party) live.push('first-party data');
-  return live.join(' + ');
-}
-
-// ── Generic modal ─────────────────────────────────────────────────────────────
-function showGeneric(html) {
-  // The detail modal is often already open when this is triggered from inside it.
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.getElementById('methodOverlay').classList.remove('open');
-  document.getElementById('genericModal').innerHTML = html;
-  document.getElementById('genericOverlay').classList.add('open');
-}
-function closeGeneric(e) {
-  if (!e || e.target === document.getElementById('genericOverlay')) {
-    document.getElementById('genericOverlay').classList.remove('open');
-  }
-}
-
-// ── Init ──────────────────────────────────────────────────────────────────────
 loadData();
 </script>
 </body>

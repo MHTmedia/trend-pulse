@@ -4,61 +4,96 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TrendPulse — Track Record</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#0b0f17; --surface:#131926; --surface2:#1b2334; --line:#212a3b;
-          --text:#e6edf7; --muted:#8b97ab; --up:#22c55e; --down:#ef4444;
-          --warn:#f97316; --accent:#6366f1; }
-  @media (prefers-color-scheme: light) {
-    :root { --bg:#f7f8fb; --surface:#fff; --surface2:#f0f2f7; --line:#e3e7ee;
-            --text:#131926; --muted:#5d6675; }
-  }
-  * { box-sizing:border-box; }
-  body { margin:0; padding:34px 20px; background:var(--bg); color:var(--text);
-         font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-  .wrap { max-width:900px; margin:0 auto; }
-  header { display:flex; align-items:center; justify-content:space-between;
-           gap:16px; flex-wrap:wrap; margin-bottom:6px; }
-  h1 { font-size:27px; margin:0; letter-spacing:-.02em; }
-  h2 { font-size:17px; margin:34px 0 12px; letter-spacing:-.01em; }
-  .sub { color:var(--muted); font-size:13px; }
-  a { color:var(--accent); text-decoration:none; }
-  a:hover { text-decoration:underline; }
-  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
-           gap:10px; margin-top:18px; }
-  .stat { background:var(--surface); border:1px solid var(--line);
-          border-radius:11px; padding:13px 15px; }
-  .stat b { display:block; font-size:22px; letter-spacing:-.02em; }
-  .stat span { color:var(--muted); font-size:11px; text-transform:uppercase;
-               letter-spacing:.05em; }
-  table { width:100%; border-collapse:collapse; background:var(--surface);
-          border:1px solid var(--line); border-radius:11px; overflow:hidden; }
-  th,td { padding:9px 12px; text-align:left; border-bottom:1px solid var(--line);
-          font-size:13.5px; }
-  th { color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase;
-       letter-spacing:.05em; }
-  tr:last-child td { border-bottom:none; }
-  .num { text-align:right; font-variant-numeric:tabular-nums; }
-  .muted { color:var(--muted); }
-  .up { color:var(--up); font-weight:600; }
-  .down { color:var(--down); font-weight:600; }
-  .callout { border-radius:11px; padding:14px 16px; font-size:13.5px; margin:16px 0; }
-  .callout.warn { background:rgba(249,115,22,.09); border:1px solid rgba(249,115,22,.32); }
-  .callout.info { background:rgba(99,102,241,.09); border:1px solid rgba(99,102,241,.28); }
-  .scroll { overflow-x:auto; }
-  .loading, .error { padding:40px; text-align:center; color:var(--muted); }
-  code { background:var(--surface2); padding:1px 5px; border-radius:4px; font-size:12.5px; }
+/* Companion document to the main series — same sheet, same rules, same faces.
+   This page is deliberately never gated: it is where the score is audited. */
+:root {
+  --desk:#e8e8e4; --sheet:#fff; --sheet-sunk:#f4f4f1;
+  --ink:#14161a; --ink-2:#4a4e57; --ink-3:#767b85;
+  --rule:#d8d8d3; --rule-strong:#14161a;
+  --accent:#23417e; --accent-soft:#e7ecf6;
+  --up:#1c6046; --down:#8f2f2f; --warn:#8a6d1f;
+  --shadow:0 1px 2px rgba(20,22,26,.05), 0 8px 24px -12px rgba(20,22,26,.18);
+  --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --sans:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --desk:#0c0d10; --sheet:#17191d; --sheet-sunk:#1e2126;
+  --ink:#e8e7e3; --ink-2:#a8aab0; --ink-3:#7e828a;
+  --rule:#2c2f35; --rule-strong:#e8e7e3;
+  --accent:#8fb0ea; --accent-soft:#1d2635;
+  --up:#5fbf90; --down:#e08a8a; --warn:#d6b45c;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6); } }
+:root[data-theme="dark"] {
+  --desk:#0c0d10; --sheet:#17191d; --sheet-sunk:#1e2126;
+  --ink:#e8e7e3; --ink-2:#a8aab0; --ink-3:#7e828a;
+  --rule:#2c2f35; --rule-strong:#e8e7e3;
+  --accent:#8fb0ea; --accent-soft:#1d2635;
+  --up:#5fbf90; --down:#e08a8a; --warn:#d6b45c; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--desk); color:var(--ink); font:16px/1.55 var(--serif);
+       -webkit-font-smoothing:antialiased; }
+.num,table,code { font-variant-numeric:tabular-nums lining-nums; }
+a { color:var(--accent); text-underline-offset:2px; }
+:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.wrap { max-width:900px; margin:0 auto; background:var(--sheet); min-height:100vh;
+        border-left:1px solid var(--rule); border-right:1px solid var(--rule);
+        box-shadow:var(--shadow); padding:0 clamp(18px,4vw,52px); }
+header { padding:26px 0 0; border-bottom:2px solid var(--rule-strong);
+         display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; }
+h1 { font:700 clamp(28px,4vw,40px)/1.05 var(--serif); letter-spacing:-.022em; }
+header .sub { font:italic 400 17px/1.4 var(--serif); color:var(--ink-2);
+              flex-basis:100%; padding:8px 0 18px; max-width:62ch; }
+header a { margin-left:auto; font:500 12.5px var(--sans); }
+h2 { font:700 11.5px var(--sans); letter-spacing:.09em; text-transform:uppercase;
+     margin:34px 0 10px; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+         gap:0; border-top:1px solid var(--rule-strong); margin-top:22px; }
+.stat { border-bottom:1px solid var(--rule); border-right:1px solid var(--rule);
+        padding:14px 16px; }
+.stat b { display:block; font:700 30px/1 var(--serif); letter-spacing:-.02em;
+          margin-bottom:5px; }
+.stat span { color:var(--ink-3); font:600 10px var(--sans);
+             text-transform:uppercase; letter-spacing:.09em; }
+table { width:100%; border-collapse:collapse; font-family:var(--sans); }
+th { color:var(--ink-3); font-size:10px; font-weight:600; text-transform:uppercase;
+     letter-spacing:.085em; text-align:left; padding:0 12px 7px 0;
+     border-bottom:1px solid var(--rule-strong); white-space:nowrap; }
+td { padding:9px 12px 9px 0; border-bottom:1px solid var(--rule); font-size:13px; }
+.num { text-align:right; padding-right:0; }
+th.num { text-align:right; padding-right:0; }
+.muted { color:var(--ink-3); }
+.up { color:var(--up); font-weight:600; }
+.down { color:var(--down); font-weight:600; }
+.callout { font:400 15px/1.55 var(--serif); padding:14px 0 14px 16px; margin:18px 0;
+           border-left:2px solid var(--rule-strong); max-width:70ch; }
+.callout.warn { border-left-color:var(--warn); }
+.callout.info { border-left-color:var(--accent); }
+.scroll { overflow-x:auto; }
+.loading,.error { padding:44px 0; text-align:center; color:var(--ink-3);
+                  font-family:var(--sans); font-size:13px; }
+code { background:var(--sheet-sunk); padding:1px 5px; font-size:12.5px;
+       font-family:var(--sans); }
+.colophon { font:500 11px var(--sans); letter-spacing:.05em; text-transform:uppercase;
+            color:var(--ink-3); border-top:1px solid var(--rule);
+            margin-top:34px; padding:14px 0 40px; }
+@media (prefers-reduced-motion:reduce) { * { animation:none!important; transition:none!important } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div>
-      <h1>Track Record</h1>
-      <div class="sub">What the score said, and what actually happened next.</div>
-    </div>
-    <a href="/">← Back to dashboard</a>
+    <h1>Track Record</h1>
+    <a href="/">← Back to the series</a>
+    <div class="sub">What the score said, and what actually happened next — published
+      in full, including where it fails.</div>
   </header>
   <div id="content"><div class="loading">Loading…</div></div>
+</div>
+  <div class="colophon">TrendPulse — measured accuracy, never gated</div>
 </div>
 
 <script>
@@ -72,7 +107,7 @@ function bandRows(perf) {
   if (!perf || !perf.length) return '<tr><td colspan="4" class="muted">No data.</td></tr>';
   return perf.map(p => `
     <tr>
-      <td><span style="color:${esc(p.color)};font-weight:600">${esc(p.label)}</span>
+      <td><span style="font-weight:600">${esc(p.label)}</span>
           <span class="muted">≥${p.min}</span></td>
       <td class="num">${p.n}</td>
       <td class="num">${pct(p.hit_rate)}</td>
