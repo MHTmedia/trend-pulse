@@ -5217,9 +5217,10 @@
   {
     "keyword": "Toy Story Adidas",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-25"
   },
   {
     "keyword": "Adidas Toy Story Toddler",
@@ -6236,9 +6237,10 @@
   {
     "keyword": "Citicoline",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-24",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-25"
   },
   {
     "keyword": "Focus Factor",
