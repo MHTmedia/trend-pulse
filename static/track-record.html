@@ -44,11 +44,11 @@ a { color:var(--accent); text-underline-offset:2px; }
         box-shadow:var(--shadow); padding:0 clamp(18px,4vw,52px); }
 header { padding:26px 0 0; border-bottom:2px solid var(--rule-strong);
          display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; }
-h1 { font:700 clamp(28px,4vw,40px)/1.05 var(--serif); letter-spacing:-.022em; }
-header .sub { font:italic 400 17px/1.4 var(--serif); color:var(--ink-2);
+h1 { font:700 clamp(30px,4vw,40px)/1.05 var(--serif); letter-spacing:-.022em; }
+header .sub { font:italic 400 20px/1.4 var(--serif); color:var(--ink-2);
               flex-basis:100%; padding:8px 0 18px; max-width:62ch; }
-header a { margin-left:auto; font:500 12.5px var(--sans); }
-h2 { font:700 11.5px var(--sans); letter-spacing:.09em; text-transform:uppercase;
+header a { margin-left:auto; font:500 13px var(--sans); }
+h2 { font:700 10px var(--sans); letter-spacing:.09em; text-transform:uppercase;
      margin:34px 0 10px; }
 .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
          gap:0; border-top:1px solid var(--rule-strong); margin-top:22px; }
@@ -68,16 +68,16 @@ th.num { text-align:right; padding-right:0; }
 .muted { color:var(--ink-3); }
 .up { color:var(--up); font-weight:600; }
 .down { color:var(--down); font-weight:600; }
-.callout { font:400 15px/1.55 var(--serif); padding:14px 0 14px 16px; margin:18px 0;
+.callout { font:400 16px/1.55 var(--serif); padding:14px 0 14px 16px; margin:18px 0;
            border-left:2px solid var(--rule-strong); max-width:70ch; }
 .callout.warn { border-left-color:var(--warn); }
 .callout.info { border-left-color:var(--accent); }
 .scroll { overflow-x:auto; }
 .loading,.error { padding:44px 0; text-align:center; color:var(--ink-3);
                   font-family:var(--sans); font-size:13px; }
-code { background:var(--sheet-sunk); padding:1px 5px; font-size:12.5px;
+code { background:var(--sheet-sunk); padding:1px 5px; font-size:13px;
        font-family:var(--sans); }
-.colophon { font:500 11px var(--sans); letter-spacing:.05em; text-transform:uppercase;
+.colophon { font:500 10px var(--sans); letter-spacing:.05em; text-transform:uppercase;
             color:var(--ink-3); border-top:1px solid var(--rule);
             margin-top:34px; padding:14px 0 40px; }
 @media (prefers-reduced-motion:reduce) { * { animation:none!important; transition:none!important } }
@@ -123,7 +123,7 @@ function diagnosticRows(diag) {
     const verdict = rho == null ? 'no variance in the data'
                   : (rho > 0.05 ? 'predictive' : (rho < -0.05 ? 'inversely related' : 'no signal'));
     return `<tr>
-      <td><code>${esc(field)}</code><div class="muted" style="font-size:12px">${esc(d.description)}</div></td>
+      <td><code>${esc(field)}</code><div class="muted" style="font-size:13px">${esc(d.description)}</div></td>
       <td class="num ${cls}">${rho == null ? '—' : rho}</td>
       <td class="num muted">${d.n}</td>
       <td class="${cls}">${verdict}</td>
