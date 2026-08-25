@@ -59,13 +59,14 @@ real-time data it does not have.
 
 ## Brand Commitments
 
-Name: **TrendPulse**. The user made one binding visual constraint: an editorial
-research aesthetic — the register of an analyst note rather than a dashboard
-gadget — rendered as a light and dark token pair that follows the OS.
+Name: **TrendPulse**. The user's binding visual constraint is a clean,
+tech-forward product interface in the register of https://www.radix-ui.com — a
+disciplined neutral scale, one accent, dense and dark-first. An earlier editorial
+direction was built and rejected for reading like a newsletter; do not return to
+serif display, abstracts, or footnote apparatus.
 
-Explicit anti-reference: the incumbent look. Stock Tailwind palette values,
-system-font-only typography, and emoji standing in for icons are to be
-replaced, not preserved.
+Explicit anti-references: emoji as iconography, stock Tailwind palette values,
+and the newsletter register.
 
 ## Evidence on Hand
 

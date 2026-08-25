@@ -4,88 +4,78 @@
 
 ## World
 
-**A working paper, not a dashboard.** The app ground is a desk; content sits on a
-sheet with hairline rules. Light is the primary rendition because the artifact is
-a document; dark is the same document reversed, never a separate identity.
+**Radix.** A dense product interface on a disciplined neutral scale, dark-first.
+One accent — iris — reserved for interactive and selected states and never used
+as decoration. Bordered panels at 6/8px radii, Archivo at 13px with tabular
+figures throughout.
 
-The grammar is the preprint's: a masthead and dateline, an abstract, numbered
-tables with captions, superscript footnote markers resolving to a Notes section,
-and a colophon. These are load-bearing — the abstract is where the measured
-accuracy is stated up front, and Note 2 is where the backtest is qualified.
-
-Anti-reference (the incumbent look, replaced not polished): stock Tailwind
-palette values, system-font-only typography, emoji as iconography, and every
-element enclosed in a rounded card.
+Chosen by the user from three built options (Radix / Geist / Linear) rendered
+against real data. Replaces an editorial working-paper direction that was built
+and rejected for reading like a newsletter — serif display, abstracts and
+footnote apparatus are anti-references, not fallbacks.
 
 ## Tokens
 
-Defined on `:root`, redefined under both `@media (prefers-color-scheme: dark)`
-(guarded `:root:not([data-theme="light"])`) and `:root[data-theme="dark"]`.
+Defined on `:root` (dark), redefined under `@media (prefers-color-scheme: light)`
+guarded `:root:not([data-theme="dark"])`, and again under `:root[data-theme="light"]`.
 
-| Token | Light | Dark | Use |
+| Token | Dark | Light | Use |
 |---|---|---|---|
-| `--desk` | `#e8e8e4` | `#0c0d10` | Page ground behind the sheet |
-| `--sheet` | `#ffffff` | `#17191d` | The document surface |
-| `--sheet-sunk` | `#f4f4f1` | `#1e2126` | Row hover, formula blocks, code |
-| `--ink` | `#14161a` | `#e8e7e3` | Body text |
-| `--ink-2` | `#4a4e57` | `#a8aab0` | Secondary prose, notes |
-| `--ink-3` | `#767b85` | `#7e828a` | Labels, column heads, absent values |
-| `--rule` | `#d8d8d3` | `#2c2f35` | Hairline rules between rows |
-| `--rule-strong` | `#14161a` | `#e8e7e3` | Section and table-head rules |
-| `--accent` | `#23417e` | `#8fb0ea` | Links, primary action, selection **only** |
-| `--rise` / `--fall` | `#1c6046` / `#8f2f2f` | `#5fbf90` / `#e08a8a` | Direction |
-| `--flag` | `#8a6d1f` | `#d6b45c` | Watchlist star, trial-ended notice |
+| `--bg` | `#111113` | `#fcfcfd` | Page ground |
+| `--panel` | `#18181b` | `#ffffff` | Cards, table, dialogs |
+| `--panel-2` | `#1f1f23` | `#f7f7f9` | Elevated / selected segment |
+| `--border` | `#26262b` | `#e6e6ea` | Standard 1px border |
+| `--border-2/3` | `#33333b` / `#43434d` | `#d9d9e0` / `#c4c4cd` | Inputs, hover |
+| `--text` | `#eeeef0` | `#1c1c1f` | Primary |
+| `--text-2` | `#b4b4bb` | `#5c5c66` | Secondary |
+| `--text-3` | `#7d7d86` | `#8b8b94` | Labels, absent values |
+| `--accent` | `#5b5bd6` | `#5b5bd6` | Interactive + selected **only** |
+| `--up` / `--down` | `#30a46c` / `#e5484d` | `#218358` / `#ce2c31` | Direction |
+| `--warn` | `#ffb224` | `#a15c00` | Watchlist star, flagged notice, poor accuracy |
 
-Color strategy is **Restrained**: neutrals plus one accent. Direction color never
-carries meaning alone — every delta also renders a sign (`+12` / `−9`) and a
-drawn caret, so the table survives monochrome and color-vision differences.
+Color strategy is **Restrained**. Direction never relies on color alone — every
+delta also carries a sign and a caret glyph.
 
 ## Type
 
-| Role | Face | Notes |
-|---|---|---|
-| Display, prose, keywords | **Source Serif 4** | 400/600/700 + italic. The wordmark sets "Pulse" in italic 400 against roman 700. |
-| UI, labels, all figures | **Archivo** | 400–700. Column heads at 10px/`.085em` uppercase. |
+**Archivo** (400/500/600/700) for everything; **JetBrains Mono** for formulas and
+code only. One family is right here — this is product UI, not a brand surface.
+Deliberately not Inter or Geist: both are flagged as converged defaults.
 
-Every numeric context sets `font-variant-numeric: tabular-nums lining-nums` so
-columns align; body prose keeps oldstyle figures. Fixed rem-ish scale, no fluid
-type in the table. Prose measures are capped at 62–78ch.
+Steps: 11px meta · 12px labels · 13px body and table · 14px brand · 21px stat
+figures. Ratios sit at 1.125–1.2, which is the correct band for dense product UI
+even though a generic 1.25 heuristic flags it.
 
 ## Components
 
-- **Sheet** — `max-width: 1180px`, side rules and a soft shadow; rules drop below
-  1220px so the document goes edge-to-edge on small screens.
-- **Masthead** — wordmark, inline nav, then a dateline of observation number,
-  date, market, sources and keyword count. Stacks below 760px.
-- **Abstract** — a 128px label column beside prose stating counts, the tracked-day
-  span, and the measured correlation with its footnote.
-- **Notice** — the plan-state row (trial remaining, trial ended, public series).
-  A rule-bounded row, never a tinted alert box.
-- **Table 1** — the primary view. Ruled rows, star column, keyword with category
-  sub-label, inline SVG sparkline, growth, interest, 7/30-day deltas, listings,
-  and a viability figure with a 46px meter.
-- **Entries** — secondary catalogue view; a bordered grid of entry blocks, each a
-  keyword, a wide sparkline, and a definition list.
-- **Notes** — numbered footnotes, the anchor targets for the abstract's markers.
-- **Dialogs** — native `<dialog>` with `::backdrop`; header rule, scrolling body.
-- **Icons** — a 16-unit SVG sprite, 1.5 stroke, `currentColor`. No emoji anywhere.
+- **Top bar** — 52px, sticky, translucent with `backdrop-filter`. Brand, nav,
+  vertical select, auth slot. Wraps to two rows below 820px.
+- **Stat strip** — four cards: tracked, still climbing, breakouts, and score
+  accuracy. The accuracy card turns `--warn` while the correlation is ≤ 0, so the
+  product's weakest number is the one it shows first.
+- **Notice** — plan state (public / trial / expired / locked). Panel-bordered
+  row with the CTA right-aligned; `.flagged` variant for trial-ended.
+- **Panel + table** — the primary view. Header with title and sort tag, ruled
+  rows, star column, keyword + NEW chip, sparkline, growth, interest, 7/30-day
+  deltas, listings, viability with a meter.
+- **Cards** — secondary grid view, same data per keyword.
+- **Dialogs** — native `<dialog>`, 12px radius, header rule, scrolling body.
+- **Icons** — 16-unit SVG sprite, 1.5 stroke, `currentColor`. No emoji.
 
 ## Locked states
 
-Gated cells render a lock glyph in `--ink-3`, never a blur or a teaser value, and
-the table is followed by a notice naming what is withheld and what opens it.
-Absent data renders as `—` and, in prose, as "unknown" or "not collected" —
-never as zero, since a zero reads as a measurement.
+Gated cells render a lock glyph in `--text-3` — never a blur, never a teaser
+value. The table is followed by a notice naming what is withheld and what opens
+it. Absent data renders `—`, and in prose "unknown" or "not collected", never
+zero.
 
 ## Motion
 
-One authored moment: the loading skeleton's opacity pulse. Row and control
-feedback is instant state change. Everything is disabled under
-`prefers-reduced-motion: reduce`.
+One authored moment: the loading skeleton pulse. Everything else is instant state
+change at 150ms or less. All disabled under `prefers-reduced-motion: reduce`.
 
 ## Constraints
 
 Single self-contained `static/index.html` served by Flask — no build step, no
-framework, no CDN scripts. Fonts come from Google Fonts; sparklines and icons are
-inline SVG. `static/track-record.html` is a companion document sharing the same
-tokens, faces and rules.
+framework, no CDN scripts. Fonts from Google Fonts; sparklines and icons are
+inline SVG. `static/track-record.html` is a companion surface on the same tokens.
