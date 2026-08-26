@@ -2018,8 +2018,9 @@
   {
     "keyword": "Gravity Water Filter",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-08-26"
   },
   {
     "keyword": "Solar Shower Bag",
@@ -5288,9 +5289,10 @@
   {
     "keyword": "Stress Relief Song",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-26"
   },
   {
     "keyword": "Cat Stress Relief",
@@ -5332,9 +5334,10 @@
   {
     "keyword": "Whoop Sleep Tracker",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-12",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-26"
   },
   {
     "keyword": "Whoop",
@@ -5829,9 +5832,10 @@
   {
     "keyword": "Home Gym Con 2026",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-26"
   },
   {
     "keyword": "Dragon Ball Z Workout Gear",
@@ -6247,6 +6251,69 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-08-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Camping",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Dave Asprey",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-26",
+    "is_new": true
+  },
+  {
+    "keyword": "The Ordinary",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-08-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Data Science Projects",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Bass Pro Shop",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Davison",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-08-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Essential Oils For Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Pregnancy Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Focus Supplements",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-26",
     "is_new": true
   }
 ]
