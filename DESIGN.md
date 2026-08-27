@@ -4,69 +4,70 @@
 
 ## World
 
-**Radix.** A dense product interface on a disciplined neutral scale, dark-first.
-One accent — iris — reserved for interactive and selected states and never used
-as decoration. Bordered panels at 6/8px radii, Archivo at 13px with tabular
-figures throughout.
+**shadcn/ui, ported to plain CSS.** The same token architecture as
+ui.shadcn.com — HSL triplets consumed through `hsl(var(--token))`, one
+`--radius` deriving sm/md/lg, and the same component anatomy (Button variants,
+Card, Badge, Table, Dialog, Input, Tabs, Alert).
 
-Chosen by the user from three built options (Radix / Geist / Linear) rendered
-against real data. Replaces an editorial working-paper direction that was built
-and rejected for reading like a newsletter — serif display, abstracts and
-footnote apparatus are anti-references, not fallbacks.
+shadcn is React + Tailwind + Radix primitives, and this app has no build step,
+so the system is **implemented directly rather than installed**. The visual
+identity is portable; the React packaging is not. A real migration would mean
+npm, a bundler, rewriting the frontend as components, and changing the Vercel
+build — see "If you migrate" below.
+
+One deliberate theming change: `--primary` is emerald rather than shadcn's
+neutral near-black. This product exists to surface opportunity, so the colour
+that means "act on this" is the top of the opportunity scale.
 
 ## Tokens
 
-Defined on `:root` (dark), redefined under `@media (prefers-color-scheme: light)`
-guarded `:root:not([data-theme="dark"])`, and again under `:root[data-theme="light"]`.
+Standard shadcn names, so any shadcn component or theme drops in unmodified:
+`--background --foreground --card --card-foreground --popover --primary
+--primary-foreground --secondary --muted --muted-foreground --accent
+--destructive --border --input --ring --radius`.
 
-| Token | Dark | Light | Use |
-|---|---|---|---|
-| `--bg` | `#111113` | `#fcfcfd` | Page ground |
-| `--panel` | `#18181b` | `#ffffff` | Cards, table, dialogs |
-| `--panel-2` | `#1f1f23` | `#f7f7f9` | Elevated / selected segment |
-| `--border` | `#26262b` | `#e6e6ea` | Standard 1px border |
-| `--border-2/3` | `#33333b` / `#43434d` | `#d9d9e0` / `#c4c4cd` | Inputs, hover |
-| `--text` | `#eeeef0` | `#1c1c1f` | Primary |
-| `--text-2` | `#b4b4bb` | `#5c5c66` | Secondary |
-| `--text-3` | `#7d7d86` | `#8b8b94` | Labels, absent values |
-| `--accent` | `#5b5bd6` | `#5b5bd6` | Interactive + selected **only** |
-| `--up` / `--down` | `#30a46c` / `#e5484d` | `#218358` / `#ce2c31` | Direction |
-| `--warn` | `#ffb224` | `#a15c00` | Watchlist star, flagged notice, poor accuracy |
-| `--c1`–`--c12` | vivid step | step 11 | Category identity |
-| `--b1`–`--b5` | ramp | ramp | Viability bands |
+Dark is `:root:not([data-theme="light"])` under `prefers-color-scheme: dark`,
+plus a `[data-theme]` override in both directions.
 
-### Colour systems
+### The opportunity scale
 
-Three, each carrying meaning. Nothing is coloured for its own sake.
+`--opp-1` … `--opp-5`, emerald → lime → amber → orange → rose. This is the
+product's one evaluative judgement and the only thing allowed to use those hues:
 
-1. **Category identity** — 12 hues (`--c1`…`--c12`) assigned by a stable hash of
-   the category name, so a category keeps its colour across sorts, filters and
-   sessions and becomes something you learn rather than noise. Appears as a 7px
-   dot beside the category label and as the 2px accent strip on a card.
-2. **Viability ramp** — `--b1`…`--b5`, green → lime → amber → orange → red,
-   applied to the score figure and its meter. The colour is derived from the
-   *same* band that produces the label, because the server's bands are calibrated
-   and move; a fixed threshold would print "Strong Opportunity" in amber.
-   Adjacent steps are deliberately far apart in hue — the calibrated bands put
-   most keywords in the top two, so near-identical greens would carry no
-   information.
-3. **Direction** — `--up` / `--down` on deltas and sparklines, always alongside a
-   sign and a caret glyph, so the table survives monochrome and colour-vision
-   differences.
+| Token | Meaning |
+|---|---|
+| `--opp-1` | Prime — also `--primary`, `--up`, and the brand mark |
+| `--opp-2` | Strong |
+| `--opp-3` | Moderate — also the watchlist star and flagged alerts |
+| `--opp-4` | Thin |
+| `--opp-5` | Poor — also `--down` |
 
-Lens chips take their own hue when active and stay neutral when inactive. Stat
-cards carry a tinted icon badge. The primary CTA is a vertical gradient with an
-inset highlight; its hover lift is a real offset shadow, never a coloured halo.
+Applied to the score figure and its meter, derived from the **same band that
+produces the label** (the server's bands are calibrated and move; a fixed
+threshold printed "Strong Opportunity" in amber). Adjacent steps sit far apart
+in hue deliberately — the calibrated bands put most keywords in the top two.
+
+Category identity is a separate 12-hue set (`--c1`…`--c12`), assigned by a
+stable hash of the category name, and is never evaluative — it says *what*, not
+*how good*.
+
+Direction never relies on colour alone: every delta carries a sign and a caret.
+
+## If you migrate
+
+To use the real shadcn components: `npx shadcn@latest init`, move
+`static/index.html` into a React app, keep `app.py` as the JSON API, and point
+Vercel at the built bundle. The tokens above transfer verbatim — that is the
+point of matching the names.
 
 ## Type
 
-**Archivo** (400/500/600/700) for everything; **JetBrains Mono** for formulas and
-code only. One family is right here — this is product UI, not a brand surface.
-Deliberately not Inter or Geist: both are flagged as converged defaults.
+**Archivo** for everything; **JetBrains Mono** for formulas only. Deliberately
+not shadcn's default Inter, nor Geist — both are flagged as converged defaults,
+and the point of this exercise was to not look generated.
 
-Steps: 11px meta · 12px labels · 13px body and table · 14px brand · 21px stat
-figures. Ratios sit at 1.125–1.2, which is the correct band for dense product UI
-even though a generic 1.25 heuristic flags it.
+shadcn's scale: 14px body, 13px meta, 15px card titles, 18px dialog titles,
+26px stat figures, with `-0.03em` tracking on the large figures.
 
 ## Components
 

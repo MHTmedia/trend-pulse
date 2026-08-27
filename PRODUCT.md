@@ -61,11 +61,14 @@ real-time data it does not have.
 
 ## Brand Commitments
 
-Name: **TrendPulse**. The user's binding visual constraint is a clean,
-tech-forward product interface in the register of https://www.radix-ui.com — a
-disciplined neutral scale, one accent, dense and dark-first. An earlier editorial
-direction was built and rejected for reading like a newsletter; do not return to
-serif display, abstracts, or footnote apparatus.
+Name: **TrendPulse**. The binding visual constraint is the **shadcn/ui** system
+(ui.shadcn.com) — its token architecture and component anatomy, implemented
+directly in CSS because this app has no build step. Colour must represent
+opportunity: the primary action colour and the top of the viability scale are
+the same emerald.
+
+An earlier editorial direction was built and rejected for reading like a
+newsletter; a Radix-flavoured build preceded this one.
 
 Explicit anti-references: emoji as iconography, stock Tailwind palette values,
 and the newsletter register.
