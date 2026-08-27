@@ -6298,9 +6298,10 @@
   {
     "keyword": "Essential Oils For Sleep",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-27"
   },
   {
     "keyword": "Pregnancy Sleep Aid",
@@ -6314,6 +6315,55 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-08-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Bryan Johnson Biohacking",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-08-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Workout Clothes",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-08-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Latest News",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-08-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Rock Climbing Sneakers Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Ford Maverick Truck Accessories Manufacturing",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Free Sleep Tracker App",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Cleaning Services",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-08-27",
     "is_new": true
   }
 ]
