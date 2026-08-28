@@ -3164,9 +3164,10 @@
   {
     "keyword": "Clothing Style Wheel",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-28"
   },
   {
     "keyword": "Pool Accessories",
@@ -6122,9 +6123,10 @@
   {
     "keyword": "Sleep Aid Without Melatonin",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-23",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-28"
   },
   {
     "keyword": "Eco Friendly Car Wash Soap",
@@ -6364,6 +6366,41 @@
     "category": "Sustainability",
     "status": "active",
     "added": "2026-08-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Locker Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-08-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Agz Sleep Supplement",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Starbucks Coffee Gear",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-08-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Seattle Coffee Gear",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-08-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Nootropics",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-28",
     "is_new": true
   }
 ]
