@@ -4567,9 +4567,10 @@
   {
     "keyword": "Apple Iphone 16 Plus",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-21",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-30"
   },
   {
     "keyword": "Navigational Aids For Website Users Nyt",
@@ -5212,9 +5213,10 @@
   {
     "keyword": "Starlink Mini Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-30"
   },
   {
     "keyword": "Toy Story Adidas",
@@ -5235,9 +5237,10 @@
   {
     "keyword": "Adidas Toy Story Shoes Toddler",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-30"
   },
   {
     "keyword": "Toy Story Crocs",
@@ -6365,9 +6368,10 @@
   {
     "keyword": "Eco Friendly Cleaning Services",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-27",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-30"
   },
   {
     "keyword": "Locker Accessories",
@@ -6423,6 +6427,27 @@
     "category": "Sustainability",
     "status": "active",
     "added": "2026-08-29",
+    "is_new": true
+  },
+  {
+    "keyword": "How Much Magnesium Glycinate For Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-08-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Focus Factor Supplement",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Focus Vitamins",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-08-30",
     "is_new": true
   }
 ]
