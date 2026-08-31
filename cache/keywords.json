@@ -6439,15 +6439,44 @@
   {
     "keyword": "Focus Factor Supplement",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-30",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-08-31"
   },
   {
     "keyword": "Focus Vitamins",
     "category": "Mental Health",
     "status": "active",
     "added": "2026-08-30",
+    "is_new": true
+  },
+  {
+    "keyword": "400000 Lbs Pet Food Recall",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-08-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Palworld Accessory Slots",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-08-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Adidas Toy Story",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story Toddler Crocs",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-08-31",
     "is_new": true
   }
 ]
