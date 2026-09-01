@@ -6468,15 +6468,79 @@
   {
     "keyword": "Adidas Toy Story",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-31",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-01"
   },
   {
     "keyword": "Toy Story Toddler Crocs",
     "category": "Baby & Kids",
     "status": "active",
     "added": "2026-08-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Horse Stall Mats",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Celebrity Jazz Shoe Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Center Detroit",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Shut Eye Sleep Tracker Reviews",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Garmin Cirqa",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Shut Eye Sleep Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Tracker Excel Template",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Most Accurate Sleep Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-01",
+    "is_new": true
+  },
+  {
+    "keyword": "How Accurate Is Apple Watch Sleep Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-01",
     "is_new": true
   }
 ]
