@@ -472,8 +472,9 @@
   {
     "keyword": "Tranexamic Acid Serum",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-02"
   },
   {
     "keyword": "Squalane Oil Skincare",
@@ -6541,6 +6542,146 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-09-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacking Podcast",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Freedom Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Syedee Home Gym Station",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Isi Cooking Tool",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Fall 2026 Fashion Trends",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Fall/Winter 2026-2027 Fashion Trends",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Schools",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Unisom Sleep Tabs",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aid For 2 Year Old",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Ramelteon",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Benadryl",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Over The Counter Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Benadryl Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Over Counter Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aid Pill",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aids",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Mellow Mushroom",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Nail Salon",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Ashwagandha Benefits",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Box Breathing Stress Relief Technique",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-02",
     "is_new": true
   }
 ]
