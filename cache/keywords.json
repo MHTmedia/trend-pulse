@@ -6391,9 +6391,10 @@
   {
     "keyword": "Starbucks Coffee Gear",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-28",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-03"
   },
   {
     "keyword": "Seattle Coffee Gear",
@@ -6682,6 +6683,76 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacking Collective",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Circadia Skincare",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Bowflex Xceed Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Home Gym Setup",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Kilos Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Does Magnesium Help You Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Mushroom Drinks",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Saffron Supplement For Kids",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Focus Factor Kids",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Music",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-03",
     "is_new": true
   }
 ]
