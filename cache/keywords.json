@@ -3044,9 +3044,10 @@
   {
     "keyword": "Tonal Smart Home Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-04"
   },
   {
     "keyword": "Weight Rack For Home Gym",
@@ -6744,15 +6745,100 @@
   {
     "keyword": "Focus Factor Kids",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-04"
   },
   {
     "keyword": "Stress Relief Music",
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Briogeo Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Product Recall",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story Toddler Shirt",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Costco Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventures",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Detroit Outdoor Adventure Center",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "America'S Outdoor Adventure Park",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Hiking Gear Store",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aid Pills",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Coffee Gear Starbucks",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Focus Supplements For Adhd",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Lions Mane",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-04",
     "is_new": true
   }
 ]
