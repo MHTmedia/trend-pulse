@@ -6840,5 +6840,61 @@
     "status": "active",
     "added": "2026-09-04",
     "is_new": true
+  },
+  {
+    "keyword": "The Wellness Company",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Hoist Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Gym Mirrors For Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Smart Start",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-09-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Violin Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Pause Sleep Supplement",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aid Over The Counter",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Seattle Coffee Gear Kirkland",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-09-05",
+    "is_new": true
   }
 ]
