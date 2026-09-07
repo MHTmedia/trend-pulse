@@ -304,8 +304,9 @@
   {
     "keyword": "Taurine Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Creatine Monohydrate",
@@ -403,14 +404,16 @@
   {
     "keyword": "Scalp Serum Hair Growth",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Rosemary Oil Hair Growth",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Hair Gloss Treatment",
@@ -496,8 +499,9 @@
   {
     "keyword": "Centella Asiatica Cream",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Glycolic Acid Toner",
@@ -548,8 +552,9 @@
   {
     "keyword": "Minoxidil Serum Hair",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "DHT Blocker Shampoo",
@@ -831,8 +836,9 @@
   {
     "keyword": "Beta Alanine Supplement",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Red Light Therapy Panel",
@@ -949,8 +955,9 @@
   {
     "keyword": "Satellite Communicator",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Bone Conduction Headphones",
@@ -1140,8 +1147,9 @@
   {
     "keyword": "Webcam 4K Streaming",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Smart Lock Door",
@@ -1160,8 +1168,9 @@
   {
     "keyword": "Freeze Dryer Home",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Air Fryer Accessories",
@@ -1193,8 +1202,9 @@
   {
     "keyword": "Bread Maker Machine",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Espresso Machine Home",
@@ -1225,8 +1235,9 @@
   {
     "keyword": "Dehydrator Machine",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Reusable Produce Bags",
@@ -1263,14 +1274,16 @@
   {
     "keyword": "Sourdough Starter Kit",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Pasta Maker Electric",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Ice Cream Maker",
@@ -1415,8 +1428,9 @@
   {
     "keyword": "Waffle Maker Belgian",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Robot Mop Smart",
@@ -1442,8 +1456,9 @@
   {
     "keyword": "Dog Probiotic Chews",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Cat Water Fountain",
@@ -1537,8 +1552,9 @@
   {
     "keyword": "Dog CBD Oil",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Pet Stroller",
@@ -1759,8 +1775,9 @@
   {
     "keyword": "Running Vest Hydration",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Hiking Pants Convertible",
@@ -1860,8 +1877,9 @@
   {
     "keyword": "Baby Sound Machine",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Baby Monitor AI",
@@ -1972,8 +1990,9 @@
   {
     "keyword": "Stroller Compact Fold",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Toddler Snack Container",
@@ -1984,8 +2003,9 @@
   {
     "keyword": "White Noise Machine Baby",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Baby Swing Electric",
@@ -2151,8 +2171,9 @@
   {
     "keyword": "Snorkel Set",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Rock Climbing Shoes",
@@ -2182,8 +2203,9 @@
   {
     "keyword": "Weighted Blanket",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Silk Sleep Mask",
@@ -2475,8 +2497,9 @@
   {
     "keyword": "Solid Conditioner Bar",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Zero Waste Starter Kit",
@@ -2623,8 +2646,9 @@
   {
     "keyword": "St John's Wort Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "SAMe Supplement",
@@ -2636,8 +2660,9 @@
   {
     "keyword": "Meditation Headband EEG",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Neurofeedback Device Home",
@@ -2829,16 +2854,18 @@
   {
     "keyword": "Water Filter System",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Language Learning App",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Home Security Camera",
@@ -2955,9 +2982,10 @@
   {
     "keyword": "The Ordinary Hair Care",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Weight Loss Fast",
@@ -3551,9 +3579,10 @@
   {
     "keyword": "Pet Friendly Vacation Rentals",
     "category": "Pets",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Nina Dobrev Bridal Fashion Trend",
@@ -4018,16 +4047,18 @@
   {
     "keyword": "Fitness Gear Resistance Tube Kit",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-12",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Gossamer Gear",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-12",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Hiking Shoes",
@@ -4160,9 +4191,10 @@
   {
     "keyword": "Blackstone Grill Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Big Green Egg Accessories",
@@ -4287,9 +4319,10 @@
   {
     "keyword": "Cosequin Joint Health Supplement",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-18",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Zeke Emanuel Ice Cream Wellness",
@@ -5029,9 +5062,10 @@
   {
     "keyword": "Glam Trend",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Whale Tail Fashion Trend",
@@ -5212,9 +5246,10 @@
   {
     "keyword": "Abrahamquirosvillalba .Com",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Coffeedeets.Com",
@@ -5309,16 +5344,18 @@
   {
     "keyword": "Toy Story Crocs",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Toy Story Shirt",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Toddler Toy Story Clothes",
@@ -5530,9 +5567,10 @@
   {
     "keyword": "Early Anesthetic",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-15",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Wimbledon",
@@ -5940,9 +5978,10 @@
   {
     "keyword": "Wet N Wild Bare Focus Tinted Hydrator",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Zinc Supplement",
@@ -6098,9 +6137,10 @@
   {
     "keyword": "Sleep Supplements",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-21",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Stock Portfolio Tracker",
@@ -6291,9 +6331,10 @@
   {
     "keyword": "Baby Sleep Schedule",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-24",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Sleep Aid Costco",
@@ -6829,9 +6870,10 @@
   {
     "keyword": "Stress Relief Music",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Briogeo Hair Care",
@@ -6899,9 +6941,10 @@
   {
     "keyword": "Coffee Gear Starbucks",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-07"
   },
   {
     "keyword": "Focus Supplements For Adhd",
@@ -7035,6 +7078,48 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacker",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Weight Sets For Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Gymshark",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Amazon Walmart Target Product Recalls",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-09-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Unl Outdoor Adventure Center",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Lions Mane Supplement",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-07",
     "is_new": true
   }
 ]
