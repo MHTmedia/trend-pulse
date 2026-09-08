@@ -318,8 +318,9 @@
   {
     "keyword": "Beef Tallow Skincare",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Peptide Face Serum",
@@ -1086,8 +1087,9 @@
   {
     "keyword": "Pocket AI Device",
     "category": "Tech",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Water Purifier Countertop",
@@ -1222,8 +1224,9 @@
   {
     "keyword": "Compost Bin Kitchen",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Fermentation Crock",
@@ -1340,8 +1343,9 @@
   {
     "keyword": "Flat Top Grill Griddle",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Pellet Smoker Grill",
@@ -1422,8 +1426,9 @@
   {
     "keyword": "Crepe Maker Electric",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Waffle Maker Belgian",
@@ -1477,8 +1482,9 @@
   {
     "keyword": "Dog Anxiety Vest",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Cat GPS Tracker",
@@ -1615,8 +1621,9 @@
   {
     "keyword": "Reptile UVB Light",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Chicken Coop Backyard",
@@ -2571,8 +2578,9 @@
   {
     "keyword": "Biodegradable Glitter",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Reusable Straw Set",
@@ -2633,8 +2641,9 @@
   {
     "keyword": "L-Tyrosine Supplement",
     "category": "Mental Health",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "5-HTP Supplement",
@@ -3311,16 +3320,18 @@
   {
     "keyword": "Boat Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Camping Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Tesla Accessories",
@@ -3670,9 +3681,10 @@
   {
     "keyword": "Y2K Fashion",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-10",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Sustainable Living Practice Pulsar Buy Clebbnvafron",
@@ -4605,9 +4617,10 @@
   {
     "keyword": "Alpha Brain",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Ryobi Camping Gear Reviews",
@@ -5649,9 +5662,10 @@
   {
     "keyword": "Blackstone Griddle Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Rivian Accessories",
@@ -6045,9 +6059,10 @@
   {
     "keyword": "Eco Friendly Office Cleaning",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-20",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Sustainable Living Trust Trek Koala Modularchetecture",
@@ -6324,9 +6339,10 @@
   {
     "keyword": "Toy Story Outfit",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-24",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Baby Sleep Schedule",
@@ -6353,9 +6369,10 @@
   {
     "keyword": "Bacopa Monnieri",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-24",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Citicoline",
@@ -7097,9 +7114,10 @@
   {
     "keyword": "Gymshark",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-08"
   },
   {
     "keyword": "Amazon Walmart Target Product Recalls",
@@ -7118,8 +7136,86 @@
   {
     "keyword": "Lions Mane Supplement",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-07",
+    "is_new": true,
+    "flat_since": "2026-09-08"
+  },
+  {
+    "keyword": "Retatrutide",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Sincmill Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Home Workout Without Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Chocolatey Eyeballs Product Recall 13 States",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Park",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "American Outdoor Adventure Park",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Ultrahuman Ring Air",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Apple Watch",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Apple Watch Sleep Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Melatonin Free Sleep Aid For Kids",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Seattle Coffee Gear Promo Code",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-09-08",
     "is_new": true
   }
 ]
