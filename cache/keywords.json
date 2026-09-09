@@ -325,8 +325,9 @@
   {
     "keyword": "Peptide Face Serum",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Niacinamide Serum",
@@ -338,8 +339,9 @@
   {
     "keyword": "Lash Serum",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "LED Face Mask",
@@ -770,8 +772,9 @@
   {
     "keyword": "Compression Boots Recovery",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Cold Therapy Machine",
@@ -1297,8 +1300,9 @@
   {
     "keyword": "Vacuum Sealer Machine",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Yogurt Maker",
@@ -1722,8 +1726,9 @@
   {
     "keyword": "Swim Shorts Quick Dry",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Merino Wool Socks",
@@ -1763,8 +1768,9 @@
   {
     "keyword": "UV Protection Clothing",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Rash Guard SPF Shirt",
@@ -1958,8 +1964,9 @@
   {
     "keyword": "Climbing Frame Indoor",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Kinetic Sand Alternative",
@@ -1977,8 +1984,9 @@
   {
     "keyword": "Audiobook Player Kids",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Smartwatch Kids GPS",
@@ -2217,8 +2225,9 @@
   {
     "keyword": "Silk Sleep Mask",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Nasal Dilator Sleep",
@@ -2364,8 +2373,9 @@
   {
     "keyword": "Espresso Puck Screen",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "WDT Tool Coffee",
@@ -3828,9 +3838,10 @@
   {
     "keyword": "Baby Trend Protect 2-In-1 Folding Booster Seat",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Kids Foot Locker",
@@ -4417,9 +4428,10 @@
   {
     "keyword": "Fitbit Air",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-18",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Cbd As A Sleep Aid",
@@ -4861,9 +4873,10 @@
   {
     "keyword": "Toy Story 5 Showtimes",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "How Long Is Toy Story 5",
@@ -5905,9 +5918,10 @@
   {
     "keyword": "Sleep Tracker App",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Oak Willow Eco Friendly",
@@ -6406,9 +6420,10 @@
   {
     "keyword": "The Ordinary",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Data Science Projects",
@@ -7200,9 +7215,10 @@
   {
     "keyword": "Apple Watch Sleep Tracker",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-09"
   },
   {
     "keyword": "Melatonin Free Sleep Aid For Kids",
@@ -7216,6 +7232,76 @@
     "category": "Coffee & Beverages",
     "status": "active",
     "added": "2026-09-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Treluxe Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Uvu Outdoor Adventure Center",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Americas Outdoor Adventure Park",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Center",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Portal Sleep Supplement",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Dollar General Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Melatonin Side Effects",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Strongest Over The Counter Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aid Medication",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Electric Toothbrush",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-09",
     "is_new": true
   }
 ]
