@@ -1877,8 +1877,9 @@
   {
     "keyword": "Baby Carrier Ergonomic",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-10"
   },
   {
     "keyword": "Convertible Car Seat",
@@ -3860,9 +3861,10 @@
   {
     "keyword": "Smart Home Devices",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-10"
   },
   {
     "keyword": "Ultralight Amazon Camping Gear",
@@ -4350,9 +4352,10 @@
   {
     "keyword": "Zeke Emanuel Ice Cream Wellness",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-18",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-10"
   },
   {
     "keyword": "Popular Movies 2025",
@@ -5586,9 +5589,10 @@
   {
     "keyword": "Garden Pest",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-15",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-10"
   },
   {
     "keyword": "Early Anesthetic",
