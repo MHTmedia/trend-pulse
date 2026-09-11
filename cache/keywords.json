@@ -238,8 +238,9 @@
   {
     "keyword": "Microbiome Test Kit",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Food Sensitivity Test Kit",
@@ -298,8 +299,9 @@
   {
     "keyword": "Sea Buckthorn Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Taurine Supplement",
@@ -442,14 +444,16 @@
   {
     "keyword": "Microcurrent Face Device",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "RF Skin Tightening Device",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Vitamin C Serum Face",
@@ -523,8 +527,9 @@
   {
     "keyword": "Microneedling Roller Home",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "At Home Laser Hair Removal",
@@ -2462,8 +2467,9 @@
   {
     "keyword": "French Press Insulated",
     "category": "Coffee & Beverages",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Milk Frother Electric",
@@ -2475,14 +2481,16 @@
   {
     "keyword": "Silicone Food Storage Bags",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Reusable Cotton Rounds",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Bamboo Toothbrush",
@@ -3427,9 +3435,10 @@
   {
     "keyword": "Shop Deals On Needoh Stress Relief Toys",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Nature'S Bounty Anxiety & Stress Relief",
@@ -3654,9 +3663,10 @@
   {
     "keyword": "Alpr Technology Smart Device Tracking",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-10",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Ringconn Gen 2 Smart Ring",
@@ -4224,9 +4234,10 @@
   {
     "keyword": "Big Green Egg Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Blackstone Accessories",
@@ -5128,9 +5139,10 @@
   {
     "keyword": "Kristen Bell",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Polar Hair Care Reviews",
@@ -5389,9 +5401,10 @@
   {
     "keyword": "Toddler Toy Story Clothes",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Toddler Crocs",
@@ -6249,9 +6262,10 @@
   {
     "keyword": "Camping Gear Checklist",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-23",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Anthracite Outdoor Adventure Area",
@@ -7177,9 +7191,10 @@
   {
     "keyword": "Home Workout Without Equipment",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Chocolatey Eyeballs Product Recall 13 States",
@@ -7205,9 +7220,10 @@
   {
     "keyword": "Ultrahuman Ring Air",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-11"
   },
   {
     "keyword": "Apple Watch",
@@ -7306,6 +7322,27 @@
     "category": "Sustainability",
     "status": "active",
     "added": "2026-09-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Medvi Health",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Sexy Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Campground",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-11",
     "is_new": true
   }
 ]
