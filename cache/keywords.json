@@ -493,8 +493,9 @@
   {
     "keyword": "Squalane Oil Skincare",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-13"
   },
   {
     "keyword": "Ceramide Moisturizer",
@@ -1964,8 +1965,9 @@
   {
     "keyword": "Trampoline Indoor Kids",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-13"
   },
   {
     "keyword": "Climbing Frame Indoor",
@@ -5865,9 +5867,10 @@
   {
     "keyword": "Capital Of France",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-13"
   },
   {
     "keyword": "Cuts Down Crossword Clue",
@@ -6562,9 +6565,10 @@
   {
     "keyword": "Seattle Coffee Gear",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-28",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-13"
   },
   {
     "keyword": "Nootropics",
@@ -7420,6 +7424,20 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Weider Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-13",
+    "is_new": true
+  },
+  {
+    "keyword": "2026 Fall Fashion Trends",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-13",
     "is_new": true
   }
 ]
