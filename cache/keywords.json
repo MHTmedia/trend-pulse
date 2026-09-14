@@ -2246,8 +2246,9 @@
   {
     "keyword": "Anti Snoring Mouthpiece",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-14"
   },
   {
     "keyword": "Melatonin Gummies",
@@ -5680,9 +5681,10 @@
   {
     "keyword": "Planet Fitness New Equipment",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-14"
   },
   {
     "keyword": "At Home Workout Gear",
@@ -7438,6 +7440,27 @@
     "category": "Fashion",
     "status": "active",
     "added": "2026-09-13",
+    "is_new": true
+  },
+  {
+    "keyword": "Fabletics",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-14",
+    "is_new": true
+  },
+  {
+    "keyword": "Ebay Motors Parts And Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-14",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium Glycinate For Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-14",
     "is_new": true
   }
 ]
