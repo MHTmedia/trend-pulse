@@ -2594,8 +2594,9 @@
   {
     "keyword": "Refillable Water Bottle",
     "category": "Sustainability",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-15"
   },
   {
     "keyword": "Biodegradable Glitter",
@@ -2856,9 +2857,10 @@
   {
     "keyword": "Toy Story Toddler",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-15"
   },
   {
     "keyword": "Toy Story",
@@ -3108,9 +3110,10 @@
   {
     "keyword": "Marcy 150Lb Stack Weight Home Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-15"
   },
   {
     "keyword": "Marcy 150Lb Stack Home Gym",
@@ -5157,9 +5160,10 @@
   {
     "keyword": "Google Fitbit Air",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-15"
   },
   {
     "keyword": "Swimming",
@@ -7461,6 +7465,62 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-09-14",
+    "is_new": true
+  },
+  {
+    "keyword": "Mike Tyson Daughter Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Voltra Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Hill People Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Tranquil Sleep Supplement",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Tart Cherry Juice",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Apnea",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Common Sleep Aid Nyt",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aid Prescription",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-15",
     "is_new": true
   }
 ]
