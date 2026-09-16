@@ -2814,9 +2814,10 @@
   {
     "keyword": "Toddler Toy Story Sambas",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-16"
   },
   {
     "keyword": "Toddler Shoes",
@@ -7521,6 +7522,76 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-09-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Cardiologist Kitchen Gadget Material Recommendations",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadgets",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Sandy River Outdoor Adventure",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Dnr Outdoor Adventure Center",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Does Magnesium Glycinate Help You Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Aura Ring",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Nyquil Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Alpha Gpc",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Sheep",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Anxiety And Stress Relief Pills",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-16",
     "is_new": true
   }
 ]
