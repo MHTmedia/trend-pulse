@@ -2020,8 +2020,9 @@
   {
     "keyword": "Toddler Snack Container",
     "category": "Baby & Kids",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-17"
   },
   {
     "keyword": "White Noise Machine Baby",
@@ -7592,6 +7593,55 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Wellness Gadgets",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Fall Fashion Trends 2026",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Ar15 Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Fi Salmonella Pet Supplement Recall",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Hurricane Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Benadryl For Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Yoga Poses For Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-17",
     "is_new": true
   }
 ]
