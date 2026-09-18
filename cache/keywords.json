@@ -2279,14 +2279,16 @@
   {
     "keyword": "GABA Supplement Sleep",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-18"
   },
   {
     "keyword": "Phosphatidylserine Supplement",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-18"
   },
   {
     "keyword": "Sunrise Alarm Clock",
@@ -4502,9 +4504,10 @@
   {
     "keyword": "Stress Relief Lyrics",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-18",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-18"
   },
   {
     "keyword": "Biohacking Documentary Netflix",
@@ -7535,9 +7538,10 @@
   {
     "keyword": "Kitchen Gadgets",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-18"
   },
   {
     "keyword": "Sandy River Outdoor Adventure",
@@ -7642,6 +7646,125 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Beyonce Hair Care Line",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Cecred Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Restaurants",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadget For Making Mashed Potatoes",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Shoulder Rest",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Tours",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "America Outdoor Adventure Park",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Activities",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Patagonia",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Valorant Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Tracker Apple Watch",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Starbucks",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Hotel Booking",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Air Fryer",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Trash Bags",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Whole Foods Focus Supplement",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Natures Bounty Anxiety And Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-18",
     "is_new": true
   }
 ]
