@@ -5646,9 +5646,10 @@
   {
     "keyword": "Man Of Steel Director",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-15",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-19"
   },
   {
     "keyword": "Garden Pest Crossword Clue",
@@ -6561,9 +6562,10 @@
   {
     "keyword": "Agz Sleep Supplement",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-28",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-19"
   },
   {
     "keyword": "Starbucks Coffee Gear",
@@ -6728,9 +6730,10 @@
   {
     "keyword": "Biohacking Podcast",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-02",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-19"
   },
   {
     "keyword": "Freedom Fitness Equipment",
@@ -7765,6 +7768,90 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Seen Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Beyonce Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Hair Care Brands",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Common Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Math Class Assignment Nyt",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Rewards Program Tracker Nyt",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Phone Connector Nyt",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Counter Nyt",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Safest Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Aid Otc",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Printer Ink",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Darkest Dungeon Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-19",
     "is_new": true
   }
 ]
