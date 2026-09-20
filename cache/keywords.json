@@ -3599,16 +3599,18 @@
   {
     "keyword": "Crimson Desert Special Cooking Tool",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-20"
   },
   {
     "keyword": "Crimson Desert Cooking Tool",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-20"
   },
   {
     "keyword": "Ice Cream",
@@ -6988,9 +6990,10 @@
   {
     "keyword": "America'S Outdoor Adventure Park",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-20"
   },
   {
     "keyword": "Hiking Gear Store",
@@ -7852,6 +7855,83 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Bulletproof Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Home Depot Gym Flooring",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Reddit Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Toddler Toy Story Costume",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story Characters",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Light Decor Nyt",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Acidic Nyt",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Hylands Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Omega Center For Sustainable Living",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Cute Dog Funnies Daily Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Crypto Daily",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-20",
     "is_new": true
   }
 ]
