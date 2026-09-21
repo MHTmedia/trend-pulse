@@ -5252,9 +5252,10 @@
   {
     "keyword": "Kdm Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-21"
   },
   {
     "keyword": "Smyrna Outdoor Adventure Center",
@@ -5670,9 +5671,10 @@
   {
     "keyword": "Nomination From The Academy",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-15",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-21"
   },
   {
     "keyword": "Product Lifecycle Management",
@@ -7932,6 +7934,132 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Medvi Weight Loss",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Shop Lc",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Quad Ed",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Medvi Reviews",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Elixamd",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Glp 1 Booster Supplement",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Glp 1 Natural Supplement",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Medvi Glp1",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Glp 1 Supplement",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Glp1 Supplement",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Events",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "At Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Toddler Toy Mcdonalds",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Must Have Hiking Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Godzilla Adversary",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Natural Sleep Aid Without Melatonin",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Running Shoes",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-21",
+    "is_new": true
+  },
+  {
+    "keyword": "Running Shoes",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-21",
     "is_new": true
   }
 ]
