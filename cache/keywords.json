@@ -8058,8 +8058,79 @@
   {
     "keyword": "Running Shoes",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-21",
+    "is_new": true,
+    "flat_since": "2026-09-22"
+  },
+  {
+    "keyword": "Embody",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Wearable Tech Gadgets",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-09-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Weather Today",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-09-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Mcdonalds Toddler Toy",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-09-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Rei Camping Gear 2026",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Michigan Outdoor Adventure",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Common Sleep Aid Nyt Crossword",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Examples Of Media On Medium",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Tempur Pedic Sleep Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Non Addictive Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-22",
     "is_new": true
   }
 ]
