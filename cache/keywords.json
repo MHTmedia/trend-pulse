@@ -698,8 +698,9 @@
   {
     "keyword": "Vibration Plate",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-24"
   },
   {
     "keyword": "Foam Roller Electric",
@@ -8178,9 +8179,10 @@
   {
     "keyword": "Supplements For Sleep",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-23",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-24"
   },
   {
     "keyword": "Common Sleep Aid Crossword",
@@ -8215,6 +8217,83 @@
     "category": "Sustainability",
     "status": "active",
     "added": "2026-09-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Tre Luxe Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Laser Hair Removal",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Paris Street Style",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Glock 43X Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Camping Gear Rental",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Rewards Program Tracker Nyt Crossword",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Godzilla Adversary Nyt",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "What A Joke May Get Eventually Nyt",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Rewards Program Tracker Crossword",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Dryer Sheets",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Laundry Detergents",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-24",
     "is_new": true
   }
 ]
