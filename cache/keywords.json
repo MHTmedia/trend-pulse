@@ -692,8 +692,9 @@
   {
     "keyword": "Gymnastic Rings",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-25"
   },
   {
     "keyword": "Vibration Plate",
@@ -7786,9 +7787,10 @@
   {
     "keyword": "Beyonce Hair Care",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-25"
   },
   {
     "keyword": "Hair Care Brands",
@@ -8294,6 +8296,104 @@
     "category": "Sustainability",
     "status": "active",
     "added": "2026-09-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Is Polar Hair Care Legit",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Seht Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Nike Workout Gear For Women",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Pure Encapsulations Magnesium Glycinate",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium Glycinate Supplement",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Coffee Cups",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Luggage",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Freelance Writing Jobs",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Business Productivity Tools",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Virtual Reality Technology",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Project Management Software",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Future Technology Innovations",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Fossil Fuel",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Late Night Drive Home Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-09-25",
     "is_new": true
   }
 ]
