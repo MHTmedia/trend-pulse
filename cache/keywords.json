@@ -815,8 +815,9 @@
   {
     "keyword": "Whoop Band Alternative",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-27"
   },
   {
     "keyword": "Plant Based Protein Powder",
@@ -1427,8 +1428,9 @@
   {
     "keyword": "Fire Pit Cooking Grate",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-27"
   },
   {
     "keyword": "Dutch Baby Pan",
@@ -1558,8 +1560,9 @@
   {
     "keyword": "Cat Dental Chews",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-27"
   },
   {
     "keyword": "Cat Probiotic Supplement",
@@ -1648,8 +1651,9 @@
   {
     "keyword": "Beekeeping Starter Kit",
     "category": "Pets",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-27"
   },
   {
     "keyword": "Cat Grass Kit",
@@ -7799,9 +7803,10 @@
   {
     "keyword": "Hair Care Brands",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-27"
   },
   {
     "keyword": "Common Sleep Aid",
@@ -8327,9 +8332,10 @@
   {
     "keyword": "Pure Encapsulations Magnesium Glycinate",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-25",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-27"
   },
   {
     "keyword": "Magnesium Glycinate Supplement",
@@ -8441,9 +8447,10 @@
   {
     "keyword": "Hiking Rain Gear",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-27"
   },
   {
     "keyword": "Hiking Gear For Beginners",
@@ -8462,9 +8469,10 @@
   {
     "keyword": "Panther Eclipse",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-27"
   },
   {
     "keyword": "Try Relaxium Sleep Aid",
@@ -8499,6 +8507,48 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-09-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Natural Glp1 Supplement",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacking Que Es",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-09-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Wearable Technology",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-09-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Campgrounds",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Strongest Otc Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Snoopy Starbucks",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-09-27",
     "is_new": true
   }
 ]
