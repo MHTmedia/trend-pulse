@@ -7811,9 +7811,10 @@
   {
     "keyword": "Common Sleep Aid",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-28"
   },
   {
     "keyword": "Math Class Assignment Nyt",
@@ -8113,9 +8114,10 @@
   {
     "keyword": "Michigan Outdoor Adventure",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-22",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-28"
   },
   {
     "keyword": "Common Sleep Aid Nyt Crossword",
@@ -8369,9 +8371,10 @@
   {
     "keyword": "Business Productivity Tools",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-25",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-28"
   },
   {
     "keyword": "Virtual Reality Technology",
@@ -8491,9 +8494,10 @@
   {
     "keyword": "Eco Friendly Promotional Products",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-28"
   },
   {
     "keyword": "Self Sustainable Living",
@@ -8526,9 +8530,10 @@
   {
     "keyword": "Wearable Technology",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-27",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-28"
   },
   {
     "keyword": "Outdoor Adventure Campgrounds",
@@ -8549,6 +8554,48 @@
     "category": "Coffee & Beverages",
     "status": "active",
     "added": "2026-09-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Marcy 150 Lb Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Lululemon",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Street Style Clothing",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Pet Insurance Cost",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Cheap Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Non Alcoholic Mushroom Drink",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-09-28",
     "is_new": true
   }
 ]
