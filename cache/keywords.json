@@ -1231,8 +1231,9 @@
   {
     "keyword": "Mushroom Growing Kit",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-09-29"
   },
   {
     "keyword": "Compost Bin Kitchen",
@@ -8596,6 +8597,146 @@
     "category": "Coffee & Beverages",
     "status": "active",
     "added": "2026-09-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Dicks Sporting Goods",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Brown Collarless Jacket Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Web Hosting Comparison",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Cheap Flights New York",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Travel Insurance Comparison",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Electric Cars Comparison",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Learn Golang",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Cloud Storage Pricing",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Digital Marketing Course",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Remote Jobs Hiring",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Yoga For Beginners",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Solar Panel Cost",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Home Insurance Quotes",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Cheapest Flights To Tokyo",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Top Tourist Attractions In Paris",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Rewards Program Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Hume Band 2.0",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Tracker On Apple Watch",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Trazadone",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Electric Vehicles News",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-09-29",
     "is_new": true
   }
 ]
