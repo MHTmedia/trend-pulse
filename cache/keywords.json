@@ -8065,9 +8065,10 @@
   {
     "keyword": "Eco Friendly Running Shoes",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-21",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-30"
   },
   {
     "keyword": "Running Shoes",
@@ -8602,9 +8603,10 @@
   {
     "keyword": "Dicks Sporting Goods",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-29",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-09-30"
   },
   {
     "keyword": "Brown Collarless Jacket Fashion Trend",
@@ -8737,6 +8739,83 @@
     "category": "Sustainability",
     "status": "active",
     "added": "2026-09-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Influance Hair Care",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "At Home Gym Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Winter Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Wearable Tech Conference",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Aldi Kitchen Gadget Thursday Release",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Tulip Jeans Fashion Trend Fall",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Fall Winter 2026/2027 Fashion Trends",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Clay County Outdoor Adventure Park",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium Supplement For Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium For Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Online Casinos Casinodeets.Com",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-09-30",
     "is_new": true
   }
 ]
