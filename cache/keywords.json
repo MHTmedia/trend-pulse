@@ -5793,9 +5793,10 @@
   {
     "keyword": "Eco Friendly Cat Litter",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-01"
   },
   {
     "keyword": "Eco Friendly Dentistry",
@@ -8816,6 +8817,48 @@
     "category": "Coffee & Beverages",
     "status": "active",
     "added": "2026-09-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Netflix New Releases",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-01",
+    "is_new": true
+  },
+  {
+    "keyword": "America'S Outdoor Adventure Park Prices",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Noise Cancelling Headphones",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Swag",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Adhd Supplements",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Parenting Stress Relief Techniques",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-01",
     "is_new": true
   }
 ]
