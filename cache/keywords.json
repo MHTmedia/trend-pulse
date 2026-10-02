@@ -8836,9 +8836,10 @@
   {
     "keyword": "Noise Cancelling Headphones",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-01",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-02"
   },
   {
     "keyword": "Eco Friendly Swag",
@@ -8859,6 +8860,76 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-01",
+    "is_new": true
+  },
+  {
+    "keyword": "Reverse Health Cost",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Accessories Palworld",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Ar 15 Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Used Cars For Sale",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Davison Michigan",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Hiking Gear Sale",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Tracker App Free",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Kirkland Sleep Aid Ingredients",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Most Effective Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Late Night Stress Relief By Trinity",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-02",
     "is_new": true
   }
 ]
