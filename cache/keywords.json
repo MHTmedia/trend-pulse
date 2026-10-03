@@ -8633,9 +8633,10 @@
   {
     "keyword": "Travel Insurance Comparison",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-29",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-03"
   },
   {
     "keyword": "Electric Cars Comparison",
@@ -8907,9 +8908,10 @@
   {
     "keyword": "Sleep Tracker App Free",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-02",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-03"
   },
   {
     "keyword": "Kirkland Sleep Aid Ingredients",
@@ -8930,6 +8932,48 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-02",
+    "is_new": true
+  },
+  {
+    "keyword": "Influencer Marketing Trends",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Social Commerce",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Books",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Area Around A City",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Standard Of Living",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-03",
+    "is_new": true
+  },
+  {
+    "keyword": "Ginkgo Biloba",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-03",
     "is_new": true
   }
 ]
