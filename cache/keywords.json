@@ -2,8 +2,9 @@
   {
     "keyword": "Creatine Gummies",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Mushroom Coffee",
@@ -201,8 +202,9 @@
   {
     "keyword": "Iodine Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Lithium Orotate Supplement",
@@ -226,8 +228,9 @@
   {
     "keyword": "Continuous Glucose Monitor",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Biological Age Test Kit",
@@ -615,8 +618,9 @@
   {
     "keyword": "Weighted Vest",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Cold Plunge Tub",
@@ -653,8 +657,9 @@
   {
     "keyword": "Massage Gun",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Incline Treadmill Walking",
@@ -1204,8 +1209,9 @@
   {
     "keyword": "Sous Vide Machine",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Dutch Oven Cast Iron",
@@ -1305,8 +1311,9 @@
   {
     "keyword": "Ice Cream Maker",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Vacuum Sealer Machine",
@@ -1687,8 +1694,9 @@
   {
     "keyword": "Linen Clothing",
     "category": "Fashion",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Merino Wool Base Layer",
@@ -2334,8 +2342,9 @@
   {
     "keyword": "Blackout Curtains",
     "category": "Sleep",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Sleep Apnea Chinstrap",
@@ -3877,9 +3886,10 @@
   {
     "keyword": "Kids Foot Locker",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Toddler Toy Story Crocs",
@@ -4189,9 +4199,10 @@
   {
     "keyword": "Feedbuzzard.Com Wearable Gadgets",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Toolmilk.Com Wearable Tech",
@@ -4203,9 +4214,10 @@
   {
     "keyword": "Wearable Tech Lightning Purchase Game Gizmocomb",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Software Testing Strategies",
@@ -4394,9 +4406,10 @@
   {
     "keyword": "Popular Movies 2025",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-18",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Malibu C Hard Water Wellness Shampoo",
@@ -4904,9 +4917,10 @@
   {
     "keyword": "Top Songs This Week",
     "category": "Pets",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Toy Story 5 Showtimes",
@@ -5055,9 +5069,10 @@
   {
     "keyword": "Coffee Shops Nearby",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Healthy Recipes",
@@ -5069,9 +5084,10 @@
   {
     "keyword": "Book Recommendations",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Remedy Skincare",
@@ -5083,9 +5099,10 @@
   {
     "keyword": "Learn Programming",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Aveda Sun Care Protective Hair Veil",
@@ -5186,9 +5203,10 @@
   {
     "keyword": "Swimming",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Tonal Gym",
@@ -5228,16 +5246,18 @@
   {
     "keyword": "Sports Scores Today",
     "category": "Pets",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Technology News",
     "category": "Pets",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Fashion Trend Downey",
@@ -5442,9 +5462,10 @@
   {
     "keyword": "Camping World",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Sustainable Living @Greenpathassessment.Com",
@@ -5853,9 +5874,10 @@
   {
     "keyword": "Diy Projects",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Urgent Care",
@@ -6165,9 +6187,10 @@
   {
     "keyword": "Travel Destinations",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-21",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Tuya Smart Device",
@@ -6237,9 +6260,10 @@
   {
     "keyword": "Bryan Johnson",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-22",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Humiliated Crossword",
@@ -6571,9 +6595,10 @@
   {
     "keyword": "Locker Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-28",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Agz Sleep Supplement",
@@ -6661,9 +6686,10 @@
   {
     "keyword": "Palworld Accessory Slots",
     "category": "Pets",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-31",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Adidas Toy Story",
@@ -6711,9 +6737,10 @@
   {
     "keyword": "Garmin Cirqa",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-01",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Shut Eye Sleep Tracker",
@@ -6969,9 +6996,10 @@
   {
     "keyword": "Product Recall",
     "category": "Pets",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Toy Story Toddler Shirt",
@@ -7070,9 +7098,10 @@
   {
     "keyword": "Smart Start",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Violin Accessories",
@@ -7601,9 +7630,10 @@
   {
     "keyword": "Alpha Gpc",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Stress Relief Sheep",
@@ -8267,9 +8297,10 @@
   {
     "keyword": "Camping Gear Rental",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-24",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Rewards Program Tracker Nyt Crossword",
@@ -8382,9 +8413,10 @@
   {
     "keyword": "Virtual Reality Technology",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-25",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Project Management Software",
@@ -8619,9 +8651,10 @@
   {
     "keyword": "Web Hosting Comparison",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-29",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Cheap Flights New York",
@@ -8641,9 +8674,10 @@
   {
     "keyword": "Electric Cars Comparison",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-29",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Learn Golang",
@@ -8676,9 +8710,10 @@
   {
     "keyword": "Yoga For Beginners",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-29",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Solar Panel Cost",
@@ -8866,9 +8901,10 @@
   {
     "keyword": "Reverse Health Cost",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-02",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Accessories Palworld",
@@ -8944,9 +8980,10 @@
   {
     "keyword": "Social Commerce",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Outdoor Adventure Books",
@@ -8965,15 +9002,52 @@
   {
     "keyword": "Standard Of Living",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-04"
   },
   {
     "keyword": "Ginkgo Biloba",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-03",
+    "is_new": true,
+    "flat_since": "2026-10-04"
+  },
+  {
+    "keyword": "Nintendo Switch 2 Zelda Accessories Hori",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Hiking Gear Brands",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium Glycinate Benefits",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Dog Poop Bags",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Business Cards",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-04",
     "is_new": true
   }
 ]
