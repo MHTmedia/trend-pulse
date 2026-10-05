@@ -46,8 +46,9 @@
   {
     "keyword": "Berberine Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-05"
   },
   {
     "keyword": "Methylene Blue Supplement",
@@ -64,8 +65,9 @@
   {
     "keyword": "Sea Moss Gel",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-05"
   },
   {
     "keyword": "Tallow Balm",
@@ -625,8 +627,9 @@
   {
     "keyword": "Cold Plunge Tub",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-05"
   },
   {
     "keyword": "Sauna Tent",
@@ -1265,8 +1268,9 @@
   {
     "keyword": "Reusable Produce Bags",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-05"
   },
   {
     "keyword": "Smart Thermostat",
@@ -4882,9 +4886,10 @@
   {
     "keyword": "Biohacker Bryan Johnson",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-05"
   },
   {
     "keyword": "Defcon Biohacking Village",
@@ -5225,9 +5230,10 @@
   {
     "keyword": "Tek Gear",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-05"
   },
   {
     "keyword": "Device That Helps You Make A Point In Class",
@@ -6966,9 +6972,10 @@
   {
     "keyword": "Saffron Supplement For Kids",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-05"
   },
   {
     "keyword": "Focus Factor Kids",
@@ -7921,9 +7928,10 @@
   {
     "keyword": "Reddit Home Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-20",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-05"
   },
   {
     "keyword": "Toddler Toy Story Costume",
@@ -8973,9 +8981,10 @@
   {
     "keyword": "Influencer Marketing Trends",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-05"
   },
   {
     "keyword": "Social Commerce",
@@ -9048,6 +9057,13 @@
     "category": "Sustainability",
     "status": "active",
     "added": "2026-10-04",
+    "is_new": true
+  },
+  {
+    "keyword": "Cold Weather Hiking Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-05",
     "is_new": true
   }
 ]
