@@ -59,8 +59,9 @@
   {
     "keyword": "Shilajit Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Sea Moss Gel",
@@ -192,8 +193,9 @@
   {
     "keyword": "Vitamin D3 K2 Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Boron Supplement",
@@ -553,8 +555,9 @@
   {
     "keyword": "Pore Vacuum Blackhead",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Caffeine Eye Serum",
@@ -573,8 +576,9 @@
   {
     "keyword": "DHT Blocker Shampoo",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Biotin Hair Supplement",
@@ -593,8 +597,9 @@
   {
     "keyword": "Probiotic Skincare",
     "category": "Beauty",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Portable Sauna Blanket",
@@ -681,14 +686,16 @@
   {
     "keyword": "Rucking Backpack",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Battle Rope",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Adjustable Dumbbell Set",
@@ -4632,9 +4639,10 @@
   {
     "keyword": "Mellow Mushroom Drink Menu",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Eco Friendly Zippergifts Mountain Order Rate",
@@ -5282,9 +5290,10 @@
   {
     "keyword": "Palworld Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Kdm Accessories",
@@ -8697,16 +8706,18 @@
   {
     "keyword": "Cloud Storage Pricing",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-29",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Digital Marketing Course",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-29",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-06"
   },
   {
     "keyword": "Remote Jobs Hiring",
@@ -9064,6 +9075,69 @@
     "category": "Outdoor",
     "status": "active",
     "added": "2026-10-05",
+    "is_new": true
+  },
+  {
+    "keyword": "Ete Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Powertec Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Breast Cancer Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Smart Device Integration",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-10-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Simple Camping Shelter",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Discount Hiking Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Party Favors",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Late Night Drive Home Stress Relief Lyrics",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Bath And Body Works",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-06",
     "is_new": true
   }
 ]
