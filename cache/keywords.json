@@ -213,8 +213,9 @@
   {
     "keyword": "Lithium Orotate Supplement",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-07"
   },
   {
     "keyword": "Red Light Therapy Device",
@@ -1363,8 +1364,9 @@
   {
     "keyword": "Pizza Steel Baking",
     "category": "Home & Kitchen",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-07"
   },
   {
     "keyword": "Outdoor Pizza Oven",
@@ -5040,9 +5042,10 @@
   {
     "keyword": "Home Workout Routines",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-01",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-07"
   },
   {
     "keyword": "Canine Command Nyt",
@@ -5224,9 +5227,10 @@
   {
     "keyword": "Tonal Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-07"
   },
   {
     "keyword": "At-Home Workout Routines",
@@ -6523,9 +6527,10 @@
   {
     "keyword": "Bass Pro Shop",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-07"
   },
   {
     "keyword": "Outdoor Adventure Davison",
@@ -7994,9 +7999,10 @@
   {
     "keyword": "Crypto Daily",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-20",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-07"
   },
   {
     "keyword": "Medvi Weight Loss",
@@ -9101,9 +9107,10 @@
   {
     "keyword": "Smart Device Integration",
     "category": "Tech",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-07"
   },
   {
     "keyword": "Simple Camping Shelter",
@@ -9138,6 +9145,76 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-06",
+    "is_new": true
+  },
+  {
+    "keyword": "Andrew Huberman",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Que Es Biohacking",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohack",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Most Expensive Skincare Product",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Smart Home Leak Detection Device",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Kitchen Gadget Brands",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Top Song 2026",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Top Movie 2026",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Glock Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Strategies For Sustainable Urban Living",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-07",
     "is_new": true
   }
 ]
