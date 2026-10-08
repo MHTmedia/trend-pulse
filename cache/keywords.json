@@ -4882,9 +4882,10 @@
   {
     "keyword": "Museums",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-24",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-08"
   },
   {
     "keyword": "Cycling",
@@ -6520,9 +6521,10 @@
   {
     "keyword": "Data Science Projects",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-08"
   },
   {
     "keyword": "Bass Pro Shop",
@@ -8934,9 +8936,10 @@
   {
     "keyword": "Accessories Palworld",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-02",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-08"
   },
   {
     "keyword": "Ar 15 Accessories",
@@ -9215,6 +9218,76 @@
     "category": "Sustainability",
     "status": "active",
     "added": "2026-10-07",
+    "is_new": true
+  },
+  {
+    "keyword": "Nalamoves Home Gym",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Center Unl",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium Citrate Benefits",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Tracker Accuracy Carnegie Mellon",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Lunesta",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Nyquil",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Wheat Capital Of Oklahoma",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Highly Controlling Nyt",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Office Chair",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Ultra Pouches",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-08",
     "is_new": true
   }
 ]
