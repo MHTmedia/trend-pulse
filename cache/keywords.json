@@ -4949,9 +4949,10 @@
   {
     "keyword": "How Long Is Toy Story 5",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Toy Story 5",
@@ -7220,9 +7221,10 @@
   {
     "keyword": "Biohacker",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Weight Sets For Home Gym",
@@ -7365,9 +7367,10 @@
   {
     "keyword": "Outdoor Adventure Center",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Portal Sleep Supplement",
@@ -8482,9 +8485,10 @@
   {
     "keyword": "Rogue Home Gym",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Home Gym Mirrors",
@@ -8801,9 +8805,10 @@
   {
     "keyword": "Electric Vehicles News",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-29",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Influance Hair Care",
@@ -8864,9 +8869,10 @@
   {
     "keyword": "Magnesium Supplement For Sleep",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-30",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Magnesium For Sleep",
@@ -9075,9 +9081,10 @@
   {
     "keyword": "Eco Friendly Business Cards",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Cold Weather Hiking Gear",
@@ -9195,16 +9202,18 @@
   {
     "keyword": "Top Song 2026",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Top Movie 2026",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Glock Accessories",
@@ -9279,15 +9288,86 @@
   {
     "keyword": "Office Chair",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-08",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-09"
   },
   {
     "keyword": "Ultra Pouches",
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-08",
+    "is_new": true
+  },
+  {
+    "keyword": "Non-Toxic Air Fryer",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Home Fitness Trends",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Ai Agents",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Hair Care Products",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Cfmoto Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story Toddler Costume",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Sleep Hygiene Therapist Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Midnite Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Seatle Coffee Gear",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Focus Supplements For Adults",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-09",
     "is_new": true
   }
 ]
