@@ -9317,9 +9317,10 @@
   {
     "keyword": "Ai Agents",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-10"
   },
   {
     "keyword": "Hair Care Products",
@@ -9368,6 +9369,69 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-09",
+    "is_new": true
+  },
+  {
+    "keyword": "Beauty Trend Show",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Stores",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Coffee",
+    "category": "Pets",
+    "status": "active",
+    "added": "2026-10-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Exposed Underwire Designer Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Grunge",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Toy Story Toddler Costumes",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-10-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Outdoor Adventure Standish Mi",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium Glycinate Dosage For Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Nyquil Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-10",
     "is_new": true
   }
 ]
