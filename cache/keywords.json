@@ -227,8 +227,9 @@
   {
     "keyword": "PEMF Mat Device",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-11"
   },
   {
     "keyword": "Continuous Glucose Monitor",
@@ -267,8 +268,9 @@
   {
     "keyword": "Hormone Test Kit Home",
     "category": "Health & Wellness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-11"
   },
   {
     "keyword": "HRV Monitor Wearable",
@@ -640,8 +642,9 @@
   {
     "keyword": "Sauna Tent",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-11"
   },
   {
     "keyword": "Walking Pad Treadmill",
@@ -5206,9 +5209,10 @@
   {
     "keyword": "Polar Hair Care Reviews",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-07",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-11"
   },
   {
     "keyword": "Google Fitbit Air",
@@ -9325,9 +9329,10 @@
   {
     "keyword": "Hair Care Products",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-11"
   },
   {
     "keyword": "Cfmoto Accessories",
@@ -9432,6 +9437,97 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-10-10",
+    "is_new": true
+  },
+  {
+    "keyword": "Viral Tiktok Trends",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Ben Greenfield",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Ag Care Hair",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "80S Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "80S Clothing Style",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "3D Printed Car Accessories List",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Rivian R2 Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Iphone Duo Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Busy Toddler Toy List",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Weather Forecast Today",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Winter Hiking Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Theanine For Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-11",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium Sleep Supplement",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-11",
     "is_new": true
   }
 ]
