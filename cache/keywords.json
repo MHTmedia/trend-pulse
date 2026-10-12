@@ -9442,9 +9442,10 @@
   {
     "keyword": "Viral Tiktok Trends",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-12"
   },
   {
     "keyword": "Ben Greenfield",
@@ -9526,8 +9527,30 @@
   {
     "keyword": "Magnesium Sleep Supplement",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-11",
+    "is_new": true,
+    "flat_since": "2026-10-12"
+  },
+  {
+    "keyword": "Chocolate",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Biohacking For Beginners",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Pro Coffee Gear Careers",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-12",
     "is_new": true
   }
 ]
