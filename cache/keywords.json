@@ -8990,9 +8990,10 @@
   {
     "keyword": "Kirkland Sleep Aid Ingredients",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-02",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-13"
   },
   {
     "keyword": "Most Effective Sleep Aid",
@@ -9372,9 +9373,10 @@
   {
     "keyword": "Focus Supplements For Adults",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-13"
   },
   {
     "keyword": "Beauty Trend Show",
@@ -9551,6 +9553,20 @@
     "category": "Coffee & Beverages",
     "status": "active",
     "added": "2026-10-12",
+    "is_new": true
+  },
+  {
+    "keyword": "Skinny Jeans Fashion Trend 2026",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-13",
+    "is_new": true
+  },
+  {
+    "keyword": "Fit Bit",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-13",
     "is_new": true
   }
 ]
