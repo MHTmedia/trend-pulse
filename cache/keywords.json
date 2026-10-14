@@ -656,8 +656,9 @@
   {
     "keyword": "Pull Up Bar Doorframe",
     "category": "Fitness",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-14"
   },
   {
     "keyword": "Resistance Band Set",
@@ -9567,6 +9568,34 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-10-13",
+    "is_new": true
+  },
+  {
+    "keyword": "Cooking Tools",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-14",
+    "is_new": true
+  },
+  {
+    "keyword": "Baby Product Recall",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-10-14",
+    "is_new": true
+  },
+  {
+    "keyword": "Baby Product Recalls",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-10-14",
+    "is_new": true
+  },
+  {
+    "keyword": "How Much Deep Sleep Do You Need",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-14",
     "is_new": true
   }
 ]
