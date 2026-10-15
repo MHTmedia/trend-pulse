@@ -3296,9 +3296,10 @@
   {
     "keyword": "Clothing Style Lwspeakstyle",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-06",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-15"
   },
   {
     "keyword": "Clothing Style Wheel",
@@ -6787,9 +6788,10 @@
   {
     "keyword": "Most Accurate Sleep Tracker",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-01",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-15"
   },
   {
     "keyword": "How Accurate Is Apple Watch Sleep Tracker",
@@ -9460,9 +9462,10 @@
   {
     "keyword": "Ag Care Hair",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-15"
   },
   {
     "keyword": "80S Fashion Trend",
@@ -9573,9 +9576,10 @@
   {
     "keyword": "Cooking Tools",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-14",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-15"
   },
   {
     "keyword": "Baby Product Recall",
@@ -9596,6 +9600,34 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-10-14",
+    "is_new": true
+  },
+  {
+    "keyword": "Steam Frame Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Ford Maverick Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Jeff Clayton Antiseen",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Bath And Body Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-15",
     "is_new": true
   }
 ]
