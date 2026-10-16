@@ -6200,9 +6200,10 @@
   {
     "keyword": "The Office Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-20",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-16"
   },
   {
     "keyword": "Tadalafil Biohacking Trends",
@@ -9628,6 +9629,27 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-15",
+    "is_new": true
+  },
+  {
+    "keyword": "Turner Cooking Tool",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Rain Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-16",
+    "is_new": true
+  },
+  {
+    "keyword": "Apple Sleep Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-16",
     "is_new": true
   }
 ]
