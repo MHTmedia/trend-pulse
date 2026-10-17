@@ -2141,8 +2141,9 @@
   {
     "keyword": "Bear Canister",
     "category": "Outdoor",
-    "status": "active",
-    "added": "2026-07-03"
+    "status": "flat",
+    "added": "2026-07-03",
+    "flat_since": "2026-10-17"
   },
   {
     "keyword": "Headlamp Rechargeable",
@@ -6119,9 +6120,10 @@
   {
     "keyword": "Health-Crazy.Com Stress Relief",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-17"
   },
   {
     "keyword": "Gym Membership Deals",
@@ -6567,9 +6569,10 @@
   {
     "keyword": "Focus Supplements",
     "category": "Mental Health",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-17"
   },
   {
     "keyword": "Bryan Johnson Biohacking",
@@ -9648,8 +9651,128 @@
   {
     "keyword": "Apple Sleep Tracker",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-16",
+    "is_new": true,
+    "flat_since": "2026-10-17"
+  },
+  {
+    "keyword": "Biohacking Reddit",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Curly Hair Care Products",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "The Fashion Trend That Won'T Go Away",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "90'S Clothing Style",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Jolly Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Alteril Sleep Aid",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Sakes Mushroom",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Swine Mushroom",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Sakes",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Swine",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Alex Drink",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Herald Mushroom",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Mead Drink",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Meadow Mushroom",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Meadow Drink",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Bath And Body Works",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-17",
     "is_new": true
   }
 ]
