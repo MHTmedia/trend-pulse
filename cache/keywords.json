@@ -4334,9 +4334,10 @@
   {
     "keyword": "Eco Friendly Polymer Coatings Towersget",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-16",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-18"
   },
   {
     "keyword": "Eco Friendly Mattress",
@@ -6800,9 +6801,10 @@
   {
     "keyword": "How Accurate Is Apple Watch Sleep Tracker",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-01",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-18"
   },
   {
     "keyword": "Biohacking Podcast",
@@ -6979,9 +6981,10 @@
   {
     "keyword": "Kilos Gear",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-03",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-18"
   },
   {
     "keyword": "Does Magnesium Help You Sleep",
@@ -9065,9 +9068,10 @@
   {
     "keyword": "Nintendo Switch 2 Zelda Accessories Hori",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-04",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-18"
   },
   {
     "keyword": "Hiking Gear Brands",
@@ -9722,9 +9726,10 @@
   {
     "keyword": "Sakes",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-18"
   },
   {
     "keyword": "Swine",
@@ -9757,9 +9762,10 @@
   {
     "keyword": "Meadow Mushroom",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-18"
   },
   {
     "keyword": "Meadow Drink",
@@ -9773,6 +9779,34 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-17",
+    "is_new": true
+  },
+  {
+    "keyword": "80'S Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Smart Devices",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-10-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Hiking Gear Checklist",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-18",
+    "is_new": true
+  },
+  {
+    "keyword": "L Theanine For Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-18",
     "is_new": true
   }
 ]
