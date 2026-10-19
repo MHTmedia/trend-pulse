@@ -4773,9 +4773,10 @@
   {
     "keyword": "Golf Cart Accessories",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-22",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-19"
   },
   {
     "keyword": "Harley Accessories",
@@ -9326,9 +9327,10 @@
   {
     "keyword": "Home Fitness Trends",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-19"
   },
   {
     "keyword": "Ai Agents",
@@ -9520,9 +9522,10 @@
   {
     "keyword": "Weather Forecast Today",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-11",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-19"
   },
   {
     "keyword": "Winter Hiking Gear",
@@ -9748,9 +9751,10 @@
   {
     "keyword": "Herald Mushroom",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-19"
   },
   {
     "keyword": "Mead Drink",
@@ -9807,6 +9811,48 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-10-18",
+    "is_new": true
+  },
+  {
+    "keyword": "Cotopaxi",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Vitamin B2 For Sleep",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Swine Pearls",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Oyster Mushroom",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living Communities",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Meditation",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-19",
     "is_new": true
   }
 ]
