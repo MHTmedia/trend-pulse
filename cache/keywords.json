@@ -6422,9 +6422,10 @@
   {
     "keyword": "Workout Gear Sale",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-24",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-20"
   },
   {
     "keyword": "Cheap Workout Gear",
@@ -9830,9 +9831,10 @@
   {
     "keyword": "Swine Pearls",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-19",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-20"
   },
   {
     "keyword": "Oyster Mushroom",
@@ -9853,6 +9855,34 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-19",
+    "is_new": true
+  },
+  {
+    "keyword": "Its Fashion",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Sustainable Living Innovations",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Neuriva",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Mental Focus Supplement",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-20",
     "is_new": true
   }
 ]
