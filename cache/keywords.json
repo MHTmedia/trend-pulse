@@ -8509,9 +8509,10 @@
   {
     "keyword": "Home Gym Mirrors",
     "category": "Fitness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-22"
   },
   {
     "keyword": "Windows 11 Home Product Key",
@@ -9674,9 +9675,10 @@
   {
     "keyword": "Curly Hair Care Products",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-22"
   },
   {
     "keyword": "The Fashion Trend That Won'T Go Away",
@@ -9745,9 +9747,10 @@
   {
     "keyword": "Alex Drink",
     "category": "Coffee & Beverages",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-17",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-22"
   },
   {
     "keyword": "Herald Mushroom",
@@ -9883,6 +9886,90 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-20",
+    "is_new": true
+  },
+  {
+    "keyword": "Inspector Gadget",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "90S Fashion Trend",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Michigan Adventure",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Merrell Hiking Gear Sale",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Depop",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Norrona",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Arcteryx",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "How Much Magnesium Glycinate Should I Take",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Coffee Gear Website",
+    "category": "Coffee & Beverages",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "25 Greatest Rock Vocalists Of All Time",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Ibusiness.News",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Techniques",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-22",
     "is_new": true
   }
 ]
