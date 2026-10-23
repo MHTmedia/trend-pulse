@@ -8583,9 +8583,10 @@
   {
     "keyword": "Self Sustainable Living",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-26",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-23"
   },
   {
     "keyword": "Relaxing Music For Stress Relief And Sleep",
@@ -9970,6 +9971,62 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-22",
+    "is_new": true
+  },
+  {
+    "keyword": "Make Wellness",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Gary Brecka",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Grunge Clothing",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Halloween Accessories",
+    "category": "Fashion",
+    "status": "active",
+    "added": "2026-10-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Mortgage Rates Today",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Big Name In Camping Gear Crossword",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Phosphatidylserine",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-23",
+    "is_new": true
+  },
+  {
+    "keyword": "Leann Rimes Cancelled Performances",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-23",
     "is_new": true
   }
 ]
