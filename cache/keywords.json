@@ -9908,9 +9908,10 @@
   {
     "keyword": "Michigan Adventure",
     "category": "Outdoor",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-22",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-25"
   },
   {
     "keyword": "Merrell Hiking Gear Sale",
@@ -10128,6 +10129,55 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-10-24",
+    "is_new": true
+  },
+  {
+    "keyword": "Skincare Products",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Star Wars Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Wearable Tech Companies",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-10-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Normandy Battle Site",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Osprey Backpacks",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Synonym",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Supplements For Focus",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-25",
     "is_new": true
   }
 ]
