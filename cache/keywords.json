@@ -3680,9 +3680,10 @@
   {
     "keyword": "Muss Crossword Clue",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-26"
   },
   {
     "keyword": "Fashion Trend Forecasting",
@@ -10064,9 +10065,10 @@
   {
     "keyword": "Capital Of Qatar",
     "category": "Home & Kitchen",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-24",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-26"
   },
   {
     "keyword": "Country Singer Mccann",
@@ -10178,6 +10180,62 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-25",
+    "is_new": true
+  },
+  {
+    "keyword": "Tenor Sax Great",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Queen Of Carthage Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Actor Daniel Kim",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Drudge",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Drudge Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly Packaging For Small Business",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Email Marketing For Restaurants",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Hc Andersen F\u00f8dt",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-26",
     "is_new": true
   }
 ]
