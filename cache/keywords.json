@@ -3759,9 +3759,10 @@
   {
     "keyword": "Sustainable Living Practice Pulsar Buy Clebbnvafron",
     "category": "Sustainability",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-10",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-27"
   },
   {
     "keyword": "Sustainable Living Archives Modularchetecture",
@@ -5185,9 +5186,10 @@
   {
     "keyword": "Brazilcore Fashion Trend Summer",
     "category": "Fashion",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-05",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-27"
   },
   {
     "keyword": "Artificial Intelligence News",
@@ -10236,6 +10238,69 @@
     "category": "Sustainability",
     "status": "active",
     "added": "2026-10-26",
+    "is_new": true
+  },
+  {
+    "keyword": "Humby Hair Care Reviews",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Cecred",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Used Gym Equipment For Sale",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Cold Weather Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Walmart Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Oura Ring",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-10-27",
+    "is_new": true
+  },
+  {
+    "keyword": "South Park Kid",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Myo Inositol Supplement",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Apple Watch Series 12",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-27",
     "is_new": true
   }
 ]
