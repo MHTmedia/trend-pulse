@@ -4436,9 +4436,10 @@
   {
     "keyword": "Malibu C Hard Water Wellness Shampoo",
     "category": "Health & Wellness",
-    "status": "active",
+    "status": "flat",
     "added": "2026-07-18",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-28"
   },
   {
     "keyword": "Ping",
@@ -10301,6 +10302,62 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-10-27",
+    "is_new": true
+  },
+  {
+    "keyword": "Country Singer Mccann Crossword",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Queen Of Carthage",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Split Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Baby Product Tester",
+    "category": "Baby & Kids",
+    "status": "active",
+    "added": "2026-10-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Hiking Gear List For Beginners",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Magnesium Supplement",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Creative Hobbies For Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Stress Relief Late Night Drive Home",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-28",
     "is_new": true
   }
 ]
