@@ -10342,9 +10342,10 @@
   {
     "keyword": "Magnesium Supplement",
     "category": "Sleep",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-28",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-29"
   },
   {
     "keyword": "Creative Hobbies For Stress Relief",
@@ -10358,6 +10359,20 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-28",
+    "is_new": true
+  },
+  {
+    "keyword": "Hostile Workout Gear",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Shuteye Sleep Tracker",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-29",
     "is_new": true
   }
 ]
