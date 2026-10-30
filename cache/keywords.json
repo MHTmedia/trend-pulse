@@ -6742,9 +6742,10 @@
   {
     "keyword": "Toy Story Toddler Crocs",
     "category": "Baby & Kids",
-    "status": "active",
+    "status": "flat",
     "added": "2026-08-31",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-30"
   },
   {
     "keyword": "Horse Stall Mats",
@@ -10373,6 +10374,41 @@
     "category": "Sleep",
     "status": "active",
     "added": "2026-10-29",
+    "is_new": true
+  },
+  {
+    "keyword": "Reddit Biohacking",
+    "category": "Health & Wellness",
+    "status": "active",
+    "added": "2026-10-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Bubble Skincare",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Lifetime Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Kava Stress Relief Tea",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Relaxing Music For Stress Relief",
+    "category": "Mental Health",
+    "status": "active",
+    "added": "2026-10-30",
     "is_new": true
   }
 ]
