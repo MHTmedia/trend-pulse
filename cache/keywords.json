@@ -7367,9 +7367,10 @@
   {
     "keyword": "Treluxe Hair Care",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-09-09",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-31"
   },
   {
     "keyword": "Uvu Outdoor Adventure Center",
@@ -10386,9 +10387,10 @@
   {
     "keyword": "Bubble Skincare",
     "category": "Beauty",
-    "status": "active",
+    "status": "flat",
     "added": "2026-10-30",
-    "is_new": true
+    "is_new": true,
+    "flat_since": "2026-10-31"
   },
   {
     "keyword": "Lifetime Fitness Equipment",
@@ -10409,6 +10411,83 @@
     "category": "Mental Health",
     "status": "active",
     "added": "2026-10-30",
+    "is_new": true
+  },
+  {
+    "keyword": "Wavy Hair Care Routine",
+    "category": "Beauty",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "True Fitness Equipment",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Peloton",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Crunch Fitness",
+    "category": "Fitness",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Fitbit",
+    "category": "Tech",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "South Park Kid Crossword Clue",
+    "category": "Home & Kitchen",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Big Name In Camping Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Arcteryx Jacket",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Cheap Hiking Gear",
+    "category": "Outdoor",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Hibernate Sleep Supplement",
+    "category": "Sleep",
+    "status": "active",
+    "added": "2026-10-31",
+    "is_new": true
+  },
+  {
+    "keyword": "Eco Friendly T Shirts",
+    "category": "Sustainability",
+    "status": "active",
+    "added": "2026-10-31",
     "is_new": true
   }
 ]
